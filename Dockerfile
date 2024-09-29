@@ -1,0 +1,15 @@
+FROM docker.io/nginx:alpine-slim
+
+ARG NODE_ENV="development"
+
+ENV NODE_ENV=$NODE_ENV
+
+COPY /docker/etc/nginx/conf.d/ /etc/nginx/conf.d/
+
+WORKDIR /usr/share/nginx/html
+
+RUN rm -rf ./*
+
+COPY . .
+
+EXPOSE 8080
