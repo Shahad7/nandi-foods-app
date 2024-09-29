@@ -10,6 +10,6 @@ WORKDIR /usr/share/nginx/html
 
 RUN rm -rf ./*
 
-COPY . .
+COPY src .
 
 EXPOSE 8080
