@@ -318,340 +318,338 @@
 					<!-- partial -->
 					<!-- partial:partials/_sidebar.html -->
 					<nav class="sidebar sidebar-offcanvas" id="sidebar">
-        <ul class="nav">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">
-              <span class="menu-title">Dashboard</span>
-            </a>
-          </li>
-          <li class="nav-item nav-category">Inventory Management</li>
-          <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-              <span class="menu-title">Warehouses</span>
-              <i class="menu-arrow"></i> 
-            </a>
-            <div class="collapse" id="ui-basic">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="#">Warehouse List</a></li>
-                <li class="nav-item"> <a class="nav-link" href="#">Create New Warehouse</a></li>
-                <li class="nav-item"> <a class="nav-link" href="#">Warehouse Details</a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#products" aria-expanded="false" aria-controls="ui-basic">
-              <span class="menu-title">Products</span>
-              <i class="menu-arrow"></i> 
-            </a>
-            <div class="collapse" id="products">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link " href="#">Products List</a></li>
-                <li class="nav-item"> <a class="nav-link" href="#">Create New Product</a></li>
-                <li class="nav-item"> <a class="nav-link" href="#">Product Details</a></li>
-                <li class="nav-item"> <a class="nav-link" href="#">Price List</a></li>
-                <li class="nav-item"> <a class="nav-link" href="#">Add New Price List</a></li>
-              </ul>
-            </div>
-          </li>
-
-
-          <li class="nav-item nav-category">Inventory Processing</li>
-          <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#processing" aria-expanded="false" aria-controls="auth">
-              <span class="menu-title">Goods Received Notes (GRN)</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="processing">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="#">GRN List</a></li>
-                <li class="nav-item"> <a class="nav-link" href="#">Create New GRN</a></li>
-                <li class="nav-item"> <a class="nav-link" href="#">GRN Details</a></li>
-              </ul>
-            </div>
-          </li>
-
-          
-
-
-        <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#grn" aria-expanded="false" aria-controls="auth">
-              <span class="menu-title">Goods Transfer Notes (GTN)</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="grn">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="#">GTN List</a></li>
-                <li class="nav-item"> <a class="nav-link" href="#">Create New GTN</a></li>
-                <li class="nav-item"> <a class="nav-link" href="#">GRN Details</a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#damaged" aria-expanded="false" aria-controls="charts">
-              <span class="menu-title">Damaged Goods Note (DGN)</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="damaged">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="#">DGN List</a></li>
-                <li class="nav-item"> <a class="nav-link" href="#">Create New DGN</a></li>
-                <li class="nav-item"> <a class="nav-link" href="#">DGN Details</a></li>
-              </ul>
-            </div>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#dgn" aria-expanded="false" aria-controls="charts">
-              <span class="menu-title">Production Orders (PRD)</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="dgn">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="#">PRD List</a></li>
-                <li class="nav-item"> <a class="nav-link" href="#">Create New PRD Order</a></li>
-                <li class="nav-item"> <a class="nav-link" href="#">PRD Details</a></li>
-              </ul>
-            </div>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#Fulfillment" aria-expanded="false" aria-controls="charts">
-              <span class="menu-title">Order Fulfillment</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="Fulfillment">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item">
-                  <a class="nav-link" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="false" aria-controls="panelsStayOpen-collapseOne">
-                  <span >Order Picking</span>
-                  <i class="menu-arrow"></i>
-                  </a>
-                  <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
-                    <ul class="nav flex-column sub-menu sub">
-                      <li class="nav-item"> <a class="nav-link" href="#">Picking Ticket List</a></li>
-                      <li class="nav-item"> <a class="nav-link" href="#">Create New Picking Ticket</a></li>
-                      <li class="nav-item"> <a class="nav-link" href="#">Picking Ticket Details</a></li>
-                    </ul>
-                  </div>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-                  <span >Order Packing</span>
-                  <i class="menu-arrow"></i>
-                  </a>
-                  <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
-                    <ul class="nav flex-column sub-menu sub">
-                      <li class="nav-item"> <a class="nav-link" href="#">Packing Ticket List</a></li>
-                      <li class="nav-item"> <a class="nav-link" href="#">Create New Packing Ticket</a></li>
-                      <li class="nav-item"> <a class="nav-link" href="#">Packing Ticket Details</a></li>
-                    </ul>
-                  </div>
-
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
-                  <span >Order Shipping</span>
-                  <i class="menu-arrow"></i>
-                  </a>
-                  <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
-                    <ul class="nav flex-column sub-menu sub">
-                      <li class="nav-item"> <a class="nav-link" href="#">Shipment Ticket List</a></li>
-                      <li class="nav-item"> <a class="nav-link" href="#">Create New Shipment Ticket</a></li>
-                      <li class="nav-item"> <a class="nav-link" href="#">Shipment Ticket Details</a></li>
-                    </ul>
-                  </div>
-
-                </li>
-              </ul>
-            </div>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#po" aria-expanded="false" aria-controls="charts">
-              <span class="menu-title">Purchase Orders (PO)</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="po">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="#">PO List</a></li>
-                <li class="nav-item"> <a class="nav-link" href="#">Create New PO</a></li>
-                <li class="nav-item"> <a class="nav-link" href="#">PO Details</a></li>
-              </ul>
-            </div>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#Suppliers" aria-expanded="false" aria-controls="charts">
-              <span class="menu-title">Suppliers</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="Suppliers">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="#">Supplier List</a></li>
-                <li class="nav-item"> <a class="nav-link" href="#">Add New Supplier</a></li>
-                <li class="nav-item"> <a class="nav-link" href="#">Supplier Details</a></li>
-              </ul>
-            </div>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#InventoryStaging" aria-expanded="false" aria-controls="charts">
-              <span class="menu-title">Inventory Staging</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="InventoryStaging">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="#">Staging Dashboard</a></li>
-                <li class="nav-item"> <a class="nav-link" href="#">Inbound Inventory</a></li>
-                <li class="nav-item"> <a class="nav-link" href="#">Outbound Inventory</a></li>
-              </ul>
-            </div>
-          </li>
-
-          <li class="nav-item nav-category">Employees</li>
-          <li class="nav-item active"><a class="nav-link active" href="#"><span class="menu-title">Employee List</span></i></a></li>
-           <li class="nav-item"><a class="nav-link" href="#"><span class="menu-title">Add New Employee</span></i></a></li>
-            <li class="nav-item"><a class="nav-link" href="#"><span class="menu-title">Employee Details</span></i></a></li>
-            	<li class="nav-item nav-category">Timesheets</li>
-          <li class="nav-item"><a class="nav-link" href="#"><span class="menu-title">Timesheets List</span></i></a></li>
-           <li class="nav-item"><a class="nav-link" href="#"><span class="menu-title">Add New Timesheets</span></i></a></li>
-            <li class="nav-item"><a class="nav-link" href="#"><span class="menu-title">Timesheets Details</span></i></a></li>
-
-
-
-          <li class="nav-item nav-category">Sales Invoices Processing</li>
-          <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#invoice" aria-expanded="false" aria-controls="auth">
-              <span class="menu-title">Sales Invoices </span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="invoice">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="#">Sales Invoice List</a></li>
-                <li class="nav-item"> <a class="nav-link" href="#">Create New Invoice</a></li>
-                <li class="nav-item"> <a class="nav-link" href="#">Invoice Details</a></li>
-
-              </ul>
-            </div>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#payments" aria-expanded="false" aria-controls="auth">
-              <span class="menu-title">Receipts</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="payments">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="#">Receipts List </a></li>
-                <li class="nav-item"> <a class="nav-link" href="#">Create New Receipt</a></li>
-                <li class="nav-item"> <a class="nav-link" href="#">Receipt Details</a></li>
-              </ul>
-            </div>
-          </li>
-
-
-
-          <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#cnote" aria-expanded="false" aria-controls="charts">
-              <span class="menu-title">Credit Notes</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="cnote">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="#">Credit Notes List</a></li>
-                <li class="nav-item"> <a class="nav-link" href="#">Create New Credit Note</a></li>
-                <li class="nav-item"> <a class="nav-link" href="#">Credit Note Details</a></li>
-              </ul>
-            </div>
-          </li>
-
-
-
-
-
-          <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#customers" aria-expanded="false" aria-controls="charts">
-              <span class="menu-title">Customers</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="customers">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="#">Customer List</a></li>
-                <li class="nav-item"> <a class="nav-link" href="#">Add New Customer</a></li>
-                <li class="nav-item"> <a class="nav-link" href="#">Customer Details</a></li>
-              </ul>
-            </div>
-          </li>
-
-          
-
-
-           
-
-
-          <li class="nav-item nav-category">Settings</li>
-          <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#setting" aria-expanded="false" aria-controls="auth">
-              <span class="menu-title">General Settings</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="setting">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="#">Countries List </a></li>
-                <li class="nav-item"> <a class="nav-link" href="#">States List</a></li>
-                <li class="nav-item"> <a class="nav-link" href="#">Cities List</a></li>
-                <li class="nav-item"> <a class="nav-link" href="#">Currencies</a></li>
-                <li class="nav-item"> <a class="nav-link" href="#">Sales Taxes</a></li>
-                <li class="nav-item"> <a class="nav-link" href="#">Payment Types</a></li>
-                <li class="nav-item"> <a class="nav-link" href="#">Payment Terms</a></li>
-                <li class="nav-item"> <a class="nav-link" href="#">General UOM</a></li>
-
-              </ul>
-            </div>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#warehouses" aria-expanded="false" aria-controls="auth">
-              <span class="menu-title">Warehouse Settings</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="warehouses">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="#">Warehouse No. Settings</a></li>
-                <li class="nav-item"> <a class="nav-link" href="#">Facility Certifications</a></li>
-              </ul>
-            </div>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#psetting" aria-expanded="false" aria-controls="auth">
-              <span class="menu-title">Products Settings</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="psetting">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="#">Product Sizes</a></li>
-                <li class="nav-item"> <a class="nav-link" href="#">Product UOM</a></li>
-                <li class="nav-item"> <a class="nav-link" href="#">Product Certifications</a></li>
-              </ul>
-            </div>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#emetting" aria-expanded="false" aria-controls="auth">
-              <span class="menu-title">Employee Settings</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="emetting">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="#">Employee No. Settings</a></li>
-                <li class="nav-item"> <a class="nav-link" href="#">Employee Positions</a></li>
-                <li class="nav-item"> <a class="nav-link" href="#">Permits and Certificates</a></li>
-              </ul>
-            </div>
-          </li>
-        </ul>
-      </nav>
+						<ul class="nav">
+						  <li class="nav-item active">
+							<a class="nav-link" href="index.html">
+							  <span class="menu-title">Dashboard</span>
+							</a>
+						  </li>
+						  <li class="nav-item nav-category">Inventory Management</li>
+						  <li class="nav-item">
+							<a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+							  <span class="menu-title">Warehouses</span>
+							  <i class="menu-arrow"></i>
+							</a>
+							<div class="collapse" id="ui-basic">
+							  <ul class="nav flex-column sub-menu">
+								<li class="nav-item"> <a class="nav-link" href="warehouse-list.html">Warehouse List</a>
+								</li>
+								<li class="nav-item"> <a class="nav-link" href="create-new-warehouse.html">Create New Warehouse</a></li>
+								<li class="nav-item"> <a class="nav-link" href="warehouse-details.html">Warehouse Details</a></li>
+							  </ul>
+							</div>
+						  </li>
+						  <li class="nav-item">
+							<a class="nav-link" data-bs-toggle="collapse" href="#products" aria-expanded="false" aria-controls="ui-basic">
+							  <span class="menu-title">Products</span>
+							  <i class="menu-arrow"></i>
+							</a>
+							<div class="collapse" id="products">
+							  <ul class="nav flex-column sub-menu">
+								<li class="nav-item"> <a class="nav-link" href="product-list.html">Products List</a></li>
+								<li class="nav-item"> <a class="nav-link" href="create-new-product.html">Create New Product</a></li>
+								<li class="nav-item"> <a class="nav-link" href="product-details.html">Product Details</a></li>
+								<li class="nav-item"> <a class="nav-link" href="price-list.html">Price List</a></li>
+								<li class="nav-item"> <a class="nav-link" href="add-new-price-list.html">Add New Price List</a></li>
+							  </ul>
+							</div>
+						  </li>
+				
+				
+						  <li class="nav-item nav-category">Inventory Processing</li>
+						  <li class="nav-item">
+							<a class="nav-link" data-bs-toggle="collapse" href="#processing" aria-expanded="false" aria-controls="auth">
+							  <span class="menu-title">Goods Received Notes (GRN)</span>
+							  <i class="menu-arrow"></i>
+							</a>
+							<div class="collapse" id="processing">
+							  <ul class="nav flex-column sub-menu">
+								<li class="nav-item"> <a class="nav-link" href="GRN-list.html">GRN List</a></li>
+								<li class="nav-item"> <a class="nav-link" href="create-new-GRN.html">Create New GRN</a></li>
+								<li class="nav-item"> <a class="nav-link" href="GRN-details.html">GRN Details</a></li>
+							  </ul>
+							</div>
+						  </li>
+				
+				
+				
+				
+						<li class="nav-item">
+							<a class="nav-link" data-bs-toggle="collapse" href="#grn" aria-expanded="false" aria-controls="auth">
+							  <span class="menu-title">Goods Transfer Notes (GTN)</span>
+							  <i class="menu-arrow"></i>
+							</a>
+							<div class="collapse" id="grn">
+							  <ul class="nav flex-column sub-menu">
+								<li class="nav-item"> <a class="nav-link" href="#">GTN List</a></li>
+								<li class="nav-item"> <a class="nav-link" href="#">Create New GTN</a></li>
+								<li class="nav-item"> <a class="nav-link" href="#">GTN Details</a></li>
+							  </ul>
+							</div>
+						  </li>
+						  <li class="nav-item">
+							<a class="nav-link" data-bs-toggle="collapse" href="#damaged" aria-expanded="false" aria-controls="charts">
+							  <span class="menu-title">Damaged Goods Note (DGN)</span>
+							  <i class="menu-arrow"></i>
+							</a>
+							<div class="collapse" id="damaged">
+							  <ul class="nav flex-column sub-menu">
+								<li class="nav-item"> <a class="nav-link" href="#">DGN List</a></li>
+								<li class="nav-item"> <a class="nav-link" href="#">Create New DGN</a></li>
+								<li class="nav-item"> <a class="nav-link" href="#">DGN Details</a></li>
+							  </ul>
+							</div>
+						  </li>
+				
+						  <li class="nav-item">
+							<a class="nav-link" data-bs-toggle="collapse" href="#dgn" aria-expanded="false" aria-controls="charts">
+							  <span class="menu-title">Production Orders (PRD)</span>
+							  <i class="menu-arrow"></i>
+							</a>
+							<div class="collapse" id="dgn">
+							  <ul class="nav flex-column sub-menu">
+								<li class="nav-item"> <a class="nav-link" href="#">PRD List</a></li>
+								<li class="nav-item"> <a class="nav-link" href="#">Create New PRD Order</a></li>
+								<li class="nav-item"> <a class="nav-link" href="#">PRD Details</a></li>
+							  </ul>
+							</div>
+						  </li>
+				
+						  <li class="nav-item">
+							<a class="nav-link" data-bs-toggle="collapse" href="#Fulfillment" aria-expanded="false" aria-controls="charts">
+							  <span class="menu-title">Order Fulfillment</span>
+							  <i class="menu-arrow"></i>
+							</a>
+							<div class="collapse" id="Fulfillment">
+							  <ul class="nav flex-column sub-menu">
+								<li class="nav-item">
+								  <a class="nav-link" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="false" aria-controls="panelsStayOpen-collapseOne">
+								  <span >Order Picking</span>
+								  <i class="menu-arrow"></i>
+								  </a>
+								  <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
+									<ul class="nav flex-column sub-menu sub">
+									  <li class="nav-item"> <a class="nav-link" href="#">Picking Ticket List</a></li>
+									  <li class="nav-item"> <a class="nav-link" href="#">Create New Picking Ticket</a></li>
+									  <li class="nav-item"> <a class="nav-link" href="#">Picking Ticket Details</a></li>
+									</ul>
+								  </div>
+								</li>
+								<li class="nav-item">
+								  <a class="nav-link" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+								  <span >Order Packing</span>
+								  <i class="menu-arrow"></i>
+								  </a>
+								  <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+									<ul class="nav flex-column sub-menu sub">
+									  <li class="nav-item"> <a class="nav-link" href="#">Packing Ticket List</a></li>
+									  <li class="nav-item"> <a class="nav-link" href="#">Create New Packing Ticket</a></li>
+									  <li class="nav-item"> <a class="nav-link" href="#">Packing Ticket Details</a></li>
+									</ul>
+								  </div>
+				
+								</li>
+								<li class="nav-item">
+								  <a class="nav-link" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+								  <span >Order Shipping</span>
+								  <i class="menu-arrow"></i>
+								  </a>
+								  <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
+									<ul class="nav flex-column sub-menu sub">
+									  <li class="nav-item"> <a class="nav-link" href="#">Shipment Ticket List</a></li>
+									  <li class="nav-item"> <a class="nav-link" href="#">Create New Shipment Ticket</a></li>
+									  <li class="nav-item"> <a class="nav-link" href="#">Shipment Ticket Details</a></li>
+									</ul>
+								  </div>
+				
+								</li>
+							  </ul>
+							</div>
+						  </li>
+				
+						  <li class="nav-item">
+							<a class="nav-link" data-bs-toggle="collapse" href="#po" aria-expanded="false" aria-controls="charts">
+							  <span class="menu-title">Purchase Orders (PO)</span>
+							  <i class="menu-arrow"></i>
+							</a>
+							<div class="collapse" id="po">
+							  <ul class="nav flex-column sub-menu">
+								<li class="nav-item"> <a class="nav-link" href="#">PO List</a></li>
+								<li class="nav-item"> <a class="nav-link" href="#">Create New PO</a></li>
+								<li class="nav-item"> <a class="nav-link" href="#">PO Details</a></li>
+							  </ul>
+							</div>
+						  </li>
+				
+						  <li class="nav-item">
+							<a class="nav-link" data-bs-toggle="collapse" href="#Suppliers" aria-expanded="false" aria-controls="charts">
+							  <span class="menu-title">Suppliers</span>
+							  <i class="menu-arrow"></i>
+							</a>
+							<div class="collapse" id="Suppliers">
+							  <ul class="nav flex-column sub-menu">
+								<li class="nav-item"> <a class="nav-link" href="#">Supplier List</a></li>
+								<li class="nav-item"> <a class="nav-link" href="#">Add New Supplier</a></li>
+								<li class="nav-item"> <a class="nav-link" href="#">Supplier Details</a></li>
+							  </ul>
+							</div>
+						  </li>
+				
+						  <li class="nav-item">
+							<a class="nav-link" data-bs-toggle="collapse" href="#InventoryStaging" aria-expanded="false" aria-controls="charts">
+							  <span class="menu-title">Inventory Staging</span>
+							  <i class="menu-arrow"></i>
+							</a>
+							<div class="collapse" id="InventoryStaging">
+							  <ul class="nav flex-column sub-menu">
+								<li class="nav-item"> <a class="nav-link" href="#">Staging Dashboard</a></li>
+								<li class="nav-item"> <a class="nav-link" href="#">Inbound Inventory</a></li>
+								<li class="nav-item"> <a class="nav-link" href="#">Outbound Inventory</a></li>
+							  </ul>
+							</div>
+						  </li>
+				
+						  <li class="nav-item nav-category">Employees</li>
+						  <li class="nav-item"><a class="nav-link" href="employee-list.html"><span class="menu-title">Employee List</span></i></a></li>
+						   <li class="nav-item"><a class="nav-link" href="add-new-employee.html"><span class="menu-title">Add New Employee</span></i></a></li>
+							<li class="nav-item"><a class="nav-link" href="employee-details.html"><span class="menu-title">Employee Details</span></i></a></li>
+				
+							<li class="nav-item nav-category">Timesheets</li>
+						  <li class="nav-item"><a class="nav-link" href="#"><span class="menu-title">Timesheets List</span></i></a></li>
+						   <li class="nav-item"><a class="nav-link" href="#"><span class="menu-title">Add New Timesheets</span></i></a></li>
+							<li class="nav-item"><a class="nav-link" href="#"><span class="menu-title">Timesheets Details</span></i></a></li>
+				
+				
+				
+				
+						  <li class="nav-item nav-category">Sales Invoices Processing</li>
+						  <li class="nav-item">
+							<a class="nav-link" data-bs-toggle="collapse" href="#invoice" aria-expanded="false" aria-controls="auth">
+							  <span class="menu-title">Sales Invoices </span>
+							  <i class="menu-arrow"></i>
+							</a>
+							<div class="collapse" id="invoice">
+							  <ul class="nav flex-column sub-menu">
+								<li class="nav-item"> <a class="nav-link" href="#">Sales Invoice List</a></li>
+								<li class="nav-item"> <a class="nav-link" href="#">Create New Invoice</a></li>
+								<li class="nav-item"> <a class="nav-link" href="#">Invoice Details</a></li>
+				
+							  </ul>
+							</div>
+						  </li>
+				
+						  <li class="nav-item">
+							<a class="nav-link" data-bs-toggle="collapse" href="#payments" aria-expanded="false" aria-controls="auth">
+							  <span class="menu-title">Receipts</span>
+							  <i class="menu-arrow"></i>
+							</a>
+							<div class="collapse" id="payments">
+							  <ul class="nav flex-column sub-menu">
+								<li class="nav-item"> <a class="nav-link" href="#">Receipts List </a></li>
+								<li class="nav-item"> <a class="nav-link" href="#">Create New Receipt</a></li>
+								<li class="nav-item"> <a class="nav-link" href="#">Receipt Details</a></li>
+							  </ul>
+							</div>
+						  </li>
+				
+				
+				
+						  <li class="nav-item">
+							<a class="nav-link" data-bs-toggle="collapse" href="#cnote" aria-expanded="false" aria-controls="charts">
+							  <span class="menu-title">Credit Notes</span>
+							  <i class="menu-arrow"></i>
+							</a>
+							<div class="collapse" id="cnote">
+							  <ul class="nav flex-column sub-menu">
+								<li class="nav-item"> <a class="nav-link" href="#">Credit Notes List</a></li>
+								<li class="nav-item"> <a class="nav-link" href="#">Create New Credit Note</a></li>
+								<li class="nav-item"> <a class="nav-link" href="#">Credit Note Details</a></li>
+							  </ul>
+							</div>
+						  </li>
+				
+				
+				
+				
+				
+						  <li class="nav-item">
+							<a class="nav-link" data-bs-toggle="collapse" href="#customers" aria-expanded="false" aria-controls="charts">
+							  <span class="menu-title">Customers</span>
+							  <i class="menu-arrow"></i>
+							</a>
+							<div class="collapse" id="customers">
+							  <ul class="nav flex-column sub-menu">
+								<li class="nav-item"> <a class="nav-link" href="#">Customer List</a></li>
+								<li class="nav-item"> <a class="nav-link" href="#">Add New Customer</a></li>
+								<li class="nav-item"> <a class="nav-link" href="#">Customer Details</a></li>
+							  </ul>
+							</div>
+						  </li>
+				
+				
+						  <li class="nav-item nav-category">Settings</li>
+						  <li class="nav-item">
+							<a class="nav-link" data-bs-toggle="collapse" href="#setting" aria-expanded="false" aria-controls="auth">
+							  <span class="menu-title">General Settings</span>
+							  <i class="menu-arrow"></i>
+							</a>
+							<div class="collapse" id="setting">
+							  <ul class="nav flex-column sub-menu">
+								<li class="nav-item"> <a class="nav-link" href="#">Countries List </a></li>
+								<li class="nav-item"> <a class="nav-link" href="#">States List</a></li>
+								<li class="nav-item"> <a class="nav-link" href="#">Cities List</a></li>
+								<li class="nav-item"> <a class="nav-link" href="#">Currencies</a></li>
+								<li class="nav-item"> <a class="nav-link" href="#">Sales Taxes</a></li>
+								<li class="nav-item"> <a class="nav-link" href="#">Payment Types</a></li>
+								<li class="nav-item"> <a class="nav-link" href="#">Payment Terms</a></li>
+								<li class="nav-item"> <a class="nav-link" href="#">General UOM</a></li>
+				
+							  </ul>
+							</div>
+						  </li>
+				
+						  <li class="nav-item">
+							<a class="nav-link" data-bs-toggle="collapse" href="#warehouses" aria-expanded="false" aria-controls="auth">
+							  <span class="menu-title">Warehouse Settings</span>
+							  <i class="menu-arrow"></i>
+							</a>
+							<div class="collapse" id="warehouses">
+							  <ul class="nav flex-column sub-menu">
+								<li class="nav-item"> <a class="nav-link" href="#">Warehouse No. Settings</a></li>
+								<li class="nav-item"> <a class="nav-link" href="#">Facility Certifications</a></li>
+							  </ul>
+							</div>
+						  </li>
+				
+						  <li class="nav-item">
+							<a class="nav-link" data-bs-toggle="collapse" href="#psetting" aria-expanded="false" aria-controls="auth">
+							  <span class="menu-title">Products Settings</span>
+							  <i class="menu-arrow"></i>
+							</a>
+							<div class="collapse" id="psetting">
+							  <ul class="nav flex-column sub-menu">
+								<li class="nav-item"> <a class="nav-link" href="#">Product Sizes</a></li>
+								<li class="nav-item"> <a class="nav-link" href="#">Product UOM</a></li>
+								<li class="nav-item"> <a class="nav-link" href="#">Product Certifications</a></li>
+							  </ul>
+							</div>
+						  </li>
+				
+						  <li class="nav-item">
+							<a class="nav-link" data-bs-toggle="collapse" href="#emetting" aria-expanded="false" aria-controls="auth">
+							  <span class="menu-title">Employee Settings</span>
+							  <i class="menu-arrow"></i>
+							</a>
+							<div class="collapse" id="emetting">
+							  <ul class="nav flex-column sub-menu">
+								<li class="nav-item"> <a class="nav-link" href="#">Employee No. Settings</a></li>
+								<li class="nav-item"> <a class="nav-link" href="#">Employee Positions</a></li>
+								<li class="nav-item"> <a class="nav-link" href="#">Permits and Certificates</a></li>
+							  </ul>
+							</div>
+						  </li>
+						</ul>
+					  </nav>
 					<!-- partial -->
 					<div class="main-panel">
 						<div class="content-wrapper">
