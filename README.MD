@@ -1,3 +1,14 @@
+How to Run?
+- Use vs code
+- install the live server extension
+- open the index.html file
+- click on "go live" at the bottom right
+Alternative:-
+- simply opening the index.html file in your browser should also work
+
+
+
+
 ### Docker local operations
 
 ```sh
