@@ -1,0 +1,36 @@
+.container {
+  padding: 0;
+  margin: 0;
+  height: 100vh;
+  background-image: url("../../../../public/assets/login-bg.jpg");
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  max-width: 100vw;
+  color: #fff;
+}
+
+.form-container {
+  margin-top: -1vh;
+}
+
+.flex-row {
+  display: flex;
+  gap: 163px;
+}
+
+img {
+  width: 110px;
+  margin-bottom: 50px;
+}
+
+.logo-container {
+  width: 400px;
+  display: flex;
+  justify-content: center;
+}
+
+.other-fields {
+  margin-left: 10px;
+}

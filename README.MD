@@ -1,10 +1,8 @@
 How to Run?
-- Use vs code
-- install the live server extension
-- open the index.html file
-- click on "go live" at the bottom right
-Alternative:-
-- simply opening the index.html file in your browser should also work
+- install Angular by "npm install @angular/cli -g"
+- navigate to root folder
+- execute "npm i -f"
+- run the app using "ng serve -o"
 
 
 
