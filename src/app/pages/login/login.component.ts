@@ -27,16 +27,4 @@ export class LoginComponent {
     updatePassword(event: any) {
         this.password = event.target.valueBeforeSelectionStart;
     }
-
-    onLogin() {
-        if (!this.authService.authenticate(this.username, this.password)) {
-            this.snackBar.openFromComponent(SnackbarComponent, {
-                data: { message: "Invalid Credentials", error: true },
-                duration: 1500,
-                horizontalPosition: "center",
-                verticalPosition: "top",
-                panelClass: ["error-snackbar"],
-            });
-        }
-    }
 }

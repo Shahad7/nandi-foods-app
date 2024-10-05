@@ -1,15 +1,45 @@
-import { NgModule } from "@angular/core";
+import { APP_INITIALIZER, NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { MatInputModule } from "@angular/material/input";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { Ui5WebcomponentsModule } from "@ui5/webcomponents-ngx";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { KeycloakAngularModule, KeycloakService } from "keycloak-angular";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { LoginComponent } from "./pages/login/login.component";
 import { HomeComponent } from "./pages/home/home.component";
 import { SnackbarComponent } from "./components/snackbar/snackbar.component";
+
+function initializeKeycloak(keycloak: KeycloakService) {
+    return () =>
+        keycloak.init({
+            config: {
+                //for testing purposes
+                url: "http://localhost:8090",
+                realm: "nandi",
+                clientId: "nandi-test",
+            },
+            initOptions: {
+                onLoad: "check-sso",
+                silentCheckSsoRedirectUri:
+                    window.location.origin + "/assets/silent-check-sso.html",
+            },
+            //decide whether Bearer token should be added to every route or allow exceptions
+            shouldAddToken: (request) => {
+                const { method, url } = request;
+
+                const isGetRequest = "GET" === method.toUpperCase();
+                const acceptablePaths = ["/assets"];
+                const isAcceptablePathMatch = acceptablePaths.some((path) =>
+                    url.includes(path)
+                );
+
+                return !(isGetRequest && isAcceptablePathMatch);
+            },
+        });
+}
 
 @NgModule({
     declarations: [AppComponent, HomeComponent],
@@ -20,8 +50,16 @@ import { SnackbarComponent } from "./components/snackbar/snackbar.component";
         MatFormFieldModule,
         Ui5WebcomponentsModule,
         BrowserAnimationsModule,
+        KeycloakAngularModule,
     ],
-    providers: [],
+    providers: [
+        {
+            provide: APP_INITIALIZER,
+            useFactory: initializeKeycloak,
+            multi: true,
+            deps: [KeycloakService],
+        },
+    ],
     bootstrap: [AppComponent],
 })
 export class AppModule {}

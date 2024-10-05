@@ -1,44 +1,18 @@
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
-
+import { KeycloakService } from "keycloak-angular";
 @Injectable({
     providedIn: "root",
 })
 export class AuthService {
-    constructor(private router: Router) {}
-
-    authenticate(username: string, password: string): boolean {
-        //mock
-        if (username == "max" && password == "1234") {
-            this.loginSuccessHandler({ token: "dummy-token", username });
-            return true;
-        }
-
-        return false;
-    }
-
-    loginSuccessHandler({
-        token,
-        username,
-    }: {
-        token: string;
-        username: string;
-    }): void {
-        sessionStorage.setItem("token", token);
-        sessionStorage.setItem("username", username);
-        this.router.navigate(["/"]);
-    }
+    constructor(private router: Router, private keycloak: KeycloakService) {}
 
     isLoggedIn(): boolean {
-        const token = sessionStorage.getItem("token");
-        const username = sessionStorage.getItem("username");
-        return token != null && username != null;
+        return this.keycloak.isLoggedIn();
     }
 
     logout(): void {
-        sessionStorage.removeItem("token");
-        sessionStorage.removeItem("username");
-        sessionStorage.clear();
-        this.router.navigate(["/login"]);
+        //has to specify logout redirect url in keycloak server or redirect from here
+        this.keycloak.logout();
     }
 }
