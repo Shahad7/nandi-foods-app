@@ -15,4 +15,4 @@
 # Overriding default keycloak login page theme
 
 -   navigate to `keycloak-server-config` folder
--   copy `custom-theme` folder to themes into keycloak server folder : `keycloak-x.x.x/themes`
+-   copy `custom-theme` folder to themes in keycloak server folder : `keycloak-x.x.x/themes`
