@@ -11,15 +11,15 @@ import { AppComponent } from "./app.component";
 import { LoginComponent } from "./pages/login/login.component";
 import { HomeComponent } from "./pages/home/home.component";
 import { SnackbarComponent } from "./components/snackbar/snackbar.component";
+import { environment } from "./../environments/environment";
 
 function initializeKeycloak(keycloak: KeycloakService) {
     return () =>
         keycloak.init({
             config: {
-                //for testing purposes
-                url: "http://localhost:8090",
-                realm: "nandi",
-                clientId: "nandi-test",
+                url: environment.keycloakServerUrl!,
+                realm: environment.realm!,
+                clientId: environment.clientId!,
             },
             initOptions: {
                 onLoad: "check-sso",
