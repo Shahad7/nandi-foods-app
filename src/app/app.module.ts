@@ -12,7 +12,9 @@ import { LoginComponent } from "./pages/login/login.component";
 import { HomeComponent } from "./pages/home/home.component";
 import { SnackbarComponent } from "./components/snackbar/snackbar.component";
 import { environment } from "./../environments/environment";
-
+import { Ui5WebcomponentsIconsModule } from "@ui5/webcomponents-ngx/icons";
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { WarehoustListComponent } from './components/warehoust-list/warehoust-list.component';
 function initializeKeycloak(keycloak: KeycloakService) {
     return () =>
         keycloak.init({
@@ -42,7 +44,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
 }
 
 @NgModule({
-    declarations: [AppComponent, HomeComponent],
+    declarations: [AppComponent, HomeComponent, DashboardComponent, WarehoustListComponent],
     imports: [
         BrowserModule,
         AppRoutingModule,
@@ -51,6 +53,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
         Ui5WebcomponentsModule,
         BrowserAnimationsModule,
         KeycloakAngularModule,
+        Ui5WebcomponentsIconsModule.forRoot(["sap-icons"]),
     ],
     providers: [
         {

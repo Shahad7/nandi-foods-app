@@ -1,2 +1,63 @@
-<p>home works!</p>
-<button (click)="onLogout()">log out</button>
+<div id="page">
+    <div id="header">
+        <img src="assets/logo-horizontal.png" alt="" />
+
+        <ui5-label style="font-size: larger">Nandi Food Company</ui5-label>
+        <ui5-button (ui5Click)="onLogout()" slot="endContent"
+            >log out</ui5-button
+        >
+    </div>
+
+    <div id="content">
+        <div id="sidebar" #sidebar>
+            <ui5-side-navigation
+                style="
+                    background-color: #f4f5f7;
+                    box-shadow: none;
+                    margin-left: 10px;
+                "
+            >
+                <ui5-side-navigation-item
+                    text="Dashboard"
+                    icon="bbyd-dashboard"
+                    (click)="goToNested('', 'Dashboard')"
+                    selected
+                ></ui5-side-navigation-item>
+                <ui5-side-navigation-group
+                    *ngFor="let item of sidebarItems"
+                    text="{{ item.mainTitle }}"
+                >
+                    <ui5-side-navigation-item
+                        *ngFor="let subItem of item.subMenus"
+                        text="{{ subItem.subTitle }}"
+                    >
+                        <ui5-side-navigation-sub-item
+                            *ngFor="let option of subItem.options"
+                            text="{{ option.name }}"
+                            (click)="goToNested(option.route, option.name)"
+                        ></ui5-side-navigation-sub-item>
+                    </ui5-side-navigation-item>
+                </ui5-side-navigation-group>
+            </ui5-side-navigation>
+        </div>
+        <div id="main">
+            <div id="subheader">
+                <ui5-button
+                    icon="menu"
+                    id="sidebar-toggle-btn"
+                    (click)="toggleSidebar()"
+                ></ui5-button>
+                <ui5-title level="H3">{{ selectedOption }}</ui5-title>
+                <ui5-button icon="refresh" (ui5Click)="OnRefresh()"
+                    >Refresh</ui5-button
+                >
+            </div>
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+    <div id="footer">
+        <ui5-bar design="Footer" style="background-color: #f4f5f7">
+            Copyright © 2023. All rights reserved.
+        </ui5-bar>
+    </div>
+</div>

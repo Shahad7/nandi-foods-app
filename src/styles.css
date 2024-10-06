@@ -12,3 +12,8 @@ body {
         --mdc-snackbar-supporting-text-color: #fff;
     }
 }
+
+:root {
+    /* --sapButton_TextColor: white !important;
+    --sapButton_Background: green !important; */
+}

@@ -1,0 +1,17 @@
+<div id="card-container">
+    <ui5-card class="medium card" *ngFor="let item of [1, 2, 3, 4]">
+        <div class="card-header">
+            <ui5-title level="H5">Inventory value by Category</ui5-title>
+            <div id="basis-menu">
+                <ui5-select style="width: 60px">
+                    <ui5-option value="ytd" selected>YTD</ui5-option>
+                    <ui5-option value="qtd">QTD</ui5-option>
+                    <ui5-option value="mtd">MTD</ui5-option>
+                    <ui5-option value="all">ALL</ui5-option>
+                </ui5-select>
+            </div>
+        </div>
+
+        <div class="card-content"></div>
+    </ui5-card>
+</div>
