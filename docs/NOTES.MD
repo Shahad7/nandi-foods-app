@@ -16,3 +16,6 @@
 
 -   navigate to `keycloak-server-config` folder
 -   copy `custom-theme` folder to themes in keycloak server folder : `keycloak-x.x.x/themes`
+-   go to keycloak administrator
+-   go to realm settings and in the themes section, click on login theme
+-   from the dropdown, choose custom-theme option
