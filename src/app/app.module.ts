@@ -5,7 +5,7 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { Ui5WebcomponentsModule } from "@ui5/webcomponents-ngx";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { KeycloakAngularModule, KeycloakService } from "keycloak-angular";
-
+import { NgApexchartsModule } from "ng-apexcharts";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { LoginComponent } from "./pages/login/login.component";
@@ -13,8 +13,10 @@ import { HomeComponent } from "./pages/home/home.component";
 import { SnackbarComponent } from "./components/snackbar/snackbar.component";
 import { environment } from "./../environments/environment";
 import { Ui5WebcomponentsIconsModule } from "@ui5/webcomponents-ngx/icons";
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { WarehoustListComponent } from './components/warehoust-list/warehoust-list.component';
+import { DashboardComponent } from "./components/dashboard/dashboard.component";
+import { WarehoustListComponent } from "./components/warehoust-list/warehoust-list.component";
+import { provideHttpClient, withInterceptors } from "@angular/common/http";
+import { RedirectInterceptorService } from "./services/redirect-interceptor.service";
 function initializeKeycloak(keycloak: KeycloakService) {
     return () =>
         keycloak.init({
@@ -44,7 +46,12 @@ function initializeKeycloak(keycloak: KeycloakService) {
 }
 
 @NgModule({
-    declarations: [AppComponent, HomeComponent, DashboardComponent, WarehoustListComponent],
+    declarations: [
+        AppComponent,
+        HomeComponent,
+        DashboardComponent,
+        WarehoustListComponent,
+    ],
     imports: [
         BrowserModule,
         AppRoutingModule,
@@ -54,6 +61,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
         BrowserAnimationsModule,
         KeycloakAngularModule,
         Ui5WebcomponentsIconsModule.forRoot(["sap-icons"]),
+        NgApexchartsModule,
     ],
     providers: [
         {
@@ -62,6 +70,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
             multi: true,
             deps: [KeycloakService],
         },
+        provideHttpClient(withInterceptors([RedirectInterceptorService])),
     ],
     bootstrap: [AppComponent],
 })

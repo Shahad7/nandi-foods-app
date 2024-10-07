@@ -58,10 +58,21 @@
                             "extractLicenses": false,
                             "sourceMap": true,
                             "fileReplacements": [
-                              {
-                                "replace": "src/environments/environment.ts",
-                                "with": "src/environments/environment.development.ts"
-                              }
+                                {
+                                    "replace": "src/environments/environment.ts",
+                                    "with": "src/environments/environment.development.ts"
+                                }
+                            ]
+                        },
+                        "qa": {
+                            "optimization": false,
+                            "extractLicenses": false,
+                            "sourceMap": true,
+                            "fileReplacements": [
+                                {
+                                    "replace": "src/environments/environment.ts",
+                                    "with": "src/environments/environment.qa.ts"
+                                }
                             ]
                         }
                     },
@@ -75,6 +86,9 @@
                         },
                         "development": {
                             "buildTarget": "nandi-foods-app:build:development"
+                        },
+                        "qa": {
+                            "buildTarget": "nandi-foods-app:build:qa"
                         }
                     },
                     "defaultConfiguration": "development"
@@ -97,7 +111,9 @@
                             "src/styles.css",
                             "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css"
                         ],
-                        "scripts": []
+                        "scripts": [
+                            "node_modules/apexcharts/dist/apexcharts.min.js"
+                        ]
                     }
                 }
             }

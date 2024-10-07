@@ -59,6 +59,10 @@ h1#kc-page-title {
     display: block;
 }
 
+div.kc-logo-text {
+    background-image: none !important;
+}
+
 #kc-locale-dropdown a {
     color: var(--pf-global--Color--200);
     text-align: right;

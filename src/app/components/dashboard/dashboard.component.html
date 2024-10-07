@@ -12,6 +12,15 @@
             </div>
         </div>
 
-        <div class="card-content"></div>
+        <div class="card-content">
+            <apx-chart
+                [series]="chartOptions.series"
+                [chart]="chartOptions.chart"
+                [plotOptions]="chartOptions.plotOptions"
+                [dataLabels]="chartOptions.dataLabels"
+                [xaxis]="chartOptions.xaxis"
+                [colors]="chartOptions.colors"
+            ></apx-chart>
+        </div>
     </ui5-card>
 </div>
