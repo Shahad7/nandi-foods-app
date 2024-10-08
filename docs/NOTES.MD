@@ -3,7 +3,8 @@
 -   install Angular by `npm install @angular/cli -g`
 -   navigate to root folder
 -   execute `npm i -f`
--   run the app using `ng serve -o` && to specify production mode execute `ng serve -o --prod`
+-   run the app using `ng serve -o` && to specify production mode execute `ng serve -o --qa`
+-   run the app using `npm run start -o` && to specify production mode execute `npm run start -o --qa`
 
 # Configuring keycloak client
 

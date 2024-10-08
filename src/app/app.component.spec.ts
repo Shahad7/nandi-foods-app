@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'nandi-foods-app'`, () => {
+  it(`should have as title 'nandi-foods-web-app'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('nandi-foods-app');
+    expect(app.title).toEqual('nandi-foods-web-app');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, nandi-foods-app');
+    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, nandi-foods-web-app');
   });
 });
