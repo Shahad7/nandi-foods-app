@@ -10,6 +10,6 @@ WORKDIR /usr/share/nginx/html
 
 RUN rm -rf ./*
 
-COPY src .
+COPY dist/nandi-foods-web-app/browser/ .
 
 EXPOSE 8080

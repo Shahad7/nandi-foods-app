@@ -3,7 +3,7 @@
     "version": 1,
     "newProjectRoot": "projects",
     "projects": {
-        "nandi-foods-app": {
+        "nandi-foods-web-app": {
             "projectType": "application",
             "schematics": {
                 "@schematics/angular:component": {
@@ -29,7 +29,7 @@
                             "@ui5/webcomponents-icons-tnt/dist/AllIcons",
                             "@ui5/webcomponents-icons-business-suite"
                         ],
-                        "outputPath": "dist/nandi-foods-app",
+                        "outputPath": "dist/nandi-foods-web-app",
                         "index": "src/index.html",
                         "browser": "src/main.ts",
                         "polyfills": ["zone.js"],
@@ -70,14 +70,14 @@
                                 }
                             ]
                         },
-                        "qa": {
+                        "staging": {
                             "optimization": false,
                             "extractLicenses": false,
                             "sourceMap": true,
                             "fileReplacements": [
                                 {
                                     "replace": "src/environments/environment.ts",
-                                    "with": "src/environments/environment.qa.ts"
+                                    "with": "src/environments/environment.staging.ts"
                                 }
                             ]
                         }
@@ -88,13 +88,13 @@
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "configurations": {
                         "production": {
-                            "buildTarget": "nandi-foods-app:build:production"
+                            "buildTarget": "nandi-foods-web-app:build:production"
                         },
                         "development": {
-                            "buildTarget": "nandi-foods-app:build:development"
+                            "buildTarget": "nandi-foods-web-app:build:development"
                         },
                         "qa": {
-                            "buildTarget": "nandi-foods-app:build:qa"
+                            "buildTarget": "nandi-foods-web-app:build:staging"
                         }
                     },
                     "defaultConfiguration": "development"

@@ -1,15 +1,17 @@
 ### Docker local operations
 
 ```sh
-docker build -t teenthofabud/apps/wizard/nandi-foods:v2 -f Dockerfile .
+docker build -t teenthofabud/apps/wizard/nandi-foods-web-app:0.0.1-snaphost --build-arg NODE_ENV=development -f Dockerfile .
+docker build -t teenthofabud/apps/wizard/nandi-foods-web-app:0.0.1-rc --build-arg NODE_ENV=staging -f Dockerfile .
 ```
 
 ```sh
-docker run -p 8080:8080 -d --name nandi-foods-v2 teenthofabud/apps/wizard/nandi-foods:v2
+docker run -p 8080:8080 -d --name nandi-foods-web-app teenthofabud/apps/wizard/nandi-foods-web-app:0.0.1-snapshot
+docker run -p 8080:8080 -d --name nandi-foods-web-app teenthofabud/apps/wizard/nandi-foods-web-app:0.0.1-rc
 ```
 
 ```sh
-docker exec -it nandi-foods-v2 sh
+docker exec -it nandi-foods-web-app sh
 ```
 
 DELETE ALL IMAGES
