@@ -23,6 +23,12 @@
                 "build": {
                     "builder": "@angular-devkit/build-angular:application",
                     "options": {
+                        "externalDependencies": [
+                            "@ui5/webcomponents-icons-business-suite/dist/AllIcons",
+                            "@ui5/webcomponents-icons/dist/AllIcons",
+                            "@ui5/webcomponents-icons-tnt/dist/AllIcons",
+                            "@ui5/webcomponents-icons-business-suite"
+                        ],
                         "outputPath": "dist/nandi-foods-app",
                         "index": "src/index.html",
                         "browser": "src/main.ts",
