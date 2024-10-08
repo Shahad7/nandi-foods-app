@@ -2,6 +2,7 @@ import { Component, ViewChild, viewChild } from "@angular/core";
 import { AuthService } from "../../services/auth.service";
 import { DashboardComponent } from "../../components/dashboard/dashboard.component";
 import { ActivatedRoute, Router } from "@angular/router";
+import { HttpClient } from "@angular/common/http";
 
 @Component({
     selector: "app-home",
@@ -262,11 +263,14 @@ export class HomeComponent {
     constructor(
         private authService: AuthService,
         private router: Router,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private httpClient: HttpClient
     ) {
         this.route.firstChild?.data.subscribe((data) => {
             this.selectedOption = data["title"];
         });
+
+        this.router.events.subscribe()
     }
 
     toggleSidebar() {

@@ -12,11 +12,10 @@ import { LoginComponent } from "./pages/login/login.component";
 import { HomeComponent } from "./pages/home/home.component";
 import { SnackbarComponent } from "./components/snackbar/snackbar.component";
 import { environment } from "./../environments/environment";
-import { Ui5WebcomponentsIconsModule } from "@ui5/webcomponents-ngx/icons";
 import { DashboardComponent } from "./components/dashboard/dashboard.component";
 import { WarehoustListComponent } from "./components/warehoust-list/warehoust-list.component";
 import { provideHttpClient, withInterceptors } from "@angular/common/http";
-import { RedirectInterceptorService } from "./services/redirect-interceptor.service";
+
 function initializeKeycloak(keycloak: KeycloakService) {
     return () =>
         keycloak.init({
@@ -60,7 +59,6 @@ function initializeKeycloak(keycloak: KeycloakService) {
         Ui5WebcomponentsModule,
         BrowserAnimationsModule,
         KeycloakAngularModule,
-        Ui5WebcomponentsIconsModule.forRoot(["sap-icons"]),
         NgApexchartsModule,
     ],
     providers: [
@@ -70,7 +68,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
             multi: true,
             deps: [KeycloakService],
         },
-        provideHttpClient(withInterceptors([RedirectInterceptorService])),
+        provideHttpClient(),
     ],
     bootstrap: [AppComponent],
 })

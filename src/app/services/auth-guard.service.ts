@@ -5,6 +5,8 @@ import {
     RouterStateSnapshot,
 } from "@angular/router";
 import { KeycloakAuthGuard, KeycloakService } from "keycloak-angular";
+import Keycloak from "../../../public/assets/keycloak";
+import { environment } from "../../environments/environment";
 
 @Injectable({
     providedIn: "root",
@@ -15,6 +17,7 @@ export class AuthGuard extends KeycloakAuthGuard {
         protected readonly keycloak: KeycloakService
     ) {
         super(router, keycloak);
+        console.log(Keycloak);
     }
 
     public async isAccessAllowed(
@@ -23,9 +26,30 @@ export class AuthGuard extends KeycloakAuthGuard {
     ) {
         // Force the user to log in if currently unauthenticated.
         if (!this.authenticated) {
-            await this.keycloak.login({
-                redirectUri: window.location.origin + state.url,
+            let k = new Keycloak({
+                url: environment.keycloakServerUrl!,
+                realm: environment.realm!,
+                clientId: environment.clientId!,
             });
+            k.init({
+                initOptions: {
+                    checkLoginIframe: false,
+                    onLoad: "check-sso",
+                    silentCheckSsoRedirectUri:
+                        window.location.origin +
+                        "/assets/silent-check-sso.html",
+                },
+            });
+            k.createLoginUrl({
+                redirectUri: window.location.origin + state.url,
+            }).then((url) => {
+                sessionStorage.setItem("url", url);
+                this.router.navigate(["login"]);
+            });
+
+            // await this.keycloak.login({
+            //     redirectUri: window.location.origin + state.url,
+            // });
         }
 
         //Get the roles required from the route.

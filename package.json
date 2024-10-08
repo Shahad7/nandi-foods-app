@@ -19,6 +19,7 @@
     "@angular/platform-browser": "^18.2.0",
     "@angular/platform-browser-dynamic": "^18.2.0",
     "@angular/router": "^18.2.0",
+    "@ui5/webcomponents-icons": "^2.3.0",
     "@ui5/webcomponents-ngx": "^0.3.0",
     "apexcharts": "^3.54.0",
     "keycloak-angular": "^16.0.1",
