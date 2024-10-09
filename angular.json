@@ -93,7 +93,7 @@
                         "development": {
                             "buildTarget": "nandi-foods-web-app:build:development"
                         },
-                        "qa": {
+                        "staging": {
                             "buildTarget": "nandi-foods-web-app:build:staging"
                         }
                     },

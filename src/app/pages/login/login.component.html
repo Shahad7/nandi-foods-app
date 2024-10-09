@@ -1,5 +1,3 @@
-<iframe [src]="loginUrl" frameborder="0">
-    <script>
-        parent.postMessage(location.href, location.origin);
-    </script>
-</iframe>
+<div class="container">
+    <iframe [src]="loginUrl" frameborder="0" *ngIf="!loggedIn"></iframe>
+</div>

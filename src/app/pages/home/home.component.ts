@@ -13,6 +13,8 @@ export class HomeComponent {
     @ViewChild("sidebar")
     sidebar: any;
     selectedOption!: string;
+    selectedSubtitle = "";
+    selectedMainTitle = "";
 
     sidebarItems = [
         {
@@ -268,9 +270,28 @@ export class HomeComponent {
     ) {
         this.route.firstChild?.data.subscribe((data) => {
             this.selectedOption = data["title"];
+            for (let item of this.sidebarItems) {
+                let found = false;
+                for (let subitem of item.subMenus) {
+                    if (subitem.hasOptions) {
+                        for (let option of subitem.options) {
+                            if (option.name == this.selectedOption) {
+                                found = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (found) {
+                        this.selectedSubtitle = subitem.subTitle;
+                        break;
+                    }
+                }
+                if (found) {
+                    this.selectedMainTitle = item.mainTitle;
+                    break;
+                }
+            }
         });
-
-        this.router.events.subscribe()
     }
 
     toggleSidebar() {

@@ -4,7 +4,11 @@ import { MatInputModule } from "@angular/material/input";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { Ui5WebcomponentsModule } from "@ui5/webcomponents-ngx";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { KeycloakAngularModule, KeycloakService } from "keycloak-angular";
+import {
+    KeycloakAngularModule,
+    KeycloakEventType,
+    KeycloakService,
+} from "keycloak-angular";
 import { NgApexchartsModule } from "ng-apexcharts";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
@@ -15,6 +19,7 @@ import { environment } from "./../environments/environment";
 import { DashboardComponent } from "./components/dashboard/dashboard.component";
 import { WarehoustListComponent } from "./components/warehoust-list/warehoust-list.component";
 import { provideHttpClient, withInterceptors } from "@angular/common/http";
+import { CommonModule } from "@angular/common";
 
 function initializeKeycloak(keycloak: KeycloakService) {
     return () =>
@@ -50,6 +55,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
         HomeComponent,
         DashboardComponent,
         WarehoustListComponent,
+        LoginComponent,
     ],
     imports: [
         BrowserModule,
@@ -60,6 +66,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
         BrowserAnimationsModule,
         KeycloakAngularModule,
         NgApexchartsModule,
+        CommonModule,
     ],
     providers: [
         {
