@@ -15,21 +15,24 @@
             <p #time></p>
         </ui5-label>
         <div id="profile-sec">
-            <ui5-avatar
-                id="profile-btn"
-                (click)="menuBasic.open = true"
-                style="cursor: pointer"
-            >
-                <img src="assets/avatar.png" />
-            </ui5-avatar>
-            <ui5-menu opener="profile-btn" #menuBasic="ui5Menu">
-                <ui5-menu-item
-                    text="Log out"
-                    (click)="onLogout()"
-                ></ui5-menu-item>
-                <ui5-menu-separator></ui5-menu-separator>
-                <ui5-menu-item text="Other"></ui5-menu-item>
-            </ui5-menu>
+            <img src="assets/bell.svg" id="notification-icon" alt="" />
+            <div>
+                <ui5-avatar
+                    id="profile-btn"
+                    (click)="menuBasic.open = true"
+                    style="cursor: pointer"
+                >
+                    <img src="assets/avatar.png" />
+                </ui5-avatar>
+                <ui5-menu opener="profile-btn" #menuBasic="ui5Menu">
+                    <ui5-menu-item
+                        text="Log out"
+                        (click)="onLogout()"
+                    ></ui5-menu-item>
+                    <ui5-menu-separator></ui5-menu-separator>
+                    <ui5-menu-item text="Other"></ui5-menu-item>
+                </ui5-menu>
+            </div>
             <ui5-label style="font-size: larger; font-weight: bold">{{
                 profileName
             }}</ui5-label>

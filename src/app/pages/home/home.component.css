@@ -54,6 +54,10 @@
     height: 50px;
 }
 
+#notification-icon {
+    width: 30px;
+}
+
 #sidebar-toggle-btn {
     display: none;
     cursor: pointer;
