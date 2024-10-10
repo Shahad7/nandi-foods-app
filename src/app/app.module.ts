@@ -19,7 +19,7 @@ import { environment } from "./../environments/environment";
 import { DashboardComponent } from "./components/dashboard/dashboard.component";
 import { WarehoustListComponent } from "./components/warehoust-list/warehoust-list.component";
 import { provideHttpClient, withInterceptors } from "@angular/common/http";
-import { CommonModule } from "@angular/common";
+import { CommonModule, DatePipe } from "@angular/common";
 
 function initializeKeycloak(keycloak: KeycloakService) {
     return () =>
@@ -76,6 +76,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
             deps: [KeycloakService],
         },
         provideHttpClient(),
+        DatePipe,
     ],
     bootstrap: [AppComponent],
 })

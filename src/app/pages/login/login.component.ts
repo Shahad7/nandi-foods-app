@@ -15,7 +15,6 @@ import { windowWhen } from "rxjs";
 })
 export class LoginComponent implements OnInit {
     loginUrl!: any;
-    loggedIn: boolean = false;
 
     constructor(
         private router: Router,
@@ -35,7 +34,7 @@ export class LoginComponent implements OnInit {
                         this.sanitizer.bypassSecurityTrustResourceUrl(url);
                 });
         } else {
-            window.parent.location.assign(window.location.origin);
+            window.parent.location.assign(window.parent.location.origin);
         }
     }
 }

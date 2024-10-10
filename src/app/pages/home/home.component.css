@@ -31,6 +31,12 @@
     margin-bottom: 20px;
 }
 
+#profile-sec {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    align-items: center;
+}
 #header {
     z-index: 100;
     padding: 20px 30px;
@@ -50,8 +56,9 @@
 
 #sidebar-toggle-btn {
     display: none;
+    cursor: pointer;
+    width: 30px;
 }
-
 @media screen and (max-width: 880px) {
     #sidebar {
         position: fixed;
@@ -63,5 +70,11 @@
 
     #sidebar-toggle-btn {
         display: block;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    #header-title {
+        display: none;
     }
 }

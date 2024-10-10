@@ -1,8 +1,15 @@
-import { Component, ViewChild, viewChild } from "@angular/core";
+import {
+    Component,
+    NgZone,
+    Renderer2,
+    ViewChild,
+    viewChild,
+} from "@angular/core";
 import { AuthService } from "../../services/auth.service";
 import { DashboardComponent } from "../../components/dashboard/dashboard.component";
 import { ActivatedRoute, Router } from "@angular/router";
 import { HttpClient } from "@angular/common/http";
+import { DatePipe } from "@angular/common";
 
 @Component({
     selector: "app-home",
@@ -12,10 +19,15 @@ import { HttpClient } from "@angular/common/http";
 export class HomeComponent {
     @ViewChild("sidebar")
     sidebar: any;
+    @ViewChild("time")
+    timeNode: any;
+
+    profileName: string = "John Doe";
+
     selectedOption!: string;
     selectedSubtitle = "";
     selectedMainTitle = "";
-
+    currentDateAndTime: any;
     sidebarItems = [
         {
             mainTitle: "Inventory Management",
@@ -324,8 +336,25 @@ export class HomeComponent {
         private authService: AuthService,
         private router: Router,
         private route: ActivatedRoute,
-        private httpClient: HttpClient
+        private httpClient: HttpClient,
+        private datePipe: DatePipe,
+        private zone: NgZone,
+        private renderer: Renderer2
     ) {
+        this.currentDateAndTime = this.datePipe.transform(
+            new Date(),
+            "MMM d, y, h:mm:ss a"
+        );
+        this.zone.runOutsideAngular(() => {
+            setInterval(() => {
+                this.renderer.setProperty(
+                    this.timeNode.nativeElement,
+                    "textContent",
+                    this.datePipe.transform(new Date(), "MMM d, y, h:mm:ss a")
+                );
+            }, 1);
+        });
+
         this.route.firstChild?.data.subscribe((data) => {
             this.selectedOption = data["title"];
             for (let item of this.sidebarItems) {

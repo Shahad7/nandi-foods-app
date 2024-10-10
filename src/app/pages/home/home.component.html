@@ -2,10 +2,32 @@
     <div id="header">
         <img src="assets/logo-horizontal.png" alt="" />
 
-        <ui5-label style="font-size: larger">Nandi Food Company</ui5-label>
-        <ui5-button (ui5Click)="onLogout()" slot="endContent"
-            >log out</ui5-button
+        <ui5-title id="header-title" style="color: rgba(17, 16, 16, 0.615)"
+            >Nandi Food Company</ui5-title
         >
+        <ui5-label>
+            <p #time></p>
+        </ui5-label>
+        <div id="profile-sec">
+            <ui5-avatar
+                id="profile-btn"
+                (click)="menuBasic.open = true"
+                style="cursor: pointer"
+            >
+                <img src="assets/avatar.png" />
+            </ui5-avatar>
+            <ui5-menu opener="profile-btn" #menuBasic="ui5Menu">
+                <ui5-menu-item
+                    text="Log out"
+                    (click)="onLogout()"
+                ></ui5-menu-item>
+                <ui5-menu-separator></ui5-menu-separator>
+                <ui5-menu-item text="Other"></ui5-menu-item>
+            </ui5-menu>
+            <ui5-label style="font-size: larger; font-weight: bold">{{
+                profileName
+            }}</ui5-label>
+        </div>
     </div>
 
     <div id="content">
@@ -19,10 +41,10 @@
             >
                 <ui5-side-navigation-item
                     text="Dashboard"
-                    icon="bbyd-dashboard"
                     (click)="goToNested('', 'Dashboard')"
                     [selected]="selectedOption == 'Dashboard'"
-                ></ui5-side-navigation-item>
+                >
+                </ui5-side-navigation-item>
                 <ui5-side-navigation-group
                     *ngFor="let item of sidebarItems"
                     text="{{ item.mainTitle }}"
@@ -46,11 +68,13 @@
         </div>
         <div id="main">
             <div id="subheader">
-                <ui5-button
-                    icon="menu"
+                <img
+                    src="assets/menu.svg"
+                    alt=""
                     id="sidebar-toggle-btn"
                     (click)="toggleSidebar()"
-                ></ui5-button>
+                />
+
                 <ui5-title level="H3">{{ selectedOption }}</ui5-title>
                 <ui5-button icon="refresh" (ui5Click)="OnRefresh()"
                     >Refresh</ui5-button
