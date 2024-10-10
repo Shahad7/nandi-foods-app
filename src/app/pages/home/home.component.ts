@@ -197,66 +197,124 @@ export class HomeComponent {
                 },
             ],
         },
+
         {
-            mainTitle: "Settings",
+            mainTitle: "General Settings",
             subMenus: [
                 {
-                    subTitle: "General Settings",
-                    hasOptions: true,
-                    options: [
-                        { name: "Countries List", route: "countries-list" },
-                        { name: "States List", route: "states-list" },
-                        { name: "Cities List", route: "cities-list" },
-                        { name: "Currencies", route: "currencies" },
-                        { name: "Sales Taxes", route: "sales-taxes" },
-                        { name: "Payment Types", route: "payment-types" },
-                        { name: "Payment Terms", route: "payment-terms" },
-                        { name: "General UOM", route: "general-uom" },
-                    ],
+                    subTitle: "Countries List",
+                    route: "countries-list",
+                    hasOptions: false,
+                    options: [],
                 },
                 {
-                    subTitle: "Warehouse Settings",
-                    hasOptions: true,
-                    options: [
-                        {
-                            name: "Warehouse No. Settings",
-                            route: "warehouse-no-settings",
-                        },
-                        {
-                            name: "Facility Certifications",
-                            route: "facility-certifications",
-                        },
-                    ],
+                    subTitle: "States List",
+                    route: "states-list",
+                    hasOptions: false,
+                    options: [],
                 },
                 {
-                    subTitle: "Products Settings",
-                    hasOptions: true,
-                    options: [
-                        { name: "Product Sizes", route: "product-sizes" },
-                        { name: "Product UOM", route: "product-uom" },
-                        {
-                            name: "Product Certifications",
-                            route: "product-certifications",
-                        },
-                    ],
+                    subTitle: "Cities List",
+                    route: "cities-list",
+                    hasOptions: false,
+                    options: [],
                 },
                 {
-                    subTitle: "Employee Settings",
+                    subTitle: "Currencies",
+                    route: "currencies",
+                    hasOptions: false,
+                    options: [],
+                },
+                {
+                    subTitle: "Sales Taxes",
+                    route: "sales-taxes",
+                    hasOptions: false,
+                    options: [],
+                },
+                {
+                    subTitle: "Payment Types",
+                    route: "payment-types",
+                    hasOptions: false,
+                    options: [],
+                },
+                {
+                    subTitle: "Payment Terms",
+                    route: "payment-terms",
+                    hasOptions: false,
+                    options: [],
+                },
+                {
+                    subTitle: "UOM",
+                    route: "general-uom",
                     hasOptions: true,
                     options: [
-                        {
-                            name: "Employee No. Settings",
-                            route: "employee-no-settings",
-                        },
-                        {
-                            name: "Employee Positions",
-                            route: "employee-positions",
-                        },
-                        {
-                            name: "Permits and Certificates",
-                            route: "permits-and-certificates",
-                        },
+                        { name: "UOM List", route: "uom-list" },
+                        { name: "Create New UOM", route: "create-new-uom" },
+                        { name: "UOM Details", route: "uom-details" },
                     ],
+                },
+            ],
+        },
+        {
+            mainTitle: "Warehouse Settings",
+            subMenus: [
+                {
+                    subTitle: "Warehouse No. Settings",
+                    route: "warehouse-no-settings",
+                    hasOptions: false,
+                    options: [],
+                },
+                {
+                    subTitle: "Facility Certifications",
+                    route: "facility-certifications",
+                    hasOptions: false,
+                    options: [],
+                },
+            ],
+        },
+        {
+            mainTitle: "Products Settings",
+            subMenus: [
+                {
+                    subTitle: "Product Sizes",
+                    route: "product-sizes",
+                    hasOptions: false,
+                    options: [],
+                },
+                {
+                    subTitle: "Product UOM",
+                    route: "product-uom",
+                    hasOptions: false,
+                    options: [],
+                },
+                {
+                    subTitle: "Product Certifications",
+                    route: "product-certifications",
+                    hasOptions: false,
+                    options: [],
+                },
+            ],
+        },
+        {
+            mainTitle: "Employee Settings",
+            subMenus: [
+                {
+                    subTitle: "Employee No. Settings",
+                    route: "employee-no-settings",
+                    hasOptions: false,
+                    options: [],
+                },
+                {
+                    subTitle: "Employee Positions",
+                    route: "employee-positions",
+                    hasOptions: false,
+                    options: [],
+                },
+                {
+                    subTitle: "Permits and Certificates",
+                    route: "permits-and-certificates",
+                    hasOptions: false,
+                    options: [],
                 },
             ],
         },

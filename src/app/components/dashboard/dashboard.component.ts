@@ -16,6 +16,14 @@ export type ChartOptions = {
     styleUrl: "./dashboard.component.css",
 })
 export class DashboardComponent {
+    barGraphCategories = [
+        "Inventory Value by Category",
+        "Warehouse Capacity",
+        "Sales by Category",
+        "Sales by Warehouse",
+    ];
+
+    tableCategories = ["Top 10 Products by Sale", "Top 10 Customers by Sale"];
     public chartOptions: Partial<ChartOptions>;
     constructor() {
         this.chartOptions = {
@@ -26,11 +34,13 @@ export class DashboardComponent {
             ],
             chart: {
                 type: "bar",
+                width: 400,
                 height: 350,
+                redrawOnWindowResize: true,
             },
             plotOptions: {
                 bar: {
-                    horizontal: true,
+                    horizontal: false,
                     barHeight: "50%",
                 },
             },
