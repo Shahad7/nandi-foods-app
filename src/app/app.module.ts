@@ -1,7 +1,6 @@
 import { APP_INITIALIZER, NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { MatInputModule } from "@angular/material/input";
-import { MatFormFieldModule } from "@angular/material/form-field";
 import { Ui5WebcomponentsModule } from "@ui5/webcomponents-ngx";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import {
@@ -20,6 +19,10 @@ import { DashboardComponent } from "./components/dashboard/dashboard.component";
 import { WarehoustListComponent } from "./components/warehoust-list/warehoust-list.component";
 import { provideHttpClient, withInterceptors } from "@angular/common/http";
 import { CommonModule, DatePipe } from "@angular/common";
+import { CreateNewUomComponent } from "./components/create-new-uom/create-new-uom.component";
+import { UomListComponent } from "./components/uom-list/uom-list.component";
+import { UomDetailsComponent } from "./components/uom-details/uom-details.component";
+import { FormsModule } from "@angular/forms";
 
 function initializeKeycloak(keycloak: KeycloakService) {
     return () =>
@@ -56,17 +59,19 @@ function initializeKeycloak(keycloak: KeycloakService) {
         DashboardComponent,
         WarehoustListComponent,
         LoginComponent,
+        CreateNewUomComponent,
+        UomListComponent,
+        UomDetailsComponent,
     ],
     imports: [
         BrowserModule,
         AppRoutingModule,
-        MatInputModule,
-        MatFormFieldModule,
         Ui5WebcomponentsModule,
         BrowserAnimationsModule,
         KeycloakAngularModule,
         NgApexchartsModule,
         CommonModule,
+        FormsModule,
     ],
     providers: [
         {
