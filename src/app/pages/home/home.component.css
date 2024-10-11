@@ -67,7 +67,7 @@
 #sidebar {
     position: fixed;
     z-index: 999;
-    height: 70vh;
+    height: 80vh;
     margin-right: 30px;
     overflow-y: auto;
     padding-bottom: 2vh;
@@ -84,6 +84,7 @@
     #sidebar {
         position: fixed;
         z-index: 999;
+        height: 70vh;
         margin-top: 80px;
         overflow-y: auto;
         box-shadow: 0 0 0.125rem 0
