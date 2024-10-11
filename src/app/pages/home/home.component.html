@@ -40,13 +40,10 @@
     </div>
 
     <div id="content">
-        <div id="sidebar" #sidebar>
+        <div #sidebar id="sidebar-wrapper">
             <ui5-side-navigation
-                style="
-                    background-color: #f4f5f7;
-                    box-shadow: none;
-                    margin-left: 10px;
-                "
+                id="sidebar"
+                style="background-color: #f4f5f7; margin-left: 10px"
             >
                 <ui5-side-navigation-item
                     text="Dashboard"
@@ -75,6 +72,7 @@
                 </ui5-side-navigation-group>
             </ui5-side-navigation>
         </div>
+
         <div id="main">
             <div id="subheader">
                 <img
