@@ -1,4 +1,4 @@
-export class HUandPURow {
+export class LinkedHuAndPuRow {
     puOrHuName: string;
     className: string;
     flexHU: boolean;

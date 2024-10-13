@@ -1,4 +1,4 @@
-export class MetricImperialRow {
+export class UOMImperialRow {
     lengthIn: number;
     widthIn: number;
     heightIn: number;

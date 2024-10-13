@@ -214,62 +214,107 @@
                 ></ui5-tab-separator>
             </ng-container>
         </ui5-tabcontainer>
-        <ui5-button icon="add" id="add-row-btn" (ui5Click)="addNewRow()"
-            >Add new row</ui5-button
-        >
+
         <!--UOM Imperial and Metric Table-->
-        <ui5-table
-            *ngIf="selectedTable == 'MetricImperial'"
-            overflowMode="Scroll"
-        >
-            <ui5-table-header-row
-                slot="headerRow"
-                style="background-color: #0064d9"
+        <ng-container *ngIf="selectedTab == 'UOM Weight and Volume'">
+            <ui5-tabcontainer
+                style="width: 180px"
+                (ui5TabSelect)="selectNestedTab($event)"
             >
-                <ui5-table-header-cell
-                    *ngFor="let item of MetricImperial.headers"
-                    style="color: white"
-                    minWidth="101px"
+                <ng-container *ngFor="let item of nestedTabs">
+                    <ui5-tab text="{{ item }}"> </ui5-tab>
+                    <ui5-tab-separator
+                        *ngIf="
+                            nestedTabs.indexOf(item) != nestedTabs.length - 1
+                        "
+                    ></ui5-tab-separator>
+                </ng-container>
+            </ui5-tabcontainer>
+            <ui5-table
+                overflowMode="Scroll"
+                *ngIf="selectedNestedTab == 'Metric'"
+            >
+                <ui5-table-header-row
+                    slot="headerRow"
+                    style="background-color: #0064d9"
                 >
-                    <span [innerHTML]="item"></span>
-                </ui5-table-header-cell>
-                <ui5-table-header-cell></ui5-table-header-cell>
-            </ui5-table-header-row>
-            <ui5-table-row
-                *ngFor="let row of MetricImperial.rows; let i = index"
-            >
-                <ui5-table-cell *ngFor="let key of MetricImperial.keys">
-                    <ui5-input
-                        [(ngModel)]="row[key.name]"
-                        type="Text"
-                        *ngIf="key.type == 'string'"
-                    ></ui5-input>
-                    <ui5-input
-                        [(ngModel)]="row[key.name]"
-                        type="Number"
-                        *ngIf="key.type == 'number'"
-                    ></ui5-input>
-                    <ui5-select
-                        *ngIf="key.type == 'boolean'"
-                        [(ngModel)]="row[key.name]"
-                        (ngModelChange)="onBooleanChange($event, row, key)"
+                    <ui5-table-header-cell
+                        *ngFor="let item of UOMMetric.headers"
+                        style="color: white"
+                        minWidth="101px"
                     >
-                        <ui5-option value="true">YES</ui5-option>
-                        <ui5-option value="false">NO</ui5-option>
-                    </ui5-select>
-                </ui5-table-cell>
-                <ui5-table-cell
-                    ><ui5-button design="Negative" (ui5Click)="deleteRow(i)">
-                        <img
-                            src="assets/trash.svg"
-                            id="row-delete-btn-icon"
-                            alt=""
-                        /> </ui5-button
-                ></ui5-table-cell>
-            </ui5-table-row>
-        </ui5-table>
+                        <span [innerHTML]="item"></span>
+                    </ui5-table-header-cell>
+                </ui5-table-header-row>
+                <ui5-table-row
+                    *ngFor="let row of UOMMetric.rows; let i = index"
+                >
+                    <ui5-table-cell *ngFor="let key of UOMMetric.keys">
+                        <ui5-input
+                            [(ngModel)]="row[key.name]"
+                            type="Text"
+                            *ngIf="key.type == 'string'"
+                        ></ui5-input>
+                        <ui5-input
+                            [(ngModel)]="row[key.name]"
+                            type="Number"
+                            *ngIf="key.type == 'number'"
+                        ></ui5-input>
+                        <ui5-select
+                            *ngIf="key.type == 'boolean'"
+                            [(ngModel)]="row[key.name]"
+                            (ngModelChange)="onBooleanChange($event, row, key)"
+                        >
+                            <ui5-option value="true">YES</ui5-option>
+                            <ui5-option value="false">NO</ui5-option>
+                        </ui5-select>
+                    </ui5-table-cell>
+                </ui5-table-row>
+            </ui5-table>
+            <ui5-table
+                overflowMode="Scroll"
+                *ngIf="selectedNestedTab == 'Imperial'"
+            >
+                <ui5-table-header-row
+                    slot="headerRow"
+                    style="background-color: #0064d9"
+                >
+                    <ui5-table-header-cell
+                        *ngFor="let item of UOMImperial.headers"
+                        style="color: white"
+                        minWidth="101px"
+                    >
+                        <span [innerHTML]="item"></span>
+                    </ui5-table-header-cell>
+                </ui5-table-header-row>
+                <ui5-table-row
+                    *ngFor="let row of UOMImperial.rows; let i = index"
+                >
+                    <ui5-table-cell *ngFor="let key of UOMImperial.keys">
+                        <ui5-input
+                            [(ngModel)]="row[key.name]"
+                            type="Text"
+                            *ngIf="key.type == 'string'"
+                        ></ui5-input>
+                        <ui5-input
+                            [(ngModel)]="row[key.name]"
+                            type="Number"
+                            *ngIf="key.type == 'number'"
+                        ></ui5-input>
+                        <ui5-select
+                            *ngIf="key.type == 'boolean'"
+                            [(ngModel)]="row[key.name]"
+                            (ngModelChange)="onBooleanChange($event, row, key)"
+                        >
+                            <ui5-option value="true">YES</ui5-option>
+                            <ui5-option value="false">NO</ui5-option>
+                        </ui5-select>
+                    </ui5-table-cell>
+                </ui5-table-row>
+            </ui5-table>
+        </ng-container>
         <!--Linked UOM Table-->
-        <ui5-table *ngIf="selectedTable == 'LinkedUOM'" overflowMode="Scroll">
+        <ui5-table *ngIf="selectedTab == 'Linked UOM'" overflowMode="Scroll">
             <ui5-table-header-row
                 slot="headerRow"
                 style="background-color: #0064d9"
@@ -289,19 +334,33 @@
                         [(ngModel)]="row[key.name]"
                         type="Text"
                         *ngIf="key.type == 'string'"
+                        [disabled]="!key.editable"
                     ></ui5-input>
                     <ui5-input
                         [(ngModel)]="row[key.name]"
                         type="Number"
                         *ngIf="key.type == 'number'"
+                        [disabled]="!key.editable"
                     ></ui5-input>
                     <ui5-select
                         *ngIf="key.type == 'boolean'"
                         [(ngModel)]="row[key.name]"
+                        [disabled]="!key.editable"
                         (ngModelChange)="onBooleanChange($event, row, key)"
                     >
                         <ui5-option value="true">YES</ui5-option>
                         <ui5-option value="false">NO</ui5-option>
+                    </ui5-select>
+                    <ui5-select
+                        *ngIf="key.type == 'dropdown'"
+                        [(ngModel)]="row[key.name]"
+                        [disabled]="!key.editable"
+                    >
+                        <ui5-option
+                            *ngFor="let item of linkedUOMNames"
+                            [value]="item"
+                            >{{ item }}</ui5-option
+                        >
                     </ui5-select>
                 </ui5-table-cell>
                 <ui5-table-cell
@@ -315,13 +374,16 @@
             </ui5-table-row>
         </ui5-table>
         <!--Linked Pu and HU Table-->
-        <ui5-table *ngIf="selectedTable == 'PUandHU'" overflowMode="Scroll">
+        <ui5-table
+            *ngIf="selectedTab == 'Linked PU and HU'"
+            overflowMode="Scroll"
+        >
             <ui5-table-header-row
                 slot="headerRow"
                 style="background-color: #0064d9"
             >
                 <ui5-table-header-cell
-                    *ngFor="let item of PUandHU.headers"
+                    *ngFor="let item of LinkedPUAndHU.headers"
                     style="color: white"
                     minWidth="101px"
                 >
@@ -329,20 +391,36 @@
                 </ui5-table-header-cell>
                 <ui5-table-header-cell></ui5-table-header-cell>
             </ui5-table-header-row>
-            <ui5-table-row *ngFor="let row of PUandHU.rows; let i = index">
-                <ui5-table-cell *ngFor="let key of PUandHU.keys">
+            <ui5-table-row
+                *ngFor="let row of LinkedPUAndHU.rows; let i = index"
+            >
+                <ui5-table-cell *ngFor="let key of LinkedPUAndHU.keys">
                     <ui5-input
                         [(ngModel)]="row[key.name]"
                         type="Text"
                         *ngIf="key.type == 'string'"
+                        [disabled]="!key.editable"
                     ></ui5-input>
+                    <ui5-select
+                        *ngIf="key.type == 'dropdown'"
+                        [(ngModel)]="row[key.name]"
+                        [disabled]="!key.editable"
+                    >
+                        <ui5-option
+                            *ngFor="let item of linkedHuAndPuNames"
+                            [value]="item"
+                            >{{ item }}</ui5-option
+                        >
+                    </ui5-select>
                     <ui5-input
                         [(ngModel)]="row[key.name]"
                         type="Number"
                         *ngIf="key.type == 'number'"
+                        [disabled]="!key.editable"
                     ></ui5-input>
                     <ui5-select
                         *ngIf="key.type == 'boolean'"
+                        [disabled]="!key.editable"
                         [(ngModel)]="row[key.name]"
                         (ngModelChange)="onBooleanChange($event, row, key)"
                     >
@@ -361,11 +439,21 @@
             </ui5-table-row>
         </ui5-table>
         <div id="buttons-sec">
-            <ui5-button>Cancel</ui5-button>
-            <ui5-button design="Positive" (ui5Click)="onSave()"
-                >Save</ui5-button
+            <ui5-button
+                icon="add"
+                *ngIf="selectedTab != 'UOM Weight and Volume'"
+                id="add-row-btn"
+                (ui5Click)="addNewRow()"
+                >Add new row</ui5-button
             >
-            <ui5-button design="Emphasized">Approve</ui5-button>
+            <p *ngIf="selectedTab == 'UOM Weight and Volume'"></p>
+            <div id="other-btns">
+                <ui5-button>Cancel</ui5-button>
+                <ui5-button design="Positive" (ui5Click)="onSave()"
+                    >Save</ui5-button
+                >
+                <ui5-button design="Emphasized">Approve</ui5-button>
+            </div>
         </div>
     </div>
 </div>

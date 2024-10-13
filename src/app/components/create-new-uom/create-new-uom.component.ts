@@ -1,8 +1,9 @@
 import { BootstrapOptions, Component } from "@angular/core";
 import { DatePipe } from "@angular/common";
-import { MetricImperialRow } from "../../models/metricImperialRow";
+import { UOMImperialRow } from "../../models/UOMImperialRow";
+import { UOMMetricRow } from "../../models/UOMMetricRow";
 import { LinkedUOMRow } from "../../models/linkedUOMRow";
-import { HUandPURow } from "../../models/huAndPuRow";
+import { LinkedHuAndPuRow } from "../../models/linkedHuAndPuRow";
 
 interface RowType {
     [key: string]: any; // Allow dynamic access to row properties
@@ -37,23 +38,14 @@ export class CreateNewUomComponent {
     status: string = "ACTIVE";
 
     //tabs
-    tabs = [
-        "UOM Weight and Volume Metric Imperial",
-        "Linked UOM",
-        "Linked PU and HU",
-    ];
-    selectedTab: any = "UOM Weight and Volume Metric Imperial";
-
-    //tables lookUp
-    tablesMap = {
-        "UOM Weight and Volume Metric Imperial": "MetricImperial",
-        "Linked UOM": "LinkedUOM",
-        "Linked PU and HU": "PUandHU",
-    };
-    selectedTable: any = "MetricImperial";
+    tabs = ["UOM Weight and Volume", "Linked UOM", "Linked PU and HU"];
+    selectedTab: any = "UOM Weight and Volume";
+    nestedTabs = ["Metric", "Imperial"];
+    selectedNestedTab: any = "Metric";
+    selectedTable: any;
 
     //tables
-    MetricImperial = {
+    UOMImperial = {
         headers: [
             "Length <br/> (IN.)",
             "Width <br/> (IN.)",
@@ -68,8 +60,26 @@ export class CreateNewUomComponent {
             { name: "volumeFt3", type: "number" },
             { name: "weightLb", type: "number" },
         ],
-        rows: [new MetricImperialRow(15.0, 8.3, 2.36, 2.04, 1.82)] as RowType[],
+        rows: [new UOMImperialRow(15.0, 8.3, 2.36, 2.04, 1.82)] as RowType[],
     };
+    UOMMetric = {
+        headers: [
+            "Length <br/> (CM.)",
+            "Width <br/> (CM.)",
+            "Height <br/> (CM.)",
+            "Volume <br/> (M<sup>3</sup>)",
+            "Weight <br/> (KG)",
+        ],
+        keys: [
+            { name: "lengthCm", type: "number" },
+            { name: "widthCm", type: "number" },
+            { name: "heightCm", type: "number" },
+            { name: "volumeM3", type: "number" },
+            { name: "weightKg", type: "number" },
+        ],
+        rows: [new UOMMetricRow(38.1, 21.08, 5.99, 0.0578, 0.826)] as RowType[],
+    };
+
     LinkedUOM = {
         headers: [
             "Linked UOM Name",
@@ -83,15 +93,15 @@ export class CreateNewUomComponent {
             "Conversion QTY",
         ],
         keys: [
-            { name: "linkedUOMName", type: "string" },
-            { name: "lengthCm", type: "number" },
-            { name: "widthCm", type: "number" },
-            { name: "heightCm", type: "number" },
-            { name: "volumeM3", type: "number" },
-            { name: "weightKg", type: "number" },
-            { name: "conversionFrom", type: "string" },
-            { name: "conversionTo", type: "string" },
-            { name: "conversionQTY", type: "number" },
+            { name: "linkedUOMName", type: "dropdown", editable: true },
+            { name: "lengthCm", type: "number", editable: false },
+            { name: "widthCm", type: "number", editable: false },
+            { name: "heightCm", type: "number", editable: false },
+            { name: "volumeM3", type: "number", editable: false },
+            { name: "weightKg", type: "number", editable: false },
+            { name: "conversionFrom", type: "string", editable: false },
+            { name: "conversionTo", type: "string", editable: false },
+            { name: "conversionQTY", type: "number", editable: true },
         ],
         rows: [
             new LinkedUOMRow(
@@ -118,7 +128,7 @@ export class CreateNewUomComponent {
             ),
         ] as RowType[],
     };
-    PUandHU = {
+    LinkedPUAndHU = {
         headers: [
             "PU/HU Name",
             "Class",
@@ -133,21 +143,21 @@ export class CreateNewUomComponent {
             "Max QTY",
         ],
         keys: [
-            { name: "puOrHuName", type: "string" },
-            { name: "className", type: "string" },
-            { name: "flexHU", type: "boolean" },
-            { name: "lengthCm", type: "number" },
-            { name: "widthCm", type: "number" },
-            { name: "heightCm", type: "number" },
-            { name: "volumeM3", type: "number" },
-            { name: "maxWeightKG", type: "number" },
-            { name: "conversionFrom", type: "string" },
-            { name: "minQTY", type: "number" },
-            { name: "maxQTY", type: "number" },
+            { name: "puOrHuName", type: "dropdown", editable: true },
+            { name: "className", type: "string", editable: false },
+            { name: "flexHU", type: "boolean", editable: false },
+            { name: "lengthCm", type: "number", editable: false },
+            { name: "widthCm", type: "number", editable: false },
+            { name: "heightCm", type: "number", editable: false },
+            { name: "volumeM3", type: "number", editable: false },
+            { name: "maxWeightKG", type: "number", editable: false },
+            { name: "conversionFrom", type: "string", editable: false },
+            { name: "minQTY", type: "number", editable: true },
+            { name: "maxQTY", type: "number", editable: true },
         ],
 
         rows: [
-            new HUandPURow(
+            new LinkedHuAndPuRow(
                 "U4020 CASE (10 x 4LB)",
                 "PU",
                 false,
@@ -160,7 +170,7 @@ export class CreateNewUomComponent {
                 1.0,
                 10.0
             ),
-            new HUandPURow(
+            new LinkedHuAndPuRow(
                 "U7502 PALLET (10 x 4LB)",
                 "HU",
                 true,
@@ -176,23 +186,46 @@ export class CreateNewUomComponent {
         ] as RowType[],
     };
 
+    //DROPDOWNS
+
+    linkedUOMNames = ["U4020 CASE (10 x 4LB)", "U7020 PALLET (500 x 4LB)"];
+    linkedHuAndPuNames = ["U4020 CASE (10 x 4LB)", "U7502 PALLET (10 x 4LB)"];
+
     constructor(private datePipe: DatePipe) {
         this.currentDate = this.datePipe.transform(new Date(), "y/M/d");
     }
 
     selectTab(event: any) {
         this.selectedTab = this.tabs[event.tabIndex / 2];
-        this.selectedTable =
-            this.tablesMap[this.selectedTab as keyof typeof this.tablesMap];
+
+        if (
+            this.selectedTab == "UOM Weight and Volume" &&
+            this.selectedNestedTab == "Metric"
+        ) {
+        } else if (
+            this.selectedTab == "UOM Weight and Volume" &&
+            this.selectedNestedTab == "Imperial"
+        ) {
+            this.selectedTable == "UOMImperial";
+        } else if (this.selectedTab == "Linked UOM")
+            this.selectedTable = "LinkedUOM";
+        else if (this.selectedTab == "Linked PU and HU")
+            this.selectedTable = "LinkedPUAndHU";
+    }
+
+    selectNestedTab(event: any) {
+        this.selectedNestedTab = this.nestedTabs[event.tabIndex / 2];
     }
 
     addNewRow() {
-        if (this.selectedTable == "MetricImperial")
-            this.MetricImperial.rows.push(new MetricImperialRow());
+        if (this.selectedTable == "UOMImperial")
+            this.UOMImperial.rows.push(new UOMImperialRow());
+        else if (this.selectedTable == "UOMMetric")
+            this.UOMMetric.rows.push(new UOMMetricRow());
         else if (this.selectedTable == "LinkedUOM")
             this.LinkedUOM.rows.push(new LinkedUOMRow());
-        else if (this.selectedTable == "PUandHU")
-            this.PUandHU.rows.push(new HUandPURow());
+        else if (this.selectedTable == "LinkedPUAndHU")
+            this.LinkedPUAndHU.rows.push(new LinkedHuAndPuRow());
     }
 
     deleteRow(index: number) {
@@ -203,8 +236,9 @@ export class CreateNewUomComponent {
     }
 
     onSave() {
-        console.log(this.MetricImperial);
-        console.log(this.PUandHU);
+        console.log(this.UOMImperial);
+        console.log(this.UOMMetric);
+        console.log(this.LinkedPUAndHU);
         console.log(this.LinkedUOM);
     }
 

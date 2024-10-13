@@ -24,9 +24,7 @@ ui5-table {
 
 #add-row-btn {
     flex-grow: 0;
-    margin-top: 15px;
-    margin-bottom: 20px;
-    align-self: end;
+    align-self: start;
 }
 
 #row-delete-btn-icon {
@@ -34,7 +32,16 @@ ui5-table {
 }
 
 #buttons-sec {
-    align-self: end;
     display: flex;
+    justify-content: space-between;
+}
+
+#other-btns {
+    display: flex;
+    align-self: end;
     gap: 20px;
+}
+
+ui5-form {
+    --sapFontSize: 12px;
 }
