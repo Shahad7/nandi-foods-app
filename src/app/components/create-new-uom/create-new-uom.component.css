@@ -45,3 +45,7 @@ ui5-table {
 ui5-form {
     --sapFontSize: 12px;
 }
+
+ui5-form-item {
+    --_ui5-v2-0-1_form_item_padding: 0.35rem;
+}
