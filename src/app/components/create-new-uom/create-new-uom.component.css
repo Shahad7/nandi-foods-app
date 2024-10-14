@@ -49,3 +49,7 @@ ui5-form {
 ui5-form-item {
     --_ui5-v2-0-1_form_item_padding: 0.35rem;
 }
+
+ui5-form .ui5-form-column {
+    padding-bottom: 0.5rem !important;
+}
