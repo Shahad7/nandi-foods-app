@@ -1,42 +1,49 @@
-### Docker local operations
 
-#### QA
+## Build
 
-```sh
-docker build -t teenthofabud/apps/wizard/nandi-foods-web-app:0.0.1-rc --build-arg NODE_ENV=staging -f Dockerfile .
-
-
-docker run -p 8080:8080 -d --name nandi-foods-web-app teenthofabud/apps/wizard/nandi-foods-web-app:0.0.1-rc
-```
-
-#### Development
+### Development
 
 ```sh
-docker build -t teenthofabud/apps/wizard/nandi-foods-web-app:0.0.1-snaphost --build-arg NODE_ENV=development -f Dockerfile .
+npm run build:development
 
-docker run -p 8080:8080 -d --name nandi-foods-web-app teenthofabud/apps/wizard/nandi-foods-web-app:0.0.1-snapshot
+docker build -t teenthofabud/nandi-foods-web-app:0.0.2-snapshot --build-arg NODE_ENV=development -f Dockerfile .
+
+docker run -p 80:80 -d --name nandi-foods-web-app teenthofabud/nandi-foods-web-app:0.0.2-snapshot
+
 ```
 
+### Staging
+
+```sh
+npm run build:staging
+
+docker build -t teenthofabud/nandi-foods-web-app:0.0.2-rc --build-arg NODE_ENV=production -f Dockerfile .
+
+docker run -p 80:80 -d --name nandi-foods-web-app teenthofabud/nandi-foods-web-app:0.0.2-rc
+
+docker image push teenthofabud/nandi-foods-web-app:0.0.2-rc
+
+docker pull docker.io/teenthofabud/nandi-foods-web-app:0.0.2-rc
+```
+
+## Run
+
+### Locally
 
 ```sh
 docker exec -it nandi-foods-web-app sh
 ```
 
-DELETE ALL IMAGES
+## Cleanup
+
+### Delete all images
 
 ```sh
 docker rmi -f $(docker images -aq)
 ```
 
-DELETE ALL CONTAINERS
+### Delete all containers
 
 ```sh
 docker rm -vf $(docker ps -aq)
-```
-
-
-### NPM build
-
-```sh
-npm run build:staging
 ```
