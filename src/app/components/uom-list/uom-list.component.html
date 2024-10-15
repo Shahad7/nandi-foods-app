@@ -1,1 +1,28 @@
-<p>uom-list works!</p>
+<ui5-table overflowMode="Scroll">
+    <ui5-table-header-row slot="headerRow">
+        <ng-container *ngFor="let item of headers">
+            <ui5-table-header-cell
+                *ngIf="
+                    item == 'UOM Long Name' || item == 'UOM Short Name';
+                    else elseBlock
+                "
+                minWidth="165px"
+            >
+                <span>{{ item }}</span>
+            </ui5-table-header-cell>
+            <ng-template #elseBlock>
+                <ui5-table-header-cell minWidth="88px">
+                    <span>{{ item }}</span>
+                </ui5-table-header-cell>
+            </ng-template>
+        </ng-container>
+    </ui5-table-header-row>
+
+    <ui5-table-row *ngFor="let row of rows">
+        <ui5-table-cell *ngFor="let key of keys">
+            <ui5-label>
+                <b>{{ row[key] }}</b>
+            </ui5-label>
+        </ui5-table-cell>
+    </ui5-table-row>
+</ui5-table>

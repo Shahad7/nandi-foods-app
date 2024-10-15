@@ -1,20 +1,16 @@
 <div id="page">
     <div id="header">
-        <img src="assets/logo-horizontal.png" alt="" />
+        <div id="logo-title-group">
+            <img id="logo" src="assets/logo-horizontal.png" alt="" />
+            <ui5-title id="header-title" level="H5"
+                >Nandi Food Company</ui5-title
+            >
+        </div>
 
-        <ui5-label
-            id="header-title"
-            style="
-                color: #556b82;
-                font-weight: 100 !important;
-                font-size: xx-large;
-            "
-            >Nandi Food Company</ui5-label
-        >
-        <ui5-label>
-            <p #time></p>
-        </ui5-label>
         <div id="profile-sec">
+            <ui5-label style="display: flex; align-items: center">
+                <span #time></span>
+            </ui5-label>
             <img src="assets/bell.svg" id="notification-icon" alt="" />
             <div>
                 <ui5-avatar
@@ -22,7 +18,7 @@
                     (click)="menuBasic.open = true"
                     style="cursor: pointer"
                 >
-                    <img src="assets/avatar.png" />
+                    <img id="avatar-icon" src="assets/avatar.png" />
                 </ui5-avatar>
                 <ui5-menu opener="profile-btn" #menuBasic="ui5Menu">
                     <ui5-menu-item
@@ -33,9 +29,7 @@
                     <ui5-menu-item text="Other"></ui5-menu-item>
                 </ui5-menu>
             </div>
-            <ui5-label style="font-size: larger; font-weight: bold">{{
-                profileName
-            }}</ui5-label>
+            <ui5-label style="font-weight: bold">{{ profileName }}</ui5-label>
         </div>
     </div>
 
