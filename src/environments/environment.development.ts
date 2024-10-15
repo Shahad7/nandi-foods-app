@@ -1,6 +1,6 @@
 export const environment = {
     prodcution: false,
-    keycloakServerUrl: "http://localhost:8090",
-    realm: "nandi",
-    clientId: "nandi-test",
+    keycloakServerUrl: "http://142.93.147.177:8080",
+    realm: "master",
+    clientId: "nandi-foods-web-app-development",
 };
