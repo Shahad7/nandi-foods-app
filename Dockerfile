@@ -1,4 +1,4 @@
-FROM docker.io/nginx:alpine-slim
+FROM --platform=linux/amd64 docker.io/nginx:alpine-slim
 
 ARG NODE_ENV="development"
 
@@ -12,4 +12,4 @@ RUN rm -rf ./*
 
 COPY dist/nandi-foods-web-app/browser/ .
 
-EXPOSE 8080
+EXPOSE 80
