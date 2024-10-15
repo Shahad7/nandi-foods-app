@@ -19,6 +19,10 @@
     width: 100vw;
 }
 
+#selected-option {
+    align-self: end;
+}
+
 #main {
     padding: 14px 70px;
     margin-left: 238px;

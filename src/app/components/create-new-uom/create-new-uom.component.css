@@ -19,7 +19,6 @@ ui5-table {
 #table-sec {
     display: flex;
     flex-direction: column;
-    width: 98%;
 }
 
 #add-row-btn {
