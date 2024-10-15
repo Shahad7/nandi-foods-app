@@ -20,8 +20,8 @@
 }
 
 #main {
-    padding: 20px 28px;
-    margin-left: 280px;
+    padding: 14px 70px;
+    margin-left: 238px;
     flex-grow: 1;
     width: calc(100% - 396px);
 }
