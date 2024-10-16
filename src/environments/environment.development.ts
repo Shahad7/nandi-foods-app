@@ -1,7 +1,7 @@
 export const environment = {
-    enableAuthGuard: false,
-    prodcution: false,
+    enableAuthGuard: true,
+    production: false,
     keycloakServerUrl: "http://142.93.147.177:8080",
-    realm: "master",
-    clientId: "nandi-foods-web-app-development",
+    realm: "development",
+    clientId: "nandi-foods-web-app",
 };

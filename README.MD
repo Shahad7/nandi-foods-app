@@ -6,9 +6,9 @@
 ```sh
 npm run build:development
 
-docker build -t teenthofabud/nandi-foods-web-app:0.0.2-snapshot --build-arg NODE_ENV=development -f Dockerfile .
+docker build -t teenthofabud/nandi-foods-web-app:0.0.3-snapshot --build-arg NODE_ENV=development -f Dockerfile .
 
-docker run -p 80:80 -d --name nandi-foods-web-app teenthofabud/nandi-foods-web-app:0.0.2-snapshot
+docker run -p 80:80 -d --name nandi-foods-web-app teenthofabud/nandi-foods-web-app:0.0.3-snapshot
 
 ```
 
@@ -17,13 +17,13 @@ docker run -p 80:80 -d --name nandi-foods-web-app teenthofabud/nandi-foods-web-a
 ```sh
 npm run build:staging
 
-docker build -t teenthofabud/nandi-foods-web-app:0.0.2-rc --build-arg NODE_ENV=production -f Dockerfile .
+docker build -t teenthofabud/nandi-foods-web-app:0.0.3-rc --build-arg NODE_ENV=production -f Dockerfile .
 
-docker run -p 80:80 -d --name nandi-foods-web-app teenthofabud/nandi-foods-web-app:0.0.2-rc
+docker run -p 80:80 -d --name nandi-foods-web-app teenthofabud/nandi-foods-web-app:0.0.3-rc
 
-docker image push teenthofabud/nandi-foods-web-app:0.0.2-rc
+docker image push teenthofabud/nandi-foods-web-app:0.0.3-rc
 
-docker pull docker.io/teenthofabud/nandi-foods-web-app:0.0.2-rc
+docker pull docker.io/teenthofabud/nandi-foods-web-app:0.0.3-rc
 ```
 
 ## Run

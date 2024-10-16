@@ -3,4 +3,5 @@ node_modules
 .angular/*
 dist/*
 dist
+DigitalOcean.MD
 
