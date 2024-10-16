@@ -1,9 +1,11 @@
-import { BootstrapOptions, Component } from "@angular/core";
+import { MainCommunicationService } from "./../../services/main-communication.service";
+import { BootstrapOptions, Component, Output } from "@angular/core";
 import { DatePipe } from "@angular/common";
 import { UOMImperialRow } from "../../models/UOMImperialRow";
 import { UOMMetricRow } from "../../models/UOMMetricRow";
 import { LinkedUOMRow } from "../../models/linkedUOMRow";
 import { LinkedHuAndPuRow } from "../../models/linkedHuAndPuRow";
+import { EventEmitter } from "stream";
 
 interface RowType {
     [key: string]: any; // Allow dynamic access to row properties
@@ -18,6 +20,7 @@ export class CreateNewUomComponent {
     currentDate: any;
 
     //editable-form-fields
+    //this field alters form fields
     classInp: any = "UOM";
     UOMType: any = "EACH";
     UOMDescription: string = "1 x 4LB";
@@ -29,6 +32,7 @@ export class CreateNewUomComponent {
     UOMShortName: string = "EACH (U1020)";
     isProductionUOM: boolean = true;
     isSalesUOM: boolean = true;
+    flexHU: boolean = true;
 
     //read-only
     lastUpdatedBy: string = "John Doe";
@@ -191,7 +195,10 @@ export class CreateNewUomComponent {
     linkedUOMNames = ["U4020 CASE (10 x 4LB)", "U7020 PALLET (500 x 4LB)"];
     linkedHuAndPuNames = ["U4020 CASE (10 x 4LB)", "U7502 PALLET (10 x 4LB)"];
 
-    constructor(private datePipe: DatePipe) {
+    constructor(
+        private datePipe: DatePipe,
+        private mainCommunicationService: MainCommunicationService
+    ) {
         this.currentDate = this.datePipe.transform(new Date(), "y/M/d");
     }
 
@@ -245,5 +252,18 @@ export class CreateNewUomComponent {
     onBooleanChange(value: string, row: any, key: any): void {
         // Convert the string 'true'/'false' back to boolean
         row[key] = value === "true";
+    }
+
+    //in case user changes the class, when currently last tab is opened which is to be excluded
+    //for certain classes selected
+    //also emit an event to change the title if needed
+    onClassChange() {
+        if (this.selectedTab == this.tabs[2]) {
+            this.selectedTab = this.tabs[0];
+        }
+        if (this.classInp == "HU")
+            this.mainCommunicationService.alertTitleChange("Create New HU");
+        else if (this.classInp == "PU")
+            this.mainCommunicationService.alertTitleChange("Create New PU");
     }
 }

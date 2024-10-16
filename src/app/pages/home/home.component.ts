@@ -1,3 +1,4 @@
+import { MainCommunicationService } from "./../../services/main-communication.service";
 import {
     Component,
     NgZone,
@@ -25,6 +26,7 @@ export class HomeComponent {
     profileName: string = "John Doe";
 
     selectedOption!: string;
+    selectedOptionToDisplay!: string;
     selectedSubtitle = "";
     selectedMainTitle = "";
     currentDateAndTime: any;
@@ -339,7 +341,8 @@ export class HomeComponent {
         private httpClient: HttpClient,
         private datePipe: DatePipe,
         private zone: NgZone,
-        private renderer: Renderer2
+        private renderer: Renderer2,
+        private mainCommunicationService: MainCommunicationService
     ) {
         this.currentDateAndTime = this.datePipe.transform(
             new Date(),
@@ -357,6 +360,7 @@ export class HomeComponent {
 
         this.route.firstChild?.data.subscribe((data) => {
             this.selectedOption = data["title"];
+            this.selectedOptionToDisplay = this.selectedOption;
             for (let item of this.sidebarItems) {
                 let found = false;
                 for (let subitem of item.subMenus) {
@@ -379,6 +383,12 @@ export class HomeComponent {
                 }
             }
         });
+
+        //subscribing for updates of title changes for eg:- when user selects HU option from
+        //class dropdown in create-new-uom form
+        this.mainCommunicationService.titleChange$.subscribe((title) => {
+            this.selectedOptionToDisplay = title;
+        });
     }
 
     toggleSidebar() {
@@ -399,6 +409,7 @@ export class HomeComponent {
 
     goToNested(url: string, name: string) {
         this.selectedOption = name;
+        this.selectedOptionToDisplay = name;
         this.router.navigate([url]);
     }
 }
