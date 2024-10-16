@@ -24,7 +24,7 @@
 }
 
 #main {
-    padding: 14px 70px;
+    padding: 14px 45px 14px 45px;
     margin-left: 238px;
     flex-grow: 1;
     width: calc(100% - 396px);
@@ -45,7 +45,7 @@
 }
 #header {
     z-index: 100;
-    padding: 6px 30px;
+    padding: 6px 30px 6px 25px;
     box-sizing: border-box;
     position: fixed;
     width: 100%;
@@ -58,7 +58,7 @@
 }
 #logo-title-group {
     display: flex;
-    gap: 40px;
+    gap: 30px;
     align-items: center;
 }
 #avatar-icon {
