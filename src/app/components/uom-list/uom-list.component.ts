@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { PageEvent } from "@angular/material/paginator";
 
 interface rowType {
     [key: string]: any;
@@ -570,4 +571,25 @@ export class UomListComponent {
             bulkCode: 10,
         },
     ] as rowType[];
+
+    // paginator details
+    length = 200;
+    pageSize = 10;
+    pageIndex = 0;
+    pageSizeOptions = [10, 20, 30, 40, 50];
+    hidePageSize = false;
+    showPageSizeOptions = true;
+    showFirstLastButtons = true;
+    disabled = false;
+
+    pageEvent!: PageEvent;
+
+    constructor() {}
+
+    handlePageEvent(e: PageEvent) {
+        this.pageEvent = e;
+        this.length = e.length;
+        this.pageSize = e.pageSize;
+        this.pageIndex = e.pageIndex;
+    }
 }

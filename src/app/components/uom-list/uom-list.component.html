@@ -1,4 +1,4 @@
-<ui5-table overflowMode="Scroll">
+<ui5-table overflowMode="Scroll" loading="true">
     <ui5-table-header-row slot="headerRow">
         <ng-container *ngFor="let item of headers">
             <ui5-table-header-cell
@@ -26,3 +26,16 @@
         </ui5-table-cell>
     </ui5-table-row>
 </ui5-table>
+<mat-paginator
+    #paginator
+    (page)="handlePageEvent($event)"
+    [length]="length"
+    [pageSize]="pageSize"
+    [disabled]="disabled"
+    [showFirstLastButtons]="showFirstLastButtons"
+    [pageSizeOptions]="showPageSizeOptions ? pageSizeOptions : []"
+    [hidePageSize]="hidePageSize"
+    [pageIndex]="pageIndex"
+    aria-label="Select page"
+>
+</mat-paginator>

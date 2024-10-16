@@ -3,6 +3,8 @@ import { BrowserModule } from "@angular/platform-browser";
 import { MatInputModule } from "@angular/material/input";
 import { Ui5WebcomponentsModule } from "@ui5/webcomponents-ngx";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { MatPaginatorModule } from "@angular/material/paginator";
+
 import {
     KeycloakAngularModule,
     KeycloakEventType,
@@ -72,6 +74,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
         NgApexchartsModule,
         CommonModule,
         FormsModule,
+        MatPaginatorModule,
     ],
     providers: [
         {
