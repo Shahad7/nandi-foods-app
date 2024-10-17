@@ -10,3 +10,7 @@ ui5-table-header-cell {
 ui5-table-header-row {
     background-color: #0064d9 !important;
 }
+
+#searchbar {
+    margin-bottom: 20px;
+}
