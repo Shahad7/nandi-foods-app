@@ -356,11 +356,13 @@ export class HomeComponent implements OnDestroy {
             "MMM d, y, h:mm:ss a"
         );
 
+        //fetching logged in user's info
         this.keycloak.loadUserProfile().then((data: any) => {
             this.profileName = this.keycloak.isLoggedIn()
                 ? data["firstName"] + " " + data["lastName"]
                 : "";
         });
+        //running outside angular as it's not gonna affect any other logic
         this.zone.runOutsideAngular(() => {
             setInterval(() => {
                 this.renderer.setProperty(
