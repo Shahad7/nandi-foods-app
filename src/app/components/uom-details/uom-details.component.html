@@ -1,1 +1,513 @@
-<p>uom-details works!</p>
+<div class="container">
+    <ui5-form layout=" S1 M2 L2 XL2" item-spacing="Large">
+        <!-- Class -->
+
+        <ui5-form-group>
+            <ui5-form-item>
+                <ui5-label for="classInp" slot="labelContent" required="true"
+                    >Class:</ui5-label
+                >
+                <ui5-select
+                    id="classInp"
+                    [disabled]="true"
+                    [(ngModel)]="classInp"
+                    (ngModelChange)="onClassChange()"
+                >
+                    <ui5-option value="UOM" selected>UOM</ui5-option>
+                    <ui5-option value="HU">HU</ui5-option>
+                    <ui5-option value="PU">PU</ui5-option>
+                </ui5-select>
+            </ui5-form-item>
+            <!-- UOM Type -->
+            <ui5-form-item>
+                <ui5-label for="UOMTypeInp" slot="labelContent" required="true"
+                    >UOM Type:</ui5-label
+                >
+                <ui5-select
+                    id="UOMTypeInp"
+                    [(ngModel)]="UOMType"
+                    [disabled]="!enableEditing"
+                >
+                    <ui5-option value="EACH" selected>EACH</ui5-option>
+                    <ui5-option value="other1">Other 1</ui5-option>
+                    <ui5-option value="other2">Other 2</ui5-option>
+                </ui5-select>
+            </ui5-form-item>
+            <!-- UOM Description -->
+            <ui5-form-item>
+                <ui5-label
+                    for="UOMDescriptionInp"
+                    slot="labelContent"
+                    required="true"
+                    >UOM Description:</ui5-label
+                >
+                <ui5-input
+                    id="UOMDescriptionInp"
+                    [(ngModel)]="UOMDescription"
+                    [disabled]="!enableEditing"
+                ></ui5-input>
+            </ui5-form-item>
+            <!-- UOM Long Name -->
+            <ui5-form-item>
+                <ui5-label
+                    for="UOMLongNameInp"
+                    slot="labelContent"
+                    required="true"
+                    >UOM Long Name:</ui5-label
+                >
+                <ui5-input
+                    id="UOMLongNameInp"
+                    [(ngModel)]="UOMLongName"
+                    [disabled]="!enableEditing"
+                ></ui5-input>
+            </ui5-form-item>
+            <!-- Inventory UOM (Yes/No) -->
+            <ui5-form-item *ngIf="classInp == 'UOM'">
+                <ui5-label
+                    for="isInventoryUOMInp"
+                    slot="labelContent"
+                    required="true"
+                    >Inventory UOM:</ui5-label
+                >
+                <ui5-select
+                    id="isInventoryUOMInp"
+                    [(ngModel)]="isInventoryUOM"
+                    [disabled]="!enableEditing"
+                >
+                    <ui5-option value="true" selected>Yes</ui5-option>
+                    <ui5-option value="false">No</ui5-option>
+                </ui5-select>
+            </ui5-form-item>
+            <!-- Purchase UOM (Yes/No) -->
+            <ui5-form-item *ngIf="classInp == 'UOM'">
+                <ui5-label
+                    for="isPurchaseUOMInp"
+                    slot="labelContent"
+                    required="true"
+                    >Purchase UOM:</ui5-label
+                >
+                <ui5-select
+                    id="isPurchaseUOMInp"
+                    [(ngModel)]="isPurchaseUOM"
+                    [disabled]="!enableEditing"
+                >
+                    <ui5-option value="true">Yes</ui5-option>
+                    <ui5-option value="false" selected>No</ui5-option>
+                </ui5-select>
+            </ui5-form-item>
+        </ui5-form-group>
+        <ui5-form-group>
+            <!-- UOM Level -->
+            <ui5-form-item>
+                <ui5-label for="UOMLevelInp" slot="labelContent" required="true"
+                    >UOM Level:</ui5-label
+                >
+                <ui5-select
+                    id="UOMLevelInp"
+                    [(ngModel)]="UOMLevel"
+                    [disabled]="!enableEditing"
+                >
+                    <ui5-option value="Level 1" selected>Level 1</ui5-option>
+                    <ui5-option value="Level 2">Level 2</ui5-option>
+                </ui5-select>
+            </ui5-form-item>
+            <!-- UOM ID (Editable) -->
+            <ui5-form-item>
+                <ui5-label for="UOMIDInp" slot="labelContent" required="true"
+                    >UOM ID:</ui5-label
+                >
+                <ui5-input
+                    id="UOMIDInp"
+                    [(ngModel)]="UOMID"
+                    [disabled]="true"
+                ></ui5-input>
+            </ui5-form-item>
+            <!-- UOM Short Name (Editable) -->
+            <ui5-form-item>
+                <ui5-label
+                    for="UOMShortNameInp"
+                    slot="labelContent"
+                    required="true"
+                    >UOM Short Name:</ui5-label
+                >
+                <ui5-input
+                    id="UOMShortNameInp"
+                    [(ngModel)]="UOMShortName"
+                    [disabled]="!enableEditing"
+                ></ui5-input>
+            </ui5-form-item>
+            <!-- Production UOM (Yes/No) -->
+            <ui5-form-item *ngIf="classInp == 'UOM'">
+                <ui5-label
+                    for="isProductionUOMInp"
+                    slot="labelContent"
+                    required="true"
+                    >Production UOM:</ui5-label
+                >
+                <ui5-select
+                    id="isProductionUOMInp"
+                    [(ngModel)]="isProductionUOM"
+                    [disabled]="!enableEditing"
+                >
+                    <ui5-option value="true" selected>Yes</ui5-option>
+                    <ui5-option value="false">No</ui5-option>
+                </ui5-select>
+            </ui5-form-item>
+            <!-- Sales UOM (Yes/No) -->
+            <ui5-form-item *ngIf="classInp == 'UOM'">
+                <ui5-label
+                    for="isSalesUOMInp"
+                    slot="labelContent"
+                    required="true"
+                    >Sales UOM:</ui5-label
+                >
+                <ui5-select
+                    id="isSalesUOMInp"
+                    [(ngModel)]="isSalesUOM"
+                    [disabled]="!enableEditing"
+                >
+                    <ui5-option value="true" selected>Yes</ui5-option>
+                    <ui5-option value="false">No</ui5-option>
+                </ui5-select>
+            </ui5-form-item>
+            <ui5-form-item *ngIf="classInp == 'HU'">
+                <ui5-label for="flexHU" slot="labelContent" required="true"
+                    >Flex HU:</ui5-label
+                >
+                <ui5-select
+                    id="flexHU"
+                    [(ngModel)]="flexHU"
+                    [disabled]="!enableEditing"
+                >
+                    <ui5-option value="true" selected>Yes</ui5-option>
+                    <ui5-option value="false">No</ui5-option>
+                </ui5-select>
+            </ui5-form-item>
+        </ui5-form-group>
+
+        <ui5-form-group>
+            <!-- Read-only fields -->
+            <!-- Date Created (Read-only) -->
+            <ui5-form-item>
+                <ui5-label for="DateCreatedInp" slot="labelContent"
+                    >Date Created:</ui5-label
+                >
+                <ui5-input
+                    id="DateCreatedInp"
+                    readonly
+                    value="{{ dateCreated }}"
+                ></ui5-input>
+            </ui5-form-item>
+            <!-- Last Updated (Read-only) -->
+            <ui5-form-item>
+                <ui5-label for="LastUpdatedInp" slot="labelContent"
+                    >Last Updated:</ui5-label
+                >
+                <ui5-input
+                    id="LastUpdatedInp"
+                    readonly
+                    value="{{ lastUpdated }}"
+                ></ui5-input>
+            </ui5-form-item>
+            <!-- Status (Read-only) -->
+            <ui5-form-item>
+                <ui5-label for="StatusInp" slot="labelContent"
+                    >Status:</ui5-label
+                >
+                <ui5-input
+                    id="StatusInp"
+                    readonly
+                    value="{{ status }}"
+                ></ui5-input>
+            </ui5-form-item>
+        </ui5-form-group>
+
+        <ui5-form-group>
+            <!-- Effective Date (Read-only) -->
+            <ui5-form-item>
+                <ui5-label for="EffectiveDateInp" slot="labelContent"
+                    >Effective Date:</ui5-label
+                >
+                <ui5-input
+                    id="EffectiveDateInp"
+                    readonly
+                    value="{{ effectiveDate }}"
+                ></ui5-input>
+            </ui5-form-item>
+            <!-- Last Updated by (Read-only) -->
+            <ui5-form-item>
+                <ui5-label for="LastUpdatedByInp" slot="labelContent"
+                    >Last Updated By:</ui5-label
+                >
+                <ui5-input
+                    id="LastUpdatedByInp"
+                    readonly
+                    value="{{ lastUpdatedBy }}"
+                ></ui5-input>
+            </ui5-form-item>
+        </ui5-form-group>
+    </ui5-form>
+
+    <div id="table-sec">
+        <ui5-tabcontainer
+            style="width: 100%"
+            (ui5TabSelect)="selectTab($event)"
+        >
+            <ng-container *ngFor="let item of tabs">
+                <ng-container
+                    *ngIf="!(item == 'Linked PU and HU' && classInp != 'UOM')"
+                >
+                    <ui5-tab text="{{ item }}"> </ui5-tab>
+                    <ui5-tab-separator
+                        *ngIf="
+                            tabs.indexOf(item) != tabs.length - 1 &&
+                            (classInp == 'UOM' || tabs.indexOf(item) == 0)
+                        "
+                    ></ui5-tab-separator>
+                </ng-container>
+            </ng-container>
+        </ui5-tabcontainer>
+
+        <!--UOM Imperial and Metric Table-->
+        <ng-container *ngIf="selectedTab == 'UOM Weight and Volume'">
+            <ui5-tabcontainer
+                style="width: 180px"
+                (ui5TabSelect)="selectNestedTab($event)"
+            >
+                <ng-container *ngFor="let item of nestedTabs">
+                    <ui5-tab text="{{ item }}"> </ui5-tab>
+                    <ui5-tab-separator
+                        *ngIf="
+                            nestedTabs.indexOf(item) != nestedTabs.length - 1
+                        "
+                    ></ui5-tab-separator>
+                </ng-container>
+            </ui5-tabcontainer>
+            <ui5-table
+                overflowMode="Scroll"
+                *ngIf="selectedNestedTab == 'Metric'"
+            >
+                <ui5-table-header-row
+                    slot="headerRow"
+                    style="background-color: #0064d9"
+                >
+                    <ui5-table-header-cell
+                        *ngFor="let item of UOMMetric.headers"
+                        style="color: white"
+                        minWidth="101px"
+                    >
+                        <span [innerHTML]="item"></span>
+                    </ui5-table-header-cell>
+                </ui5-table-header-row>
+                <ui5-table-row
+                    *ngFor="let row of UOMMetric.rows; let i = index"
+                >
+                    <ui5-table-cell *ngFor="let key of UOMMetric.keys">
+                        <ui5-input
+                            [(ngModel)]="row[key.name]"
+                            type="Text"
+                            *ngIf="key.type == 'string'"
+                        ></ui5-input>
+                        <ui5-input
+                            [(ngModel)]="row[key.name]"
+                            type="Number"
+                            *ngIf="key.type == 'number'"
+                        ></ui5-input>
+                        <ui5-select
+                            *ngIf="key.type == 'boolean'"
+                            [(ngModel)]="row[key.name]"
+                            (ngModelChange)="onBooleanChange($event, row, key)"
+                        >
+                            <ui5-option value="true">YES</ui5-option>
+                            <ui5-option value="false">NO</ui5-option>
+                        </ui5-select>
+                    </ui5-table-cell>
+                </ui5-table-row>
+            </ui5-table>
+            <ui5-table
+                overflowMode="Scroll"
+                *ngIf="selectedNestedTab == 'Imperial'"
+            >
+                <ui5-table-header-row
+                    slot="headerRow"
+                    style="background-color: #0064d9"
+                >
+                    <ui5-table-header-cell
+                        *ngFor="let item of UOMImperial.headers"
+                        style="color: white"
+                        minWidth="101px"
+                    >
+                        <span [innerHTML]="item"></span>
+                    </ui5-table-header-cell>
+                </ui5-table-header-row>
+                <ui5-table-row
+                    *ngFor="let row of UOMImperial.rows; let i = index"
+                >
+                    <ui5-table-cell *ngFor="let key of UOMImperial.keys">
+                        <ui5-input
+                            [(ngModel)]="row[key.name]"
+                            type="Text"
+                            *ngIf="key.type == 'string'"
+                        ></ui5-input>
+                        <ui5-input
+                            [(ngModel)]="row[key.name]"
+                            type="Number"
+                            *ngIf="key.type == 'number'"
+                        ></ui5-input>
+                        <ui5-select
+                            *ngIf="key.type == 'boolean'"
+                            [(ngModel)]="row[key.name]"
+                            (ngModelChange)="onBooleanChange($event, row, key)"
+                        >
+                            <ui5-option value="true">YES</ui5-option>
+                            <ui5-option value="false">NO</ui5-option>
+                        </ui5-select>
+                    </ui5-table-cell>
+                </ui5-table-row>
+            </ui5-table>
+        </ng-container>
+        <!--Linked UOM Table-->
+        <ui5-table *ngIf="selectedTab == 'Linked UOM'" overflowMode="Scroll">
+            <ui5-table-header-row
+                slot="headerRow"
+                style="background-color: #0064d9"
+            >
+                <ui5-table-header-cell
+                    *ngFor="let item of LinkedUOM.headers"
+                    style="color: white"
+                    minWidth="101px"
+                >
+                    <span [innerHTML]="item"></span>
+                </ui5-table-header-cell>
+                <ui5-table-header-cell></ui5-table-header-cell>
+            </ui5-table-header-row>
+            <ui5-table-row *ngFor="let row of LinkedUOM.rows; let i = index">
+                <ui5-table-cell *ngFor="let key of LinkedUOM.keys">
+                    <ui5-input
+                        [(ngModel)]="row[key.name]"
+                        type="Text"
+                        *ngIf="key.type == 'string'"
+                        [disabled]="!key.editable"
+                    ></ui5-input>
+                    <ui5-input
+                        [(ngModel)]="row[key.name]"
+                        type="Number"
+                        *ngIf="key.type == 'number'"
+                        [disabled]="!key.editable"
+                    ></ui5-input>
+                    <ui5-select
+                        *ngIf="key.type == 'boolean'"
+                        [(ngModel)]="row[key.name]"
+                        [disabled]="!key.editable"
+                        (ngModelChange)="onBooleanChange($event, row, key)"
+                    >
+                        <ui5-option value="true">YES</ui5-option>
+                        <ui5-option value="false">NO</ui5-option>
+                    </ui5-select>
+                    <ui5-select
+                        *ngIf="key.type == 'dropdown'"
+                        [(ngModel)]="row[key.name]"
+                        [disabled]="!key.editable"
+                    >
+                        <ui5-option
+                            *ngFor="let item of linkedUOMNames"
+                            [value]="item"
+                            >{{ item }}</ui5-option
+                        >
+                    </ui5-select>
+                </ui5-table-cell>
+                <ui5-table-cell
+                    ><ui5-button design="Negative" (ui5Click)="deleteRow(i)">
+                        <img
+                            src="assets/trash.svg"
+                            id="row-delete-btn-icon"
+                            alt=""
+                        /> </ui5-button
+                ></ui5-table-cell>
+            </ui5-table-row>
+        </ui5-table>
+        <!--Linked Pu and HU Table-->
+        <ui5-table
+            *ngIf="selectedTab == 'Linked PU and HU' && classInp == 'UOM'"
+            overflowMode="Scroll"
+        >
+            <ui5-table-header-row
+                slot="headerRow"
+                style="background-color: #0064d9"
+            >
+                <ui5-table-header-cell
+                    *ngFor="let item of LinkedPUAndHU.headers"
+                    style="color: white"
+                    minWidth="101px"
+                >
+                    <span [innerHTML]="item"></span>
+                </ui5-table-header-cell>
+                <ui5-table-header-cell></ui5-table-header-cell>
+            </ui5-table-header-row>
+            <ui5-table-row
+                *ngFor="let row of LinkedPUAndHU.rows; let i = index"
+            >
+                <ui5-table-cell *ngFor="let key of LinkedPUAndHU.keys">
+                    <ui5-input
+                        [(ngModel)]="row[key.name]"
+                        type="Text"
+                        *ngIf="key.type == 'string'"
+                        [disabled]="!key.editable"
+                    ></ui5-input>
+                    <ui5-select
+                        *ngIf="key.type == 'dropdown'"
+                        [(ngModel)]="row[key.name]"
+                        [disabled]="!key.editable"
+                    >
+                        <ui5-option
+                            *ngFor="let item of linkedHuAndPuNames"
+                            [value]="item"
+                            >{{ item }}</ui5-option
+                        >
+                    </ui5-select>
+                    <ui5-input
+                        [(ngModel)]="row[key.name]"
+                        type="Number"
+                        *ngIf="key.type == 'number'"
+                        [disabled]="!key.editable"
+                    ></ui5-input>
+                    <ui5-select
+                        *ngIf="key.type == 'boolean'"
+                        [disabled]="!key.editable"
+                        [(ngModel)]="row[key.name]"
+                        (ngModelChange)="onBooleanChange($event, row, key)"
+                    >
+                        <ui5-option value="true">YES</ui5-option>
+                        <ui5-option value="false">NO</ui5-option>
+                    </ui5-select>
+                </ui5-table-cell>
+                <ui5-table-cell
+                    ><ui5-button design="Negative" (ui5Click)="deleteRow(i)">
+                        <img
+                            src="assets/trash.svg"
+                            id="row-delete-btn-icon"
+                            alt=""
+                        /> </ui5-button
+                ></ui5-table-cell>
+            </ui5-table-row>
+        </ui5-table>
+        <div id="buttons-sec">
+            <ui5-button
+                icon="add"
+                *ngIf="selectedTab != 'UOM Weight and Volume'"
+                id="add-row-btn"
+                (ui5Click)="addNewRow()"
+                >Add new row</ui5-button
+            >
+            <p *ngIf="selectedTab == 'UOM Weight and Volume'"></p>
+            <div id="other-btns">
+                <ui5-button icon="edit" (click)="onEdit()">Edit</ui5-button>
+                <ui5-button design="Negative">Cancel</ui5-button>
+                <ui5-button design="Positive" (ui5Click)="onSave()"
+                    >Save</ui5-button
+                >
+                <ui5-button design="Emphasized">Approve</ui5-button>
+            </div>
+        </div>
+    </div>
+</div>

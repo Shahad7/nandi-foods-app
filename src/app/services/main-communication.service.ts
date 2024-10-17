@@ -10,7 +10,7 @@ export class MainCommunicationService {
 
     constructor() {}
 
-    //for alerting home component about nested component title change
+    //for alerting subheader component about nested component title change
     alertTitleChange(title: string) {
         this.titleChangeSource.next(title);
     }

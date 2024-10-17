@@ -34,13 +34,6 @@ export class CreateNewUomComponent {
     isSalesUOM: boolean = true;
     flexHU: boolean = true;
 
-    //read-only
-    lastUpdatedBy: string = "John Doe";
-    dateCreated: string = "2024-06-27";
-    effectiveDate: string = "2024-06-27";
-    lastUpdated: string = "2024-06-27";
-    status: string = "ACTIVE";
-
     //tabs
     tabs = ["UOM Weight and Volume", "Linked UOM", "Linked PU and HU"];
     selectedTab: any = "UOM Weight and Volume";
@@ -265,5 +258,6 @@ export class CreateNewUomComponent {
             this.mainCommunicationService.alertTitleChange("Create New HU");
         else if (this.classInp == "PU")
             this.mainCommunicationService.alertTitleChange("Create New PU");
+        else this.mainCommunicationService.alertTitleChange("Create New UOM");
     }
 }

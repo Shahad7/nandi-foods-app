@@ -361,6 +361,9 @@ export class HomeComponent {
         this.route.firstChild?.data.subscribe((data) => {
             this.selectedOption = data["title"];
             this.selectedOptionToDisplay = this.selectedOption;
+            this.mainCommunicationService.alertTitleChange(
+                this.selectedOptionToDisplay
+            );
             for (let item of this.sidebarItems) {
                 let found = false;
                 for (let subitem of item.subMenus) {
@@ -383,12 +386,6 @@ export class HomeComponent {
                 }
             }
         });
-
-        //subscribing for updates of title changes for eg:- when user selects HU option from
-        //class dropdown in create-new-uom form
-        this.mainCommunicationService.titleChange$.subscribe((title) => {
-            this.selectedOptionToDisplay = title;
-        });
     }
 
     toggleSidebar() {
@@ -402,14 +399,13 @@ export class HomeComponent {
         this.authService.logout();
     }
 
-    OnRefresh() {
-        //to-do refetch latest data from server
-        //should communicate with current child component to update its data
-    }
-
     goToNested(url: string, name: string) {
         this.selectedOption = name;
         this.selectedOptionToDisplay = name;
+        this.mainCommunicationService.alertTitleChange(
+            this.selectedOptionToDisplay
+        );
+
         this.router.navigate([url]);
     }
 }

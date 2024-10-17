@@ -68,21 +68,7 @@
         </div>
 
         <div id="main">
-            <div id="subheader">
-                <img
-                    src="assets/menu.svg"
-                    alt=""
-                    id="sidebar-toggle-btn"
-                    (click)="toggleSidebar()"
-                />
-
-                <ui5-title id="selected-option" level="H4">{{
-                    selectedOptionToDisplay
-                }}</ui5-title>
-                <ui5-button icon="refresh" (ui5Click)="OnRefresh()"
-                    >Refresh</ui5-button
-                >
-            </div>
+            <app-subheader></app-subheader>
             <router-outlet></router-outlet>
         </div>
     </div>
