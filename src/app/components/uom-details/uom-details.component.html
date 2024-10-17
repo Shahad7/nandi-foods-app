@@ -26,7 +26,7 @@
                 <ui5-select
                     id="UOMTypeInp"
                     [(ngModel)]="UOMType"
-                    [disabled]="!enableEditing"
+                    [disabled]="!editingEnabled"
                 >
                     <ui5-option value="EACH" selected>EACH</ui5-option>
                     <ui5-option value="other1">Other 1</ui5-option>
@@ -44,7 +44,7 @@
                 <ui5-input
                     id="UOMDescriptionInp"
                     [(ngModel)]="UOMDescription"
-                    [disabled]="!enableEditing"
+                    [disabled]="!editingEnabled"
                 ></ui5-input>
             </ui5-form-item>
             <!-- UOM Long Name -->
@@ -58,7 +58,7 @@
                 <ui5-input
                     id="UOMLongNameInp"
                     [(ngModel)]="UOMLongName"
-                    [disabled]="!enableEditing"
+                    [disabled]="!editingEnabled"
                 ></ui5-input>
             </ui5-form-item>
             <!-- Inventory UOM (Yes/No) -->
@@ -72,7 +72,7 @@
                 <ui5-select
                     id="isInventoryUOMInp"
                     [(ngModel)]="isInventoryUOM"
-                    [disabled]="!enableEditing"
+                    [disabled]="!editingEnabled"
                 >
                     <ui5-option value="true" selected>Yes</ui5-option>
                     <ui5-option value="false">No</ui5-option>
@@ -89,7 +89,7 @@
                 <ui5-select
                     id="isPurchaseUOMInp"
                     [(ngModel)]="isPurchaseUOM"
-                    [disabled]="!enableEditing"
+                    [disabled]="!editingEnabled"
                 >
                     <ui5-option value="true">Yes</ui5-option>
                     <ui5-option value="false" selected>No</ui5-option>
@@ -105,7 +105,7 @@
                 <ui5-select
                     id="UOMLevelInp"
                     [(ngModel)]="UOMLevel"
-                    [disabled]="!enableEditing"
+                    [disabled]="!editingEnabled"
                 >
                     <ui5-option value="Level 1" selected>Level 1</ui5-option>
                     <ui5-option value="Level 2">Level 2</ui5-option>
@@ -133,7 +133,7 @@
                 <ui5-input
                     id="UOMShortNameInp"
                     [(ngModel)]="UOMShortName"
-                    [disabled]="!enableEditing"
+                    [disabled]="!editingEnabled"
                 ></ui5-input>
             </ui5-form-item>
             <!-- Production UOM (Yes/No) -->
@@ -147,7 +147,7 @@
                 <ui5-select
                     id="isProductionUOMInp"
                     [(ngModel)]="isProductionUOM"
-                    [disabled]="!enableEditing"
+                    [disabled]="!editingEnabled"
                 >
                     <ui5-option value="true" selected>Yes</ui5-option>
                     <ui5-option value="false">No</ui5-option>
@@ -164,7 +164,7 @@
                 <ui5-select
                     id="isSalesUOMInp"
                     [(ngModel)]="isSalesUOM"
-                    [disabled]="!enableEditing"
+                    [disabled]="!editingEnabled"
                 >
                     <ui5-option value="true" selected>Yes</ui5-option>
                     <ui5-option value="false">No</ui5-option>
@@ -177,7 +177,7 @@
                 <ui5-select
                     id="flexHU"
                     [(ngModel)]="flexHU"
-                    [disabled]="!enableEditing"
+                    [disabled]="!editingEnabled"
                 >
                     <ui5-option value="true" selected>Yes</ui5-option>
                     <ui5-option value="false">No</ui5-option>
@@ -307,15 +307,18 @@
                             [(ngModel)]="row[key.name]"
                             type="Text"
                             *ngIf="key.type == 'string'"
+                            [disabled]="!editingEnabled"
                         ></ui5-input>
                         <ui5-input
                             [(ngModel)]="row[key.name]"
                             type="Number"
                             *ngIf="key.type == 'number'"
+                            [disabled]="!editingEnabled"
                         ></ui5-input>
                         <ui5-select
                             *ngIf="key.type == 'boolean'"
                             [(ngModel)]="row[key.name]"
+                            [disabled]="!editingEnabled"
                             (ngModelChange)="onBooleanChange($event, row, key)"
                         >
                             <ui5-option value="true">YES</ui5-option>
@@ -346,17 +349,20 @@
                     <ui5-table-cell *ngFor="let key of UOMImperial.keys">
                         <ui5-input
                             [(ngModel)]="row[key.name]"
+                            [disabled]="!editingEnabled"
                             type="Text"
                             *ngIf="key.type == 'string'"
                         ></ui5-input>
                         <ui5-input
                             [(ngModel)]="row[key.name]"
+                            [disabled]="!editingEnabled"
                             type="Number"
                             *ngIf="key.type == 'number'"
                         ></ui5-input>
                         <ui5-select
                             *ngIf="key.type == 'boolean'"
                             [(ngModel)]="row[key.name]"
+                            [disabled]="!editingEnabled"
                             (ngModelChange)="onBooleanChange($event, row, key)"
                         >
                             <ui5-option value="true">YES</ui5-option>
@@ -387,18 +393,18 @@
                         [(ngModel)]="row[key.name]"
                         type="Text"
                         *ngIf="key.type == 'string'"
-                        [disabled]="!key.editable"
+                        [disabled]="!key.editable || !editingEnabled"
                     ></ui5-input>
                     <ui5-input
                         [(ngModel)]="row[key.name]"
                         type="Number"
                         *ngIf="key.type == 'number'"
-                        [disabled]="!key.editable"
+                        [disabled]="!key.editable || !editingEnabled"
                     ></ui5-input>
                     <ui5-select
                         *ngIf="key.type == 'boolean'"
                         [(ngModel)]="row[key.name]"
-                        [disabled]="!key.editable"
+                        [disabled]="!key.editable || !editingEnabled"
                         (ngModelChange)="onBooleanChange($event, row, key)"
                     >
                         <ui5-option value="true">YES</ui5-option>
@@ -407,7 +413,7 @@
                     <ui5-select
                         *ngIf="key.type == 'dropdown'"
                         [(ngModel)]="row[key.name]"
-                        [disabled]="!key.editable"
+                        [disabled]="!key.editable || !editingEnabled"
                     >
                         <ui5-option
                             *ngFor="let item of linkedUOMNames"
@@ -452,12 +458,12 @@
                         [(ngModel)]="row[key.name]"
                         type="Text"
                         *ngIf="key.type == 'string'"
-                        [disabled]="!key.editable"
+                        [disabled]="!key.editable || !editingEnabled"
                     ></ui5-input>
                     <ui5-select
                         *ngIf="key.type == 'dropdown'"
                         [(ngModel)]="row[key.name]"
-                        [disabled]="!key.editable"
+                        [disabled]="!key.editable || !editingEnabled"
                     >
                         <ui5-option
                             *ngFor="let item of linkedHuAndPuNames"
@@ -469,11 +475,11 @@
                         [(ngModel)]="row[key.name]"
                         type="Number"
                         *ngIf="key.type == 'number'"
-                        [disabled]="!key.editable"
+                        [disabled]="!key.editable || !editingEnabled"
                     ></ui5-input>
                     <ui5-select
                         *ngIf="key.type == 'boolean'"
-                        [disabled]="!key.editable"
+                        [disabled]="!key.editable || !editingEnabled"
                         [(ngModel)]="row[key.name]"
                         (ngModelChange)="onBooleanChange($event, row, key)"
                     >
@@ -501,7 +507,6 @@
             >
             <p *ngIf="selectedTab == 'UOM Weight and Volume'"></p>
             <div id="other-btns">
-                <ui5-button icon="edit" (click)="onEdit()">Edit</ui5-button>
                 <ui5-button design="Negative">Cancel</ui5-button>
                 <ui5-button design="Positive" (ui5Click)="onSave()"
                     >Save</ui5-button

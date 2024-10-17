@@ -17,3 +17,8 @@
         display: block;
     }
 }
+
+#buttons-row {
+    display: flex;
+    gap: 16px;
+}

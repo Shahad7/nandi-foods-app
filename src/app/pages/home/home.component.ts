@@ -2,6 +2,7 @@ import { MainCommunicationService } from "./../../services/main-communication.se
 import {
     Component,
     NgZone,
+    OnDestroy,
     Renderer2,
     ViewChild,
     viewChild,
@@ -11,20 +12,24 @@ import { DashboardComponent } from "../../components/dashboard/dashboard.compone
 import { ActivatedRoute, Router } from "@angular/router";
 import { HttpClient } from "@angular/common/http";
 import { DatePipe } from "@angular/common";
+import { Subscription } from "rxjs";
 
 @Component({
     selector: "app-home",
     templateUrl: "./home.component.html",
     styleUrl: "./home.component.css",
 })
-export class HomeComponent {
+export class HomeComponent implements OnDestroy {
     @ViewChild("sidebar")
     sidebar: any;
     @ViewChild("time")
     timeNode: any;
 
-    profileName: string = "John Doe";
+    //subscriptions to cancel on destruction
+    toggleSidebarSubscription!: Subscription | undefined;
+    routeSubscription!: Subscription | undefined;
 
+    profileName: string = "John Doe";
     selectedOption!: string;
     selectedOptionToDisplay!: string;
     selectedSubtitle = "";
@@ -358,34 +363,47 @@ export class HomeComponent {
             }, 1);
         });
 
-        this.route.firstChild?.data.subscribe((data) => {
-            this.selectedOption = data["title"];
-            this.selectedOptionToDisplay = this.selectedOption;
-            this.mainCommunicationService.alertTitleChange(
-                this.selectedOptionToDisplay
-            );
-            for (let item of this.sidebarItems) {
-                let found = false;
-                for (let subitem of item.subMenus) {
-                    if (subitem.hasOptions) {
-                        for (let option of subitem.options) {
-                            if (option.name == this.selectedOption) {
-                                found = true;
-                                break;
+        //listen for route changes to detect child component title that is side navigation change
+        this.routeSubscription = this.route.firstChild?.data.subscribe(
+            (data) => {
+                this.selectedOption = data["title"];
+                this.selectedOptionToDisplay = this.selectedOption;
+                this.mainCommunicationService.alertTitleChange(
+                    this.selectedOptionToDisplay
+                );
+                for (let item of this.sidebarItems) {
+                    let found = false;
+                    for (let subitem of item.subMenus) {
+                        if (subitem.hasOptions) {
+                            for (let option of subitem.options) {
+                                if (option.name == this.selectedOption) {
+                                    found = true;
+                                    break;
+                                }
                             }
+                        }
+                        if (found) {
+                            this.selectedSubtitle = subitem.subTitle;
+                            break;
                         }
                     }
                     if (found) {
-                        this.selectedSubtitle = subitem.subTitle;
+                        this.selectedMainTitle = item.mainTitle;
                         break;
                     }
                 }
-                if (found) {
-                    this.selectedMainTitle = item.mainTitle;
-                    break;
-                }
             }
-        });
+        );
+
+        //listen for sidebar toggling from subheader on low screen width devices
+        this.toggleSidebarSubscription =
+            this.mainCommunicationService.toggleSidebar$.subscribe((data) => {
+                this.toggleSidebar();
+            });
+    }
+    ngOnDestroy(): void {
+        this.toggleSidebarSubscription?.unsubscribe();
+        this.routeSubscription?.unsubscribe();
     }
 
     toggleSidebar() {

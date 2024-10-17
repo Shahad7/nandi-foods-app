@@ -1,11 +1,18 @@
 import { MainCommunicationService } from "./../../services/main-communication.service";
-import { BootstrapOptions, Component, Output } from "@angular/core";
+import {
+    BootstrapOptions,
+    Component,
+    OnDestroy,
+    OnInit,
+    Output,
+} from "@angular/core";
 import { DatePipe } from "@angular/common";
 import { UOMImperialRow } from "../../models/UOMImperialRow";
 import { UOMMetricRow } from "../../models/UOMMetricRow";
 import { LinkedUOMRow } from "../../models/linkedUOMRow";
 import { LinkedHuAndPuRow } from "../../models/linkedHuAndPuRow";
 import { EventEmitter } from "stream";
+import { Subscription } from "rxjs";
 
 interface RowType {
     [key: string]: any; // Allow dynamic access to row properties
@@ -15,10 +22,13 @@ interface RowType {
     templateUrl: "./uom-details.component.html",
     styleUrl: "./uom-details.component.css",
 })
-export class UomDetailsComponent {
+export class UomDetailsComponent implements OnDestroy {
     //enable/disable edit
-    enableEditing: boolean = false;
+    editingEnabled: boolean = false;
     currentDate: any;
+
+    //subscriptions
+    enableEditSubscription: Subscription | undefined;
 
     //editable-form-fields
     //this field alters form fields
@@ -201,6 +211,16 @@ export class UomDetailsComponent {
         private mainCommunicationService: MainCommunicationService
     ) {
         this.currentDate = this.datePipe.transform(new Date(), "y/M/d");
+
+        //listen for edit button press event in subheader
+        this.enableEditSubscription =
+            this.mainCommunicationService.enableEdit$.subscribe((data) => {
+                this.editingEnabled = true;
+            });
+    }
+
+    ngOnDestroy(): void {
+        this.enableEditSubscription?.unsubscribe();
     }
 
     selectTab(event: any) {
@@ -268,7 +288,7 @@ export class UomDetailsComponent {
             this.mainCommunicationService.alertTitleChange("PU Details");
     }
 
-    onEdit() {
-        this.enableEditing = true;
+    enableEditing() {
+        this.editingEnabled = true;
     }
 }
