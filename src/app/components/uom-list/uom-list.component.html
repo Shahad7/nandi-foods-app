@@ -7,7 +7,7 @@
         <ui5-icon id="searchIcon" slot="icon" name="search"></ui5-icon>
     </ui5-input>
 </div>
-<ui5-table overflowMode="Scroll" loading="true">
+<ui5-table overflowMode="Scroll" loading="{{ loading }}">
     <ui5-table-header-row slot="headerRow">
         <ng-container *ngFor="let item of headers">
             <ui5-table-header-cell

@@ -572,7 +572,10 @@ export class UomListComponent {
         },
     ] as rowType[];
 
+    //table
+    loading: boolean = false;
     // paginator details
+
     length = 200;
     pageSize = 10;
     pageIndex = 0;

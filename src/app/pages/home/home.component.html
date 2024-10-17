@@ -29,7 +29,9 @@
                     <ui5-menu-item text="Other"></ui5-menu-item>
                 </ui5-menu>
             </div>
-            <ui5-label style="font-weight: bold">{{ profileName }}</ui5-label>
+            <ui5-label style="font-weight: bold">{{
+                profileName | titlecase
+            }}</ui5-label>
         </div>
     </div>
 

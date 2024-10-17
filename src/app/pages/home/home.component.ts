@@ -13,6 +13,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { HttpClient } from "@angular/common/http";
 import { DatePipe } from "@angular/common";
 import { Subscription } from "rxjs";
+import { KeycloakService } from "keycloak-angular";
 
 @Component({
     selector: "app-home",
@@ -347,12 +348,19 @@ export class HomeComponent implements OnDestroy {
         private datePipe: DatePipe,
         private zone: NgZone,
         private renderer: Renderer2,
-        private mainCommunicationService: MainCommunicationService
+        private mainCommunicationService: MainCommunicationService,
+        private keycloak: KeycloakService
     ) {
         this.currentDateAndTime = this.datePipe.transform(
             new Date(),
             "MMM d, y, h:mm:ss a"
         );
+
+        this.keycloak.loadUserProfile().then((data: any) => {
+            this.profileName = this.keycloak.isLoggedIn()
+                ? data["firstName"] + " " + data["lastName"]
+                : "";
+        });
         this.zone.runOutsideAngular(() => {
             setInterval(() => {
                 this.renderer.setProperty(
