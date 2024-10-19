@@ -1,0 +1,32 @@
+<div #sidebar id="sidebar-wrapper">
+    <ui5-side-navigation
+        id="sidebar"
+        style="background-color: #f4f5f7; margin-left: 10px"
+    >
+        <ui5-side-navigation-item
+            text="Dashboard"
+            (click)="goToNested('', 'Dashboard')"
+            [selected]="selectedOption == 'Dashboard'"
+        >
+        </ui5-side-navigation-item>
+        <ui5-side-navigation-group
+            *ngFor="let item of sidebarItems"
+            text="{{ item.mainTitle }}"
+            [expanded]="item.mainTitle == selectedMainTitle"
+        >
+            <ui5-side-navigation-item
+                *ngFor="let subItem of item.subMenus"
+                text="{{ subItem.subTitle }}"
+                [expanded]="subItem.subTitle == selectedSubtitle"
+            >
+                <ui5-side-navigation-sub-item
+                    *ngFor="let option of subItem.options"
+                    text="{{ option.name }}"
+                    [selected]="selectedOption == option.name"
+                    (click)="goToNested(option.route, option.name)"
+                >
+                </ui5-side-navigation-sub-item>
+            </ui5-side-navigation-item>
+        </ui5-side-navigation-group>
+    </ui5-side-navigation>
+</div>

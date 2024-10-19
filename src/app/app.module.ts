@@ -26,6 +26,7 @@ import { UomListComponent } from "./components/uom-list/uom-list.component";
 import { UomDetailsComponent } from "./components/uom-details/uom-details.component";
 import { FormsModule } from "@angular/forms";
 import { SubheaderComponent } from './components/subheader/subheader.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 function initializeKeycloak(keycloak: KeycloakService) {
     return () =>
@@ -66,6 +67,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
         UomListComponent,
         UomDetailsComponent,
         SubheaderComponent,
+        SidebarComponent,
     ],
     imports: [
         BrowserModule,

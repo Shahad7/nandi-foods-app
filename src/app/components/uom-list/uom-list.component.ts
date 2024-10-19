@@ -1,3 +1,5 @@
+import { MainCommunicationService } from "./../../services/main-communication.service";
+import { title } from "process";
 import { UomService } from "./../../services/uom.service";
 import { Component, OnInit } from "@angular/core";
 import { PageEvent } from "@angular/material/paginator";
@@ -48,7 +50,11 @@ export class UomListComponent implements OnInit {
 
     pageEvent!: PageEvent;
 
-    constructor(private UOMService: UomService, private router: Router) {}
+    constructor(
+        private UOMService: UomService,
+        private router: Router,
+        private mainCommunicationService: MainCommunicationService
+    ) {}
 
     ngOnInit(): void {
         this.rows = this.UOMService.fetchUOMs();
@@ -66,6 +72,9 @@ export class UomListComponent implements OnInit {
     }
 
     viewUOMDetails(id: string) {
-        this.router.navigate(["uom-details", id]);
+        this.mainCommunicationService.manualSideNavigate(
+            `uom-details/${id}`,
+            "UOM Details"
+        );
     }
 }
