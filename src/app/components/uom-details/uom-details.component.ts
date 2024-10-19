@@ -29,9 +29,6 @@ export class UomDetailsComponent implements OnDestroy, OnInit {
     editingEnabled: boolean = false;
     currentDate: any;
 
-    //subscriptions
-    toggleEditSubscription: Subscription | undefined;
-
     //editable-form-fields
     //this field alters form fields
     classInp: any = "";
@@ -226,17 +223,9 @@ export class UomDetailsComponent implements OnDestroy, OnInit {
             this.UOMLongName = UOM["longName"];
             this.UOMShortName = UOM["shortName"];
         }
-
-        //listen for edit button press event in subheader
-        this.toggleEditSubscription =
-            this.mainCommunicationService.toggleEdit$.subscribe((data) => {
-                this.editingEnabled = !this.editingEnabled;
-            });
     }
 
-    ngOnDestroy(): void {
-        this.toggleEditSubscription?.unsubscribe();
-    }
+    ngOnDestroy(): void {}
 
     selectTab(event: any) {
         this.selectedTab = this.tabs[event.tabIndex / 2];
@@ -303,7 +292,8 @@ export class UomDetailsComponent implements OnDestroy, OnInit {
             this.mainCommunicationService.alertTitleChange("PU Details");
     }
 
-    enableEditing() {
-        this.editingEnabled = true;
+    //let appropriate child component know when edit is clicked
+    onEdit() {
+        this.editingEnabled = !this.editingEnabled;
     }
 }

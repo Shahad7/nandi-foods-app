@@ -10,19 +10,7 @@
         selectedOptionToDisplay
     }}</ui5-title>
     <div id="buttons-row">
-        <ui5-button
-            icon="edit"
-            (click)="onEdit()"
-            *ngIf="editButtonAdded && !editEnabled"
-            >Edit</ui5-button
-        >
-        <ui5-button
-            design="Negative"
-            icon="edit"
-            (click)="onEdit()"
-            *ngIf="editEnabled"
-            >Cancel Editing</ui5-button
-        >
+        <ng-content></ng-content>
         <ui5-button icon="refresh" (ui5Click)="onRefresh()">Refresh</ui5-button>
     </div>
 </div>

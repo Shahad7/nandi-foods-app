@@ -9,31 +9,19 @@ import { Subscription } from "rxjs";
     templateUrl: "./subheader.component.html",
     styleUrl: "./subheader.component.css",
 })
-export class SubheaderComponent implements OnDestroy {
+export class SubheaderComponent implements OnDestroy, OnInit {
     selectedOptionToDisplay!: string;
     //subscriptions
-
     titleChangeSubscription: Subscription | undefined;
-
-    //decide whether to add these buttons
-    editButtonAdded: boolean = false;
-
-    //toggle edit button state
-    editEnabled: boolean = false;
 
     constructor(
         private mainCommunicationService: MainCommunicationService,
         private route: ActivatedRoute
-    ) {
+    ) {}
+    ngOnInit(): void {
         this.titleChangeSubscription =
             this.mainCommunicationService.titleChange$.subscribe((title) => {
-                this.selectedOptionToDisplay = title;
-                //later implement a lookup table to see which buttons are needed
-                if (this.selectedOptionToDisplay == "UOM Details") {
-                    this.editButtonAdded = true;
-                } else {
-                    this.editButtonAdded = false;
-                }
+                if (title) this.selectedOptionToDisplay = title;
             });
     }
 
@@ -48,11 +36,5 @@ export class SubheaderComponent implements OnDestroy {
 
     onToggleSidebar() {
         this.mainCommunicationService.togglerSidebar();
-    }
-
-    //let appropriate child component know when edit is clicked
-    onEdit() {
-        this.mainCommunicationService.alertEditButtonPress();
-        this.editEnabled = !this.editEnabled;
     }
 }

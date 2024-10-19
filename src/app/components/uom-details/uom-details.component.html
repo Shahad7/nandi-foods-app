@@ -1,3 +1,15 @@
+<app-subheader>
+    <ui5-button icon="edit" (click)="onEdit()" *ngIf="!editingEnabled"
+        >Edit</ui5-button
+    >
+    <ui5-button
+        design="Negative"
+        icon="edit"
+        (click)="onEdit()"
+        *ngIf="editingEnabled"
+        >Cancel Editing</ui5-button
+    >
+</app-subheader>
 <div class="container">
     <ui5-form layout=" S1 M2 L2 XL2" item-spacing="Large">
         <!-- Class -->

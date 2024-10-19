@@ -1,18 +1,15 @@
 import { Injectable } from "@angular/core";
-import { Subject } from "rxjs";
+import { BehaviorSubject, Subject } from "rxjs";
 
 @Injectable({
     providedIn: "root",
 })
 export class MainCommunicationService {
-    titleChangeSource = new Subject<string>();
+    titleChangeSource = new BehaviorSubject<string | null>(null);
     titleChange$ = this.titleChangeSource.asObservable();
 
     toggleSidebarSource = new Subject<string>();
     toggleSidebar$ = this.toggleSidebarSource.asObservable();
-
-    toggleEditSource = new Subject<string>();
-    toggleEdit$ = this.toggleEditSource.asObservable();
 
     manualSideNavigationSource = new Subject<string>();
     manualSideNavigation$ = this.manualSideNavigationSource.asObservable();
@@ -25,10 +22,6 @@ export class MainCommunicationService {
     //alert home component to toggle sidebar
     togglerSidebar() {
         this.toggleSidebarSource.next("");
-    }
-
-    alertEditButtonPress() {
-        this.toggleEditSource.next("");
     }
 
     manualSideNavigate(url: string) {
