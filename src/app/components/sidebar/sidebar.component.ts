@@ -24,7 +24,6 @@ export class SidebarComponent implements OnDestroy, OnInit {
 
     //sideNav
     selectedOption!: string;
-    selectedOptionToDisplay!: string;
     selectedSubtitle = "";
     selectedMainTitle = "";
     //title lookup
@@ -401,10 +400,6 @@ export class SidebarComponent implements OnDestroy, OnInit {
                 let path = this.route.snapshot.firstChild?.url[0]?.path;
                 path = path == undefined ? "" : path;
                 this.selectedOption = this.titleLookupTable[path as any];
-                this.selectedOptionToDisplay = this.selectedOption;
-                this.mainCommunicationService.alertTitleChange(
-                    this.selectedOptionToDisplay
-                );
                 for (let item of this.sidebarItems) {
                     let found = false;
                     for (let subitem of item.subMenus) {
@@ -452,11 +447,6 @@ export class SidebarComponent implements OnDestroy, OnInit {
     goToNested(url: string) {
         let path = url.split("/")[0];
         this.selectedOption = this.titleLookupTable[path];
-        this.selectedOptionToDisplay = this.titleLookupTable[path];
-        this.mainCommunicationService.alertTitleChange(
-            this.selectedOptionToDisplay
-        );
-
         this.router.navigate([url]);
     }
 

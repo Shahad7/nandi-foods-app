@@ -28,6 +28,7 @@ export class UomDetailsComponent implements OnDestroy, OnInit {
     //enable/disable edit
     editingEnabled: boolean = false;
     currentDate: any;
+    title: string = "UOM Details";
 
     //editable-form-fields
     //this field alters form fields
@@ -277,19 +278,6 @@ export class UomDetailsComponent implements OnDestroy, OnInit {
     onBooleanChange(value: string, row: any, key: any): void {
         // Convert the string 'true'/'false' back to boolean
         row[key] = value === "true";
-    }
-
-    //in case user changes the class, when currently last tab is opened which is to be excluded
-    //for certain classes selected
-    //also emit an event to change the title if needed
-    onClassChange() {
-        if (this.selectedTab == this.tabs[2]) {
-            this.selectedTab = this.tabs[0];
-        }
-        if (this.classInp == "HU")
-            this.mainCommunicationService.alertTitleChange("HU Details");
-        else if (this.classInp == "PU")
-            this.mainCommunicationService.alertTitleChange("PU Details");
     }
 
     //let appropriate child component know when edit is clicked

@@ -1,7 +1,7 @@
 import { ActivatedRoute } from "@angular/router";
 import { title } from "process";
 import { MainCommunicationService } from "./../../services/main-communication.service";
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { Subscription } from "rxjs";
 
 @Component({
@@ -10,24 +10,16 @@ import { Subscription } from "rxjs";
     styleUrl: "./subheader.component.css",
 })
 export class SubheaderComponent implements OnDestroy, OnInit {
-    selectedOptionToDisplay!: string;
-    //subscriptions
-    titleChangeSubscription: Subscription | undefined;
+    @Input()
+    title!: string;
 
     constructor(
         private mainCommunicationService: MainCommunicationService,
         private route: ActivatedRoute
     ) {}
-    ngOnInit(): void {
-        this.titleChangeSubscription =
-            this.mainCommunicationService.titleChange$.subscribe((title) => {
-                if (title) this.selectedOptionToDisplay = title;
-            });
-    }
+    ngOnInit(): void {}
 
-    ngOnDestroy(): void {
-        this.titleChangeSubscription?.unsubscribe();
-    }
+    ngOnDestroy(): void {}
 
     onRefresh() {
         //to-do refetch latest data from server

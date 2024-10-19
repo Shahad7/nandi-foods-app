@@ -19,7 +19,7 @@ interface RowType {
 })
 export class CreateNewUomComponent implements OnInit {
     currentDate: any;
-
+    title: string = "Create New UOM";
     //editable-form-fields
     //this field alters form fields
     classInp: any = "UOM";
@@ -199,6 +199,7 @@ export class CreateNewUomComponent implements OnInit {
     ngOnInit(): void {
         this.route.queryParams.subscribe((params) => {
             this.classInp = params["class"];
+            this.onClassChange();
         });
     }
 
@@ -261,10 +262,8 @@ export class CreateNewUomComponent implements OnInit {
         if (this.selectedTab == this.tabs[2]) {
             this.selectedTab = this.tabs[0];
         }
-        if (this.classInp == "HU")
-            this.mainCommunicationService.alertTitleChange("Create New HU");
-        else if (this.classInp == "PU")
-            this.mainCommunicationService.alertTitleChange("Create New PU");
-        else this.mainCommunicationService.alertTitleChange("Create New UOM");
+        if (this.classInp == "HU") this.title = "Create New HU";
+        else if (this.classInp == "PU") this.title = "Create New PU";
+        else this.title = "Create New UOM";
     }
 }

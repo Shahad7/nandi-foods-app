@@ -1,4 +1,4 @@
-<app-subheader>
+<app-subheader [title]="title">
     <ui5-button icon="edit" (click)="onEdit()" *ngIf="!editingEnabled"
         >Edit</ui5-button
     >
@@ -23,7 +23,6 @@
                     id="classInp"
                     [disabled]="true"
                     [(ngModel)]="classInp"
-                    (ngModelChange)="onClassChange()"
                 >
                     <ui5-option value="UOM" selected>UOM</ui5-option>
                     <ui5-option value="HU">HU</ui5-option>

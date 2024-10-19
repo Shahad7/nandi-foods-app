@@ -5,16 +5,8 @@ import { BehaviorSubject, Subject } from "rxjs";
     providedIn: "root",
 })
 export class MainCommunicationService {
-    titleChangeSource = new BehaviorSubject<string | null>(null);
-    titleChange$ = this.titleChangeSource.asObservable();
-
     toggleSidebarSource = new Subject<string>();
     toggleSidebar$ = this.toggleSidebarSource.asObservable();
-
-    //for alerting subheader component about nested component title change
-    alertTitleChange(title: string) {
-        this.titleChangeSource.next(title);
-    }
 
     //alert home component to toggle sidebar
     togglerSidebar() {

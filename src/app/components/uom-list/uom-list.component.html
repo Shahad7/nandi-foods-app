@@ -1,4 +1,4 @@
-<app-subheader>
+<app-subheader [title]="'UOM List'">
     <ui5-button
         *ngFor="let btn of subheaderButtons"
         (ui5Click)="navigateToCreateUOMForm(btn.classInp)"

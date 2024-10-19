@@ -6,9 +6,7 @@
         (click)="onToggleSidebar()"
     />
 
-    <ui5-title id="selected-option" level="H4">{{
-        selectedOptionToDisplay
-    }}</ui5-title>
+    <ui5-title id="selected-option" level="H4">{{ title }}</ui5-title>
     <div id="buttons-row">
         <ng-content></ng-content>
         <ui5-button icon="refresh" (ui5Click)="onRefresh()">Refresh</ui5-button>
