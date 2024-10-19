@@ -18,32 +18,26 @@ const routes: Routes = [
             {
                 path: "",
                 component: DashboardComponent,
-                data: { title: "Dashboard" },
             },
             {
                 path: "warehouse-list",
                 component: WarehoustListComponent,
-                data: { title: "Warehouse List" },
             },
             {
                 path: "uom-list",
                 component: UomListComponent,
-                data: { title: "UOM List" },
             },
             {
                 path: "create-new-uom",
                 component: CreateNewUomComponent,
-                data: { title: "Create New UOM" },
             },
             {
                 path: "uom-details",
                 component: UomDetailsComponent,
-                data: { title: "UOM Details" },
             },
             {
                 path: "uom-details/:UOMId",
                 component: UomDetailsComponent,
-                data: { title: "UOM Details" },
             },
         ],
     },

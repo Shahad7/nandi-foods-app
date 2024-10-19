@@ -14,7 +14,7 @@ export class MainCommunicationService {
     toggleEditSource = new Subject<string>();
     toggleEdit$ = this.toggleEditSource.asObservable();
 
-    manualSideNavigationSource = new Subject<any>();
+    manualSideNavigationSource = new Subject<string>();
     manualSideNavigation$ = this.manualSideNavigationSource.asObservable();
 
     //for alerting subheader component about nested component title change
@@ -31,7 +31,7 @@ export class MainCommunicationService {
         this.toggleEditSource.next("");
     }
 
-    manualSideNavigate(url: string, title: string) {
-        this.manualSideNavigationSource.next({ url, title });
+    manualSideNavigate(url: string) {
+        this.manualSideNavigationSource.next(url);
     }
 }

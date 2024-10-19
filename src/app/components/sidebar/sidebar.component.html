@@ -5,7 +5,7 @@
     >
         <ui5-side-navigation-item
             text="Dashboard"
-            (click)="goToNested('', 'Dashboard')"
+            (click)="goToNested('')"
             [selected]="selectedOption == 'Dashboard'"
         >
         </ui5-side-navigation-item>
@@ -23,7 +23,7 @@
                     *ngFor="let option of subItem.options"
                     text="{{ option.name }}"
                     [selected]="selectedOption == option.name"
-                    (click)="goToNested(option.route, option.name)"
+                    (click)="goToNested(option.route)"
                 >
                 </ui5-side-navigation-sub-item>
             </ui5-side-navigation-item>

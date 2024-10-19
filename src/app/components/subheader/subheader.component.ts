@@ -12,7 +12,8 @@ import { Subscription } from "rxjs";
 export class SubheaderComponent implements OnDestroy {
     selectedOptionToDisplay!: string;
     //subscriptions
-    toggleSidebarSubscription: Subscription | undefined;
+
+    titleChangeSubscription: Subscription | undefined;
 
     //decide whether to add these buttons
     editButtonAdded: boolean = false;
@@ -24,7 +25,7 @@ export class SubheaderComponent implements OnDestroy {
         private mainCommunicationService: MainCommunicationService,
         private route: ActivatedRoute
     ) {
-        this.toggleSidebarSubscription =
+        this.titleChangeSubscription =
             this.mainCommunicationService.titleChange$.subscribe((title) => {
                 this.selectedOptionToDisplay = title;
                 //later implement a lookup table to see which buttons are needed
@@ -37,7 +38,7 @@ export class SubheaderComponent implements OnDestroy {
     }
 
     ngOnDestroy(): void {
-        this.toggleSidebarSubscription?.unsubscribe();
+        this.titleChangeSubscription?.unsubscribe();
     }
 
     onRefresh() {

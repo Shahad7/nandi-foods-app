@@ -215,21 +215,23 @@ export class UomDetailsComponent implements OnDestroy, OnInit {
         private route: ActivatedRoute
     ) {
         this.currentDate = this.datePipe.transform(new Date(), "y/M/d");
+    }
+    ngOnInit(): void {
+        let UOMId = this.route.snapshot.paramMap.get("UOMId");
+        let UOM!: any;
+        if (UOMId != "") {
+            UOM = this.UOMService.getUOMById(UOMId as any)[0];
+            this.UOMID = UOM["id"];
+            this.UOMDescription = UOM["description"];
+            this.UOMLongName = UOM["longName"];
+            this.UOMShortName = UOM["shortName"];
+        }
 
         //listen for edit button press event in subheader
         this.toggleEditSubscription =
             this.mainCommunicationService.toggleEdit$.subscribe((data) => {
                 this.editingEnabled = !this.editingEnabled;
             });
-    }
-    ngOnInit(): void {
-        let UOMId = this.route.snapshot.paramMap.get("UOMId");
-        let UOM: any = this.UOMService.getUOMById(UOMId as any)[0];
-        console.log(UOM);
-        this.UOMID = UOM["id"];
-        this.UOMDescription = UOM["description"];
-        this.UOMLongName = UOM["longName"];
-        this.UOMShortName = UOM["shortName"];
     }
 
     ngOnDestroy(): void {

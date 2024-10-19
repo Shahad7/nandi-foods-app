@@ -72,9 +72,6 @@ export class UomListComponent implements OnInit {
     }
 
     viewUOMDetails(id: string) {
-        this.mainCommunicationService.manualSideNavigate(
-            `uom-details/${id}`,
-            "UOM Details"
-        );
+        this.mainCommunicationService.manualSideNavigate(`uom-details/${id}`);
     }
 }

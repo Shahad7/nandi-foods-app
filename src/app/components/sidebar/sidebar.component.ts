@@ -1,14 +1,15 @@
 import { Subscription } from "rxjs";
 import { MainCommunicationService } from "./../../services/main-communication.service";
-import { Component, OnDestroy, ViewChild } from "@angular/core";
+import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
+import { LocationStrategy } from "@angular/common";
 
 @Component({
     selector: "app-sidebar",
     templateUrl: "./sidebar.component.html",
     styleUrl: "./sidebar.component.css",
 })
-export class SidebarComponent implements OnDestroy {
+export class SidebarComponent implements OnDestroy, OnInit {
     @ViewChild("sidebar")
     sidebar: any;
     //subscriptions to cancel on destruction
@@ -20,6 +21,62 @@ export class SidebarComponent implements OnDestroy {
     selectedOptionToDisplay!: string;
     selectedSubtitle = "";
     selectedMainTitle = "";
+    //title lookup
+    titleLookupTable = {
+        "": "Dashboard",
+        "warehouse-list": "Warehouse List",
+        "create-new-warehouse": "Create New Warehouse",
+        "warehouse-details": "Warehouse Details",
+        "products-list": "Products List",
+        "create-new-product": "Create New Product",
+        "product-details": "Product Details",
+        "price-list": "Price List",
+        "add-new-price-list": "Add New Price List",
+        "grn-list": "GRN List",
+        "create-new-grn": "Create New GRN",
+        "grn-details": "GRN Details",
+        "gtn-list": "GTN List",
+        "create-new-gtn": "Create New GTN",
+        "gtn-details": "GTN Details",
+        "dgn-list": "DGN List",
+        "create-new-dgn": "Create New DGN",
+        "dgn-details": "DGN Details",
+        "prd-list": "PRD List",
+        "create-new-prd-order": "Create New PRD Order",
+        "prd-details": "PRD Details",
+        "order-picking": "Order Picking",
+        "order-packing": "Order Packing",
+        "order-shipping": "Order Shipping",
+        "sales-invoice-list": "Sales Invoice List",
+        "create-new-invoice": "Create New Invoice",
+        "invoice-details": "Invoice Details",
+        "receipts-list": "Receipts List",
+        "create-new-receipt": "Create New Receipt",
+        "receipt-details": "Receipt Details",
+        "credit-notes-list": "Credit Notes List",
+        "create-new-credit-note": "Create New Credit Note",
+        "credit-note-details": "Credit Note Details",
+        "countries-list": "Countries List",
+        "states-list": "States List",
+        "cities-list": "Cities List",
+        currencies: "Currencies",
+        "sales-taxes": "Sales Taxes",
+        "payment-types": "Payment Types",
+        "payment-terms": "Payment Terms",
+        "general-uom": "UOM",
+        "uom-list": "UOM List",
+        "create-new-uom": "Create New UOM",
+        "uom-details": "UOM Details",
+        "warehouse-no-settings": "Warehouse No. Settings",
+        "facility-certifications": "Facility Certifications",
+        "product-sizes": "Product Sizes",
+        "product-uom": "Product UOM",
+        "product-certifications": "Product Certifications",
+        "employee-no-settings": "Employee No. Settings",
+        "employee-positions": "Employee Positions",
+        "permits-and-certificates": "Permits and Certificates",
+    } as any;
+
     sidebarItems = [
         {
             mainTitle: "Inventory Management",
@@ -327,12 +384,17 @@ export class SidebarComponent implements OnDestroy {
     constructor(
         private mainCommunicationService: MainCommunicationService,
         private router: Router,
-        private route: ActivatedRoute
-    ) {
+        private route: ActivatedRoute,
+        private location: LocationStrategy
+    ) {}
+    ngOnInit(): void {
         //listen for route changes to detect child component title that is side navigation change
-        this.routeSubscription = this.route.firstChild?.data.subscribe(
+
+        this.routeSubscription = this.route.firstChild?.url.subscribe(
             (data) => {
-                this.selectedOption = data["title"];
+                let path = this.route.snapshot.firstChild?.url[0]?.path;
+                path = path == undefined ? "" : path;
+                this.selectedOption = this.titleLookupTable[path as any];
                 this.selectedOptionToDisplay = this.selectedOption;
                 this.mainCommunicationService.alertTitleChange(
                     this.selectedOptionToDisplay
@@ -370,12 +432,16 @@ export class SidebarComponent implements OnDestroy {
         //listen to any manual sidenav publishing
         this.manualSideNavigationSubscription =
             this.mainCommunicationService.manualSideNavigation$.subscribe(
-                (data) => {
-                    console.log(data);
-                    let { url, title } = data;
-                    this.goToNested(url, title);
+                (url) => {
+                    this.goToNested(url);
                 }
             );
+
+        //listen to back and forth navigations using browser
+        this.location.onPopState(() => {
+            let url = this.location.path().substring(1);
+            this.goToNested(url);
+        });
     }
 
     toggleSidebar() {
@@ -385,9 +451,10 @@ export class SidebarComponent implements OnDestroy {
                 : "block";
     }
 
-    goToNested(url: string, title: string) {
-        this.selectedOption = title;
-        this.selectedOptionToDisplay = title;
+    goToNested(url: string) {
+        let path = url.split("/")[0];
+        this.selectedOption = this.titleLookupTable[path];
+        this.selectedOptionToDisplay = this.titleLookupTable[path];
         this.mainCommunicationService.alertTitleChange(
             this.selectedOptionToDisplay
         );

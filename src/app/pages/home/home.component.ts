@@ -1,7 +1,9 @@
 import { MainCommunicationService } from "./../../services/main-communication.service";
 import {
+    AfterViewInit,
     Component,
     NgZone,
+    OnInit,
     Renderer2,
     ViewChild,
     viewChild,
@@ -17,7 +19,7 @@ import { KeycloakService } from "keycloak-angular";
     templateUrl: "./home.component.html",
     styleUrl: "./home.component.css",
 })
-export class HomeComponent {
+export class HomeComponent implements AfterViewInit {
     @ViewChild("time")
     timeNode: any;
 
@@ -43,6 +45,8 @@ export class HomeComponent {
                 ? data["firstName"] + " " + data["lastName"]
                 : "";
         });
+    }
+    ngAfterViewInit(): void {
         //running outside angular as it's not gonna affect any other logic
         this.zone.runOutsideAngular(() => {
             setInterval(() => {
