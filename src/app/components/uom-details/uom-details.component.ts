@@ -28,7 +28,7 @@ export class UomDetailsComponent implements OnDestroy {
     currentDate: any;
 
     //subscriptions
-    enableEditSubscription: Subscription | undefined;
+    toggleEditSubscription: Subscription | undefined;
 
     //editable-form-fields
     //this field alters form fields
@@ -213,14 +213,14 @@ export class UomDetailsComponent implements OnDestroy {
         this.currentDate = this.datePipe.transform(new Date(), "y/M/d");
 
         //listen for edit button press event in subheader
-        this.enableEditSubscription =
-            this.mainCommunicationService.enableEdit$.subscribe((data) => {
-                this.editingEnabled = true;
+        this.toggleEditSubscription =
+            this.mainCommunicationService.toggleEdit$.subscribe((data) => {
+                this.editingEnabled = !this.editingEnabled;
             });
     }
 
     ngOnDestroy(): void {
-        this.enableEditSubscription?.unsubscribe();
+        this.toggleEditSubscription?.unsubscribe();
     }
 
     selectTab(event: any) {

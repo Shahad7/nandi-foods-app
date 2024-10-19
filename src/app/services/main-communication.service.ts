@@ -11,8 +11,8 @@ export class MainCommunicationService {
     toggleSidebarSource = new Subject<string>();
     toggleSidebar$ = this.toggleSidebarSource.asObservable();
 
-    enableEditSource = new Subject<string>();
-    enableEdit$ = this.enableEditSource.asObservable();
+    toggleEditSource = new Subject<string>();
+    toggleEdit$ = this.toggleEditSource.asObservable();
 
     //for alerting subheader component about nested component title change
     alertTitleChange(title: string) {
@@ -25,6 +25,6 @@ export class MainCommunicationService {
     }
 
     alertEditButtonPress() {
-        this.enableEditSource.next("");
+        this.toggleEditSource.next("");
     }
 }

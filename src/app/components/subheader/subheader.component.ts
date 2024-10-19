@@ -13,10 +13,12 @@ export class SubheaderComponent implements OnDestroy {
     selectedOptionToDisplay!: string;
     //subscriptions
     toggleSidebarSubscription: Subscription | undefined;
-    enableButtonsSubscription: Subscription | undefined;
 
     //decide whether to add these buttons
     editButtonAdded: boolean = false;
+
+    //toggle edit button state
+    editEnabled: boolean = false;
 
     constructor(
         private mainCommunicationService: MainCommunicationService,
@@ -50,5 +52,6 @@ export class SubheaderComponent implements OnDestroy {
     //let appropriate child component know when edit is clicked
     onEdit() {
         this.mainCommunicationService.alertEditButtonPress();
+        this.editEnabled = !this.editEnabled;
     }
 }
