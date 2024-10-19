@@ -14,3 +14,7 @@ ui5-table-header-row {
 #searchbar {
     margin-bottom: 20px;
 }
+
+ui5-table-row {
+    cursor: pointer;
+}

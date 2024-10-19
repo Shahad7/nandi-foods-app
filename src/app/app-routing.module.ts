@@ -40,6 +40,11 @@ const routes: Routes = [
                 component: UomDetailsComponent,
                 data: { title: "UOM Details" },
             },
+            {
+                path: "uom-details/:UOMId",
+                component: UomDetailsComponent,
+                data: { title: "UOM Details" },
+            },
         ],
     },
     { path: "login", component: LoginComponent },

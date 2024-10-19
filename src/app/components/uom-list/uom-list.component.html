@@ -3,6 +3,7 @@
         id="searchInput"
         placeholder="Enter search criteria ..."
         style="width: 100%"
+        (ngModelChange)="search()"
     >
         <ui5-icon id="searchIcon" slot="icon" name="search"></ui5-icon>
     </ui5-input>
@@ -27,7 +28,7 @@
         </ng-container>
     </ui5-table-header-row>
 
-    <ui5-table-row *ngFor="let row of rows">
+    <ui5-table-row *ngFor="let row of rows" (click)="viewUOMDetails(row['id'])">
         <ui5-table-cell *ngFor="let key of keys">
             <ui5-label>
                 <b>{{ row[key] }}</b>

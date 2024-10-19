@@ -1,3 +1,4 @@
+import { UomService } from "./../../services/uom.service";
 import { MainCommunicationService } from "./../../services/main-communication.service";
 import {
     BootstrapOptions,
@@ -12,7 +13,8 @@ import { UOMMetricRow } from "../../models/UOMMetricRow";
 import { LinkedUOMRow } from "../../models/linkedUOMRow";
 import { LinkedHuAndPuRow } from "../../models/linkedHuAndPuRow";
 import { EventEmitter } from "stream";
-import { Subscription } from "rxjs";
+import { Subscription, switchMap } from "rxjs";
+import { ActivatedRoute } from "@angular/router";
 
 interface RowType {
     [key: string]: any; // Allow dynamic access to row properties
@@ -22,7 +24,7 @@ interface RowType {
     templateUrl: "./uom-details.component.html",
     styleUrl: "./uom-details.component.css",
 })
-export class UomDetailsComponent implements OnDestroy {
+export class UomDetailsComponent implements OnDestroy, OnInit {
     //enable/disable edit
     editingEnabled: boolean = false;
     currentDate: any;
@@ -32,25 +34,25 @@ export class UomDetailsComponent implements OnDestroy {
 
     //editable-form-fields
     //this field alters form fields
-    classInp: any = "UOM";
-    UOMType: any = "EACH";
-    UOMDescription: string = "1 x 4LB";
-    UOMLongName: string = "U1020 EACH (1 x 4LB)";
+    classInp: any = "";
+    UOMType: any = "";
+    UOMDescription: string = "";
+    UOMLongName: string = "";
     isInventoryUOM: boolean = true;
-    isPurchaseUOM: boolean = false;
-    UOMLevel: string = "Level 1";
-    UOMID: string = "U1020";
-    UOMShortName: string = "EACH (U1020)";
+    isPurchaseUOM: boolean = true;
+    UOMLevel: string = "";
+    UOMID: string = "";
+    UOMShortName: string = "";
     isProductionUOM: boolean = true;
     isSalesUOM: boolean = true;
     flexHU: boolean = true;
 
     //read-only
-    lastUpdatedBy: string = "John Doe";
-    dateCreated: string = "2024-06-27";
-    effectiveDate: string = "2024-06-27";
-    lastUpdated: string = "2024-06-27";
-    status: string = "ACTIVE";
+    lastUpdatedBy: string = "";
+    dateCreated: string = "";
+    effectiveDate: string = "";
+    lastUpdated: string = "";
+    status: string = "";
 
     //tabs
     tabs = ["UOM Weight and Volume", "Linked UOM", "Linked PU and HU"];
@@ -208,7 +210,9 @@ export class UomDetailsComponent implements OnDestroy {
 
     constructor(
         private datePipe: DatePipe,
-        private mainCommunicationService: MainCommunicationService
+        private mainCommunicationService: MainCommunicationService,
+        private UOMService: UomService,
+        private route: ActivatedRoute
     ) {
         this.currentDate = this.datePipe.transform(new Date(), "y/M/d");
 
@@ -217,6 +221,15 @@ export class UomDetailsComponent implements OnDestroy {
             this.mainCommunicationService.toggleEdit$.subscribe((data) => {
                 this.editingEnabled = !this.editingEnabled;
             });
+    }
+    ngOnInit(): void {
+        let UOMId = this.route.snapshot.paramMap.get("UOMId");
+        let UOM: any = this.UOMService.getUOMById(UOMId as any)[0];
+        console.log(UOM);
+        this.UOMID = UOM["id"];
+        this.UOMDescription = UOM["description"];
+        this.UOMLongName = UOM["longName"];
+        this.UOMShortName = UOM["shortName"];
     }
 
     ngOnDestroy(): void {
