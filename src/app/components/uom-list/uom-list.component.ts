@@ -50,6 +50,13 @@ export class UomListComponent implements OnInit {
 
     pageEvent!: PageEvent;
 
+    //subheader buttons
+    subheaderButtons = [
+        { name: "Create New UOM", classInp: "UOM", style: "green" },
+        { name: "Create New PU", classInp: "PU", style: "blue" },
+        { name: "Create New HU", classInp: "HU", style: "orange" },
+    ];
+
     constructor(
         private UOMService: UomService,
         private router: Router,
@@ -72,6 +79,12 @@ export class UomListComponent implements OnInit {
     }
 
     viewUOMDetails(id: string) {
-        this.mainCommunicationService.manualSideNavigate(`uom-details/${id}`);
+        this.router.navigate(["uom-details", id]);
+    }
+
+    navigateToCreateUOMForm(classInp: string) {
+        this.router.navigate(["create-new-uom"], {
+            queryParams: { class: classInp },
+        });
     }
 }

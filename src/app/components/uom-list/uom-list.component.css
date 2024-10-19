@@ -18,3 +18,21 @@ ui5-table-header-row {
 ui5-table-row {
     cursor: pointer;
 }
+
+.orange {
+    background-color: #e3b432 !important;
+    border-color: #e3b432 !important;
+    color: white !important;
+}
+
+.green {
+    background-color: #69a169 !important;
+    border-color: #69a169 !important;
+    color: white !important;
+}
+
+.blue {
+    background-color: #0064d9 !important;
+    border-color: #0064d9 !important;
+    color: white !important;
+}

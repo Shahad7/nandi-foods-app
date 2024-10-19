@@ -1,11 +1,12 @@
 import { MainCommunicationService } from "./../../services/main-communication.service";
-import { BootstrapOptions, Component, Output } from "@angular/core";
+import { BootstrapOptions, Component, OnInit, Output } from "@angular/core";
 import { DatePipe } from "@angular/common";
 import { UOMImperialRow } from "../../models/UOMImperialRow";
 import { UOMMetricRow } from "../../models/UOMMetricRow";
 import { LinkedUOMRow } from "../../models/linkedUOMRow";
 import { LinkedHuAndPuRow } from "../../models/linkedHuAndPuRow";
 import { EventEmitter } from "stream";
+import { ActivatedRoute } from "@angular/router";
 
 interface RowType {
     [key: string]: any; // Allow dynamic access to row properties
@@ -16,7 +17,7 @@ interface RowType {
     templateUrl: "./create-new-uom.component.html",
     styleUrl: "./create-new-uom.component.css",
 })
-export class CreateNewUomComponent {
+export class CreateNewUomComponent implements OnInit {
     currentDate: any;
 
     //editable-form-fields
@@ -190,9 +191,15 @@ export class CreateNewUomComponent {
 
     constructor(
         private datePipe: DatePipe,
-        private mainCommunicationService: MainCommunicationService
+        private mainCommunicationService: MainCommunicationService,
+        private route: ActivatedRoute
     ) {
         this.currentDate = this.datePipe.transform(new Date(), "y/M/d");
+    }
+    ngOnInit(): void {
+        this.route.queryParams.subscribe((params) => {
+            this.classInp = params["class"];
+        });
     }
 
     selectTab(event: any) {

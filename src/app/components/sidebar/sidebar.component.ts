@@ -1,7 +1,13 @@
 import { Subscription } from "rxjs";
 import { MainCommunicationService } from "./../../services/main-communication.service";
 import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
+import {
+    ActivatedRoute,
+    NavigationEnd,
+    NavigationStart,
+    Router,
+    Scroll,
+} from "@angular/router";
 import { LocationStrategy } from "@angular/common";
 
 @Component({
@@ -15,7 +21,7 @@ export class SidebarComponent implements OnDestroy, OnInit {
     //subscriptions to cancel on destruction
     toggleSidebarSubscription!: Subscription | undefined;
     routeSubscription!: Subscription | undefined;
-    manualSideNavigationSubscription: Subscription | undefined;
+
     //sideNav
     selectedOption!: string;
     selectedOptionToDisplay!: string;
@@ -390,8 +396,8 @@ export class SidebarComponent implements OnDestroy, OnInit {
     ngOnInit(): void {
         //listen for route changes to detect child component title that is side navigation change
 
-        this.routeSubscription = this.route.firstChild?.url.subscribe(
-            (data) => {
+        this.routeSubscription = this.router.events.subscribe((event) => {
+            if (event instanceof NavigationEnd || event instanceof Scroll) {
                 let path = this.route.snapshot.firstChild?.url[0]?.path;
                 path = path == undefined ? "" : path;
                 this.selectedOption = this.titleLookupTable[path as any];
@@ -421,21 +427,13 @@ export class SidebarComponent implements OnDestroy, OnInit {
                     }
                 }
             }
-        );
+        });
 
         //listen for sidebar toggling from subheader on low screen width devices
         this.toggleSidebarSubscription =
             this.mainCommunicationService.toggleSidebar$.subscribe((data) => {
                 this.toggleSidebar();
             });
-
-        //listen to any manual sidenav publishing
-        this.manualSideNavigationSubscription =
-            this.mainCommunicationService.manualSideNavigation$.subscribe(
-                (url) => {
-                    this.goToNested(url);
-                }
-            );
 
         //listen to back and forth navigations using browser
         this.location.onPopState(() => {
@@ -465,6 +463,5 @@ export class SidebarComponent implements OnDestroy, OnInit {
     ngOnDestroy(): void {
         this.toggleSidebarSubscription?.unsubscribe();
         this.routeSubscription?.unsubscribe();
-        this.manualSideNavigationSubscription?.unsubscribe();
     }
 }

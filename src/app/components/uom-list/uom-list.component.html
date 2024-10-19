@@ -1,4 +1,11 @@
-<app-subheader></app-subheader>
+<app-subheader>
+    <ui5-button
+        *ngFor="let btn of subheaderButtons"
+        (ui5Click)="navigateToCreateUOMForm(btn.classInp)"
+        class="{{ btn.style }}"
+        >{{ btn.name }}</ui5-button
+    >
+</app-subheader>
 <div class="flex-column samples-margin" id="searchbar">
     <ui5-input
         id="searchInput"
