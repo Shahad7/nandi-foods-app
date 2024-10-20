@@ -1,1 +1,53 @@
-<p>countries-list works!</p>
+<app-subheader [title]="'Countries List'">
+    <input
+        type="file"
+        #fileInput
+        (change)="uploadFile($event)"
+        accept=".csv"
+        style="display: none"
+    />
+    <button id="upload-btn" (click)="triggerFileInput()">
+        <img src="assets/upload.svg" alt="" style="height: 20px" />
+        <span>Upload a File</span>
+    </button>
+</app-subheader>
+<div class="flex-column samples-margin" id="searchbar">
+    <ui5-input
+        id="searchInput"
+        placeholder="Enter search criteria ..."
+        style="width: 100%"
+        (ngModelChange)="search()"
+    >
+        <ui5-icon id="searchIcon" slot="icon" name="search"></ui5-icon>
+    </ui5-input>
+</div>
+<ui5-table overflowMode="Scroll" loading="{{ loading }}">
+    <ui5-table-header-row slot="headerRow">
+        <ng-container *ngFor="let item of headers">
+            <ui5-table-header-cell minWidth="104px">
+                <span>{{ item }}</span>
+            </ui5-table-header-cell>
+        </ng-container>
+    </ui5-table-header-row>
+
+    <ui5-table-row *ngFor="let row of rows">
+        <ui5-table-cell *ngFor="let key of keys">
+            <ui5-label>
+                <b>{{ row[key] }}</b>
+            </ui5-label>
+        </ui5-table-cell>
+    </ui5-table-row>
+</ui5-table>
+<mat-paginator
+    #paginator
+    (page)="handlePageEvent($event)"
+    [length]="length"
+    [pageSize]="pageSize"
+    [disabled]="disabled"
+    [showFirstLastButtons]="showFirstLastButtons"
+    [pageSizeOptions]="showPageSizeOptions ? pageSizeOptions : []"
+    [hidePageSize]="hidePageSize"
+    [pageIndex]="pageIndex"
+    aria-label="Select page"
+>
+</mat-paginator>
