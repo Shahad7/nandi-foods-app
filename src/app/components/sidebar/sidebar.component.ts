@@ -426,6 +426,11 @@ export class SidebarComponent implements OnDestroy, OnInit {
                                     break;
                                 }
                             }
+                        } else if (
+                            !subitem.hasOptions &&
+                            this.selectedOption == subitem.subTitle
+                        ) {
+                            found = true;
                         }
                         if (found) {
                             this.selectedSubtitle = subitem.subTitle;
