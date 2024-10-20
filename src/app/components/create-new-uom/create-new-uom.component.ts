@@ -198,7 +198,9 @@ export class CreateNewUomComponent implements OnInit {
     }
     ngOnInit(): void {
         this.route.queryParams.subscribe((params) => {
-            this.classInp = params["class"];
+            this.classInp =
+                params["class"] == undefined ? "UOM" : params["class"];
+
             this.onClassChange();
         });
     }
