@@ -33,7 +33,7 @@
     gap: 16px;
 }
 
-:host /deep/ ui5-button {
+:host ::ng-deep ui5-button {
     --sapFontSize: 0.675rem !important;
 }
 
