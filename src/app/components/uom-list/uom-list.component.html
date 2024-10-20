@@ -1,4 +1,15 @@
 <app-subheader [title]="'UOM List'">
+    <input
+        type="file"
+        #fileInput
+        (change)="uploadFile($event)"
+        accept=".csv"
+        style="display: none"
+    />
+    <button id="upload-btn" (click)="triggerFileInput()">
+        <img src="assets/upload.svg" alt="" style="height: 20px" />
+        <span>Upload a File</span>
+    </button>
     <ui5-button
         *ngFor="let btn of subheaderButtons"
         (ui5Click)="navigateToCreateUOMForm(btn.classInp)"

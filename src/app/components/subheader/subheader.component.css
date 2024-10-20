@@ -1,6 +1,7 @@
 #subheader {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     border-bottom: solid 1px #dbd6d6;
     padding-bottom: 10px;
     margin-bottom: 20px;
@@ -18,7 +19,26 @@
     }
 }
 
+@media screen and (max-width: 770px) {
+    #selected-option {
+        display: none;
+    }
+    #refresh-btn {
+        display: none;
+    }
+}
+
 #buttons-row {
     display: flex;
     gap: 16px;
+}
+
+:host /deep/ ui5-button {
+    --sapFontSize: 0.675rem !important;
+}
+
+#selected-option {
+    font-size: var(--sapFontHeader6Size);
+    font-family: "72override", var(--sapFontHeaderFamily);
+    text-shadow: var(--sapContent_TextShadow);
 }

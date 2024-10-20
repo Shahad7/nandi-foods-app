@@ -1,7 +1,7 @@
 import { MainCommunicationService } from "./../../services/main-communication.service";
 import { title } from "process";
 import { UomService } from "./../../services/uom.service";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { PageEvent } from "@angular/material/paginator";
 import { Router } from "@angular/router";
 
@@ -15,6 +15,8 @@ interface rowType {
     styleUrl: "./uom-list.component.css",
 })
 export class UomListComponent implements OnInit {
+    @ViewChild("fileInput")
+    fileInput: any;
     headers = [
         "UOM ID",
         "UOM Name",
@@ -86,5 +88,11 @@ export class UomListComponent implements OnInit {
         this.router.navigate(["create-new-uom"], {
             queryParams: { class: classInp },
         });
+    }
+    triggerFileInput() {
+        this.fileInput.nativeElement.click();
+    }
+    uploadFile(event: any) {
+        console.log(event.target?.files[0].name);
     }
 }

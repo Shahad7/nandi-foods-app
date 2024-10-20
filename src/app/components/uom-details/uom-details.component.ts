@@ -217,7 +217,7 @@ export class UomDetailsComponent implements OnDestroy, OnInit {
     ngOnInit(): void {
         let UOMId = this.route.snapshot.paramMap.get("UOMId");
         let UOM!: any;
-        if (UOMId != "") {
+        if (UOMId != "" && UOMId != undefined) {
             UOM = this.UOMService.getUOMById(UOMId as any)[0];
             this.UOMID = UOM["id"];
             this.UOMDescription = UOM["description"];
