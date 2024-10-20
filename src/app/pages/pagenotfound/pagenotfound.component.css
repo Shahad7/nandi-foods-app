@@ -5,13 +5,12 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-family: var(--_ui5-v2-0-1_button_fontFamily);
 }
 
 img {
     width: 440px;
 }
 
-p {
-    font-size: 0.875em;
+ui5-title {
+    margin-bottom: 20px;
 }
