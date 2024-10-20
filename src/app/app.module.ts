@@ -27,7 +27,8 @@ import { UomDetailsComponent } from "./components/uom-details/uom-details.compon
 import { FormsModule } from "@angular/forms";
 import { SubheaderComponent } from "./components/subheader/subheader.component";
 import { SidebarComponent } from "./components/sidebar/sidebar.component";
-import { CountriesListComponent } from './components/countries-list/countries-list.component';
+import { CountriesListComponent } from "./components/countries-list/countries-list.component";
+import { PagenotfoundComponent } from './pages/pagenotfound/pagenotfound.component';
 
 function initializeKeycloak(keycloak: KeycloakService) {
     return () =>
@@ -70,6 +71,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
         SubheaderComponent,
         SidebarComponent,
         CountriesListComponent,
+        PagenotfoundComponent,
     ],
     imports: [
         BrowserModule,

@@ -9,6 +9,7 @@ import { UomListComponent } from "./components/uom-list/uom-list.component";
 import { CreateNewUomComponent } from "./components/create-new-uom/create-new-uom.component";
 import { UomDetailsComponent } from "./components/uom-details/uom-details.component";
 import { CountriesListComponent } from "./components/countries-list/countries-list.component";
+import { PagenotfoundComponent } from "./pages/pagenotfound/pagenotfound.component";
 
 const routes: Routes = [
     {
@@ -47,6 +48,7 @@ const routes: Routes = [
         ],
     },
     { path: "login", component: LoginComponent },
+    { path: "**", component: PagenotfoundComponent },
 ];
 
 @NgModule({
