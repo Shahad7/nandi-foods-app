@@ -20,6 +20,7 @@
                 text="{{ subItem.subTitle }}"
                 [expanded]="subItem.subTitle == selectedSubtitle"
                 (click)="manualExpand($event, node)"
+                (click)="!subItem.hasOptions && goToNested(subItem.route!)"
             >
                 <ui5-side-navigation-sub-item
                     *ngFor="let option of subItem.options"

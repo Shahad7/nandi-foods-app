@@ -89,6 +89,7 @@ export class SidebarComponent implements OnDestroy, OnInit {
                 {
                     subTitle: "Warehouses",
                     hasOptions: true,
+                    route: null,
                     options: [
                         { name: "Warehouse List", route: "warehouse-list" },
                         {
@@ -104,6 +105,7 @@ export class SidebarComponent implements OnDestroy, OnInit {
                 {
                     subTitle: "Products",
                     hasOptions: true,
+                    route: null,
                     options: [
                         { name: "Products List", route: "products-list" },
                         {
@@ -125,6 +127,7 @@ export class SidebarComponent implements OnDestroy, OnInit {
             subMenus: [
                 {
                     subTitle: "Goods Received Notes (GRN)",
+                    route: null,
                     hasOptions: true,
                     options: [
                         { name: "GRN List", route: "grn-list" },
@@ -135,6 +138,7 @@ export class SidebarComponent implements OnDestroy, OnInit {
                 {
                     subTitle: "Goods Transfer Notes (GTN)",
                     hasOptions: true,
+                    route: null,
                     options: [
                         { name: "GTN List", route: "gtn-list" },
                         { name: "Create New GTN", route: "create-new-gtn" },
@@ -144,6 +148,7 @@ export class SidebarComponent implements OnDestroy, OnInit {
                 {
                     subTitle: "Damaged Goods Note (DGN)",
                     hasOptions: true,
+                    route: null,
                     options: [
                         { name: "DGN List", route: "dgn-list" },
                         { name: "Create New DGN", route: "create-new-dgn" },
@@ -153,6 +158,7 @@ export class SidebarComponent implements OnDestroy, OnInit {
                 {
                     subTitle: "Production Orders (PRD)",
                     hasOptions: true,
+                    route: null,
                     options: [
                         { name: "PRD List", route: "prd-list" },
                         {
@@ -165,6 +171,7 @@ export class SidebarComponent implements OnDestroy, OnInit {
                 {
                     subTitle: "Order Fulfillment",
                     hasOptions: true,
+                    route: null,
                     options: [
                         { name: "Order Picking", route: "order-picking" },
                         { name: "Order Packing", route: "order-packing" },
@@ -179,15 +186,18 @@ export class SidebarComponent implements OnDestroy, OnInit {
                 {
                     subTitle: "Employee List",
                     hasOptions: false,
+                    route: null,
                     options: [],
                 },
                 {
                     subTitle: "Add New Employee",
+                    route: null,
                     hasOptions: false,
                     options: [],
                 },
                 {
                     subTitle: "Employee Details",
+                    route: null,
                     hasOptions: false,
                     options: [],
                 },
@@ -198,16 +208,19 @@ export class SidebarComponent implements OnDestroy, OnInit {
             subMenus: [
                 {
                     subTitle: "Timesheets List",
+                    route: null,
                     hasOptions: false,
                     options: [],
                 },
                 {
                     subTitle: "Add New Timesheets",
+                    route: null,
                     hasOptions: false,
                     options: [],
                 },
                 {
                     subTitle: "Timesheets Details",
+                    route: null,
                     hasOptions: false,
                     options: [],
                 },
@@ -218,6 +231,7 @@ export class SidebarComponent implements OnDestroy, OnInit {
             subMenus: [
                 {
                     subTitle: "Sales Invoices",
+                    route: null,
                     hasOptions: true,
                     options: [
                         {
@@ -234,6 +248,7 @@ export class SidebarComponent implements OnDestroy, OnInit {
                 {
                     subTitle: "Receipts",
                     hasOptions: true,
+                    route: null,
                     options: [
                         { name: "Receipts List", route: "receipts-list" },
                         {
@@ -246,6 +261,7 @@ export class SidebarComponent implements OnDestroy, OnInit {
                 {
                     subTitle: "Credit Notes",
                     hasOptions: true,
+                    route: null,
                     options: [
                         {
                             name: "Credit Notes List",
@@ -311,7 +327,7 @@ export class SidebarComponent implements OnDestroy, OnInit {
                 },
                 {
                     subTitle: "UOM",
-                    route: "general-uom",
+                    route: null,
                     hasOptions: true,
                     options: [
                         { name: "UOM List", route: "uom-list" },
