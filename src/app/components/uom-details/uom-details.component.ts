@@ -205,6 +205,7 @@ export class UomDetailsComponent implements OnDestroy, OnInit {
 
     linkedUOMNames = ["U4020 CASE (10 x 4LB)", "U7020 PALLET (500 x 4LB)"];
     linkedHuAndPuNames = ["U4020 CASE (10 x 4LB)", "U7502 PALLET (10 x 4LB)"];
+    statuses = ["ACTIVE", "PENDING", "HOLD", "CLOSED"];
 
     constructor(
         private datePipe: DatePipe,

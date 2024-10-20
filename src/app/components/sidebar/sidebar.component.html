@@ -15,9 +15,11 @@
             [expanded]="item.mainTitle == selectedMainTitle"
         >
             <ui5-side-navigation-item
+                #node
                 *ngFor="let subItem of item.subMenus"
                 text="{{ subItem.subTitle }}"
                 [expanded]="subItem.subTitle == selectedSubtitle"
+                (click)="manualExpand($event, node)"
             >
                 <ui5-side-navigation-sub-item
                     *ngFor="let option of subItem.options"

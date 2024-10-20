@@ -454,4 +454,12 @@ export class SidebarComponent implements OnDestroy, OnInit {
         this.toggleSidebarSubscription?.unsubscribe();
         this.routeSubscription?.unsubscribe();
     }
+
+    manualExpand(event: any, node: any) {
+        console.log(event.target.localName);
+        if (event.target.localName == "ui5-side-navigation-item") {
+            console.log(node);
+            node.expanded = !node.expanded;
+        }
+    }
 }
