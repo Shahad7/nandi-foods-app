@@ -26,10 +26,12 @@
                 (click)="!subItem.hasOptions && goToNested(subItem.route!)"
             >
                 <ui5-side-navigation-sub-item
+                    #node
                     *ngFor="let option of subItem.options"
                     text="{{ option.name }}"
+                    [disabled]="option.name == 'UOM Details'"
                     [selected]="selectedOption == option.name"
-                    (click)="goToNested(option.route)"
+                    (ui5Click)="!node.disabled && goToNested(option.route)"
                 >
                 </ui5-side-navigation-sub-item>
             </ui5-side-navigation-item>
