@@ -61,6 +61,9 @@ export class SidebarComponent implements OnDestroy, OnInit {
         "credit-notes-list": "Credit Notes List",
         "create-new-credit-note": "Create New Credit Note",
         "credit-note-details": "Credit Note Details",
+        "customer-list": "Customer List",
+        "add-new-customer": "Add New Customer",
+        "customer-details": "Customer Details",
         "countries-list": "Countries List",
         "states-list": "States List",
         "cities-list": "Cities List",
@@ -274,6 +277,25 @@ export class SidebarComponent implements OnDestroy, OnInit {
                         {
                             name: "Credit Note Details",
                             route: "credit-note-details",
+                        },
+                    ],
+                },
+                {
+                    subTitle: "Customers",
+                    hasOptions: true,
+                    route: null,
+                    options: [
+                        {
+                            name: "Customer List",
+                            route: "customer-list",
+                        },
+                        {
+                            name: "Add New Customer",
+                            route: "add-new-customer",
+                        },
+                        {
+                            name: "Customer Details",
+                            route: "customer-details",
                         },
                     ],
                 },

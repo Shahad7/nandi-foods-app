@@ -29,6 +29,7 @@ import { SubheaderComponent } from "./components/subheader/subheader.component";
 import { SidebarComponent } from "./components/sidebar/sidebar.component";
 import { CountriesListComponent } from "./components/countries-list/countries-list.component";
 import { PagenotfoundComponent } from './pages/pagenotfound/pagenotfound.component';
+import { AddNewCustomerComponent } from './components/add-new-customer/add-new-customer.component';
 
 function initializeKeycloak(keycloak: KeycloakService) {
     return () =>
@@ -72,6 +73,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
         SidebarComponent,
         CountriesListComponent,
         PagenotfoundComponent,
+        AddNewCustomerComponent,
     ],
     imports: [
         BrowserModule,

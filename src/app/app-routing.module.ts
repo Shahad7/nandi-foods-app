@@ -10,6 +10,7 @@ import { CreateNewUomComponent } from "./components/create-new-uom/create-new-uo
 import { UomDetailsComponent } from "./components/uom-details/uom-details.component";
 import { CountriesListComponent } from "./components/countries-list/countries-list.component";
 import { PagenotfoundComponent } from "./pages/pagenotfound/pagenotfound.component";
+import { AddNewCustomerComponent } from "./components/add-new-customer/add-new-customer.component";
 
 const routes: Routes = [
     {
@@ -44,6 +45,10 @@ const routes: Routes = [
             {
                 path: "countries-list",
                 component: CountriesListComponent,
+            },
+            {
+                path: "add-new-customer",
+                component: AddNewCustomerComponent,
             },
         ],
     },
