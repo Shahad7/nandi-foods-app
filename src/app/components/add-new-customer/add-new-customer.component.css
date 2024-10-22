@@ -107,6 +107,31 @@ ui5-tabcontainer::part(content) {
     text-overflow: ellipsis;
     padding: 0 60px;
 }
+
+#credits-file-label {
+    padding: 0 20px;
+}
+
+#credits-file-name {
+    margin-right: 10px;
+    padding-left: 20px;
+}
+
+#credits-file-label,
+#credits-file-name,
+#credits-upload-btn {
+    font-size: 12px !important;
+}
+
+@media screen and (max-width: 1100px) {
+    #credit-terms {
+        flex-direction: column;
+    }
+
+    #credit-terms > * {
+        width: auto;
+    }
+}
 @media screen and (max-width: 1200px) {
     #form-container {
         flex-direction: column;
@@ -118,4 +143,52 @@ ui5-tabcontainer::part(content) {
     #file-uploader-container {
         width: auto;
     }
+}
+
+/* shipping info table styles */
+#shipping-loc-table-heading {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+ui5-table {
+    width: 100%;
+    overflow-x: auto;
+}
+
+ui5-table-header-cell {
+    color: white !important;
+}
+
+ui5-table-header-row {
+    background-color: #0064d9 !important;
+}
+
+ui5-table-row {
+    cursor: pointer;
+}
+
+/* shipping location form */
+#shipping-loc-form {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    position: fixed;
+    z-index: 1999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    box-sizing: border-box;
+    overflow-y: auto;
+    background-color: #0000003b;
+}
+
+#shipping-loc-form ui5-form {
+    width: 65%;
+    margin-top: 100px;
+    height: 100%;
+    margin-bottom: 100px !important;
+    box-sizing: border-box;
 }

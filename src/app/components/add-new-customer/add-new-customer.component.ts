@@ -50,6 +50,25 @@ export class AddNewCustomerComponent {
     //uploadedFiles
     notesFileName: string = "";
     creditsFileName: string = "";
+
+    //shipping info table
+    loading: boolean = false;
+    shippingInfoHeaders = ["Country", "State", "City", "Address"];
+    shippingInfoRows = [
+        {
+            country: "CANADA",
+            state: "Alberta",
+            city: "Edmonton",
+            address: "862 Parsons Road",
+        },
+        {
+            country: "CANADA",
+            state: "Alberta",
+            city: "Calgary",
+            address: "123 Main Street",
+        },
+    ] as any;
+    shippingInfoKeys = ["country", "state", "city", "address"];
     constructor() {}
 
     selectTab(event: any) {

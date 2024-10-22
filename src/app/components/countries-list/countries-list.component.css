@@ -11,12 +11,12 @@ ui5-table-header-row {
     background-color: #0064d9 !important;
 }
 
-#searchbar {
-    margin-bottom: 20px;
-}
-
 ui5-table-row {
     cursor: pointer;
+}
+
+#searchbar {
+    margin-bottom: 20px;
 }
 
 #upload-btn {
