@@ -11,6 +11,8 @@ export class AddNewCustomerComponent {
     notesFileUpload: any;
     @ViewChild("creditsFileUpload")
     creditsFileUpload: any;
+    @ViewChild("shippingLocationFormContainer")
+    shippingLocationFormContainer: any;
     customerNo: string = "";
     legalName: string = "";
     tradeName: string = "";
@@ -89,4 +91,19 @@ export class AddNewCustomerComponent {
     onNotesFileSubmit(event: any) {
         this.notesFileName = event.target?.files[0].name;
     }
+
+    onAddNewShippingLocation() {
+        this.shippingLocationFormContainer.nativeElement.style.display = "flex";
+    }
+
+    onCancelShippingLocationForm() {
+        this.shippingLocationFormContainer.nativeElement.style.display = "none";
+    }
+
+    onSaveShippingLocationForm() {
+        //to-do
+        this.shippingLocationFormContainer.nativeElement.style.display = "none";
+    }
+
+    onSave() {}
 }
