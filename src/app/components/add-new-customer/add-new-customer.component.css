@@ -2,10 +2,10 @@ ui5-form {
     --sapFontSize: 12px;
 }
 
-ui5-form .ui5-form-column {
+#form-container ui5-form .ui5-form-column {
     padding-bottom: 0.5rem !important;
 }
-ui5-form-item {
+#form-container ui5-form-item {
     --_ui5-v2-0-1_form_item_padding: 0.01rem;
 }
 
@@ -22,7 +22,7 @@ ui5-form {
     width: 50%;
 }
 
-ui5-form::part(layout) {
+#form-container ui5-form::part(layout) {
     padding: 0 !important;
 }
 
@@ -37,25 +37,38 @@ ui5-tabcontainer::part(content) {
     border-bottom: none !important;
 }
 
-#notes-n-files {
+#notes-n-files,
+#credit-notes-n-files {
     display: flex;
     flex-direction: column;
     gap: 28px;
 }
 
+#credit-notes-n-files {
+    width: 50%;
+}
+
 #notes-file-label,
-#notes-upload-btn {
+#notes-upload-btn,
+#credits-upload-btn,
+#credits-file-label {
     flex-grow: 0;
 }
-#notes-upload {
+#notes-upload,
+#credits-upload {
     display: flex;
     width: 100%;
 }
 
-#notes-file-name {
+#credits-bottom-form ui5-form-item {
+    padding: 0px 0px;
+}
+
+#notes-file-name,
+#credits-file-name {
     display: flex;
     align-items: center;
-    justify-content: center;
+    padding-left: 40px;
     flex-grow: 1;
     border: var(--sapButton_BorderWidth) solid var(--sapButton_BorderColor);
     background-color: #fff;
@@ -63,8 +76,19 @@ ui5-tabcontainer::part(content) {
     border-left: none;
     margin-right: 30px;
 }
-
-#notes-file-label {
+#credits-bottom-form {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 1rem;
+    width: 50%;
+}
+#credit-terms {
+    display: flex;
+    gap: 40px;
+    width: 100%;
+}
+#notes-file-label,
+#credits-file-label {
     display: flex;
     background-color: #f4f5f7;
     align-items: center;

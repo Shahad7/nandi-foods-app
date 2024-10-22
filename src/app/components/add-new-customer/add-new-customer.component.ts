@@ -9,6 +9,8 @@ import "@ui5/webcomponents-fiori/dist/illustrations/UploadToCloud.js";
 export class AddNewCustomerComponent {
     @ViewChild("notesFileUpload")
     notesFileUpload: any;
+    @ViewChild("creditsFileUpload")
+    creditsFileUpload: any;
     customerNo: string = "";
     legalName: string = "";
     tradeName: string = "";
@@ -35,22 +37,36 @@ export class AddNewCustomerComponent {
     status: string = "ACTIVE";
     statuses = ["ACTIVE", "PENDING", "HOLD", "CLOSED"];
 
+    //bottom credit terms tab fields
+    creditTerms2: string = "";
+    creditLimit: string = "";
+    creditStatus: string = "";
+    totalUnpaidInvoices: string = "";
+    availableCredit: string = "";
     //tabs
     tabs = ["Notes & Files", "Credit Terms", "Shipping Info"];
     selectedTab = this.tabs[0];
 
     //uploadedFiles
     notesFileName: string = "";
+    creditsFileName: string = "";
     constructor() {}
 
     selectTab(event: any) {
         this.selectedTab = this.tabs[event.tabIndex / 2];
     }
 
+    triggerCreditsFileUpload() {
+        this.creditsFileUpload.nativeElement.click();
+    }
+
     triggerNotesFileUpload() {
         this.notesFileUpload.nativeElement.click();
     }
 
+    onCreditsFileSubmit(event: any) {
+        this.creditsFileUpload = event.target?.files[0].name;
+    }
     onNotesFileSubmit(event: any) {
         this.notesFileName = event.target?.files[0].name;
     }

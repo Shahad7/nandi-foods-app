@@ -291,10 +291,108 @@
             <div id="notes-file-label" (click)="triggerNotesFileUpload()">
                 Choose file
             </div>
-            <div id="notes-file-name">{{ notesFileName }}</div>
+            <div id="notes-file-name">
+                {{ notesFileName == "" ? "No file chosen" : notesFileName }}
+            </div>
             <ui5-button design="Emphasized" id="notes-upload-btn"
                 >Upload File</ui5-button
             >
+        </div>
+    </div>
+    <div id="credit-terms" *ngIf="selectedTab == 'Credit Terms'">
+        <div id="credits-bottom-form">
+            <ui5-form style="width: 100%" label-span="S12 M12 L12 XL12">
+                <ui5-form-group>
+                    <ui5-form-item>
+                        <ui5-label
+                            for="creditTerms2"
+                            required="true"
+                            slot="labelContent"
+                            >Credit Terms</ui5-label
+                        >
+                        <ui5-input
+                            id="creditTerms2"
+                            [(ngModel)]="creditTerms2"
+                        ></ui5-input>
+                    </ui5-form-item>
+                    <ui5-form-item>
+                        <ui5-label
+                            for="creditLimit"
+                            required="true"
+                            slot="labelContent"
+                            >Credit Terms</ui5-label
+                        >
+                        <ui5-input
+                            id="creditLimit"
+                            [(ngModel)]="creditLimit"
+                        ></ui5-input>
+                    </ui5-form-item>
+                    <ui5-form-item>
+                        <ui5-label
+                            for="creditStatus"
+                            required="true"
+                            slot="labelContent"
+                            >Credit Terms</ui5-label
+                        >
+                        <ui5-input
+                            id="creditStatus"
+                            [(ngModel)]="creditStatus"
+                        ></ui5-input>
+                    </ui5-form-item>
+                </ui5-form-group>
+                <ui5-form-group>
+                    <ui5-form-item>
+                        <ui5-label for="totalUnpaidInvoices" slot="labelContent"
+                            >Total Unpaid Invoices</ui5-label
+                        >
+                        <ui5-input
+                            id="totalUnpaidInvoices"
+                            [(ngModel)]="totalUnpaidInvoices"
+                        ></ui5-input>
+                    </ui5-form-item>
+                    <ui5-form-item>
+                        <ui5-label for="availableCredit" slot="labelContent"
+                            >Available Credit</ui5-label
+                        >
+                        <ui5-input
+                            id="availableCredit"
+                            [(ngModel)]="availableCredit"
+                        ></ui5-input>
+                    </ui5-form-item>
+                </ui5-form-group>
+            </ui5-form>
+        </div>
+        <div id="credit-notes-n-files">
+            <ui5-textarea
+                [rows]="18"
+                class="textarea-width"
+                placeholder="Type notes here..."
+            ></ui5-textarea>
+            <div id="credits-upload">
+                <input
+                    type="file"
+                    #creditsFileUpload
+                    id="credits-file-input"
+                    style="display: none"
+                    (change)="onCreditsFileSubmit($event)"
+                />
+                <div
+                    id="credits-file-label"
+                    (click)="triggerCreditsFileUpload()"
+                >
+                    Choose file
+                </div>
+                <div id="credits-file-name">
+                    {{
+                        creditsFileName == ""
+                            ? "No file chosen"
+                            : creditsFileName
+                    }}
+                </div>
+                <ui5-button design="Emphasized" id="credits-upload-btn"
+                    >Upload File</ui5-button
+                >
+            </div>
         </div>
     </div>
 </div>
