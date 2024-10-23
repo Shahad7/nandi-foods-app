@@ -13,6 +13,6 @@ export class AuthService {
 
     logout(): void {
         //has to specify logout redirect url in keycloak server or redirect from here
-        this.keycloak.logout();
+        this.keycloak.logout(window.origin + "");
     }
 }

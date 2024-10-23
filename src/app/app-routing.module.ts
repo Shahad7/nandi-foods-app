@@ -11,12 +11,13 @@ import { UomDetailsComponent } from "./components/uom-details/uom-details.compon
 import { CountriesListComponent } from "./components/countries-list/countries-list.component";
 import { PagenotfoundComponent } from "./pages/pagenotfound/pagenotfound.component";
 import { AddNewCustomerComponent } from "./components/add-new-customer/add-new-customer.component";
+import { environment } from "../environments/environment";
 
 const routes: Routes = [
     {
         path: "",
         component: HomeComponent,
-        canActivate: [AuthGuard],
+        canActivate: environment.enableAuthGuard ? [AuthGuard] : undefined,
         children: [
             {
                 path: "",

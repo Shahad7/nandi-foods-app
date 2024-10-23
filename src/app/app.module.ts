@@ -28,35 +28,38 @@ import { FormsModule } from "@angular/forms";
 import { SubheaderComponent } from "./components/subheader/subheader.component";
 import { SidebarComponent } from "./components/sidebar/sidebar.component";
 import { CountriesListComponent } from "./components/countries-list/countries-list.component";
-import { PagenotfoundComponent } from './pages/pagenotfound/pagenotfound.component';
-import { AddNewCustomerComponent } from './components/add-new-customer/add-new-customer.component';
+import { PagenotfoundComponent } from "./pages/pagenotfound/pagenotfound.component";
+import { AddNewCustomerComponent } from "./components/add-new-customer/add-new-customer.component";
 
 function initializeKeycloak(keycloak: KeycloakService) {
-    return () =>
-        keycloak.init({
-            config: {
-                url: environment.keycloakServerUrl!,
-                realm: environment.realm!,
-                clientId: environment.clientId!,
-            },
-            initOptions: {
-                onLoad: "check-sso",
-                silentCheckSsoRedirectUri:
-                    window.location.origin + "/assets/silent-check-sso.html",
-            },
-            //decide whether Bearer token should be added to every route or allow exceptions
-            shouldAddToken: (request) => {
-                const { method, url } = request;
+    return environment.enableAuthGuard
+        ? () =>
+              keycloak.init({
+                  config: {
+                      url: environment.keycloakServerUrl!,
+                      realm: environment.realm!,
+                      clientId: environment.clientId!,
+                  },
+                  initOptions: {
+                      onLoad: "check-sso",
+                      silentCheckSsoRedirectUri:
+                          window.location.origin +
+                          "/assets/silent-check-sso.html",
+                  },
+                  //decide whether Bearer token should be added to every route or allow exceptions
+                  shouldAddToken: (request) => {
+                      const { method, url } = request;
 
-                const isGetRequest = "GET" === method.toUpperCase();
-                const acceptablePaths = ["/assets"];
-                const isAcceptablePathMatch = acceptablePaths.some((path) =>
-                    url.includes(path)
-                );
+                      const isGetRequest = "GET" === method.toUpperCase();
+                      const acceptablePaths = ["/assets"];
+                      const isAcceptablePathMatch = acceptablePaths.some(
+                          (path) => url.includes(path)
+                      );
 
-                return !(isGetRequest && isAcceptablePathMatch);
-            },
-        });
+                      return !(isGetRequest && isAcceptablePathMatch);
+                  },
+              })
+        : () => () => {};
 }
 
 @NgModule({
