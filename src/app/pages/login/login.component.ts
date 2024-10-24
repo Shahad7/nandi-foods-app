@@ -24,15 +24,11 @@ export class LoginComponent implements OnInit {
 
     ngOnInit() {
         if (!this.keycloak.isLoggedIn()) {
-            this.keycloak
-                .getKeycloakInstance()
-                .createLoginUrl({
-                    redirectUri: window.location.origin + "/login",
-                })
-                .then((url) => {
-                    this.loginUrl =
-                        this.sanitizer.bypassSecurityTrustResourceUrl(url);
-                });
+            let url = this.keycloak.getKeycloakInstance().createLoginUrl({
+                redirectUri: window.location.origin + "/login",
+            });
+
+            this.loginUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
         } else {
             window.parent.location.assign(window.parent.location.origin);
         }
