@@ -25,12 +25,13 @@ export class CreateNewUomComponent implements OnInit {
     classInp: any = "UOM";
     UOMType: any = "EACH";
     UOMDescription: string = "1 x 4LB";
-    UOMLongName: string = "U1020 EACH (1 x 4LB)";
+    UOMID: string = "U1020";
+    UOMLongName: string = `${this.UOMID} ${this.UOMType} (${this.UOMDescription})`;
     isInventoryUOM: boolean = true;
     isPurchaseUOM: boolean = false;
     UOMLevel: string = "Level 1";
-    UOMID: string = "U1020";
-    UOMShortName: string = "EACH (U1020)";
+
+    UOMShortName: string = ` ${this.UOMType} (${this.UOMID})`; //"EACH (U1020)";
     isProductionUOM: boolean = true;
     isSalesUOM: boolean = true;
     flexHU: boolean = true;
@@ -267,5 +268,10 @@ export class CreateNewUomComponent implements OnInit {
         if (this.classInp == "HU") this.title = "Create New HU";
         else if (this.classInp == "PU") this.title = "Create New PU";
         else this.title = "Create New UOM";
+    }
+
+    onUOMPropertiesChange() {
+        this.UOMLongName = `${this.UOMID} ${this.UOMType} (${this.UOMDescription})`;
+        this.UOMShortName = ` ${this.UOMType} (${this.UOMID})`;
     }
 }

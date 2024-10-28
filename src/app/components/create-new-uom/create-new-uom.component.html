@@ -3,7 +3,7 @@
     <ui5-form layout=" S1 M2 L2 XL2" item-spacing="Large">
         <!-- Class -->
 
-        <ui5-form-group >
+        <ui5-form-group>
             <ui5-form-item>
                 <ui5-label for="classInp" slot="labelContent" required="true"
                     >Class:</ui5-label
@@ -23,7 +23,11 @@
                 <ui5-label for="UOMTypeInp" slot="labelContent" required="true"
                     >UOM Type:</ui5-label
                 >
-                <ui5-select id="UOMTypeInp" [(ngModel)]="UOMType">
+                <ui5-select
+                    id="UOMTypeInp"
+                    [(ngModel)]="UOMType"
+                    (ngModelChange)="onUOMPropertiesChange()"
+                >
                     <ui5-option value="EACH" selected>EACH</ui5-option>
                     <ui5-option value="other1">Other 1</ui5-option>
                     <ui5-option value="other2">Other 2</ui5-option>
@@ -40,6 +44,7 @@
                 <ui5-input
                     id="UOMDescriptionInp"
                     [(ngModel)]="UOMDescription"
+                    (ngModelChange)="onUOMPropertiesChange()"
                 ></ui5-input>
             </ui5-form-item>
             <!-- UOM Long Name -->
@@ -98,7 +103,11 @@
                 <ui5-label for="UOMIDInp" slot="labelContent" required="true"
                     >UOM ID:</ui5-label
                 >
-                <ui5-input id="UOMIDInp" [(ngModel)]="UOMID"></ui5-input>
+                <ui5-input
+                    id="UOMIDInp"
+                    [(ngModel)]="UOMID"
+                    (ngModelChange)="onUOMPropertiesChange()"
+                ></ui5-input>
             </ui5-form-item>
             <!-- UOM Short Name (Editable) -->
             <ui5-form-item>
