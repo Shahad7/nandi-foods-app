@@ -1,0 +1,73 @@
+export class UOMMetricRow {
+    private _lengthValue: number;
+    private _widthValue: number;
+    private _heightValue: number;
+    private _volumeValue: number;
+    private _weightValue: number;
+
+    constructor(
+        lengthValue: number = 0,
+        widthValue: number = 0,
+        heightValue: number = 0,
+        weightValue: number = 0
+    ) {
+        this._lengthValue = lengthValue;
+        this._widthValue = widthValue;
+        this._heightValue = heightValue;
+        this._volumeValue = (lengthValue * widthValue * heightValue) / 1728;
+        this._weightValue = weightValue;
+    }
+
+    get lengthValue() {
+        return this._lengthValue;
+    }
+
+    set lengthValue(value: number) {
+        this._lengthValue = value;
+        this.updateVolume();
+    }
+
+    get widthValue() {
+        return this._widthValue;
+    }
+
+    set widthValue(value: number) {
+        this._widthValue = value;
+        this.updateVolume();
+    }
+
+    get heightValue() {
+        return this._heightValue;
+    }
+
+    set heightValue(value: number) {
+        this._heightValue = value;
+        this.updateVolume();
+    }
+
+    get volumeValue() {
+        return this._volumeValue;
+    }
+
+    get weightValue() {
+        return this._weightValue;
+    }
+
+    set weightValue(value: number) {
+        this._weightValue = value;
+    }
+
+    private updateVolume() {
+        this._volumeValue =
+            (this._lengthValue * this._widthValue * this._heightValue) / 1728;
+    }
+    toJSON() {
+        return {
+            lengthValue: this.lengthValue,
+            widthValue: this.widthValue,
+            heightValue: this.heightValue,
+            volumeValue: this.volumeValue,
+            weightValue: this.weightValue,
+        };
+    }
+}

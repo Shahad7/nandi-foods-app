@@ -1,4 +1,5 @@
 export class LinkedUOMRow {
+    id: string;
     linkedUOMName: string;
     _lengthCm: number;
     _widthCm: number;
@@ -11,6 +12,7 @@ export class LinkedUOMRow {
 
     // Constructor with default values
     constructor(
+        id: string = "",
         linkedUOMName: string = "",
         _lengthCm: number = 0,
         _widthCm: number = 0,
@@ -21,6 +23,7 @@ export class LinkedUOMRow {
         conversionTo: string = "",
         conversionQTY: number = 0
     ) {
+        this.id = id;
         this.linkedUOMName = linkedUOMName;
         this._lengthCm = _lengthCm;
         this._widthCm = _widthCm;

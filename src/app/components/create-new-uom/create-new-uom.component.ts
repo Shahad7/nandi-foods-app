@@ -1,12 +1,15 @@
+import { UomService } from "./../../services/uom.service";
 import { MainCommunicationService } from "./../../services/main-communication.service";
 import { BootstrapOptions, Component, OnInit, Output } from "@angular/core";
 import { DatePipe } from "@angular/common";
-import { UOMImperialRow } from "../../models/UOMImperialRow";
-import { UOMMetricRow } from "../../models/UOMMetricRow";
-import { LinkedUOMRow } from "../../models/linkedUOMRow";
-import { LinkedHuAndPuRow } from "../../models/linkedHuAndPuRow";
+import { UOMImperialRow } from "../../models/uom/table_rows/UomImperialRow";
+import { UOMMetricRow } from "../../models/uom/table_rows/UomMetricRow";
+import { LinkedUOMRow } from "../../models/uom/table_rows/linkedUomRow";
+import { LinkedHuAndPuRow } from "../../models/uom/table_rows/linkedHuAndPuRow";
 import { EventEmitter } from "stream";
+import { UOM } from "../../models/uom/uom";
 import { ActivatedRoute } from "@angular/router";
+import { error } from "console";
 
 interface RowType {
     [key: string]: any; // Allow dynamic access to row properties
@@ -20,20 +23,22 @@ interface RowType {
 export class CreateNewUomComponent implements OnInit {
     currentDate: any;
     title: string = "Create New UOM";
-    //editable-form-fields
-    //this field alters form fields
+    uom: any = new UOM(
+        "Level 1",
+        "EACH",
+        "1 x 4LB",
+        undefined,
+        undefined,
+        undefined,
+        true,
+        true,
+        true,
+        true,
+        undefined,
+        "U1020"
+    );
+    //field to recognize the current selected unit
     classInp: any = "UOM";
-    UOMType: any = "EACH";
-    UOMDescription: string = "1 x 4LB";
-    UOMID: string = "U1020";
-    UOMLongName: string = `${this.UOMID} ${this.UOMType} (${this.UOMDescription})`;
-    isInventoryUOM: boolean = true;
-    isPurchaseUOM: boolean = false;
-    UOMLevel: string = "Level 1";
-
-    UOMShortName: string = ` ${this.UOMType} (${this.UOMID})`; //"EACH (U1020)";
-    isProductionUOM: boolean = true;
-    isSalesUOM: boolean = true;
     flexHU: boolean = true;
 
     //tabs
@@ -44,40 +49,28 @@ export class CreateNewUomComponent implements OnInit {
     selectedTable: any;
 
     //tables
-    UOMImperial = {
-        headers: [
-            "Length <br/> (IN.)",
-            "Width <br/> (IN.)",
-            "Height <br/>(IN.)",
-            "Volume <br/>(FT <sup>3</sup>)",
-            "Weight <br/>(LB)",
-        ],
-        keys: [
-            { name: "lengthIn", type: "number" },
-            { name: "widthIn", type: "number" },
-            { name: "heightIn", type: "number" },
-            { name: "volumeFt3", type: "number" },
-            { name: "weightLb", type: "number" },
-        ],
-        rows: [new UOMImperialRow(15.0, 8.3, 2.36, 2.04, 1.82)] as RowType[],
-    };
-    UOMMetric = {
-        headers: [
-            "Length <br/> (CM.)",
-            "Width <br/> (CM.)",
-            "Height <br/> (CM.)",
-            "Volume <br/> (M<sup>3</sup>)",
-            "Weight <br/> (KG)",
-        ],
-        keys: [
-            { name: "lengthCm", type: "number" },
-            { name: "widthCm", type: "number" },
-            { name: "heightCm", type: "number" },
-            { name: "volumeM3", type: "number" },
-            { name: "weightKg", type: "number" },
-        ],
-        rows: [new UOMMetricRow(38.1, 21.08, 5.99, 0.0578, 0.826)] as RowType[],
-    };
+    UOMImperialHeaders = [
+        "Length <br/> (IN.)",
+        "Width <br/> (IN.)",
+        "Height <br/>(IN.)",
+        "Volume <br/>(FT <sup>3</sup>)",
+        "Weight <br/>(LB)",
+    ];
+    UOMMetricHeaders = [
+        "Length <br/> (CM.)",
+        "Width <br/> (CM.)",
+        "Height <br/> (CM.)",
+        "Volume <br/> (M<sup>3</sup>)",
+        "Weight <br/> (KG)",
+    ];
+
+    UOMTableKeys = [
+        "lengthValue",
+        "widthValue",
+        "heightValue",
+        "volumeValue",
+        "weightValue",
+    ];
 
     LinkedUOM = {
         headers: [
@@ -104,6 +97,7 @@ export class CreateNewUomComponent implements OnInit {
         ],
         rows: [
             new LinkedUOMRow(
+                "U4020",
                 "U4020 CASE (10 x 4LB)",
                 60,
                 30,
@@ -115,6 +109,7 @@ export class CreateNewUomComponent implements OnInit {
                 10.0
             ),
             new LinkedUOMRow(
+                "U7020",
                 "U7020 PALLET (500 x 4LB)",
                 122,
                 107,
@@ -193,7 +188,8 @@ export class CreateNewUomComponent implements OnInit {
     constructor(
         private datePipe: DatePipe,
         private mainCommunicationService: MainCommunicationService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private UomService: UomService
     ) {
         this.currentDate = this.datePipe.transform(new Date(), "y/M/d");
     }
@@ -204,6 +200,8 @@ export class CreateNewUomComponent implements OnInit {
 
             this.onClassChange();
         });
+
+        this.onUOMPropertiesChange();
     }
 
     selectTab(event: any) {
@@ -229,11 +227,7 @@ export class CreateNewUomComponent implements OnInit {
     }
 
     addNewRow() {
-        if (this.selectedTable == "UOMImperial")
-            this.UOMImperial.rows.push(new UOMImperialRow());
-        else if (this.selectedTable == "UOMMetric")
-            this.UOMMetric.rows.push(new UOMMetricRow());
-        else if (this.selectedTable == "LinkedUOM")
+        if (this.selectedTable == "LinkedUOM")
             this.LinkedUOM.rows.push(new LinkedUOMRow());
         else if (this.selectedTable == "LinkedPUAndHU")
             this.LinkedPUAndHU.rows.push(new LinkedHuAndPuRow());
@@ -247,15 +241,19 @@ export class CreateNewUomComponent implements OnInit {
     }
 
     onSave() {
-        console.log(this.UOMImperial);
-        console.log(this.UOMMetric);
-        console.log(this.LinkedPUAndHU);
-        console.log(this.LinkedUOM);
+        this.UomService.save(this.uom).subscribe({
+            next: (response) => {
+                console.log(response);
+            },
+            error: (error) => {
+                console.log(error);
+            },
+        });
     }
 
-    onBooleanChange(value: string, row: any, key: any): void {
+    onBooleanChange(value: string, row: string, key: any): void {
         // Convert the string 'true'/'false' back to boolean
-        row[key] = value === "true";
+        this.uom[row[key]] = value === "true";
     }
 
     //in case user changes the class, when currently last tab is opened which is to be excluded
@@ -271,7 +269,7 @@ export class CreateNewUomComponent implements OnInit {
     }
 
     onUOMPropertiesChange() {
-        this.UOMLongName = `${this.UOMID} ${this.UOMType} (${this.UOMDescription})`;
-        this.UOMShortName = ` ${this.UOMType} (${this.UOMID})`;
+        this.uom.longName = `${this.uom.id} ${this.uom.name} (${this.uom.description})`;
+        this.uom.shortName = ` ${this.uom.name} (${this.uom.id})`;
     }
 }

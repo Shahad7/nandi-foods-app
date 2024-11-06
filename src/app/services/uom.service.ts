@@ -1,4 +1,7 @@
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { environment } from "../../environments/environment";
+import { Observable } from "rxjs";
 
 @Injectable({
     providedIn: "root",
@@ -115,7 +118,16 @@ export class UomService {
         },
     ];
 
-    constructor() {}
+    constructor(private http: HttpClient) {}
+
+    save(uom: any): Observable<any> {
+        let url = `${environment.baseUrl}/unit/uom`;
+        return this.http.post(url, JSON.stringify(uom), {
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+    }
 
     fetchUOMs() {
         //to-do API call

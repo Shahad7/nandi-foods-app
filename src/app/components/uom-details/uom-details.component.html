@@ -36,7 +36,8 @@
                 >
                 <ui5-select
                     id="UOMTypeInp"
-                    [(ngModel)]="UOMType"
+                    [(ngModel)]="uom.name"
+                    (ngModelChange)="onUOMPropertiesChange()"
                     [disabled]="!editingEnabled"
                 >
                     <ui5-option value="EACH" selected>EACH</ui5-option>
@@ -54,7 +55,7 @@
                 >
                 <ui5-input
                     id="UOMDescriptionInp"
-                    [(ngModel)]="UOMDescription"
+                    [(ngModel)]="uom.description"
                     [disabled]="!editingEnabled"
                 ></ui5-input>
             </ui5-form-item>
@@ -68,7 +69,7 @@
                 >
                 <ui5-input
                     id="UOMLongNameInp"
-                    [(ngModel)]="UOMLongName"
+                    [(ngModel)]="uom.longName"
                     [disabled]="!editingEnabled"
                 ></ui5-input>
             </ui5-form-item>
@@ -82,7 +83,7 @@
                 >
                 <ui5-select
                     id="isInventoryUOMInp"
-                    [(ngModel)]="isInventoryUOM"
+                    [(ngModel)]="uom.isInventory"
                     [disabled]="!editingEnabled"
                 >
                     <ui5-option value="true" selected>Yes</ui5-option>
@@ -99,7 +100,7 @@
                 >
                 <ui5-select
                     id="isPurchaseUOMInp"
-                    [(ngModel)]="isPurchaseUOM"
+                    [(ngModel)]="uom.isPurchase"
                     [disabled]="!editingEnabled"
                 >
                     <ui5-option value="true">Yes</ui5-option>
@@ -115,7 +116,7 @@
                 >
                 <ui5-select
                     id="UOMLevelInp"
-                    [(ngModel)]="UOMLevel"
+                    [(ngModel)]="uom.level"
                     [disabled]="!editingEnabled"
                 >
                     <ui5-option value="Level 1" selected>Level 1</ui5-option>
@@ -129,7 +130,7 @@
                 >
                 <ui5-input
                     id="UOMIDInp"
-                    [(ngModel)]="UOMID"
+                    [(ngModel)]="uom.id"
                     [disabled]="true"
                 ></ui5-input>
             </ui5-form-item>
@@ -143,7 +144,7 @@
                 >
                 <ui5-input
                     id="UOMShortNameInp"
-                    [(ngModel)]="UOMShortName"
+                    [(ngModel)]="uom.shortName"
                     [disabled]="!editingEnabled"
                 ></ui5-input>
             </ui5-form-item>
@@ -157,7 +158,7 @@
                 >
                 <ui5-select
                     id="isProductionUOMInp"
-                    [(ngModel)]="isProductionUOM"
+                    [(ngModel)]="uom.isProduction"
                     [disabled]="!editingEnabled"
                 >
                     <ui5-option value="true" selected>Yes</ui5-option>
@@ -174,7 +175,7 @@
                 >
                 <ui5-select
                     id="isSalesUOMInp"
-                    [(ngModel)]="isSalesUOM"
+                    [(ngModel)]="uom.isSales"
                     [disabled]="!editingEnabled"
                 >
                     <ui5-option value="true" selected>Yes</ui5-option>
@@ -185,11 +186,8 @@
                 <ui5-label for="flexHU" slot="labelContent" required="true"
                     >Flex HU:</ui5-label
                 >
-                <ui5-select
-                    id="flexHU"
-                    [(ngModel)]="flexHU"
-                    [disabled]="!editingEnabled"
-                >
+                <!-- to be bound later -->
+                <ui5-select id="flexHU" [disabled]="!editingEnabled">
                     <ui5-option value="true" selected>Yes</ui5-option>
                     <ui5-option value="false">No</ui5-option>
                 </ui5-select>
@@ -309,38 +307,20 @@
                     style="background-color: #0064d9"
                 >
                     <ui5-table-header-cell
-                        *ngFor="let item of UOMMetric.headers"
+                        *ngFor="let item of UOMMetricHeaders"
                         style="color: white"
                         minWidth="101px"
                     >
                         <span [innerHTML]="item"></span>
                     </ui5-table-header-cell>
                 </ui5-table-header-row>
-                <ui5-table-row
-                    *ngFor="let row of UOMMetric.rows; let i = index"
-                >
-                    <ui5-table-cell *ngFor="let key of UOMMetric.keys">
-                        <ui5-input
-                            [(ngModel)]="row[key.name]"
-                            type="Text"
-                            *ngIf="key.type == 'string'"
-                            [disabled]="!editingEnabled"
-                        ></ui5-input>
-                        <ui5-input
-                            [(ngModel)]="row[key.name]"
-                            type="Number"
-                            *ngIf="key.type == 'number'"
-                            [disabled]="!editingEnabled"
-                        ></ui5-input>
-                        <ui5-select
-                            *ngIf="key.type == 'boolean'"
-                            [(ngModel)]="row[key.name]"
-                            [disabled]="!editingEnabled"
-                            (ngModelChange)="onBooleanChange($event, row, key)"
-                        >
-                            <ui5-option value="true">YES</ui5-option>
-                            <ui5-option value="false">NO</ui5-option>
-                        </ui5-select>
+                <ui5-table-row>
+                    <ui5-table-cell *ngFor="let key of UOMTableKeys">
+                        <input
+                            class="ui5-input"
+                            type="number"
+                            [(ngModel)]="uom.metric[key]"
+                        />
                     </ui5-table-cell>
                 </ui5-table-row>
             </ui5-table>
@@ -353,38 +333,20 @@
                     style="background-color: #0064d9"
                 >
                     <ui5-table-header-cell
-                        *ngFor="let item of UOMImperial.headers"
+                        *ngFor="let item of UOMImperialHeaders"
                         style="color: white"
                         minWidth="101px"
                     >
                         <span [innerHTML]="item"></span>
                     </ui5-table-header-cell>
                 </ui5-table-header-row>
-                <ui5-table-row
-                    *ngFor="let row of UOMImperial.rows; let i = index"
-                >
-                    <ui5-table-cell *ngFor="let key of UOMImperial.keys">
-                        <ui5-input
-                            [(ngModel)]="row[key.name]"
-                            [disabled]="!editingEnabled"
-                            type="Text"
-                            *ngIf="key.type == 'string'"
-                        ></ui5-input>
-                        <ui5-input
-                            [(ngModel)]="row[key.name]"
-                            [disabled]="!editingEnabled"
-                            type="Number"
-                            *ngIf="key.type == 'number'"
-                        ></ui5-input>
-                        <ui5-select
-                            *ngIf="key.type == 'boolean'"
-                            [(ngModel)]="row[key.name]"
-                            [disabled]="!editingEnabled"
-                            (ngModelChange)="onBooleanChange($event, row, key)"
-                        >
-                            <ui5-option value="true">YES</ui5-option>
-                            <ui5-option value="false">NO</ui5-option>
-                        </ui5-select>
+                <ui5-table-row>
+                    <ui5-table-cell *ngFor="let key of UOMTableKeys">
+                        <input
+                            class="ui5-input"
+                            type="number"
+                            [(ngModel)]="uom.imperial[key]"
+                        />
                     </ui5-table-cell>
                 </ui5-table-row>
             </ui5-table>

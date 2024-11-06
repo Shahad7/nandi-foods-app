@@ -4,4 +4,5 @@ export const environment = {
     keycloakServerUrl: "https://142.93.147.177:8443",
     realm: "production",
     clientId: "nandi-foods-web-app",
+    baseUrl: "",
 };
