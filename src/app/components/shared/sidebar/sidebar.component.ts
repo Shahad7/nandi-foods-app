@@ -1,5 +1,5 @@
 import { Subscription } from "rxjs";
-import { MainCommunicationService } from "./../../services/main-communication.service";
+import { MainCommunicationService } from "../../../services/main-communication.service";
 import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import {
     ActivatedRoute,

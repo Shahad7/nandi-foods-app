@@ -10,6 +10,9 @@ import { EventEmitter } from "stream";
 import { UOM } from "../../models/uom/uom";
 import { ActivatedRoute } from "@angular/router";
 import { error } from "console";
+import { HttpErrorResponse, HttpResponse } from "@angular/common/http";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { SnackbarComponent } from "../shared/snackbar/snackbar.component";
 
 interface RowType {
     [key: string]: any; // Allow dynamic access to row properties
@@ -189,7 +192,8 @@ export class CreateNewUomComponent implements OnInit {
         private datePipe: DatePipe,
         private mainCommunicationService: MainCommunicationService,
         private route: ActivatedRoute,
-        private UomService: UomService
+        private UomService: UomService,
+        private snackBar: MatSnackBar
     ) {
         this.currentDate = this.datePipe.transform(new Date(), "y/M/d");
     }
@@ -243,11 +247,49 @@ export class CreateNewUomComponent implements OnInit {
     onSave() {
         this.UomService.save(this.uom).subscribe({
             next: (response) => {
-                console.log(response);
+                if (response.status == 201) {
+                    this.onSuccessfulSubmit();
+                }
             },
-            error: (error) => {
-                console.log(error);
+            error: (errorResponse: HttpErrorResponse) => {
+                // console.log(errorResponse);
+                this.onErrorResponse(errorResponse.error.message);
             },
+        });
+    }
+
+    onSuccessfulSubmit() {
+        this.snackBar.openFromComponent(SnackbarComponent, {
+            data: { message: "UOM successfully saved!", error: false },
+            duration: 1500,
+            horizontalPosition: "center",
+            verticalPosition: "top",
+            panelClass: ["success-snackbar"],
+        });
+        this.uom = new UOM(
+            "Level 1",
+            "EACH",
+            "1 x 4LB",
+            undefined,
+            undefined,
+            undefined,
+            true,
+            true,
+            true,
+            true,
+            undefined,
+            "U1020"
+        );
+        this.onUOMPropertiesChange();
+    }
+
+    onErrorResponse(errorMessage: string) {
+        this.snackBar.openFromComponent(SnackbarComponent, {
+            data: { message: errorMessage, error: true },
+            duration: 2000,
+            horizontalPosition: "center",
+            verticalPosition: "top",
+            panelClass: ["error-snackbar"],
         });
     }
 

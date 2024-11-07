@@ -15,6 +15,14 @@ body {
     }
 }
 
+.mat-mdc-snack-bar-container {
+    &.success-snackbar {
+        --mdc-snackbar-container-color: rgb(12, 213, 12);
+        --mat-mdc-snack-bar-button-color: #fff;
+        --mdc-snackbar-supporting-text-color: #fff;
+    }
+}
+
 :root {
     /* --sapButton_TextColor: white !important;
     --sapButton_Background: green !important; */

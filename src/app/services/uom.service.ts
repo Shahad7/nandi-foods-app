@@ -126,6 +126,7 @@ export class UomService {
             headers: {
                 "Content-Type": "application/json",
             },
+            observe: "response",
         });
     }
 

@@ -1,6 +1,6 @@
 import { ActivatedRoute } from "@angular/router";
 import { title } from "process";
-import { MainCommunicationService } from "./../../services/main-communication.service";
+import { MainCommunicationService } from "../../../services/main-communication.service";
 import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { Subscription } from "rxjs";
 
