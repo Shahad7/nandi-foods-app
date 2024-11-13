@@ -1,0 +1,47 @@
+<ui5-form layout=" S1 M2 L2 XL2" item-spacing="Large">
+    <ui5-form-group *ngFor="let formGroup of formData">
+        <ng-container *ngFor="let formField of formGroup">
+            <ui5-label
+                for="{{ '_' + formField.key }}"
+                slot="labelContent"
+                required={{formField.required}}
+                >{{formField.label+":"}}</ui5-label
+            >
+            <ui5-input
+                [(ngModel)]="model[formField.key]"
+                id="{{ '_' + formField.key }}"
+                type="Text"
+                *ngIf="formField.type == 'string'"
+                [disabled]="!formField.editable || !editingEnabled"
+            ></ui5-input>
+            <ui5-input
+            [(ngModel)]="model[formField.key]"
+                id="{{ '_' + formField.key }}"
+                type="Number"
+                *ngIf="formField.type == 'number'"
+                [disabled]="!formField.editable || !editingEnabled"
+            ></ui5-input>
+            <ui5-select
+                *ngIf="formField.type == 'boolean'"
+                id="{{ '_' + formField.key }}"
+                [(ngModel)]="model[formField.key]"
+                [disabled]="!formField.editable || !editingEnabled"
+            >
+                <ui5-option value="true">YES</ui5-option>
+                <ui5-option value="false">NO</ui5-option>
+            </ui5-select>
+            <ui5-select
+                *ngIf="formField.type == 'dropdown'"
+                id="{{ '_' + formField.key }}"
+                [(ngModel)]="model[formField.key]"
+                [disabled]="!formField.editable || !editingEnabled"
+            >
+                <ui5-option
+                    *ngFor="let item of formField.values"
+                    [value]="item"
+                    >{{ item }}</ui5-option
+                >
+            </ui5-select>
+        </ng-container>
+    </ui5-form-group>
+</ui5-form>

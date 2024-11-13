@@ -41,6 +41,8 @@ ui5-table {
     gap: 20px;
 }
 
+/* to be removed as the form got refactored to it's own component */
+
 ui5-form {
     --sapFontSize: 12px;
 }

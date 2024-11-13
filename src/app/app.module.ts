@@ -30,6 +30,7 @@ import { SidebarComponent } from "./components/shared/sidebar/sidebar.component"
 import { CountriesListComponent } from "./components/countries-list/countries-list.component";
 import { PagenotfoundComponent } from "./pages/pagenotfound/pagenotfound.component";
 import { AddNewCustomerComponent } from "./components/add-new-customer/add-new-customer.component";
+import { FormComponent } from './components/shared/form/form.component';
 
 function initializeKeycloak(keycloak: KeycloakService) {
     return environment.enableAuthGuard
@@ -77,6 +78,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
         CountriesListComponent,
         PagenotfoundComponent,
         AddNewCustomerComponent,
+        FormComponent,
     ],
     imports: [
         BrowserModule,

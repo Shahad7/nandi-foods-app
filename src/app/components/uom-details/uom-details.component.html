@@ -320,6 +320,7 @@
                             class="ui5-input"
                             type="number"
                             [(ngModel)]="uom.metric[key]"
+                            [disabled]="!editingEnabled"
                         />
                     </ui5-table-cell>
                 </ui5-table-row>
@@ -346,6 +347,7 @@
                             class="ui5-input"
                             type="number"
                             [(ngModel)]="uom.imperial[key]"
+                            [disabled]="!editingEnabled"
                         />
                     </ui5-table-cell>
                 </ui5-table-row>
