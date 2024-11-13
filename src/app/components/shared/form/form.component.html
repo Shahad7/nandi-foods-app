@@ -6,6 +6,7 @@
                 slot="labelContent"
                 required={{formField.required}}
                 >{{formField.label+":"}}</ui5-label
+
             >
             <ui5-input
                 [(ngModel)]="model[formField.key]"
@@ -13,6 +14,7 @@
                 type="Text"
                 *ngIf="formField.type == 'string'"
                 [disabled]="!formField.editable || !editingEnabled"
+                (ngModelChange)="alertModelChange(formField.key,$event)"
             ></ui5-input>
             <ui5-input
             [(ngModel)]="model[formField.key]"
@@ -20,12 +22,14 @@
                 type="Number"
                 *ngIf="formField.type == 'number'"
                 [disabled]="!formField.editable || !editingEnabled"
+                (ngModelChange)="alertModelChange(formField.key,$event)"
             ></ui5-input>
             <ui5-select
                 *ngIf="formField.type == 'boolean'"
                 id="{{ '_' + formField.key }}"
                 [(ngModel)]="model[formField.key]"
                 [disabled]="!formField.editable || !editingEnabled"
+                (ngModelChange)="alertModelChange(formField.key,$event)"
             >
                 <ui5-option value="true">YES</ui5-option>
                 <ui5-option value="false">NO</ui5-option>
@@ -35,6 +39,7 @@
                 id="{{ '_' + formField.key }}"
                 [(ngModel)]="model[formField.key]"
                 [disabled]="!formField.editable || !editingEnabled"
+                (ngModelChange)="alertModelChange(formField.key,$event)"
             >
                 <ui5-option
                     *ngFor="let item of formField.values"

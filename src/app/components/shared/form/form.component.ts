@@ -33,5 +33,9 @@ export class FormComponent {
     //so that parent component can change the state accordingly or
     //apply changes to the original model variable
     @Output()
-    onModelChange = new EventEmitter();
+    onModelChange = new EventEmitter<any>();
+
+    alertModelChange(key:any,value:any,){
+        this.onModelChange.emit({key,value})
+    }
 }
