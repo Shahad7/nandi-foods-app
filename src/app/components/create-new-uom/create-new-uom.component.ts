@@ -43,6 +43,85 @@ export class CreateNewUomComponent implements OnInit {
     //field to recognize the current selected unit
     classInp: any = "UOM";
     flexHU: boolean = true;
+    excluded: Array<string> = [];
+    formData = [
+        [
+            {
+                key: "name",
+                type: "dropdown",
+                label: "UOM Type",
+                required: true,
+                editable: true,
+                values: ["EACH", "other1", "other2"],
+            },
+            {
+                key: "description",
+                type: "string",
+                label: "UOM Description",
+                required: true,
+                editable: true,
+            },
+            {
+                key: "longName",
+                type: "string",
+                label: "UOM Long Name",
+                required: true,
+                editable: true,
+            },
+            {
+                key: "isInventory",
+                type: "boolean",
+                label: "Inventory UOM",
+                required: true,
+                editable: true,
+            },
+            {
+                key: "isPurchase",
+                type: "boolean",
+                label: "Purchase UOM",
+                required: true,
+                editable: true,
+            },
+        ],
+        [
+            {
+                key: "level",
+                type: "dropdown",
+                label: "UOM Level",
+                required: true,
+                editable: true,
+                values: ["Level 1", "Level 2"],
+            },
+            {
+                key: "id",
+                type: "string",
+                label: "UOM ID",
+                required: true,
+                editable: true,
+            },
+            {
+                key: "shortName",
+                type: "string",
+                label: "UOM Short Name",
+                required: true,
+                editable: true,
+            },
+            {
+                key: "isProduction",
+                type: "boolean",
+                label: "Production UOM",
+                required: true,
+                editable: true,
+            },
+            {
+                key: "isSales",
+                type: "boolean",
+                label: "Sales UOM",
+                required: true,
+                editable: true,
+            },
+        ],
+    ];
 
     //tabs
     tabs = ["UOM Weight and Volume", "Linked UOM", "Linked PU and HU"];
@@ -208,6 +287,25 @@ export class CreateNewUomComponent implements OnInit {
         this.onUOMPropertiesChange();
     }
 
+    onModelChange(event: any) {
+        //actual binding
+        this.uom[event.key] = event.value;
+
+        //other changes
+        if (["description", "id", "name"].includes(event.key)) {
+            this.onUOMPropertiesChange();
+        }
+
+        //boolean conversion
+        if (
+            ["isSales", "isInventory", "isPurchase", "isProduction"].includes(
+                event.key
+            )
+        ) {
+            this.uom[event.key] = event.value === "true";
+        }
+    }
+
     selectTab(event: any) {
         this.selectedTab = this.tabs[event.tabIndex / 2];
 
@@ -245,6 +343,7 @@ export class CreateNewUomComponent implements OnInit {
     }
 
     onSave() {
+        console.log(this.uom);
         this.UomService.save(this.uom).subscribe({
             next: (response) => {
                 if (response.status == 201) {
@@ -293,15 +392,29 @@ export class CreateNewUomComponent implements OnInit {
         });
     }
 
-    onBooleanChange(value: string, row: string, key: any): void {
-        // Convert the string 'true'/'false' back to boolean
-        this.uom[row[key]] = value === "true";
-    }
-
     //in case user changes the class, when currently last tab is opened which is to be excluded
     //for certain classes selected
     //also emit an event to change the title if needed
     onClassChange() {
+        if (this.classInp == "HU") {
+            this.excluded = [
+                "isSales",
+                "isInventory",
+                "isPurchase",
+                "isProduction",
+            ];
+        } else if (this.classInp == "UOM") {
+            this.excluded = ["flexHU"];
+        } else if (this.classInp == "PU") {
+            this.excluded = [
+                "isSales",
+                "isInventory",
+                "isPurchase",
+                "isProduction",
+                "flexHU",
+            ];
+        }
+        //tabs n title changes
         if (this.selectedTab == this.tabs[2]) {
             this.selectedTab = this.tabs[0];
         }
