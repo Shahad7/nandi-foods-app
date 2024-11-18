@@ -120,6 +120,13 @@ export class CreateNewUomComponent implements OnInit {
                 required: true,
                 editable: true,
             },
+            {
+                key: "flexHU",
+                type: "boolean",
+                label: "flex HU",
+                required: true,
+                editable: true,
+            },
         ],
     ];
 

@@ -404,7 +404,11 @@
                     </ui5-select>
                 </ui5-table-cell>
                 <ui5-table-cell
-                    ><ui5-button design="Negative" (ui5Click)="deleteRow(i)">
+                    ><ui5-button
+                        design="Negative"
+                        (ui5Click)="deleteRow(i)"
+                        [disabled]="!editingEnabled"
+                    >
                         <img
                             src="assets/trash.svg"
                             id="row-delete-btn-icon"
@@ -469,7 +473,11 @@
                     </ui5-select>
                 </ui5-table-cell>
                 <ui5-table-cell
-                    ><ui5-button design="Negative" (ui5Click)="deleteRow(i)">
+                    ><ui5-button
+                        design="Negative"
+                        (ui5Click)="deleteRow(i)"
+                        [disabled]="!editingEnabled"
+                    >
                         <img
                             src="assets/trash.svg"
                             id="row-delete-btn-icon"
@@ -483,6 +491,7 @@
                 icon="add"
                 *ngIf="selectedTab != 'UOM Weight and Volume'"
                 id="add-row-btn"
+                [disabled]="!editingEnabled"
                 (ui5Click)="addNewRow()"
                 >Add new row</ui5-button
             >
