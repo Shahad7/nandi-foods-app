@@ -24,6 +24,10 @@ interface RowType {
     styleUrl: "./create-new-uom.component.css",
 })
 export class CreateNewUomComponent implements OnInit {
+    //class refs
+    linkedUOMClassRef = LinkedUOMRow;
+    linkedHuAndPuClassRef = LinkedHuAndPuRow;
+
     currentDate: any;
     title: string = "Create New UOM";
     uom: any = new UOM(
@@ -163,18 +167,23 @@ export class CreateNewUomComponent implements OnInit {
 
     LinkedUOM = {
         headers: [
-            "Linked UOM Name",
-            "Length <br/> (CM)",
-            "Width <br/> (CM)",
-            "Height <br/>(CM)",
-            "Volume <br/>(M<sup>3</sup>)",
-            "Weight <br/>(KG)",
-            "Conversion From",
-            "Conversion To",
-            "Conversion QTY",
+            { name: "Linked UOM Name", minWidth: "101px" },
+            { name: "Length <br/> (CM)", minWidth: "101px" },
+            { name: "Width <br/> (CM)", minWidth: "101px" },
+            { name: "Height <br/>(CM)", minWidth: "101px" },
+            { name: "Volume <br/>(M<sup>3</sup>)", minWidth: "101px" },
+            { name: "Weight <br/>(KG)", minWidth: "101px" },
+            { name: "Conversion From", minWidth: "101px" },
+            { name: "Conversion To", minWidth: "101px" },
+            { name: "Conversion QTY", minWidth: "101px" },
         ],
         keys: [
-            { name: "linkedUOMName", type: "dropdown", editable: true },
+            {
+                name: "linkedUOMName",
+                type: "dropdown",
+                editable: true,
+                values: ["U4020 CASE (10 x 4LB)", "U7020 PALLET (500 x 4LB)"],
+            },
             { name: "lengthCm", type: "number", editable: false },
             { name: "widthCm", type: "number", editable: false },
             { name: "heightCm", type: "number", editable: false },
@@ -213,20 +222,28 @@ export class CreateNewUomComponent implements OnInit {
     };
     LinkedPUAndHU = {
         headers: [
-            "PU/HU Name",
-            "Class",
-            "Flex HU",
-            "Length <br/> (CM)",
-            "Width <br/> (CM)",
-            "Height <br/>(CM)",
-            "Volume <br/>(M<sup>3</sup>)",
-            "Max Weight <br/>&nbsp;&nbsp;&nbsp; (KG)",
-            "Conversion From",
-            "Min QTY",
-            "Max QTY",
+            { name: "PU/HU Name", minWidth: "101px" },
+            { name: "Class", minWidth: "101px" },
+            { name: "Flex HU", minWidth: "101px" },
+            { name: "Length <br/> (CM)", minWidth: "101px" },
+            { name: "Width <br/> (CM)", minWidth: "101px" },
+            { name: "Height <br/>(CM)", minWidth: "101px" },
+            { name: "Volume <br/>(M<sup>3</sup>)", minWidth: "101px" },
+            {
+                name: "Max Weight <br/>&nbsp;&nbsp;&nbsp; (KG)",
+                minWidth: "101px",
+            },
+            { name: "Conversion From", minWidth: "101px" },
+            { name: "Min QTY", minWidth: "101px" },
+            { name: "Max QTY", minWidth: "101px" },
         ],
         keys: [
-            { name: "puOrHuName", type: "dropdown", editable: true },
+            {
+                name: "puOrHuName",
+                type: "dropdown",
+                editable: true,
+                values: ["U4020 CASE (10 x 4LB)", "U7502 PALLET (10 x 4LB)"],
+            },
             { name: "className", type: "string", editable: false },
             { name: "flexHU", type: "boolean", editable: false },
             { name: "lengthCm", type: "number", editable: false },
@@ -269,10 +286,17 @@ export class CreateNewUomComponent implements OnInit {
         ] as RowType[],
     };
 
-    //DROPDOWNS
-
-    linkedUOMNames = ["U4020 CASE (10 x 4LB)", "U7020 PALLET (500 x 4LB)"];
-    linkedHuAndPuNames = ["U4020 CASE (10 x 4LB)", "U7502 PALLET (10 x 4LB)"];
+    //temporary default paginator props
+    paginatorProps = {
+        length: 200,
+        pageSize: 10,
+        pageIndex: 0,
+        pageSizeOptions: [10, 20, 30, 40, 50],
+        hidePageSize: false,
+        showPageSizeOptions: true,
+        showFirstLastButtons: true,
+        disabled: false,
+    };
 
     constructor(
         private datePipe: DatePipe,
@@ -294,7 +318,7 @@ export class CreateNewUomComponent implements OnInit {
         this.onUOMPropertiesChange();
     }
 
-    onModelChange(event: any) {
+    onFormModelChange(event: any) {
         //actual binding
         this.uom[event.key] = event.value;
 
@@ -333,20 +357,6 @@ export class CreateNewUomComponent implements OnInit {
 
     selectNestedTab(event: any) {
         this.selectedNestedTab = this.nestedTabs[event.tabIndex / 2];
-    }
-
-    addNewRow() {
-        if (this.selectedTable == "LinkedUOM")
-            this.LinkedUOM.rows.push(new LinkedUOMRow());
-        else if (this.selectedTable == "LinkedPUAndHU")
-            this.LinkedPUAndHU.rows.push(new LinkedHuAndPuRow());
-    }
-
-    deleteRow(index: number) {
-        this[this.selectedTable as keyof CreateNewUomComponent].rows.splice(
-            index,
-            1
-        );
     }
 
     onSave() {

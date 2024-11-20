@@ -13,7 +13,10 @@ ui5-table {
     /* width: calc(100vw - 390px); */
     width: 100%;
     overflow-x: auto;
-    margin-bottom: 50px;
+}
+
+ui5-tabcontainer::part(content) {
+    border-bottom: none !important;
 }
 
 #table-sec {
@@ -31,13 +34,13 @@ ui5-table {
 }
 
 #buttons-sec {
+    margin-top: 32px;
     display: flex;
-    justify-content: space-between;
+    justify-content: end;
 }
 
 #other-btns {
     display: flex;
-    align-self: end;
     gap: 20px;
 }
 

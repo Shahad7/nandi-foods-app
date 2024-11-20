@@ -1,3 +1,9 @@
+<div *ngIf="enableAdd" class="title-wrapper">
+    <ui5-title level="H5">{{ title }}</ui5-title>
+    <ui5-button icon="add" id="add-row-btn" (ui5Click)="addNewRow()"
+        >Add new row</ui5-button
+    >
+</div>
 <ui5-table overflowMode="Scroll">
     <ui5-table-header-row slot="headerRow" style="background-color: #0064d9">
         <ui5-table-header-cell
@@ -51,3 +57,19 @@
         ></ui5-table-cell>
     </ui5-table-row>
 </ui5-table>
+<mat-paginator
+    #paginator
+    id="paginator"
+    (page)="handlePageEvent($event)"
+    [length]="paginatorProps.length"
+    [pageSize]="paginatorProps.pageSize"
+    [disabled]="paginatorProps.disabled"
+    [showFirstLastButtons]="paginatorProps.showFirstLastButtons"
+    [pageSizeOptions]="
+        paginatorProps.howPageSizeOptions ? paginatorProps.pageSizeOptions : []
+    "
+    [hidePageSize]="paginatorProps.hidePageSize"
+    [pageIndex]="paginatorProps.pageIndex"
+    aria-label="Select page"
+>
+</mat-paginator>

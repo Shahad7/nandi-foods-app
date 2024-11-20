@@ -2,5 +2,24 @@ ui5-table {
     /* width: calc(100vw - 390px); */
     width: 100%;
     overflow-x: auto;
-    margin-bottom: 50px;
+}
+
+#row-delete-btn-icon {
+    width: 20px;
+}
+
+#paginator {
+    --mat-paginator-container-size: 48px !important;
+    border-bottom: solid #e5e5e5 0.0625rem;
+}
+
+.title-wrapper {
+    margin-bottom: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+#add-new-row {
+    flex-grow: 0;
 }

@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { PageEvent } from "@angular/material/paginator";
 
 @Component({
     selector: "app-table",
@@ -6,6 +7,10 @@ import { Component, EventEmitter, Input, Output } from "@angular/core";
     styleUrl: "./table.component.css",
 })
 export class TableComponent {
+    /** Title of the table */
+    @Input()
+    title: string = "";
+
     /**
      * Whether if the table fields are input fields or readonly values (normal tables; no binding)
      */
@@ -17,6 +22,18 @@ export class TableComponent {
      */
     @Input()
     enableDelete: boolean = false;
+
+    /**
+     * Whether if the add new row button should be enabled
+     */
+    @Input()
+    enableAdd: boolean = false;
+
+    /**
+     * Whether if it's a paginated table
+     */
+    @Input()
+    paginated: boolean = false;
 
     /**
      * Headers of the table
@@ -55,6 +72,31 @@ export class TableComponent {
     onModelChange = new EventEmitter<any>();
 
     /**
+     * Paginator properties
+     * Eg:-  paginatorProps = {
+                length: 200,
+                pageSize: 10,
+                pageIndex: 0,
+                pageSizeOptions: [10, 20, 30, 40, 50],
+                hidePageSize: false,
+                showPageSizeOptions: true,
+                showFirstLastButtons: true,
+                disabled: false,
+            };
+     */
+    @Input()
+    paginatorProps: any = {};
+
+    pageEvent!: PageEvent;
+
+    handlePageEvent(e: PageEvent) {
+        this.paginatorProps.pageEvent = e;
+        this.paginatorProps.length = e.length;
+        this.paginatorProps.pageSize = e.pageSize;
+        this.paginatorProps.pageIndex = e.pageIndex;
+    }
+
+    /**
      * Delete rows in the table and fire onModelChange
      */
     deleteRow(index: number) {
@@ -66,6 +108,7 @@ export class TableComponent {
      * Add new row to the table and fire onModelChange
      */
     addNewRow() {
+        this.rows.push(new this.classRef());
         this.onModelChange.emit(this.rows);
     }
 }
