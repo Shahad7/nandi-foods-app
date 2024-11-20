@@ -1,0 +1,6 @@
+ui5-table {
+    /* width: calc(100vw - 390px); */
+    width: 100%;
+    overflow-x: auto;
+    margin-bottom: 50px;
+}
