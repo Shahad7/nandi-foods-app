@@ -18,6 +18,12 @@ export class TableComponent {
     controlled: boolean = false;
 
     /**
+     * Whether editing is enabled by default or not, defaults to true
+     */
+    @Input()
+    editingEnabled: boolean = true;
+
+    /**
      * Whether if the delete button for all rows should be enabled
      */
     @Input()
@@ -95,6 +101,20 @@ export class TableComponent {
         this.paginatorProps.pageSize = e.pageSize;
         this.paginatorProps.pageIndex = e.pageIndex;
     }
+
+    /** TODO:-
+     * bind a function to handle ngModelChanges in all sort of input elements
+     * change how row changes are relayed to parent component
+     * correct add new row button behaviour
+     * relay whole current rows or specific changes only?
+     */
+
+    /**
+     * Fires onModelChange event with type : 'push'|'pop'|'input_change',
+     * and ID of row incase of pop, row ID & key value pair incase of input_change
+     * and newly added row incase of push
+     */
+    alertChange(type: string, data: any) {}
 
     /**
      * Delete rows in the table and fire onModelChange

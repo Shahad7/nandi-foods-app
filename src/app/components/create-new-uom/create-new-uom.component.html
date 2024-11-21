@@ -59,58 +59,26 @@
                     ></ui5-tab-separator>
                 </ng-container>
             </ui5-tabcontainer>
-            <ui5-table
-                overflowMode="Scroll"
+
+            <!-- Metric Table -->
+            <app-table
                 *ngIf="selectedNestedTab == 'Metric'"
-            >
-                <ui5-table-header-row
-                    slot="headerRow"
-                    style="background-color: #0064d9"
-                >
-                    <ui5-table-header-cell
-                        *ngFor="let item of UOMMetricHeaders"
-                        style="color: white"
-                        minWidth="101px"
-                    >
-                        <span [innerHTML]="item"></span>
-                    </ui5-table-header-cell>
-                </ui5-table-header-row>
-                <ui5-table-row>
-                    <ui5-table-cell *ngFor="let key of UOMTableKeys">
-                        <input
-                            class="ui5-input"
-                            type="number"
-                            [(ngModel)]="uom.metric[key]"
-                        />
-                    </ui5-table-cell>
-                </ui5-table-row>
-            </ui5-table>
-            <ui5-table
-                overflowMode="Scroll"
+                [controlled]="true"
+                [headers]="UOMMetricHeaders"
+                [rows]="[uom.metric]"
+                [keys]="UOMTableKeys"
+                (onModelChange)="onUOMMetricModelChange($event)"
+            ></app-table>
+
+            <!-- Imperial Table -->
+            <app-table
                 *ngIf="selectedNestedTab == 'Imperial'"
-            >
-                <ui5-table-header-row
-                    slot="headerRow"
-                    style="background-color: #0064d9"
-                >
-                    <ui5-table-header-cell
-                        *ngFor="let item of UOMImperialHeaders"
-                        style="color: white"
-                        minWidth="101px"
-                    >
-                        <span [innerHTML]="item"></span>
-                    </ui5-table-header-cell>
-                </ui5-table-header-row>
-                <ui5-table-row>
-                    <ui5-table-cell *ngFor="let key of UOMTableKeys">
-                        <input
-                            class="ui5-input"
-                            type="number"
-                            [(ngModel)]="uom.imperial[key]"
-                        />
-                    </ui5-table-cell>
-                </ui5-table-row>
-            </ui5-table>
+                [controlled]="true"
+                [headers]="UOMImperialHeaders"
+                [rows]="[uom.imperial]"
+                [keys]="UOMTableKeys"
+                (onModelChange)="onUOMImperialModelChange($event)"
+            ></app-table>
         </ng-container>
 
         <!--Linked UOM Table-->
@@ -123,8 +91,10 @@
             [headers]="LinkedUOM.headers"
             [rows]="LinkedUOM.rows"
             [keys]="LinkedUOM.keys"
+            [paginated]="true"
             [paginatorProps]="paginatorProps"
             *ngIf="selectedTab == 'Linked UOM'"
+            (onModelChange)="onLinkedUOMsModelChange($event)"
         ></app-table>
 
         <!--Linked PU and HU Table-->
@@ -133,12 +103,14 @@
             [classRef]="linkedHuAndPuClassRef"
             [controlled]="true"
             [enableAdd]="true"
+            [paginated]="true"
             [enableDelete]="true"
             [headers]="LinkedPUAndHU.headers"
             [rows]="LinkedPUAndHU.rows"
             [keys]="LinkedPUAndHU.keys"
             [paginatorProps]="paginatorProps"
             *ngIf="selectedTab == 'Linked PU and HU' && classInp == 'UOM'"
+            (onModelChange)="onLinkedPUandHUModelChange($event)"
         ></app-table>
 
         <div id="buttons-sec">

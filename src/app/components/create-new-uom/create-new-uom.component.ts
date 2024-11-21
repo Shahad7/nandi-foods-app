@@ -143,26 +143,27 @@ export class CreateNewUomComponent implements OnInit {
 
     //tables
     UOMImperialHeaders = [
-        "Length <br/> (IN.)",
-        "Width <br/> (IN.)",
-        "Height <br/>(IN.)",
-        "Volume <br/>(FT <sup>3</sup>)",
-        "Weight <br/>(LB)",
+        { name: "Length <br/> (IN.)", minWidth: "101px" },
+        { name: "Width <br/> (IN.)", minWidth: "101px" },
+        { name: "Height <br/>(IN.)", minWidth: "101px" },
+        { name: "Volume <br/>(FT <sup>3</sup>)", minWidth: "101px" },
+        { name: "Weight <br/>(LB)", minWidth: "101px" },
     ];
+
     UOMMetricHeaders = [
-        "Length <br/> (CM.)",
-        "Width <br/> (CM.)",
-        "Height <br/> (CM.)",
-        "Volume <br/> (M<sup>3</sup>)",
-        "Weight <br/> (KG)",
+        { name: "Length <br/> (CM.)", minWidth: "101px" },
+        { name: "Width <br/> (CM.)", minWidth: "101px" },
+        { name: "Height <br/> (CM.)", minWidth: "101px" },
+        { name: "Volume <br/> (M<sup>3</sup>)", minWidth: "101px" },
+        { name: "Weight <br/> (KG)", minWidth: "101px" },
     ];
 
     UOMTableKeys = [
-        "lengthValue",
-        "widthValue",
-        "heightValue",
-        "volumeValue",
-        "weightValue",
+        { name: "lengthValue", type: "number", editable: true },
+        { name: "widthValue", type: "number", editable: true },
+        { name: "heightValue", type: "number", editable: true },
+        { name: "volumeValue", type: "number", editable: true },
+        { name: "weightValue", type: "number", editable: true },
     ];
 
     LinkedUOM = {
@@ -318,6 +319,7 @@ export class CreateNewUomComponent implements OnInit {
         this.onUOMPropertiesChange();
     }
 
+    /**  Manual bindigs */
     onFormModelChange(event: any) {
         //actual binding
         this.uom[event.key] = event.value;
@@ -335,6 +337,22 @@ export class CreateNewUomComponent implements OnInit {
         ) {
             this.uom[event.key] = event.value === "true";
         }
+    }
+
+    onUOMMetricModelChange(row: any) {
+        this.uom.metric = row[0];
+    }
+
+    onUOMImperialModelChange(row: any) {
+        this.uom.imperial = row[0];
+    }
+
+    onLinkedUOMsModelChange(rows: any) {
+        this.LinkedUOM.rows = rows;
+    }
+
+    onLinkedPUandHUModelChange(rows: any) {
+        this.LinkedPUAndHU.rows = rows;
     }
 
     selectTab(event: any) {
