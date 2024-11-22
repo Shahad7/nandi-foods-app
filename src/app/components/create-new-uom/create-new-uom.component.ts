@@ -339,22 +339,6 @@ export class CreateNewUomComponent implements OnInit {
         }
     }
 
-    onUOMMetricModelChange(row: any) {
-        this.uom.metric = row[0];
-    }
-
-    onUOMImperialModelChange(row: any) {
-        this.uom.imperial = row[0];
-    }
-
-    onLinkedUOMsModelChange(rows: any) {
-        this.LinkedUOM.rows = rows;
-    }
-
-    onLinkedPUandHUModelChange(rows: any) {
-        this.LinkedPUAndHU.rows = rows;
-    }
-
     selectTab(event: any) {
         this.selectedTab = this.tabs[event.tabIndex / 2];
 
@@ -379,6 +363,7 @@ export class CreateNewUomComponent implements OnInit {
 
     onSave() {
         console.log(this.uom);
+        console.log(this.LinkedUOM.rows);
         this.UomService.save(this.uom).subscribe({
             next: (response) => {
                 if (response.status == 201) {

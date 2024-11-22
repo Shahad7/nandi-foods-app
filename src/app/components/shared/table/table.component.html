@@ -23,12 +23,18 @@
                 *ngIf="key.type == 'string'"
                 [disabled]="!key.editable || !editingEnabled"
             ></ui5-input>
-            <ui5-input
+            <input
+                #ip
+                class="ui5-input"
+                [ngClass]="{
+                    'ui5-input': !ip.disabled,
+                    'ui5-input-disabled': ip.disabled
+                }"
                 [(ngModel)]="row[key.name]"
-                [type]="'Number'"
+                type="number"
                 *ngIf="key.type == 'number'"
                 [disabled]="!key.editable || !editingEnabled"
-            ></ui5-input>
+            />
             <ui5-select
                 *ngIf="key.type == 'boolean'"
                 [(ngModel)]="row[key.name]"

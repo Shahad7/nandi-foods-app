@@ -117,11 +117,17 @@ export class TableComponent {
     alertChange(type: string, data: any) {}
 
     /**
+     * Incase of both methods below, parent component need not be alerted
+     * Since changes made to rows object is reflected directly in parent
+     * as both child and parent point to the same object
+     */
+
+    /**
      * Delete rows in the table and fire onModelChange
      */
     deleteRow(index: number) {
         this.rows.splice(index, 1);
-        this.onModelChange.emit(this.rows);
+        // this.onModelChange.emit(this.rows);
     }
 
     /**
@@ -129,6 +135,6 @@ export class TableComponent {
      */
     addNewRow() {
         this.rows.push(new this.classRef());
-        this.onModelChange.emit(this.rows);
+        // this.onModelChange.emit(this.rows);
     }
 }
