@@ -6,7 +6,6 @@ import { UOMImperialRow } from "../../models/uom/table_rows/UomImperialRow";
 import { UOMMetricRow } from "../../models/uom/table_rows/UomMetricRow";
 import { LinkedUOMRow } from "../../models/uom/table_rows/linkedUomRow";
 import { LinkedHuAndPuRow } from "../../models/uom/table_rows/linkedHuAndPuRow";
-import { EventEmitter } from "stream";
 import { UOM } from "../../models/uom/uom";
 import { ActivatedRoute } from "@angular/router";
 import { error } from "console";
@@ -136,6 +135,7 @@ export class CreateNewUomComponent implements OnInit {
 
     //tabs
     tabs = ["UOM Weight and Volume", "Linked UOM", "Linked PU and HU"];
+    tabsToExclude: Array<string> = [];
     selectedTab: any = "UOM Weight and Volume";
     nestedTabs = ["Metric", "Imperial"];
     selectedNestedTab: any = "Metric";
@@ -339,8 +339,8 @@ export class CreateNewUomComponent implements OnInit {
         }
     }
 
-    selectTab(event: any) {
-        this.selectedTab = this.tabs[event.tabIndex / 2];
+    selectTab(tab: any) {
+        this.selectedTab = tab;
 
         if (
             this.selectedTab == "UOM Weight and Volume" &&
@@ -357,8 +357,8 @@ export class CreateNewUomComponent implements OnInit {
             this.selectedTable = "LinkedPUAndHU";
     }
 
-    selectNestedTab(event: any) {
-        this.selectedNestedTab = this.nestedTabs[event.tabIndex / 2];
+    selectNestedTab(tab: any) {
+        this.selectedNestedTab = tab;
     }
 
     onSave() {
@@ -376,6 +376,12 @@ export class CreateNewUomComponent implements OnInit {
             },
         });
     }
+
+    //TODO
+    onCancel() {}
+
+    //TODO
+    onApprove() {}
 
     onSuccessfulSubmit() {
         this.snackBar.openFromComponent(SnackbarComponent, {
@@ -423,6 +429,7 @@ export class CreateNewUomComponent implements OnInit {
                 "isPurchase",
                 "isProduction",
             ];
+            this.tabsToExclude = ["Linked PU and HU"];
         } else if (this.classInp == "UOM") {
             this.excluded = ["flexHU"];
         } else if (this.classInp == "PU") {
@@ -433,6 +440,7 @@ export class CreateNewUomComponent implements OnInit {
                 "isProduction",
                 "flexHU",
             ];
+            this.tabsToExclude = ["Linked PU and HU"];
         }
         //tabs n title changes
         if (this.selectedTab == this.tabs[2]) {

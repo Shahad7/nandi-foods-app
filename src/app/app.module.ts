@@ -32,6 +32,8 @@ import { PagenotfoundComponent } from "./pages/pagenotfound/pagenotfound.compone
 import { AddNewCustomerComponent } from "./components/add-new-customer/add-new-customer.component";
 import { FormComponent } from './components/shared/form/form.component';
 import { TableComponent } from './components/shared/table/table.component';
+import { TabComponent } from './components/shared/tab/tab.component';
+import { FormActionsComponent } from './components/shared/form-actions/form-actions.component';
 
 function initializeKeycloak(keycloak: KeycloakService) {
     return environment.enableAuthGuard
@@ -81,6 +83,8 @@ function initializeKeycloak(keycloak: KeycloakService) {
         AddNewCustomerComponent,
         FormComponent,
         TableComponent,
+        TabComponent,
+        FormActionsComponent,
     ],
     imports: [
         BrowserModule,

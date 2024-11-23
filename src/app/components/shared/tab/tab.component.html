@@ -1,0 +1,11 @@
+<ui5-tabcontainer
+    style="width: {{ width }};"
+    (ui5TabSelect)="alertSelectedTab($event)"
+>
+    <ng-container *ngFor="let item of tabs">
+        <ui5-tab text="{{ item }}"> </ui5-tab>
+        <ui5-tab-separator
+            *ngIf="tabs.indexOf(item) != tabs.length - 1"
+        ></ui5-tab-separator>
+    </ng-container>
+</ui5-tabcontainer>

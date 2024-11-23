@@ -23,7 +23,8 @@ export class UOM {
         description: string = "",
         longName: string = "",
         shortName: string = "",
-        bulkCode: string = "",
+        //default value of bulkCode has to be changed
+        bulkCode: string = "1",
         isInventory: boolean = false,
         isPurchase: boolean = false,
         isSales: boolean = false,

@@ -27,40 +27,19 @@
     >
 
     <div id="table-sec">
-        <ui5-tabcontainer
-            style="width: 100%"
-            (ui5TabSelect)="selectTab($event)"
-        >
-            <ng-container *ngFor="let item of tabs">
-                <ng-container
-                    *ngIf="!(item == 'Linked PU and HU' && classInp != 'UOM')"
-                >
-                    <ui5-tab text="{{ item }}"> </ui5-tab>
-                    <ui5-tab-separator
-                        *ngIf="
-                            tabs.indexOf(item) != tabs.length - 1 &&
-                            (classInp == 'UOM' || tabs.indexOf(item) == 0)
-                        "
-                    ></ui5-tab-separator>
-                </ng-container>
-            </ng-container>
-        </ui5-tabcontainer>
+        <app-tab
+            [tabs]="tabs"
+            (onTabChange)="selectTab($event)"
+            [excluded]="tabsToExclude"
+        ></app-tab>
 
         <!--UOM Imperial and Metric Table-->
         <ng-container *ngIf="selectedTab == 'UOM Weight and Volume'">
-            <ui5-tabcontainer
-                style="width: 180px"
-                (ui5TabSelect)="selectNestedTab($event)"
-            >
-                <ng-container *ngFor="let item of nestedTabs">
-                    <ui5-tab text="{{ item }}"> </ui5-tab>
-                    <ui5-tab-separator
-                        *ngIf="
-                            nestedTabs.indexOf(item) != nestedTabs.length - 1
-                        "
-                    ></ui5-tab-separator>
-                </ng-container>
-            </ui5-tabcontainer>
+            <app-tab
+                [width]="'180px'"
+                [tabs]="nestedTabs"
+                (onTabChange)="selectNestedTab($event)"
+            ></app-tab>
 
             <!-- onModelChange events aren't used for these as - cuz of object
             reference being passed changes to inputs are reflected in parent
@@ -116,13 +95,11 @@
         ></app-table>
 
         <div id="buttons-sec">
-            <div id="other-btns">
-                <ui5-button>Cancel</ui5-button>
-                <ui5-button design="Positive" (ui5Click)="onSave()"
-                    >Save</ui5-button
-                >
-                <ui5-button design="Emphasized">Approve</ui5-button>
-            </div>
+            <app-form-actions
+                (onSave)="onSave()"
+                (onApprove)="onApprove()"
+                (onCancel)="onCancel()"
+            ></app-form-actions>
         </div>
     </div>
 </div>

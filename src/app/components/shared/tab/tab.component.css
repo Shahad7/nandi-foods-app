@@ -1,0 +1,7 @@
+ui5-tabcontainer::part(content) {
+    border-bottom: none !important;
+}
+
+ui5-bar {
+    box-shadow: none;
+}
