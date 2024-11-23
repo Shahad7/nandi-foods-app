@@ -30,7 +30,7 @@ export class FormComponent {
      *  All form groups and form field key names and types
      *  Eg:- formData = [
             [
-            {key:'name',type:'string',label:'Name',required:true,editable:true},
+            {key:'name',type:'string',label:'Name',required:true,editable:true,placeholder:'Adam'},
             {key:'password',type:'password',label:'Password',required:true,editable:true},
             {key:'country',type:'dropdown',label:'Country',required:true,editable:true, values:['IND','AUS']}                        
             ],..

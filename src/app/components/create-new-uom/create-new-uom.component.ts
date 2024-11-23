@@ -30,9 +30,9 @@ export class CreateNewUomComponent implements OnInit {
     currentDate: any;
     title: string = "Create New UOM";
     uom: any = new UOM(
-        "Level 1",
+        undefined,
         "EACH",
-        "1 x 4LB",
+        undefined,
         undefined,
         undefined,
         undefined,
@@ -41,7 +41,7 @@ export class CreateNewUomComponent implements OnInit {
         true,
         true,
         undefined,
-        "U1020"
+        undefined
     );
     //field to recognize the current selected unit
     classInp: any = "UOM";
@@ -63,6 +63,7 @@ export class CreateNewUomComponent implements OnInit {
                 label: "UOM Description",
                 required: true,
                 editable: true,
+                placeholder: "1 x 4LB",
             },
             {
                 key: "longName",
@@ -70,6 +71,7 @@ export class CreateNewUomComponent implements OnInit {
                 label: "UOM Long Name",
                 required: true,
                 editable: true,
+                placeholder: "U1020 EACH (1 x 4LB)",
             },
             {
                 key: "isInventory",
@@ -101,6 +103,7 @@ export class CreateNewUomComponent implements OnInit {
                 label: "UOM ID",
                 required: true,
                 editable: true,
+                placeholder: "U1020",
             },
             {
                 key: "shortName",
@@ -108,6 +111,7 @@ export class CreateNewUomComponent implements OnInit {
                 label: "UOM Short Name",
                 required: true,
                 editable: true,
+                placeholder: "EACH (1020)",
             },
             {
                 key: "isProduction",
@@ -315,8 +319,6 @@ export class CreateNewUomComponent implements OnInit {
 
             this.onClassChange();
         });
-
-        this.onUOMPropertiesChange();
     }
 
     /**  Manual bindigs */
@@ -392,9 +394,9 @@ export class CreateNewUomComponent implements OnInit {
             panelClass: ["success-snackbar"],
         });
         this.uom = new UOM(
-            "Level 1",
+            undefined,
             "EACH",
-            "1 x 4LB",
+            undefined,
             undefined,
             undefined,
             undefined,
@@ -403,9 +405,8 @@ export class CreateNewUomComponent implements OnInit {
             true,
             true,
             undefined,
-            "U1020"
+            undefined
         );
-        this.onUOMPropertiesChange();
     }
 
     onErrorResponse(errorMessage: string) {

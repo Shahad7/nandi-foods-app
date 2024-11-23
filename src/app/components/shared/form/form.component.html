@@ -13,6 +13,11 @@
                     [(ngModel)]="model[formField.key]"
                     id="{{ '_' + formField.key }}"
                     type="Text"
+                    [placeholder]="
+                        formField.placeholder
+                            ? formField.placeholder
+                            : undefined
+                    "
                     *ngIf="formField.type == 'string'"
                     [disabled]="!formField.editable || !editingEnabled"
                     (ngModelChange)="alertModelChange(formField.key, $event)"
@@ -20,6 +25,11 @@
                 <ui5-input
                     [(ngModel)]="model[formField.key]"
                     id="{{ '_' + formField.key }}"
+                    [placeholder]="
+                        formField.placeholder
+                            ? formField.placeholder
+                            : undefined
+                    "
                     type="Number"
                     *ngIf="formField.type == 'number'"
                     [disabled]="!formField.editable || !editingEnabled"
