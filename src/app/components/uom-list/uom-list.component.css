@@ -1,16 +1,3 @@
-ui5-table {
-    width: 100%;
-    overflow-x: auto;
-}
-
-ui5-table-header-cell {
-    color: white !important;
-}
-
-ui5-table-header-row {
-    background-color: #0064d9 !important;
-}
-
 #searchbar {
     margin-bottom: 20px;
 }
@@ -55,4 +42,10 @@ ui5-table-row {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.error-message {
+    margin-top: 200px;
+    display: flex;
+    justify-content: center;
 }

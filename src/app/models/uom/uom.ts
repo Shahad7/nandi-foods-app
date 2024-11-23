@@ -18,8 +18,8 @@ export class UOM {
     id: string;
 
     constructor(
-        level: string = "",
-        name: string = "",
+        level: string = "Level 1",
+        name: string = "EACH",
         description: string = "",
         longName: string = "",
         shortName: string = "",

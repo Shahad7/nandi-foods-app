@@ -76,6 +76,7 @@
             [keys]="LinkedUOM.keys"
             [paginated]="true"
             [paginatorProps]="paginatorProps"
+            (onPaginationEvent)="handlePageEvent($event)"
             *ngIf="selectedTab == 'Linked UOM'"
         ></app-table>
 
@@ -91,6 +92,7 @@
             [rows]="LinkedPUAndHU.rows"
             [keys]="LinkedPUAndHU.keys"
             [paginatorProps]="paginatorProps"
+            (onPaginationEvent)="handlePageEvent($event)"
             *ngIf="selectedTab == 'Linked PU and HU' && classInp == 'UOM'"
         ></app-table>
 

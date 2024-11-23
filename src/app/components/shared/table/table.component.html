@@ -4,7 +4,7 @@
         >Add new row</ui5-button
     >
 </div>
-<ui5-table overflowMode="Scroll">
+<ui5-table overflowMode="Scroll" [loading]="loading">
     <ui5-table-header-row slot="headerRow" style="background-color: #0064d9">
         <ui5-table-header-cell
             *ngFor="let item of headers"
@@ -15,59 +15,74 @@
         </ui5-table-header-cell>
         <ui5-table-header-cell *ngIf="enableDelete"></ui5-table-header-cell>
     </ui5-table-header-row>
-    <ui5-table-row *ngFor="let row of rows; let i = index">
-        <ui5-table-cell *ngFor="let key of keys">
-            <ui5-input
-                [(ngModel)]="row[key.name]"
-                [type]="'Text'"
-                *ngIf="key.type == 'string'"
-                [disabled]="!key.editable || !editingEnabled"
-            ></ui5-input>
-            <input
-                #ip
-                class="ui5-input"
-                [ngClass]="{
-                    'ui5-input': !ip.disabled,
-                    'ui5-input-disabled': ip.disabled
-                }"
-                [(ngModel)]="row[key.name]"
-                type="number"
-                *ngIf="key.type == 'number'"
-                [disabled]="!key.editable || !editingEnabled"
-            />
-            <ui5-select
-                *ngIf="key.type == 'boolean'"
-                [(ngModel)]="row[key.name]"
-                [disabled]="!key.editable || !editingEnabled"
-            >
-                <ui5-option value="true">YES</ui5-option>
-                <ui5-option value="false">NO</ui5-option>
-            </ui5-select>
-            <ui5-select
-                *ngIf="key.type == 'dropdown'"
-                [(ngModel)]="row[key.name]"
-                [disabled]="!key.editable || !editingEnabled"
-            >
-                <ui5-option *ngFor="let item of key.values" [value]="item">{{
-                    item
-                }}</ui5-option>
-            </ui5-select>
-        </ui5-table-cell>
-        <ui5-table-cell *ngIf="enableDelete"
-            ><ui5-button design="Negative" (ui5Click)="deleteRow(i)">
-                <img
-                    src="assets/trash.svg"
-                    id="row-delete-btn-icon"
-                    alt=""
-                /> </ui5-button
-        ></ui5-table-cell>
-    </ui5-table-row>
+    <ng-container *ngIf="controlled; else uncontrolledBlock">
+        <ui5-table-row *ngFor="let row of rows; let i = index">
+            <ui5-table-cell *ngFor="let key of keys">
+                <ui5-input
+                    [(ngModel)]="row[key.name]"
+                    [type]="'Text'"
+                    *ngIf="key.type == 'string'"
+                    [disabled]="!key.editable || !editingEnabled"
+                ></ui5-input>
+                <input
+                    #ip
+                    class="ui5-input"
+                    [ngClass]="{
+                        'ui5-input': !ip.disabled,
+                        'ui5-input-disabled': ip.disabled
+                    }"
+                    [(ngModel)]="row[key.name]"
+                    type="number"
+                    *ngIf="key.type == 'number'"
+                    [disabled]="!key.editable || !editingEnabled"
+                />
+                <ui5-select
+                    *ngIf="key.type == 'boolean'"
+                    [(ngModel)]="row[key.name]"
+                    [disabled]="!key.editable || !editingEnabled"
+                >
+                    <ui5-option value="true">YES</ui5-option>
+                    <ui5-option value="false">NO</ui5-option>
+                </ui5-select>
+                <ui5-select
+                    *ngIf="key.type == 'dropdown'"
+                    [(ngModel)]="row[key.name]"
+                    [disabled]="!key.editable || !editingEnabled"
+                >
+                    <ui5-option
+                        *ngFor="let item of key.values"
+                        [value]="item"
+                        >{{ item }}</ui5-option
+                    >
+                </ui5-select>
+            </ui5-table-cell>
+
+            <ui5-table-cell *ngIf="enableDelete"
+                ><ui5-button design="Negative" (ui5Click)="deleteRow(i)">
+                    <img
+                        src="assets/trash.svg"
+                        id="row-delete-btn-icon"
+                        alt=""
+                    /> </ui5-button
+            ></ui5-table-cell>
+        </ui5-table-row>
+    </ng-container>
+    <ng-container *ngIf="controlled"></ng-container>
+    <ng-template #uncontrolledBlock>
+        <ui5-table-row *ngFor="let row of rows">
+            <ui5-table-cell *ngFor="let key of keys">
+                <ui5-label>
+                    <b>{{ row[key] }}</b>
+                </ui5-label>
+            </ui5-table-cell>
+        </ui5-table-row>
+    </ng-template>
 </ui5-table>
 <mat-paginator
     *ngIf="paginated"
     #paginator
     id="paginator"
-    (page)="handlePageEvent($event)"
+    (page)="relayPageEvent($event)"
     [length]="paginatorProps.length"
     [pageSize]="paginatorProps.pageSize"
     [disabled]="paginatorProps.disabled"

@@ -11,11 +11,15 @@ export class TableComponent {
     @Input()
     title: string = "";
 
+    /** Whether if ui5 loading indicator should be shown */
+    @Input()
+    loading: boolean = false;
+
     /**
      * Whether if the table fields are input fields or readonly values (normal tables; no binding)
      */
     @Input()
-    controlled: boolean = false;
+    controlled: boolean = true;
 
     /**
      * Whether editing is enabled by default or not, defaults to true
@@ -78,6 +82,13 @@ export class TableComponent {
     onModelChange = new EventEmitter<any>();
 
     /**
+     *
+     * Fired on pagination events to relay the event details
+     */
+    @Output()
+    onPaginationEvent = new EventEmitter<any>();
+
+    /**
      * Paginator properties
      * Eg:-  paginatorProps = {
                 length: 200,
@@ -95,12 +106,17 @@ export class TableComponent {
 
     pageEvent!: PageEvent;
 
-    handlePageEvent(e: PageEvent) {
-        this.paginatorProps.pageEvent = e;
-        this.paginatorProps.length = e.length;
-        this.paginatorProps.pageSize = e.pageSize;
-        this.paginatorProps.pageIndex = e.pageIndex;
+    relayPageEvent(e: PageEvent) {
+        this.onPaginationEvent.emit(e);
     }
+
+    //for sample
+    // handlePageEvent(e: PageEvent) {
+    //     this.paginatorProps.pageEvent = e (avoid storing the event)
+    //     this.paginatorProps.length = e.length;
+    //     this.paginatorProps.pageSize = e.pageSize;
+    //     this.paginatorProps.pageIndex = e.pageIndex;
+    // }
 
     /** TODO:-
      * bind a function to handle ngModelChanges in all sort of input elements

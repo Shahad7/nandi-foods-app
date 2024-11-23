@@ -2,122 +2,12 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "../../environments/environment";
 import { Observable } from "rxjs";
+import { UOM } from "../models/uom/uom";
 
 @Injectable({
     providedIn: "root",
 })
 export class UomService {
-    UOMs = [
-        {
-            id: "U1001",
-            name: "EACH",
-            description: "1 x 50G",
-            longName: "U1001 EACH (1 x 50G)",
-            shortName: "U1001 (EACH)",
-            weightKG: 0.05,
-            bulkCode: 10,
-        },
-        {
-            id: "U1002",
-            name: "EACH",
-            description: "1 x 75G",
-            longName: "U1002 EACH (1 x 75G)",
-            shortName: "U1002 (EACH)",
-            weightKG: 0.08,
-            bulkCode: 10,
-        },
-        {
-            id: "U1003",
-            name: "EACH",
-            description: "1 x 100G",
-            longName: "U1003 EACH (1 x 100G)",
-            shortName: "U1003 (EACH)",
-            weightKG: 0.1,
-            bulkCode: 10,
-        },
-        {
-            id: "U1004",
-            name: "EACH",
-            description: "1 x 150G",
-            longName: "U1004 EACH (1 x 150G)",
-            shortName: "U1004 (EACH)",
-            weightKG: 0.15,
-            bulkCode: 10,
-        },
-        {
-            id: "U1005",
-            name: "EACH",
-            description: "1 x 200G",
-            longName: "U1005 EACH (1 x 200G)",
-            shortName: "U1005 (EACH)",
-            weightKG: 0.2,
-            bulkCode: 10,
-        },
-        {
-            id: "U1006",
-            name: "EACH",
-            description: "1 x 250G",
-            longName: "U1006 EACH (1 x 250G)",
-            shortName: "U1006 (EACH)",
-            weightKG: 0.25,
-            bulkCode: 10,
-        },
-        {
-            id: "U1007",
-            name: "EACH",
-            description: "1 x 300G",
-            longName: "U1007 EACH (1 x 300G)",
-            shortName: "U1007 (EACH)",
-            weightKG: 0.3,
-            bulkCode: 10,
-        },
-        {
-            id: "U1008",
-            name: "EACH",
-            description: "1 x 350G",
-            longName: "U1008 EACH (1 x 350G)",
-            shortName: "U1008 (EACH)",
-            weightKG: 0.35,
-            bulkCode: 10,
-        },
-        {
-            id: "U1009",
-            name: "EACH",
-            description: "1 x 375G",
-            longName: "U1009 EACH (1 x 375G)",
-            shortName: "U1009 (EACH)",
-            weightKG: 0.38,
-            bulkCode: 10,
-        },
-        {
-            id: "U1010",
-            name: "EACH",
-            description: "1 x 400G",
-            longName: "U1010 EACH (1 x 400G)",
-            shortName: "U1010 (EACH)",
-            weightKG: 0.4,
-            bulkCode: 10,
-        },
-        {
-            id: "U1011",
-            name: "EACH",
-            description: "1 x 410G",
-            longName: "U1011 EACH (1 x 410G)",
-            shortName: "U1011 (EACH)",
-            weightKG: 0.41,
-            bulkCode: 10,
-        },
-        {
-            id: "U1012",
-            name: "EACH",
-            description: "1 x 450G",
-            longName: "U1012 EACH (1 x 450G)",
-            shortName: "U1012 (EACH)",
-            weightKG: 0.45,
-            bulkCode: 10,
-        },
-    ];
-
     constructor(private http: HttpClient) {}
 
     save(uom: any): Observable<any> {
@@ -130,13 +20,17 @@ export class UomService {
         });
     }
 
-    fetchUOMs() {
-        //to-do API call
-        return this.UOMs;
+    fetchUOMs(offset: int, size: int): Observable<any> {
+        let url = `${environment.baseUrl}/unit/uom`;
+        return this.http.get(url, {
+            params: { offset: offset, size: size },
+            observe: "response",
+        });
     }
 
-    getUOMById(id: string) {
-        return this.UOMs.filter((elt) => elt.id == id);
+    getUOMById(id: string): Observable<any> {
+        let url = `${environment.baseUrl}/unit/uom/${id}`;
+        return this.http.get(url, { observe: "response" });
     }
 
     getUOMByIdOrNameOrLongName() {

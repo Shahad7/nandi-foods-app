@@ -27,44 +27,22 @@
         <ui5-icon id="searchIcon" slot="icon" name="search"></ui5-icon>
     </ui5-input>
 </div>
-<ui5-table overflowMode="Scroll" loading="{{ loading }}">
-    <ui5-table-header-row slot="headerRow">
-        <ng-container *ngFor="let item of headers">
-            <ui5-table-header-cell
-                *ngIf="
-                    item == 'UOM Long Name' || item == 'UOM Short Name';
-                    else elseBlock
-                "
-                minWidth="165px"
-            >
-                <span>{{ item }}</span>
-            </ui5-table-header-cell>
-            <ng-template #elseBlock>
-                <ui5-table-header-cell minWidth="88px">
-                    <span>{{ item }}</span>
-                </ui5-table-header-cell>
-            </ng-template>
-        </ng-container>
-    </ui5-table-header-row>
 
-    <ui5-table-row *ngFor="let row of rows" (click)="viewUOMDetails(row['id'])">
-        <ui5-table-cell *ngFor="let key of keys">
-            <ui5-label>
-                <b>{{ row[key] }}</b>
-            </ui5-label>
-        </ui5-table-cell>
-    </ui5-table-row>
-</ui5-table>
-<mat-paginator
-    #paginator
-    (page)="handlePageEvent($event)"
-    [length]="length"
-    [pageSize]="pageSize"
-    [disabled]="disabled"
-    [showFirstLastButtons]="showFirstLastButtons"
-    [pageSizeOptions]="showPageSizeOptions ? pageSizeOptions : []"
-    [hidePageSize]="hidePageSize"
-    [pageIndex]="pageIndex"
-    aria-label="Select page"
+<app-table
+    *ngIf="!error; else errorBlock"
+    [headers]="headers"
+    [rows]="rows"
+    [controlled]="false"
+    [paginated]="true"
+    [keys]="keys"
+    [loading]="loading"
+    [paginatorProps]="paginatorProps"
+    (onPaginationEvent)="handlePageEvent($event)"
 >
-</mat-paginator>
+</app-table>
+
+<ng-template #errorBlock>
+    <div class="error-message">
+        <ui5-label>{{ "Sorry, something unexpected happened  :(" }}</ui5-label>
+    </div>
+</ng-template>

@@ -12,6 +12,7 @@ import { error } from "console";
 import { HttpErrorResponse, HttpResponse } from "@angular/common/http";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { SnackbarComponent } from "../shared/snackbar/snackbar.component";
+import { PageEvent } from "@angular/material/paginator";
 
 interface RowType {
     [key: string]: any; // Allow dynamic access to row properties
@@ -29,20 +30,7 @@ export class CreateNewUomComponent implements OnInit {
 
     currentDate: any;
     title: string = "Create New UOM";
-    uom: any = new UOM(
-        undefined,
-        "EACH",
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        true,
-        true,
-        true,
-        true,
-        undefined,
-        undefined
-    );
+    uom: any = new UOM();
     //field to recognize the current selected unit
     classInp: any = "UOM";
     flexHU: boolean = true;
@@ -292,6 +280,7 @@ export class CreateNewUomComponent implements OnInit {
     };
 
     //temporary default paginator props
+
     paginatorProps = {
         length: 200,
         pageSize: 10,
@@ -302,6 +291,12 @@ export class CreateNewUomComponent implements OnInit {
         showFirstLastButtons: true,
         disabled: false,
     };
+
+    handlePageEvent(e: PageEvent) {
+        this.paginatorProps.length = e.length;
+        this.paginatorProps.pageSize = e.pageSize;
+        this.paginatorProps.pageIndex = e.pageIndex;
+    }
 
     constructor(
         private datePipe: DatePipe,
@@ -337,7 +332,7 @@ export class CreateNewUomComponent implements OnInit {
                 event.key
             )
         ) {
-            this.uom[event.key] = event.value === "true";
+            this.uom[event.key] = event.value === "true" || event.value == true;
         }
     }
 
@@ -393,20 +388,7 @@ export class CreateNewUomComponent implements OnInit {
             verticalPosition: "top",
             panelClass: ["success-snackbar"],
         });
-        this.uom = new UOM(
-            undefined,
-            "EACH",
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            true,
-            true,
-            true,
-            true,
-            undefined,
-            undefined
-        );
+        this.uom = new UOM();
     }
 
     onErrorResponse(errorMessage: string) {
