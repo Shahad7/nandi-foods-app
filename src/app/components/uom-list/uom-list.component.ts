@@ -100,8 +100,8 @@ export class UomListComponent implements OnInit {
         this.UOMService.getUOMByIdOrNameOrLongName();
     }
 
-    viewUOMDetails(id: string) {
-        this.router.navigate(["uom-details", id]);
+    viewUOMDetails(event: any) {
+        this.router.navigate(["uom-details", event.id]);
     }
 
     navigateToCreateUOMForm(classInp: string) {

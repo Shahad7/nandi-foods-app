@@ -7,6 +7,7 @@ import { PageEvent } from "@angular/material/paginator";
     styleUrl: "./table.component.css",
 })
 export class TableComponent {
+
     /** Title of the table */
     @Input()
     title: string = "";
@@ -20,6 +21,12 @@ export class TableComponent {
      */
     @Input()
     controlled: boolean = true;
+
+    /**
+     * Fired when a row is clicked, relays the row data
+     */
+    @Output()
+    onRowClick: EventEmitter<any> = new EventEmitter()
 
     /**
      * Whether editing is enabled by default or not, defaults to true
@@ -108,6 +115,10 @@ export class TableComponent {
 
     relayPageEvent(e: PageEvent) {
         this.onPaginationEvent.emit(e);
+    }
+
+    alertRowClick(data:any) {
+        this.onRowClick.emit(data)
     }
 
     //for sample
