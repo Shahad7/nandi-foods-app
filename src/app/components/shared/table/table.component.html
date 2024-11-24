@@ -69,7 +69,7 @@
     </ng-container>
     <ng-container *ngIf="controlled"></ng-container>
     <ng-template #uncontrolledBlock>
-        <ui5-table-row *ngFor="let row of rows" (click)="alertRowClick(row)" >
+        <ui5-table-row *ngFor="let row of rows" (click)="alertRowClick(row)" style="cursor: pointer;" >
             <ui5-table-cell *ngFor="let key of keys">
                 <ui5-label>
                     <b>{{ row[key] }}</b>

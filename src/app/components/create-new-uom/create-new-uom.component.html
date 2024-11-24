@@ -19,9 +19,8 @@
                 [(ngModel)]="classInp"
                 (ngModelChange)="onClassChange()"
             >
-                <ui5-option value="UOM" selected>UOM</ui5-option>
-                <ui5-option value="HU">HU</ui5-option>
-                <ui5-option value="PU">PU</ui5-option>
+                <ui5-option *ngFor="let item of classTypes" value={{item}}>{{item}}</ui5-option>
+                
             </ui5-select>
         </ui5-form-item></app-form
     >

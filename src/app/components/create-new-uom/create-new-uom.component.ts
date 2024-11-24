@@ -1,18 +1,18 @@
 import { UomService } from "./../../services/uom.service";
 import { MainCommunicationService } from "./../../services/main-communication.service";
-import { BootstrapOptions, Component, OnInit, Output } from "@angular/core";
-import { DatePipe } from "@angular/common";
+import { BootstrapOptions, Component, OnDestroy, OnInit, Output } from "@angular/core";
 import { UOMImperialRow } from "../../models/uom/table_rows/UomImperialRow";
 import { UOMMetricRow } from "../../models/uom/table_rows/UomMetricRow";
 import { LinkedUOMRow } from "../../models/uom/table_rows/linkedUomRow";
 import { LinkedHuAndPuRow } from "../../models/uom/table_rows/linkedHuAndPuRow";
 import { UOM } from "../../models/uom/uom";
 import { ActivatedRoute } from "@angular/router";
-import { error } from "console";
+import { error, log } from "console";
 import { HttpErrorResponse, HttpResponse } from "@angular/common/http";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { SnackbarComponent } from "../shared/snackbar/snackbar.component";
 import { PageEvent } from "@angular/material/paginator";
+import { Subscription } from "rxjs";
 
 interface RowType {
     [key: string]: any; // Allow dynamic access to row properties
@@ -23,16 +23,24 @@ interface RowType {
     templateUrl: "./create-new-uom.component.html",
     styleUrl: "./create-new-uom.component.css",
 })
-export class CreateNewUomComponent implements OnInit {
+export class CreateNewUomComponent implements OnInit, OnDestroy {
     //class refs
     linkedUOMClassRef = LinkedUOMRow;
     linkedHuAndPuClassRef = LinkedHuAndPuRow;
 
-    currentDate: any;
+    //subscriptions
+    routeSubscription!: Subscription;
+
+    error: boolean = false;
+
+
     title: string = "Create New UOM";
     uom: any = new UOM();
     //field to recognize the current selected unit
     classInp: any = "UOM";
+    classTypes: Array<string> = []
+    classLevels: Array<string> = []
+    classLevelTypes: Array<string> = []
     flexHU: boolean = true;
     excluded: Array<string> = [];
     formData = [
@@ -43,7 +51,7 @@ export class CreateNewUomComponent implements OnInit {
                 label: "UOM Type",
                 required: true,
                 editable: true,
-                values: ["EACH", "other1", "other2"],
+                values: this.classLevelTypes,
             },
             {
                 key: "description",
@@ -83,7 +91,7 @@ export class CreateNewUomComponent implements OnInit {
                 label: "UOM Level",
                 required: true,
                 editable: true,
-                values: ["Level 1", "Level 2"],
+                values: this.classLevels,
             },
             {
                 key: "id",
@@ -299,21 +307,53 @@ export class CreateNewUomComponent implements OnInit {
     }
 
     constructor(
-        private datePipe: DatePipe,
-        private mainCommunicationService: MainCommunicationService,
-        private route: ActivatedRoute,
-        private UomService: UomService,
-        private snackBar: MatSnackBar
+        protected mainCommunicationService: MainCommunicationService,
+        protected route: ActivatedRoute,
+        protected uomService: UomService,
+        protected snackBar: MatSnackBar
     ) {
-        this.currentDate = this.datePipe.transform(new Date(), "y/M/d");
+
     }
     ngOnInit(): void {
-        this.route.queryParams.subscribe((params) => {
+        this.routeSubscription = this.route.queryParams.subscribe((params) => {
             this.classInp =
                 params["class"] == undefined ? "UOM" : params["class"];
 
             this.onClassChange();
         });
+
+        //fetch required unit metadata
+        this.uomService.getUnitClassTypes().subscribe({
+            next: (response) => {
+
+                let body = response.body as Array<any>
+                body?.forEach((element: any) => {
+                    this.classTypes.push(element?.name)
+                });
+            }
+            , error: (response) => {
+                this.error = true
+            }
+        })
+
+        this.uomService.getUnitClassLevels().subscribe({
+            next: (response) => {
+                let body = response.body as Array<any>
+                body?.forEach((element: any) => {
+                    this.classLevels.push(element?.level)
+                    this.classLevelTypes.push(element?.type)
+                });
+
+            }
+            , error: (response) => {
+                this.error = true
+            }
+        })
+
+    }
+
+    ngOnDestroy(): void {
+        this.routeSubscription.unsubscribe()
     }
 
     /**  Manual bindigs */
@@ -361,7 +401,7 @@ export class CreateNewUomComponent implements OnInit {
     onSave() {
         console.log(this.uom);
         console.log(this.LinkedUOM.rows);
-        this.UomService.save(this.uom).subscribe({
+        this.uomService.save(this.uom).subscribe({
             next: (response) => {
                 if (response.status == 201) {
                     this.onSuccessfulSubmit();
@@ -375,10 +415,10 @@ export class CreateNewUomComponent implements OnInit {
     }
 
     //TODO
-    onCancel() {}
+    onCancel() { }
 
     //TODO
-    onApprove() {}
+    onApprove() { }
 
     onSuccessfulSubmit() {
         this.snackBar.openFromComponent(SnackbarComponent, {
