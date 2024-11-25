@@ -5,7 +5,6 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { PageEvent } from "@angular/material/paginator";
 import { Router } from "@angular/router";
 import { TableComponent } from "../shared/table/table.component";
-import { log } from "console";
 
 @Component({
     selector: "app-uom-list",
@@ -81,7 +80,6 @@ export class UomListComponent implements OnInit {
         ).subscribe({
             next: (response) => {
                 if (response.status == 200) {
-                    console.log(response)
                     let rows = response.body.content;
                     this.rows = rows.map((element: any) => {
                         element.weightKG = element.metric.weightValue;

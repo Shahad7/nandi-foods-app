@@ -1,5 +1,11 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 
+type formGroup = {
+    headerText: string | undefined;
+    columnSpan: number | undefined;
+    content: any;
+};
+
 @Component({
     selector: "app-form",
     templateUrl: "./form.component.html",
@@ -11,11 +17,14 @@ export class FormComponent {
         */
     @Input("model")
     model: any;
-    /**
-         To allow ng-content inside the form component - should refactor if there are more cases
-        */
-    @Input("projectionEnabled")
-    projectionEnabled: boolean = true;
+
+    /** Layout value for ui5-form */
+    @Input("layout")
+    layout: string = "S1 M2 L2 XL2";
+
+    /** LableSpan value for ui5-form */
+    @Input("labelSpan")
+    labelSpan: string | undefined = undefined;
 
     @Input("editingEnabled")
     editingEnabled: boolean = true;
@@ -27,20 +36,27 @@ export class FormComponent {
     excluded: Array<string> = [];
 
     /** 
-     *  All form groups and form field key names and types
+     *  formData is an array of formGroups where each formGroup contains headerText, columnSpan 
+     *  for that formGroup and the content which is an array of objects containing key, type,
+     *  label, required, editable, placeholder, values etc for each of the formFields
      *  Eg:- formData = [
-            [
-            {key:'name',type:'string',label:'Name',required:true,editable:true,placeholder:'Adam'},
-            {key:'password',type:'password',label:'Password',required:true,editable:true},
-            {key:'country',type:'dropdown',label:'Country',required:true,editable:true, values:['IND','AUS']}                        
-            ],..
+     *      {
+     *          headerText : 'User Details', //could be undefined
+     *          columnSpan : 2, //could also be undefined
+     *          content : 
+                        [
+                        {key:'name',type:'string',label:'Name',required:true,editable:true,placeholder:'Adam'},
+                        {key:'password',type:'password',label:'Password',required:true,editable:true},
+                        {key:'country',type:'dropdown',label:'Country',required:true,editable:true, values:['IND','AUS']}                        
+                        ],..
+            }
         ]
                            
      *  Available Types : number, string, boolean, dropdown, password
         */
 
     @Input("formData")
-    formData: any;
+    formData: Array<formGroup> = [];
 
     /** Event which alerts parent component about the changed value and respective key
      * so that parent component can change the state accordingly or

@@ -32,12 +32,7 @@ export class AddNewCustomerComponent {
     category: string = "";
     accountManager: string = "";
     salesRep: string = "";
-    // effectiveDate: string = "";
-    // creditTerms: string = "";
-    // lastUpdated: string = "";
-    // lastUpdatedBy: string = "";
-    // status: string = "ACTIVE";
-    // statuses = ["ACTIVE", "PENDING", "HOLD", "CLOSED"];
+    
 
     //bottom credit terms tab fields
     creditTerms2: string = "";

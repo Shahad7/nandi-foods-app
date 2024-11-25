@@ -1,90 +1,181 @@
 <app-subheader [title]="title">
-    <ui5-button icon="edit" (click)="onEdit()" *ngIf="!editingEnabled"
-        >Edit</ui5-button
-    >
+    <ui5-button icon="edit" (click)="onEdit()" *ngIf="!editingEnabled">
+        Edit
+    </ui5-button>
     <ui5-button
         design="Negative"
         icon="edit"
         (click)="onEdit()"
         *ngIf="editingEnabled"
-        >Cancel Editing</ui5-button
     >
+        Cancel Editing
+    </ui5-button>
 </app-subheader>
-<div class="container">
-   
-        <ui5-form-group>
-            <!-- Read-only fields -->
-            <!-- Date Created (Read-only) -->
-            <ui5-form-item>
-                <ui5-label for="DateCreatedInp" slot="labelContent"
-                    >Date Created:</ui5-label
-                >
-                <ui5-input
-                    id="DateCreatedInp"
-                    readonly
-                    value="{{ dateCreated }}"
-                ></ui5-input>
-            </ui5-form-item>
-            <!-- Last Updated (Read-only) -->
-            <ui5-form-item>
-                <ui5-label for="LastUpdatedInp" slot="labelContent"
-                    >Last Updated:</ui5-label
-                >
-                <ui5-input
-                    id="LastUpdatedInp"
-                    readonly
-                    value="{{ lastUpdated }}"
-                ></ui5-input>
-            </ui5-form-item>
-            <!-- Status (Read-only) -->
-            <ui5-form-item>
-                <ui5-label for="StatusInp" slot="labelContent"
-                    >Status:</ui5-label
-                >
-                <ui5-select
-                    id="StatusInp"
-                    [disabled]="!editingEnabled"
-                    [(ngModel)]="status"
-                >
-                    <ui5-option
-                        *ngFor="let item of statuses"
-                        value="{{ item }}"
-                        >{{ item }}</ui5-option
-                    >
-                </ui5-select>
-            </ui5-form-item>
-        </ui5-form-group>
 
-        <ui5-form-group>
-            <!-- Effective Date (Read-only) -->
-            <ui5-form-item>
-                <ui5-label for="EffectiveDateInp" slot="labelContent"
-                    >Effective Date:</ui5-label
-                >
-                <ui5-input
-                    id="EffectiveDateInp"
-                    readonly
-                    value="{{ effectiveDate }}"
-                ></ui5-input>
-            </ui5-form-item>
-            <!-- Last Updated by (Read-only) -->
-            <ui5-form-item>
-                <ui5-label for="LastUpdatedByInp" slot="labelContent"
-                    >Last Updated By:</ui5-label
-                >
-                <ui5-input
-                    id="LastUpdatedByInp"
-                    readonly
-                    value="{{ lastUpdatedBy }}"
-                ></ui5-input>
-            </ui5-form-item>
-        </ui5-form-group>
-  
+<div class="container">
+    <app-form
+        [formData]="formData"
+        [editingEnabled]="editingEnabled"
+        [model]="uom"
+        [excluded]="excluded"
+        (onModelChange)="onFormModelChange($event)"
+    >
+        <!-- projection -->
+        <ui5-form-item inFirstFormGroup>
+            <ui5-label for="classInp" slot="labelContent" required="true">
+                Class:
+            </ui5-label>
+
+            <ui5-select id="classInp" [value]="classInp" [disabled]="true">
+                <ui5-option value="{{ classInp }}">{{ classInp }}</ui5-option>
+            </ui5-select>
+        </ui5-form-item>
+        <ng-container tail>
+            <ui5-form-group>
+                <!-- Read-only fields -->
+                <!-- Date Created (Read-only) -->
+                <ui5-form-item>
+                    <ui5-label for="DateCreatedInp" slot="labelContent">
+                        Date Created:
+                    </ui5-label>
+                    <ui5-input
+                        id="DateCreatedInp"
+                        readonly
+                        value="{{ uom.dateCreated }}"
+                    ></ui5-input>
+                </ui5-form-item>
+                <!-- Last Updated (Read-only) -->
+                <ui5-form-item>
+                    <ui5-label for="LastUpdatedInp" slot="labelContent">
+                        Last Updated:
+                    </ui5-label>
+                    <ui5-input
+                        id="LastUpdatedInp"
+                        readonly
+                        value="{{ uom.modifiedDate }}"
+                    ></ui5-input>
+                </ui5-form-item>
+                <!-- Status (Read-only) -->
+                <ui5-form-item>
+                    <ui5-label for="StatusInp" slot="labelContent">
+                        Status:
+                    </ui5-label>
+                    <ui5-select
+                        id="StatusInp"
+                        [disabled]="!editingEnabled"
+                        [(ngModel)]="uom.status"
+                    >
+                        <ui5-option
+                            *ngFor="let item of statuses"
+                            value="{{ item }}"
+                        >
+                            {{ item }}
+                        </ui5-option>
+                    </ui5-select>
+                </ui5-form-item>
+            </ui5-form-group>
+            <ui5-form-group>
+                <!-- Effective Date (Read-only) -->
+                <ui5-form-item>
+                    <ui5-label for="EffectiveDateInp" slot="labelContent">
+                        Effective Date:
+                    </ui5-label>
+                    <ui5-input
+                        id="EffectiveDateInp"
+                        readonly
+                        value="{{ uom.effectiveDate }}"
+                    ></ui5-input>
+                </ui5-form-item>
+                <!-- Last Updated by (Read-only) -->
+                <ui5-form-item>
+                    <ui5-label for="LastUpdatedByInp" slot="labelContent">
+                        Last Updated By:
+                    </ui5-label>
+                    <ui5-input
+                        id="LastUpdatedByInp"
+                        readonly
+                        value="{{ lastUpdatedBy }}"
+                    ></ui5-input>
+                </ui5-form-item>
+            </ui5-form-group>
+        </ng-container>
+    </app-form>
 
     <div id="table-sec">
-      
+        <app-tab
+            [tabs]="tabs"
+            (onTabChange)="selectTab($event)"
+            [excluded]="tabsToExclude"
+        ></app-tab>
+
+        <!-- UOM Imperial and Metric Table -->
+        <ng-container *ngIf="selectedTab == 'UOM Weight and Volume'">
+            <app-tab
+                [width]="'180px'"
+                [tabs]="nestedTabs"
+                (onTabChange)="selectNestedTab($event)"
+            ></app-tab>
+
+            <app-table
+                *ngIf="selectedNestedTab == 'Metric'"
+                [controlled]="true"
+                [headers]="UOMMetricHeaders"
+                [rows]="[uom.metric]"
+                [keys]="UOMTableKeys"
+                [editingEnabled]="editingEnabled"
+            ></app-table>
+
+            <!-- Imperial Table -->
+            <app-table
+                *ngIf="selectedNestedTab == 'Imperial'"
+                [controlled]="true"
+                [headers]="UOMImperialHeaders"
+                [rows]="[uom.imperial]"
+                [keys]="UOMTableKeys"
+                [editingEnabled]="editingEnabled"
+            ></app-table>
+        </ng-container>
+
+        <!-- Linked UOM Table -->
+        <app-table
+            [title]="'Linked UOM'"
+            [classRef]="linkedUOMClassRef"
+            [controlled]="true"
+            [enableAdd]="true"
+            [enableDelete]="true"
+            [headers]="LinkedUOM.headers"
+            [rows]="LinkedUOM.rows"
+            [keys]="LinkedUOM.keys"
+            [editingEnabled]="editingEnabled"
+            [paginated]="true"
+            [paginatorProps]="paginatorProps"
+            (onPaginationEvent)="handlePageEvent($event)"
+            *ngIf="selectedTab == 'Linked UOM'"
+        ></app-table>
+
+        <!-- Linked PU and HU Table -->
+        <app-table
+            [title]="'Linked PU and HU'"
+            [classRef]="linkedHuAndPuClassRef"
+            [controlled]="true"
+            [enableAdd]="true"
+            [paginated]="true"
+            [enableDelete]="true"
+            [editingEnabled]="editingEnabled"
+            [headers]="LinkedPUAndHU.headers"
+            [rows]="LinkedPUAndHU.rows"
+            [keys]="LinkedPUAndHU.keys"
+            [paginatorProps]="paginatorProps"
+            (onPaginationEvent)="handlePageEvent($event)"
+            *ngIf="selectedTab == 'Linked PU and HU' && classInp == 'UOM'"
+        ></app-table>
+
         <div id="buttons-sec">
-            
+            <app-form-actions
+                (onSave)="onSave()"
+                (onApprove)="onApprove()"
+                (onCancel)="onCancel()"
+            ></app-form-actions>
         </div>
     </div>
 </div>

@@ -1,7 +1,12 @@
-<ui5-form layout=" S1 M2 L2 XL2" item-spacing="Large">
-    <ui5-form-group *ngFor="let formGroup of formData; let i = index">
-        <ng-content *ngIf="projectionEnabled && i == 0"></ng-content>
-        <ng-container *ngFor="let formField of formGroup">
+<ui5-form [layout]="layout" item-spacing="Large" labelSpan="{{ labelSpan }}">
+    <ng-content select="[head]"></ng-content>
+    <ui5-form-group
+        *ngFor="let formGroup of formData; let i = index"
+        [headerText]="formGroup.headerText"
+        [columnSpan]="formGroup.columnSpan"
+    >
+        <ng-content select="[inFirstFormGroup]" *ngIf="i == 0"></ng-content>
+        <ng-container *ngFor="let formField of formGroup.content">
             <ui5-form-item *ngIf="!excluded.includes(formField.key)">
                 <ui5-label
                     for="{{ '_' + formField.key }}"
@@ -61,4 +66,5 @@
             </ui5-form-item>
         </ng-container>
     </ui5-form-group>
+    <ng-content select="[tail]"></ng-content>
 </ui5-form>

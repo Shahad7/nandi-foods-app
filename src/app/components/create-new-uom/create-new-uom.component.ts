@@ -1,6 +1,12 @@
 import { UomService } from "./../../services/uom.service";
 import { MainCommunicationService } from "./../../services/main-communication.service";
-import { BootstrapOptions, Component, OnDestroy, OnInit, Output } from "@angular/core";
+import {
+    BootstrapOptions,
+    Component,
+    OnDestroy,
+    OnInit,
+    Output,
+} from "@angular/core";
 import { UOMImperialRow } from "../../models/uom/table_rows/UomImperialRow";
 import { UOMMetricRow } from "../../models/uom/table_rows/UomMetricRow";
 import { LinkedUOMRow } from "../../models/uom/table_rows/linkedUomRow";
@@ -33,104 +39,116 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
 
     error: boolean = false;
 
-
     title: string = "Create New UOM";
     uom: any = new UOM();
+
     //field to recognize the current selected unit
     classInp: any = "UOM";
-    classTypes: Array<string> = []
-    classLevels: Array<string> = []
-    classLevelTypes: Array<string> = []
+    //metadata
+    classTypes: Array<string> = [];
+    classLevels: Array<string> = [];
+    classLevelTypes: Array<string> = [];
+
     flexHU: boolean = true;
+
+    //form variables
     excluded: Array<string> = [];
     formData = [
-        [
-            {
-                key: "name",
-                type: "dropdown",
-                label: "UOM Type",
-                required: true,
-                editable: true,
-                values: this.classLevelTypes,
-            },
-            {
-                key: "description",
-                type: "string",
-                label: "UOM Description",
-                required: true,
-                editable: true,
-                placeholder: "1 x 4LB",
-            },
-            {
-                key: "longName",
-                type: "string",
-                label: "UOM Long Name",
-                required: true,
-                editable: true,
-                placeholder: "U1020 EACH (1 x 4LB)",
-            },
-            {
-                key: "isInventory",
-                type: "boolean",
-                label: "Inventory UOM",
-                required: true,
-                editable: true,
-            },
-            {
-                key: "isPurchase",
-                type: "boolean",
-                label: "Purchase UOM",
-                required: true,
-                editable: true,
-            },
-        ],
-        [
-            {
-                key: "level",
-                type: "dropdown",
-                label: "UOM Level",
-                required: true,
-                editable: true,
-                values: this.classLevels,
-            },
-            {
-                key: "id",
-                type: "string",
-                label: "UOM ID",
-                required: true,
-                editable: true,
-                placeholder: "U1020",
-            },
-            {
-                key: "shortName",
-                type: "string",
-                label: "UOM Short Name",
-                required: true,
-                editable: true,
-                placeholder: "EACH (1020)",
-            },
-            {
-                key: "isProduction",
-                type: "boolean",
-                label: "Production UOM",
-                required: true,
-                editable: true,
-            },
-            {
-                key: "isSales",
-                type: "boolean",
-                label: "Sales UOM",
-                required: true,
-                editable: true,
-            },
-            {
-                key: "flexHU",
-                type: "boolean",
-                label: "flex HU",
-                required: true,
-                editable: true,
-            },
-        ],
+        {
+            headerText: undefined, // First group doesn't have a header
+            columnSpan: undefined, // No specific column span defined
+            content: [
+                {
+                    key: "name",
+                    type: "dropdown",
+                    label: "UOM Type",
+                    required: true,
+                    editable: true,
+                    values: this.classLevelTypes,
+                },
+                {
+                    key: "description",
+                    type: "string",
+                    label: "UOM Description",
+                    required: true,
+                    editable: true,
+                    placeholder: "1 x 4LB",
+                },
+                {
+                    key: "longName",
+                    type: "string",
+                    label: "UOM Long Name",
+                    required: true,
+                    editable: true,
+                    placeholder: "U1020 EACH (1 x 4LB)",
+                },
+                {
+                    key: "isInventory",
+                    type: "boolean",
+                    label: "Inventory UOM",
+                    required: true,
+                    editable: true,
+                },
+                {
+                    key: "isPurchase",
+                    type: "boolean",
+                    label: "Purchase UOM",
+                    required: true,
+                    editable: true,
+                },
+            ],
+        },
+        {
+            headerText: undefined, // Second group doesn't have a header
+            columnSpan: undefined, // No specific column span defined
+            content: [
+                {
+                    key: "level",
+                    type: "dropdown",
+                    label: "UOM Level",
+                    required: true,
+                    editable: true,
+                    values: this.classLevels,
+                },
+                {
+                    key: "id",
+                    type: "string",
+                    label: "UOM ID",
+                    required: true,
+                    editable: true,
+                    placeholder: "U1020",
+                },
+                {
+                    key: "shortName",
+                    type: "string",
+                    label: "UOM Short Name",
+                    required: true,
+                    editable: true,
+                    placeholder: "EACH (1020)",
+                },
+                {
+                    key: "isProduction",
+                    type: "boolean",
+                    label: "Production UOM",
+                    required: true,
+                    editable: true,
+                },
+                {
+                    key: "isSales",
+                    type: "boolean",
+                    label: "Sales UOM",
+                    required: true,
+                    editable: true,
+                },
+                {
+                    key: "flexHU",
+                    type: "boolean",
+                    label: "flex HU",
+                    required: true,
+                    editable: true,
+                },
+            ],
+        },
     ];
 
     //tabs
@@ -311,9 +329,7 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
         protected route: ActivatedRoute,
         protected uomService: UomService,
         protected snackBar: MatSnackBar
-    ) {
-
-    }
+    ) {}
     ngOnInit(): void {
         this.routeSubscription = this.route.queryParams.subscribe((params) => {
             this.classInp =
@@ -325,35 +341,32 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
         //fetch required unit metadata
         this.uomService.getUnitClassTypes().subscribe({
             next: (response) => {
-
-                let body = response.body as Array<any>
+                let body = response.body as Array<any>;
                 body?.forEach((element: any) => {
-                    this.classTypes.push(element?.name)
+                    this.classTypes.push(element?.name);
                 });
-            }
-            , error: (response) => {
-                this.error = true
-            }
-        })
+            },
+            error: (response) => {
+                this.error = true;
+            },
+        });
 
         this.uomService.getUnitClassLevels().subscribe({
             next: (response) => {
-                let body = response.body as Array<any>
+                let body = response.body as Array<any>;
                 body?.forEach((element: any) => {
-                    this.classLevels.push(element?.level)
-                    this.classLevelTypes.push(element?.type)
+                    this.classLevels.push(element?.level);
+                    this.classLevelTypes.push(element?.type);
                 });
-
-            }
-            , error: (response) => {
-                this.error = true
-            }
-        })
-
+            },
+            error: (response) => {
+                this.error = true;
+            },
+        });
     }
 
     ngOnDestroy(): void {
-        this.routeSubscription.unsubscribe()
+        this.routeSubscription.unsubscribe();
     }
 
     /**  Manual bindigs */
@@ -415,10 +428,10 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
     }
 
     //TODO
-    onCancel() { }
+    onCancel() {}
 
     //TODO
-    onApprove() { }
+    onApprove() {}
 
     onSuccessfulSubmit() {
         this.snackBar.openFromComponent(SnackbarComponent, {
