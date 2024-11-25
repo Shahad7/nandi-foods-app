@@ -252,7 +252,7 @@
                 </ui5-form-item>
             </ui5-form-group> -->
         </ui5-form>
-        <div id="file-uploader-container">
+        <!-- <div >
             <ui5-illustrated-message name="UploadToCloud">
                 <ui5-title slot="title" level="H5"
                     >Upload Customer Logo here</ui5-title
@@ -264,354 +264,370 @@
                     <ui5-button design="Emphasized">Choose file(s)</ui5-button>
                 </ui5-file-uploader>
             </ui5-illustrated-message>
-        </div>
+        </div> -->
+        <app-image-upload
+            id="img-uploader"
+            [title]="'Upload Customer Logo here'"
+            (onImageChange)="onImageChange($event)"
+        ></app-image-upload>
     </div>
-    <ui5-tabcontainer (ui5TabSelect)="selectTab($event)">
-        <ng-container *ngFor="let item of tabs">
-            <ui5-tab text="{{ item }}"> </ui5-tab>
-            <ui5-tab-separator
-                *ngIf="tabs.indexOf(item) != tabs.length - 1"
-            ></ui5-tab-separator>
-        </ng-container>
-    </ui5-tabcontainer>
-    <div *ngIf="selectedTab == 'Notes & Files'" id="notes-n-files">
-        <ui5-textarea
-            [rows]="4"
-            class="textarea-width"
-            placeholder="Type credits notes here..."
-        ></ui5-textarea>
-        <div id="notes-upload">
-            <input
-                type="file"
-                #notesFileUpload
-                id="notes-file-input"
-                style="display: none"
-                (change)="onNotesFileSubmit($event)"
-            />
-            <div id="notes-file-label" (click)="triggerNotesFileUpload()">
-                Choose file
-            </div>
-            <div id="notes-file-name">
-                {{ notesFileName == "" ? "No file chosen" : notesFileName }}
-            </div>
-            <ui5-button design="Emphasized" id="notes-upload-btn"
-                >Upload File</ui5-button
-            >
-        </div>
-    </div>
-    <div id="credit-terms" *ngIf="selectedTab == 'Credit Terms'">
-        <div id="credits-bottom-form">
-            <ui5-form style="width: 100%" label-span="S12 M12 L12 XL12">
-                <ui5-form-group>
-                    <ui5-form-item>
-                        <ui5-label
-                            for="creditTerms2"
-                            required="true"
-                            slot="labelContent"
-                            >Credit Terms</ui5-label
-                        >
-                        <ui5-input
-                            id="creditTerms2"
-                            [(ngModel)]="creditTerms2"
-                        ></ui5-input>
-                    </ui5-form-item>
-                    <ui5-form-item>
-                        <ui5-label
-                            for="creditLimit"
-                            required="true"
-                            slot="labelContent"
-                            >Credit Terms</ui5-label
-                        >
-                        <ui5-input
-                            id="creditLimit"
-                            [(ngModel)]="creditLimit"
-                        ></ui5-input>
-                    </ui5-form-item>
-                    <ui5-form-item>
-                        <ui5-label
-                            for="creditStatus"
-                            required="true"
-                            slot="labelContent"
-                            >Credit Terms</ui5-label
-                        >
-                        <ui5-input
-                            id="creditStatus"
-                            [(ngModel)]="creditStatus"
-                        ></ui5-input>
-                    </ui5-form-item>
-                </ui5-form-group>
-                <ui5-form-group>
-                    <ui5-form-item>
-                        <ui5-label for="totalUnpaidInvoices" slot="labelContent"
-                            >Total Unpaid Invoices</ui5-label
-                        >
-                        <ui5-input
-                            id="totalUnpaidInvoices"
-                            [(ngModel)]="totalUnpaidInvoices"
-                        ></ui5-input>
-                    </ui5-form-item>
-                    <ui5-form-item>
-                        <ui5-label for="availableCredit" slot="labelContent"
-                            >Available Credit</ui5-label
-                        >
-                        <ui5-input
-                            id="availableCredit"
-                            [(ngModel)]="availableCredit"
-                        ></ui5-input>
-                    </ui5-form-item>
-                </ui5-form-group>
-            </ui5-form>
-        </div>
-        <div id="credit-notes-n-files">
+    <div class="tabs-sec">
+        <ui5-tabcontainer (ui5TabSelect)="selectTab($event)">
+            <ng-container *ngFor="let item of tabs">
+                <ui5-tab text="{{ item }}"> </ui5-tab>
+                <ui5-tab-separator
+                    *ngIf="tabs.indexOf(item) != tabs.length - 1"
+                ></ui5-tab-separator>
+            </ng-container>
+        </ui5-tabcontainer>
+        <div *ngIf="selectedTab == 'Notes & Files'" id="notes-n-files">
             <ui5-textarea
-                [rows]="18"
+                [rows]="4"
                 class="textarea-width"
-                placeholder="Type notes here..."
+                placeholder="Type credits notes here..."
             ></ui5-textarea>
-            <div id="credits-upload">
+            <div id="notes-upload">
                 <input
                     type="file"
-                    #creditsFileUpload
-                    id="credits-file-input"
+                    #notesFileUpload
+                    id="notes-file-input"
                     style="display: none"
-                    (change)="onCreditsFileSubmit($event)"
+                    (change)="onNotesFileSubmit($event)"
                 />
-                <div
-                    id="credits-file-label"
-                    (click)="triggerCreditsFileUpload()"
-                >
+                <div id="notes-file-label" (click)="triggerNotesFileUpload()">
                     Choose file
                 </div>
-                <div id="credits-file-name">
-                    {{
-                        creditsFileName == ""
-                            ? "No file chosen"
-                            : creditsFileName
-                    }}
+                <div id="notes-file-name">
+                    {{ notesFileName == "" ? "No file chosen" : notesFileName }}
                 </div>
-                <ui5-button design="Emphasized" id="credits-upload-btn"
+                <ui5-button design="Emphasized" id="notes-upload-btn"
                     >Upload File</ui5-button
                 >
             </div>
         </div>
-    </div>
-    <div id="shipping-info" *ngIf="selectedTab == 'Shipping Info'">
-        <div id="shipping-loc-table-heading">
-            <ui5-title level="H5">Shipping Location List</ui5-title>
-            <ui5-button icon="add" (ui5Click)="onAddNewShippingLocation()"
-                >Add New Shipping Location</ui5-button
-            >
-        </div>
-        <ui5-table overflowMode="Scroll" loading="{{ loading }}">
-            <ui5-table-header-row slot="headerRow">
-                <ui5-table-header-cell>
-                    <span>{{ "" }}</span>
-                </ui5-table-header-cell>
-                <ng-container *ngFor="let item of shippingInfoHeaders">
-                    <ui5-table-header-cell>
-                        <span>{{ item }}</span>
-                    </ui5-table-header-cell>
-                </ng-container>
-            </ui5-table-header-row>
-
-            <ui5-table-row *ngFor="let row of shippingInfoRows; let i = index">
-                <ui5-table-cell>
-                    <ui5-label>
-                        <b>{{ i }}</b>
-                    </ui5-label>
-                </ui5-table-cell>
-                <ui5-table-cell *ngFor="let key of shippingInfoKeys">
-                    <ui5-label>
-                        <b>{{ row[key] }}</b>
-                    </ui5-label>
-                </ui5-table-cell>
-            </ui5-table-row>
-        </ui5-table>
-        <!-- shipping location form -->
-        <div id="shipping-loc-form-container" #shippingLocationFormContainer>
-            <div id="shipping-loc-form">
-                <ui5-form
-                    layout="S1 M1 L1 XL1"
-                    item-spacing="Large"
-                    label-span="S12 M12 L12 XL12"
-                >
-                    <!-- Shipping Address -->
-                    <ui5-form-group
-                        headerText="Shipping Address"
-                        [columnSpan]="2"
-                    >
+        <div id="credit-terms" *ngIf="selectedTab == 'Credit Terms'">
+            <div id="credits-bottom-form">
+                <ui5-form style="width: 100%" label-span="S12 M12 L12 XL12">
+                    <ui5-form-group>
                         <ui5-form-item>
                             <ui5-label
-                                for="address1"
+                                for="creditTerms2"
                                 required="true"
                                 slot="labelContent"
-                                >Address 1:</ui5-label
+                                >Credit Terms</ui5-label
                             >
                             <ui5-input
-                                id="address1"
-                                [(ngModel)]="address1"
-                            ></ui5-input>
-                        </ui5-form-item>
-                        <ui5-form-item>
-                            <ui5-label for="address2" slot="labelContent"
-                                >Address 2:</ui5-label
-                            >
-                            <ui5-input
-                                id="address2"
-                                [(ngModel)]="address2"
+                                id="creditTerms2"
+                                [(ngModel)]="creditTerms2"
                             ></ui5-input>
                         </ui5-form-item>
                         <ui5-form-item>
                             <ui5-label
-                                for="city"
+                                for="creditLimit"
                                 required="true"
                                 slot="labelContent"
-                                >City:</ui5-label
-                            >
-                            <ui5-input id="city" [(ngModel)]="city"></ui5-input>
-                        </ui5-form-item>
-                        <ui5-form-item>
-                            <ui5-label
-                                for="state"
-                                required="true"
-                                slot="labelContent"
-                                >State/Province:</ui5-label
+                                >Credit Terms</ui5-label
                             >
                             <ui5-input
-                                id="state"
-                                [(ngModel)]="state"
+                                id="creditLimit"
+                                [(ngModel)]="creditLimit"
                             ></ui5-input>
                         </ui5-form-item>
                         <ui5-form-item>
                             <ui5-label
-                                for="postalCode"
+                                for="creditStatus"
                                 required="true"
                                 slot="labelContent"
-                                >Zip/Postal Code:</ui5-label
+                                >Credit Terms</ui5-label
                             >
                             <ui5-input
-                                id="postalCode"
-                                [(ngModel)]="postalCode"
-                            ></ui5-input>
-                        </ui5-form-item>
-                        <ui5-form-item>
-                            <ui5-label
-                                for="country"
-                                required="true"
-                                slot="labelContent"
-                                >Country:</ui5-label
-                            >
-                            <ui5-input
-                                id="country"
-                                [(ngModel)]="country"
-                            ></ui5-input>
-                        </ui5-form-item>
-                        <ui5-form-item>
-                            <ui5-label
-                                for="email"
-                                required="true"
-                                slot="labelContent"
-                                >Email:</ui5-label
-                            >
-                            <ui5-input
-                                id="email"
-                                [(ngModel)]="email"
-                            ></ui5-input>
-                        </ui5-form-item>
-                        <ui5-form-item>
-                            <ui5-label
-                                for="phone"
-                                required="true"
-                                slot="labelContent"
-                                >Phone:</ui5-label
-                            >
-                            <ui5-input
-                                id="phone"
-                                [(ngModel)]="phone"
-                            ></ui5-input>
-                        </ui5-form-item>
-                        <ui5-form-item>
-                            <ui5-label for="mobile" slot="labelContent"
-                                >Mobile:</ui5-label
-                            >
-                            <ui5-input
-                                id="mobile"
-                                [(ngModel)]="mobile"
+                                id="creditStatus"
+                                [(ngModel)]="creditStatus"
                             ></ui5-input>
                         </ui5-form-item>
                     </ui5-form-group>
-                    <!-- Billing Contact -->
-                    <ui5-form-group
-                        headerText="Billing Contact"
-                        [columnSpan]="2"
-                    >
+                    <ui5-form-group>
                         <ui5-form-item>
                             <ui5-label
-                                for="firstName"
-                                required="true"
+                                for="totalUnpaidInvoices"
                                 slot="labelContent"
-                                >First Name:</ui5-label
+                                >Total Unpaid Invoices</ui5-label
                             >
                             <ui5-input
-                                id="firstName"
-                                [(ngModel)]="firstName"
+                                id="totalUnpaidInvoices"
+                                [(ngModel)]="totalUnpaidInvoices"
                             ></ui5-input>
                         </ui5-form-item>
                         <ui5-form-item>
-                            <ui5-label for="middleName" slot="labelContent"
-                                >Middle Name:</ui5-label
+                            <ui5-label for="availableCredit" slot="labelContent"
+                                >Available Credit</ui5-label
                             >
                             <ui5-input
-                                id="middleName"
-                                [(ngModel)]="middleName"
-                            ></ui5-input>
-                        </ui5-form-item>
-                        <ui5-form-item>
-                            <ui5-label
-                                for="lastName"
-                                required="true"
-                                slot="labelContent"
-                                >Last Name:</ui5-label
-                            >
-                            <ui5-input
-                                id="lastName"
-                                [(ngModel)]="lastName"
-                            ></ui5-input>
-                        </ui5-form-item>
-                        <ui5-form-item>
-                            <ui5-label
-                                for="position"
-                                required="true"
-                                slot="labelContent"
-                                >Position:</ui5-label
-                            >
-                            <ui5-input
-                                id="position"
-                                [(ngModel)]="position"
+                                id="availableCredit"
+                                [(ngModel)]="availableCredit"
                             ></ui5-input>
                         </ui5-form-item>
                     </ui5-form-group>
                 </ui5-form>
-                <div id="shipping-form-btns">
-                    <ui5-button (ui5Click)="onCancelShippingLocationForm()"
-                        >Cancel</ui5-button
+            </div>
+            <div id="credit-notes-n-files">
+                <ui5-textarea
+                    [rows]="18"
+                    class="textarea-width"
+                    placeholder="Type notes here..."
+                ></ui5-textarea>
+                <div id="credits-upload">
+                    <input
+                        type="file"
+                        #creditsFileUpload
+                        id="credits-file-input"
+                        style="display: none"
+                        (change)="onCreditsFileSubmit($event)"
+                    />
+                    <div
+                        id="credits-file-label"
+                        (click)="triggerCreditsFileUpload()"
                     >
-                    <ui5-button
-                        design="Emphasized"
-                        (ui5Click)="onSaveShippingLocationForm()"
-                        >Save</ui5-button
+                        Choose file
+                    </div>
+                    <div id="credits-file-name">
+                        {{
+                            creditsFileName == ""
+                                ? "No file chosen"
+                                : creditsFileName
+                        }}
+                    </div>
+                    <ui5-button design="Emphasized" id="credits-upload-btn"
+                        >Upload File</ui5-button
                     >
                 </div>
             </div>
         </div>
-    </div>
-    <div id="buttons-sec">
-        <div id="other-btns">
-            <ui5-button>Cancel</ui5-button>
-            <ui5-button design="Positive" (ui5Click)="onSave()"
-                >Save</ui5-button
+        <div id="shipping-info" *ngIf="selectedTab == 'Shipping Info'">
+            <div id="shipping-loc-table-heading">
+                <ui5-title level="H5">Shipping Location List</ui5-title>
+                <ui5-button icon="add" (ui5Click)="onAddNewShippingLocation()"
+                    >Add New Shipping Location</ui5-button
+                >
+            </div>
+            <ui5-table overflowMode="Scroll" loading="{{ loading }}">
+                <ui5-table-header-row slot="headerRow">
+                    <ui5-table-header-cell>
+                        <span>{{ "" }}</span>
+                    </ui5-table-header-cell>
+                    <ng-container *ngFor="let item of shippingInfoHeaders">
+                        <ui5-table-header-cell>
+                            <span>{{ item }}</span>
+                        </ui5-table-header-cell>
+                    </ng-container>
+                </ui5-table-header-row>
+                <ui5-table-row
+                    *ngFor="let row of shippingInfoRows; let i = index"
+                >
+                    <ui5-table-cell>
+                        <ui5-label>
+                            <b>{{ i }}</b>
+                        </ui5-label>
+                    </ui5-table-cell>
+                    <ui5-table-cell *ngFor="let key of shippingInfoKeys">
+                        <ui5-label>
+                            <b>{{ row[key] }}</b>
+                        </ui5-label>
+                    </ui5-table-cell>
+                </ui5-table-row>
+            </ui5-table>
+            <!-- shipping location form -->
+            <div
+                id="shipping-loc-form-container"
+                #shippingLocationFormContainer
             >
-            <ui5-button design="Emphasized">Approve</ui5-button>
+                <div id="shipping-loc-form">
+                    <ui5-form
+                        layout="S1 M1 L1 XL1"
+                        item-spacing="Large"
+                        label-span="S12 M12 L12 XL12"
+                    >
+                        <!-- Shipping Address -->
+                        <ui5-form-group
+                            headerText="Shipping Address"
+                            [columnSpan]="2"
+                        >
+                            <ui5-form-item>
+                                <ui5-label
+                                    for="address1"
+                                    required="true"
+                                    slot="labelContent"
+                                    >Address 1:</ui5-label
+                                >
+                                <ui5-input
+                                    id="address1"
+                                    [(ngModel)]="address1"
+                                ></ui5-input>
+                            </ui5-form-item>
+                            <ui5-form-item>
+                                <ui5-label for="address2" slot="labelContent"
+                                    >Address 2:</ui5-label
+                                >
+                                <ui5-input
+                                    id="address2"
+                                    [(ngModel)]="address2"
+                                ></ui5-input>
+                            </ui5-form-item>
+                            <ui5-form-item>
+                                <ui5-label
+                                    for="city"
+                                    required="true"
+                                    slot="labelContent"
+                                    >City:</ui5-label
+                                >
+                                <ui5-input
+                                    id="city"
+                                    [(ngModel)]="city"
+                                ></ui5-input>
+                            </ui5-form-item>
+                            <ui5-form-item>
+                                <ui5-label
+                                    for="state"
+                                    required="true"
+                                    slot="labelContent"
+                                    >State/Province:</ui5-label
+                                >
+                                <ui5-input
+                                    id="state"
+                                    [(ngModel)]="state"
+                                ></ui5-input>
+                            </ui5-form-item>
+                            <ui5-form-item>
+                                <ui5-label
+                                    for="postalCode"
+                                    required="true"
+                                    slot="labelContent"
+                                    >Zip/Postal Code:</ui5-label
+                                >
+                                <ui5-input
+                                    id="postalCode"
+                                    [(ngModel)]="postalCode"
+                                ></ui5-input>
+                            </ui5-form-item>
+                            <ui5-form-item>
+                                <ui5-label
+                                    for="country"
+                                    required="true"
+                                    slot="labelContent"
+                                    >Country:</ui5-label
+                                >
+                                <ui5-input
+                                    id="country"
+                                    [(ngModel)]="country"
+                                ></ui5-input>
+                            </ui5-form-item>
+                            <ui5-form-item>
+                                <ui5-label
+                                    for="email"
+                                    required="true"
+                                    slot="labelContent"
+                                    >Email:</ui5-label
+                                >
+                                <ui5-input
+                                    id="email"
+                                    [(ngModel)]="email"
+                                ></ui5-input>
+                            </ui5-form-item>
+                            <ui5-form-item>
+                                <ui5-label
+                                    for="phone"
+                                    required="true"
+                                    slot="labelContent"
+                                    >Phone:</ui5-label
+                                >
+                                <ui5-input
+                                    id="phone"
+                                    [(ngModel)]="phone"
+                                ></ui5-input>
+                            </ui5-form-item>
+                            <ui5-form-item>
+                                <ui5-label for="mobile" slot="labelContent"
+                                    >Mobile:</ui5-label
+                                >
+                                <ui5-input
+                                    id="mobile"
+                                    [(ngModel)]="mobile"
+                                ></ui5-input>
+                            </ui5-form-item>
+                        </ui5-form-group>
+                        <!-- Billing Contact -->
+                        <ui5-form-group
+                            headerText="Billing Contact"
+                            [columnSpan]="2"
+                        >
+                            <ui5-form-item>
+                                <ui5-label
+                                    for="firstName"
+                                    required="true"
+                                    slot="labelContent"
+                                    >First Name:</ui5-label
+                                >
+                                <ui5-input
+                                    id="firstName"
+                                    [(ngModel)]="firstName"
+                                ></ui5-input>
+                            </ui5-form-item>
+                            <ui5-form-item>
+                                <ui5-label for="middleName" slot="labelContent"
+                                    >Middle Name:</ui5-label
+                                >
+                                <ui5-input
+                                    id="middleName"
+                                    [(ngModel)]="middleName"
+                                ></ui5-input>
+                            </ui5-form-item>
+                            <ui5-form-item>
+                                <ui5-label
+                                    for="lastName"
+                                    required="true"
+                                    slot="labelContent"
+                                    >Last Name:</ui5-label
+                                >
+                                <ui5-input
+                                    id="lastName"
+                                    [(ngModel)]="lastName"
+                                ></ui5-input>
+                            </ui5-form-item>
+                            <ui5-form-item>
+                                <ui5-label
+                                    for="position"
+                                    required="true"
+                                    slot="labelContent"
+                                    >Position:</ui5-label
+                                >
+                                <ui5-input
+                                    id="position"
+                                    [(ngModel)]="position"
+                                ></ui5-input>
+                            </ui5-form-item>
+                        </ui5-form-group>
+                    </ui5-form>
+                    <div id="shipping-form-btns">
+                        <ui5-button (ui5Click)="onCancelShippingLocationForm()"
+                            >Cancel</ui5-button
+                        >
+                        <ui5-button
+                            design="Emphasized"
+                            (ui5Click)="onSaveShippingLocationForm()"
+                            >Save</ui5-button
+                        >
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="buttons-sec">
+            <div id="other-btns">
+                <ui5-button>Cancel</ui5-button>
+                <ui5-button design="Positive" (ui5Click)="onSave()"
+                    >Save</ui5-button
+                >
+                <ui5-button design="Emphasized">Approve</ui5-button>
+            </div>
         </div>
     </div>
 </div>

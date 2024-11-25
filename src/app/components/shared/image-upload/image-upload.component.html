@@ -1,0 +1,21 @@
+<div
+    id="file-uploader-container"
+    (dragover)="onDragOver($event)"
+    (dragleave)="onDragLeave($event)"
+    (dragstart)="onDragStart($event)"
+    (drop)="onFileDrop($event)"
+>
+    <ui5-illustrated-message name="UploadToCloud">
+        <ui5-title slot="title" level="H5">{{ title }}</ui5-title>
+        <div slot="subtitle">
+            Drag &amp; Drop photos inside the dashed region or
+        </div>
+        <ui5-file-uploader
+            [accept]="accept"
+            hide-input
+            (ui5Change)="onFileInput($event)"
+        >
+            <ui5-button design="Emphasized">Choose file(s)</ui5-button>
+        </ui5-file-uploader>
+    </ui5-illustrated-message>
+</div>

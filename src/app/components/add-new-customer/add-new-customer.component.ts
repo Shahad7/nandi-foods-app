@@ -32,7 +32,6 @@ export class AddNewCustomerComponent {
     category: string = "";
     accountManager: string = "";
     salesRep: string = "";
-    
 
     //bottom credit terms tab fields
     creditTerms2: string = "";
@@ -43,6 +42,9 @@ export class AddNewCustomerComponent {
     //tabs
     tabs = ["Notes & Files", "Credit Terms", "Shipping Info"];
     selectedTab = this.tabs[0];
+
+    //image upload
+    imageFileName: string = "";
 
     //uploadedFiles
     notesFileName: string = "";
@@ -98,6 +100,10 @@ export class AddNewCustomerComponent {
     onSaveShippingLocationForm() {
         //to-do
         this.shippingLocationFormContainer.nativeElement.style.display = "none";
+    }
+
+    onImageChange(event: any) {
+        console.log(event);
     }
 
     onSave() {}
