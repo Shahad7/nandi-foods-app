@@ -46,34 +46,12 @@ ui5-form {
     width: 50%;
 }
 
-#notes-file-label,
-#notes-upload-btn,
-#credits-upload-btn,
-#credits-file-label {
-    flex-grow: 0;
-}
-#notes-upload,
-#credits-upload {
-    display: flex;
-    width: 100%;
-}
-
 #credits-bottom-form ui5-form-item {
     padding: 0px 0px;
 }
 
-#notes-file-name,
-#credits-file-name {
-    display: flex;
-    align-items: center;
-    padding-left: 40px;
-    flex-grow: 1;
-    border: var(--sapButton_BorderWidth) solid var(--sapButton_BorderColor);
-    background-color: #fff;
-    font-family: var(--_ui5-v2-0-1_button_fontFamily);
-    border-left: none;
-    margin-right: 30px;
-}
+
+
 #credits-bottom-form {
     padding: 20px;
     background-color: #fff;
@@ -85,41 +63,7 @@ ui5-form {
     gap: 40px;
     width: 100%;
 }
-#notes-file-label,
-#credits-file-label {
-    display: flex;
-    background-color: #f4f5f7;
-    align-items: center;
-    min-width: var(--_ui5-v2-0-1_button_base_min_width);
-    height: var(--_ui5-v2-0-1_button_base_height);
-    line-height: normal;
-    font-family: var(--_ui5-v2-0-1_button_fontFamily);
-    font-size: 14px !important;
-    text-shadow: var(--_ui5-v2-0-1_button_text_shadow);
-    cursor: pointer;
-    border: var(--sapButton_BorderWidth) solid var(--sapButton_BorderColor);
-    color: var(--sapButton_TextColor);
-    box-sizing: border-box;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    padding: 0 60px;
-}
 
-#credits-file-label {
-    padding: 0 20px;
-}
-
-#credits-file-name {
-    margin-right: 10px;
-    padding-left: 20px;
-}
-
-#credits-file-label,
-#credits-file-name,
-#credits-upload-btn {
-    font-size: 12px !important;
-}
 
 @media screen and (max-width: 1100px) {
     #credit-terms {

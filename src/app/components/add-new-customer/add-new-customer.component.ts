@@ -74,19 +74,13 @@ export class AddNewCustomerComponent {
         this.selectedTab = this.tabs[event.tabIndex / 2];
     }
 
-    triggerCreditsFileUpload() {
-        this.creditsFileUpload.nativeElement.click();
-    }
-
-    triggerNotesFileUpload() {
-        this.notesFileUpload.nativeElement.click();
-    }
-
     onCreditsFileSubmit(event: any) {
-        this.creditsFileUpload = event.target?.files[0].name;
+        this.creditsFileName = event[0].name;
+        console.log(event);
     }
     onNotesFileSubmit(event: any) {
-        this.notesFileName = event.target?.files[0].name;
+        this.notesFileName = event[0].name;
+        console.log(event);
     }
 
     onAddNewShippingLocation() {

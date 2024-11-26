@@ -1,0 +1,15 @@
+<div id="container">
+    <input
+        type="file"
+        [accept]="accept"
+        #fileUpload
+        id="file-input"
+        style="display: none"
+        (change)="alertFileSubmit($event)"
+    />
+    <div id="file-label" (click)="triggerFileUpload()">Choose file</div>
+    <div id="file-name">
+        {{ fileName == undefined ? "No file chosen" : fileName }}
+    </div>
+    <ui5-button design="Emphasized" id="upload-btn">Upload File</ui5-button>
+</div>

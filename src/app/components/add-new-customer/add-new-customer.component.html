@@ -252,19 +252,6 @@
                 </ui5-form-item>
             </ui5-form-group> -->
         </ui5-form>
-        <!-- <div >
-            <ui5-illustrated-message name="UploadToCloud">
-                <ui5-title slot="title" level="H5"
-                    >Upload Customer Logo here</ui5-title
-                >
-                <div slot="subtitle">
-                    Drag &amp; Drop photos inside the dashed region or
-                </div>
-                <ui5-file-uploader hide-input>
-                    <ui5-button design="Emphasized">Choose file(s)</ui5-button>
-                </ui5-file-uploader>
-            </ui5-illustrated-message>
-        </div> -->
         <app-image-upload
             id="img-uploader"
             [title]="'Upload Customer Logo here'"
@@ -286,24 +273,10 @@
                 class="textarea-width"
                 placeholder="Type credits notes here..."
             ></ui5-textarea>
-            <div id="notes-upload">
-                <input
-                    type="file"
-                    #notesFileUpload
-                    id="notes-file-input"
-                    style="display: none"
-                    (change)="onNotesFileSubmit($event)"
-                />
-                <div id="notes-file-label" (click)="triggerNotesFileUpload()">
-                    Choose file
-                </div>
-                <div id="notes-file-name">
-                    {{ notesFileName == "" ? "No file chosen" : notesFileName }}
-                </div>
-                <ui5-button design="Emphasized" id="notes-upload-btn"
-                    >Upload File</ui5-button
-                >
-            </div>
+            <app-file-upload
+                [fileName]="notesFileName"
+                (onFileSubmit)="onNotesFileSubmit($event)"
+            ></app-file-upload>
         </div>
         <div id="credit-terms" *ngIf="selectedTab == 'Credit Terms'">
             <div id="credits-bottom-form">
@@ -376,31 +349,10 @@
                     class="textarea-width"
                     placeholder="Type notes here..."
                 ></ui5-textarea>
-                <div id="credits-upload">
-                    <input
-                        type="file"
-                        #creditsFileUpload
-                        id="credits-file-input"
-                        style="display: none"
-                        (change)="onCreditsFileSubmit($event)"
-                    />
-                    <div
-                        id="credits-file-label"
-                        (click)="triggerCreditsFileUpload()"
-                    >
-                        Choose file
-                    </div>
-                    <div id="credits-file-name">
-                        {{
-                            creditsFileName == ""
-                                ? "No file chosen"
-                                : creditsFileName
-                        }}
-                    </div>
-                    <ui5-button design="Emphasized" id="credits-upload-btn"
-                        >Upload File</ui5-button
-                    >
-                </div>
+                <app-file-upload
+                    [fileName]="creditsFileName"
+                    (onFileSubmit)="onCreditsFileSubmit($event)"
+                ></app-file-upload>
             </div>
         </div>
         <div id="shipping-info" *ngIf="selectedTab == 'Shipping Info'">
