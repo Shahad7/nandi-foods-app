@@ -139,7 +139,7 @@
         <!-- Linked UOM Table -->
         <app-table
             [title]="'Linked UOM'"
-            [classRef]="linkedUOMClassRef"
+            (onAddNewRow)="onNewLinkedUOMRow()"
             [controlled]="true"
             [enableAdd]="true"
             [enableDelete]="true"
@@ -156,7 +156,7 @@
         <!-- Linked PU and HU Table -->
         <app-table
             [title]="'Linked PU and HU'"
-            [classRef]="linkedHuAndPuClassRef"
+            (onAddNewRow)="onNewLinkedPUHURow()"
             [controlled]="true"
             [enableAdd]="true"
             [paginated]="true"

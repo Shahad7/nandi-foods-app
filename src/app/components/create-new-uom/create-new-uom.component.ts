@@ -30,10 +30,6 @@ interface RowType {
     styleUrl: "./create-new-uom.component.css",
 })
 export class CreateNewUomComponent implements OnInit, OnDestroy {
-    //class refs
-    linkedUOMClassRef = LinkedUOMRow;
-    linkedHuAndPuClassRef = LinkedHuAndPuRow;
-
     //subscriptions
     routeSubscription!: Subscription;
 
@@ -277,6 +273,7 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
 
         rows: [
             new LinkedHuAndPuRow(
+                "U4020",
                 "U4020 CASE (10 x 4LB)",
                 "PU",
                 false,
@@ -285,11 +282,12 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
                 30,
                 0.05,
                 18.7,
-                "U1020 EACH (1 x 4LB)",
+                "U4020 EACH (1 x 4LB)",
                 1.0,
                 10.0
             ),
             new LinkedHuAndPuRow(
+                "U7502",
                 "U7502 PALLET (10 x 4LB)",
                 "HU",
                 true,
@@ -298,7 +296,7 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
                 166,
                 2.17,
                 930.0,
-                "U1020 EACH (1 x 4LB)",
+                "U7502 EACH (1 x 4LB)",
                 20.0,
                 500.0
             ),
@@ -367,6 +365,14 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
 
     ngOnDestroy(): void {
         this.routeSubscription.unsubscribe();
+    }
+
+    //Adding new rows, might need to be changed to pop up forms later
+    onNewLinkedUOMRow() {
+        this.LinkedUOM.rows.push(new LinkedUOMRow());
+    }
+    onNewLinkedPUHURow() {
+        this.LinkedPUAndHU.rows.push(new LinkedHuAndPuRow());
     }
 
     /**  Manual bindigs */

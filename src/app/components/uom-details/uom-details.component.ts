@@ -30,10 +30,6 @@ interface RowType {
     styleUrl: "./uom-details.component.css",
 })
 export class UomDetailsComponent implements OnInit {
-    //class refs
-    linkedUOMClassRef = LinkedUOMRow;
-    linkedHuAndPuClassRef = LinkedHuAndPuRow;
-
     //model
     uom: any = new UOM();
 
@@ -281,6 +277,7 @@ export class UomDetailsComponent implements OnInit {
 
         rows: [
             new LinkedHuAndPuRow(
+                "U4020",
                 "U4020 CASE (10 x 4LB)",
                 "PU",
                 false,
@@ -289,11 +286,12 @@ export class UomDetailsComponent implements OnInit {
                 30,
                 0.05,
                 18.7,
-                "U1020 EACH (1 x 4LB)",
+                "U4020 EACH (1 x 4LB)",
                 1.0,
                 10.0
             ),
             new LinkedHuAndPuRow(
+                "U7502",
                 "U7502 PALLET (10 x 4LB)",
                 "HU",
                 true,
@@ -302,7 +300,7 @@ export class UomDetailsComponent implements OnInit {
                 166,
                 2.17,
                 930.0,
-                "U1020 EACH (1 x 4LB)",
+                "U7502 EACH (1 x 4LB)",
                 20.0,
                 500.0
             ),
@@ -375,6 +373,13 @@ export class UomDetailsComponent implements OnInit {
                 this.error = true;
             },
         });
+    }
+    //Adding new rows, might need to be changed to pop up forms later
+    onNewLinkedUOMRow() {
+        this.LinkedUOM.rows.push(new LinkedUOMRow());
+    }
+    onNewLinkedPUHURow() {
+        this.LinkedPUAndHU.rows.push(new LinkedHuAndPuRow());
     }
 
     /**  Manual bindigs */

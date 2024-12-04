@@ -1,52 +1,102 @@
 <app-subheader [title]="title"></app-subheader>
 <div class="container">
-    <app-form [formData]="formData" [editingEnabled]="true" [model]="uom" [excluded]="excluded"
-        (onModelChange)="onFormModelChange($event)">
+    <app-form
+        [formData]="formData"
+        [editingEnabled]="true"
+        [model]="uom"
+        [excluded]="excluded"
+        (onModelChange)="onFormModelChange($event)"
+    >
         <!-- projection -->
         <ui5-form-item inFirstFormGroup>
-            <ui5-label for="classInp" slot="labelContent" required="true">Class:</ui5-label>
+            <ui5-label for="classInp" slot="labelContent" required="true"
+                >Class:</ui5-label
+            >
 
-            <ui5-select id="classInp" [(ngModel)]="classInp" (ngModelChange)="onClassChange()">
-                <ui5-option *ngFor="let item of classTypes" value={{item}}>{{item}}</ui5-option>
-
+            <ui5-select
+                id="classInp"
+                [(ngModel)]="classInp"
+                (ngModelChange)="onClassChange()"
+            >
+                <ui5-option
+                    *ngFor="let item of classTypes"
+                    value="{{ item }}"
+                    >{{ item }}</ui5-option
+                >
             </ui5-select>
-        </ui5-form-item></app-form>
+        </ui5-form-item></app-form
+    >
 
     <div id="table-sec">
-        <app-tab [tabs]="tabs" (onTabChange)="selectTab($event)" [excluded]="tabsToExclude"></app-tab>
+        <app-tab
+            [tabs]="tabs"
+            (onTabChange)="selectTab($event)"
+            [excluded]="tabsToExclude"
+        ></app-tab>
 
         <!--UOM Imperial and Metric Table-->
         <ng-container *ngIf="selectedTab == 'UOM Weight and Volume'">
-            <app-tab [width]="'180px'" [tabs]="nestedTabs" (onTabChange)="selectNestedTab($event)"></app-tab>
+            <app-tab
+                [width]="'180px'"
+                [tabs]="nestedTabs"
+                (onTabChange)="selectNestedTab($event)"
+            ></app-tab>
 
             <!-- onModelChange events aren't used for these as - cuz of object
             reference being passed changes to inputs are reflected in parent
             component automatically and no dom changes are needed on any input
             change which is different in case of app-form -->
             <!-- Metric Table -->
-            <app-table *ngIf="selectedNestedTab == 'Metric'" [controlled]="true" [headers]="UOMMetricHeaders"
-                [rows]="[uom.metric]" [keys]="UOMTableKeys"></app-table>
+            <app-table
+                *ngIf="selectedNestedTab == 'Metric'"
+                [controlled]="true"
+                [headers]="UOMMetricHeaders"
+                [rows]="[uom.metric]"
+                [keys]="UOMTableKeys"
+            ></app-table>
 
             <!-- Imperial Table -->
-            <app-table *ngIf="selectedNestedTab == 'Imperial'" [controlled]="true" [headers]="UOMImperialHeaders"
-                [rows]="[uom.imperial]" [keys]="UOMTableKeys"></app-table>
+            <app-table
+                *ngIf="selectedNestedTab == 'Imperial'"
+                [controlled]="true"
+                [headers]="UOMImperialHeaders"
+                [rows]="[uom.imperial]"
+                [keys]="UOMTableKeys"
+            ></app-table>
         </ng-container>
 
         <!--Linked UOM Table-->
-        <app-table [title]="'Linked UOM'" [classRef]="linkedUOMClassRef" [controlled]="true" [enableAdd]="true"
-            [enableDelete]="true" [headers]="LinkedUOM.headers" [rows]="LinkedUOM.rows" [keys]="LinkedUOM.keys"
-            [paginated]="true" [paginatorProps]="paginatorProps" (onPaginationEvent)="handlePageEvent($event)"
-            *ngIf="selectedTab == 'Linked UOM'"></app-table>
+        <app-table
+            [title]="'Linked UOM'"
+            (onAddNewRow)="onNewLinkedUOMRow()"
+            [controlled]="true"
+            [enableAdd]="true"
+            [enableDelete]="true"
+            [headers]="LinkedUOM.headers"
+            [rows]="LinkedUOM.rows"
+            [keys]="LinkedUOM.keys"
+            *ngIf="selectedTab == 'Linked UOM'"
+        ></app-table>
 
         <!--Linked PU and HU Table-->
-        <app-table [title]="'Linked PU and HU'" [classRef]="linkedHuAndPuClassRef" [controlled]="true"
-            [enableAdd]="true" [paginated]="true" [enableDelete]="true" [headers]="LinkedPUAndHU.headers"
-            [rows]="LinkedPUAndHU.rows" [keys]="LinkedPUAndHU.keys" [paginatorProps]="paginatorProps"
-            (onPaginationEvent)="handlePageEvent($event)"
-            *ngIf="selectedTab == 'Linked PU and HU' && classInp == 'UOM'"></app-table>
+        <app-table
+            [title]="'Linked PU and HU'"
+            (onAddNewRow)="onNewLinkedPUHURow()"
+            [controlled]="true"
+            [enableAdd]="true"
+            [enableDelete]="true"
+            [headers]="LinkedPUAndHU.headers"
+            [rows]="LinkedPUAndHU.rows"
+            [keys]="LinkedPUAndHU.keys"
+            *ngIf="selectedTab == 'Linked PU and HU' && classInp == 'UOM'"
+        ></app-table>
 
         <div id="buttons-sec">
-            <app-form-actions (onSave)="onSave()" (onApprove)="onApprove()" (onCancel)="onCancel()"></app-form-actions>
+            <app-form-actions
+                (onSave)="onSave()"
+                (onApprove)="onApprove()"
+                (onCancel)="onCancel()"
+            ></app-form-actions>
         </div>
     </div>
 </div>

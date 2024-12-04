@@ -20,7 +20,7 @@ export class FormComponent {
 
     /** Layout value for ui5-form */
     @Input("layout")
-    layout: string = "S1 M2 L2 XL2";
+    layout: string | undefined = undefined;
 
     /** LableSpan value for ui5-form */
     @Input("labelSpan")

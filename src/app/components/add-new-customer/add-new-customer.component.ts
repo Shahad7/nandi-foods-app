@@ -1,5 +1,8 @@
 import { Component, ViewChild } from "@angular/core";
 import "@ui5/webcomponents-fiori/dist/illustrations/UploadToCloud.js";
+import { Customer } from "../../models/customer";
+import { CreditInfo } from "../../models/creditInfo";
+import { ShippingInfo } from "../../models/shippingInfo";
 
 @Component({
     selector: "app-add-new-customer",
@@ -13,32 +16,349 @@ export class AddNewCustomerComponent {
     creditsFileUpload: any;
     @ViewChild("shippingLocationFormContainer")
     shippingLocationFormContainer: any;
-    customerNo: string = "";
-    legalName: string = "";
-    tradeName: string = "";
-    address1: string = "";
-    address2: string = "";
-    city: string = "";
-    state: string = "";
-    postalCode: string = "";
-    country: string = "";
-    email: string = "";
-    phone: string = "";
-    mobile: string = "";
-    firstName: string = "";
-    middleName: string = "";
-    lastName: string = "";
-    position: string = "";
-    category: string = "";
-    accountManager: string = "";
-    salesRep: string = "";
 
-    //bottom credit terms tab fields
-    creditTerms2: string = "";
-    creditLimit: string = "";
-    creditStatus: string = "";
-    totalUnpaidInvoices: string = "";
-    availableCredit: string = "";
+    //class refs
+
+    //entities
+    customer = new Customer();
+    creditInfo = new CreditInfo();
+    shippingInfo = new ShippingInfo();
+
+    //formDatas
+    mainformData = [
+        {
+            headerText: undefined,
+            columnSpan: 1, // Two columns based on design layout
+            content: [
+                {
+                    key: "customerNo",
+                    type: "string",
+                    label: "Customer No.",
+                    required: true,
+                    editable: true,
+                    placeholder: "C0075",
+                },
+                {
+                    key: "customerLegalName",
+                    type: "string",
+                    label: "Customer Legal Name",
+                    required: true,
+                    editable: true,
+                    placeholder: "Heritage Bakery Ltd.",
+                },
+                {
+                    key: "customerTradeName",
+                    type: "string",
+                    label: "Customer Trade Name",
+                    required: false,
+                    editable: true,
+                    placeholder: "Heritage Bakery",
+                },
+            ],
+        },
+        {
+            headerText: "Billing Address", // Form Group Header
+            columnSpan: 2, // Single column for address fields
+            content: [
+                {
+                    key: "address1",
+                    type: "string",
+                    label: "Address 1",
+                    required: true,
+                    editable: true,
+                    placeholder: "862 Parsons Road",
+                },
+                {
+                    key: "address2",
+                    type: "string",
+                    label: "Address 2",
+                    required: false,
+                    editable: true,
+                    placeholder: "",
+                },
+                {
+                    key: "city",
+                    type: "string",
+                    label: "City",
+                    required: true,
+                    editable: true,
+                    placeholder: "Edmonton",
+                },
+                {
+                    key: "stateProvince",
+                    type: "string",
+                    label: "State/Province",
+                    required: true,
+                    editable: true,
+                    placeholder: "Alberta",
+                },
+                {
+                    key: "zipPostalCode",
+                    type: "string",
+                    label: "Zip/Postal Code",
+                    required: true,
+                    editable: true,
+                    placeholder: "T6X 0B4",
+                },
+                {
+                    key: "country",
+                    type: "dropdown",
+                    label: "Country",
+                    required: true,
+                    editable: true,
+                    values: ["CANADA"],
+                },
+                {
+                    key: "email",
+                    type: "string",
+                    label: "Email",
+                    required: true,
+                    editable: true,
+                    placeholder: "",
+                },
+                {
+                    key: "phone",
+                    type: "string",
+                    label: "Phone",
+                    required: true,
+                    editable: true,
+                    placeholder: "+1 780 000 0000",
+                },
+                {
+                    key: "mobile",
+                    type: "string",
+                    label: "Mobile",
+                    required: false,
+                    editable: true,
+                    placeholder: "+1 587 000 0000",
+                },
+            ],
+        },
+
+        {
+            headerText: "Billing Contact", // Form Group Header
+            columnSpan: 2, // Two columns for person-related fields
+            content: [
+                {
+                    key: "firstName",
+                    type: "string",
+                    label: "First Name",
+                    required: true,
+                    editable: true,
+                    placeholder: "Mary",
+                },
+                {
+                    key: "middleName",
+                    type: "string",
+                    label: "Middle Name",
+                    required: false,
+                    editable: true,
+                    placeholder: "HACCP Certified Facility",
+                },
+                {
+                    key: "lastName",
+                    type: "string",
+                    label: "Last Name",
+                    required: true,
+                    editable: true,
+                    placeholder: "Collins",
+                },
+                {
+                    key: "position",
+                    type: "string",
+                    label: "Position",
+                    required: true,
+                    editable: true,
+                    placeholder: "Finance Manager",
+                },
+            ],
+        },
+        {
+            headerText: undefined, // Form Group Header
+            columnSpan: 1, // Single column for business-specific fields
+            content: [
+                {
+                    key: "customerCategory",
+                    type: "dropdown",
+                    label: "Customer Category",
+                    required: true,
+                    editable: true,
+                    values: ["Food Manufacturing - Bakeries"],
+                },
+                {
+                    key: "accountManager",
+                    type: "string",
+                    label: "Account Manager",
+                    required: true,
+                    editable: true,
+                    placeholder: "Thabani Mlambo",
+                },
+                {
+                    key: "salesRep",
+                    type: "string",
+                    label: "Sales Rep",
+                    required: true,
+                    editable: true,
+                    placeholder: "Nothando Lambati",
+                },
+            ],
+        },
+    ];
+    creditsFormData = [
+        {
+            headerText: undefined,
+            columnSpan: undefined, // Single column for this section
+            content: [
+                {
+                    key: "creditTerms",
+                    type: "string",
+                    label: "Credit Terms",
+                    required: true,
+                    editable: true,
+                },
+                {
+                    key: "creditLimit",
+                    type: "string",
+                    label: "Credit Limit",
+                    required: true,
+                    editable: true,
+                },
+                {
+                    key: "creditStatus",
+                    type: "string",
+                    label: "Credit Status",
+                    required: true,
+                    editable: true,
+                },
+            ],
+        },
+        {
+            headerText: undefined,
+            columnSpan: undefined, // Single column for this section
+            content: [
+                {
+                    key: "totalUnpaidInvoices",
+                    type: "string",
+                    label: "Total Unpaid Invoices",
+                    required: false,
+                    editable: true,
+                },
+                {
+                    key: "availableCredit",
+                    type: "string",
+                    label: "Available Credit",
+                    required: false,
+                    editable: true,
+                },
+            ],
+        },
+    ];
+    shippingFormData = [
+        {
+            headerText: "Shipping Address", // Form Group Header
+            columnSpan: 2, // Two columns based on the design
+            content: [
+                {
+                    key: "address1",
+                    type: "string",
+                    label: "Address 1",
+                    required: true,
+                    editable: true,
+                },
+                {
+                    key: "address2",
+                    type: "string",
+                    label: "Address 2",
+                    required: false,
+                    editable: true,
+                },
+                {
+                    key: "city",
+                    type: "string",
+                    label: "City",
+                    required: true,
+                    editable: true,
+                },
+                {
+                    key: "state",
+                    type: "string",
+                    label: "State/Province",
+                    required: true,
+                    editable: true,
+                },
+                {
+                    key: "postalCode",
+                    type: "string",
+                    label: "Zip/Postal Code",
+                    required: true,
+                    editable: true,
+                },
+                {
+                    key: "country",
+                    type: "string",
+                    label: "Country",
+                    required: true,
+                    editable: true,
+                },
+                {
+                    key: "email",
+                    type: "string",
+                    label: "Email",
+                    required: true,
+                    editable: true,
+                },
+                {
+                    key: "phone",
+                    type: "string",
+                    label: "Phone",
+                    required: true,
+                    editable: true,
+                },
+                {
+                    key: "mobile",
+                    type: "string",
+                    label: "Mobile",
+                    required: false,
+                    editable: true,
+                },
+            ],
+        },
+        {
+            headerText: "Billing Contact", // Form Group Header
+            columnSpan: 2, // Two columns based on the design
+            content: [
+                {
+                    key: "firstName",
+                    type: "string",
+                    label: "First Name",
+                    required: true,
+                    editable: true,
+                },
+                {
+                    key: "middleName",
+                    type: "string",
+                    label: "Middle Name",
+                    required: false,
+                    editable: true,
+                },
+                {
+                    key: "lastName",
+                    type: "string",
+                    label: "Last Name",
+                    required: true,
+                    editable: true,
+                },
+                {
+                    key: "position",
+                    type: "string",
+                    label: "Position",
+                    required: true,
+                    editable: true,
+                },
+            ],
+        },
+    ];
+
     //tabs
     tabs = ["Notes & Files", "Credit Terms", "Shipping Info"];
     selectedTab = this.tabs[0];
@@ -52,7 +372,12 @@ export class AddNewCustomerComponent {
 
     //shipping info table
     loading: boolean = false;
-    shippingInfoHeaders = ["Country", "State", "City", "Address"];
+    shippingInfoHeaders = [
+        { name: "Country" },
+        { name: "State" },
+        { name: "City" },
+        { name: "Address" },
+    ];
     shippingInfoRows = [
         {
             country: "CANADA",
@@ -68,10 +393,11 @@ export class AddNewCustomerComponent {
         },
     ] as any;
     shippingInfoKeys = ["country", "state", "city", "address"];
+
     constructor() {}
 
     selectTab(event: any) {
-        this.selectedTab = this.tabs[event.tabIndex / 2];
+        this.selectedTab = event;
     }
 
     onCreditsFileSubmit(event: any) {

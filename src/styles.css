@@ -103,3 +103,22 @@ body {
     box-shadow: var(--sapField_Shadow);
     opacity: var(--_ui5-v2-0-1_input_disabled_opacity);
 }
+
+/* reused styles */
+
+.max-w-1200-auto-else-50 {
+    width: 50%;
+}
+
+.flex-col-max-1200 {
+    flex-direction: row;
+}
+
+@media screen and (max-width: 1200px) {
+    .max-w-1200-auto-else-50 {
+        width: auto;
+    }
+    .flex-col-max-1200 {
+        flex-direction: column;
+    }
+}

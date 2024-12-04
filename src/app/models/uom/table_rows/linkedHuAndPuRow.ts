@@ -1,4 +1,5 @@
 export class LinkedHuAndPuRow {
+    id: string;
     puOrHuName: string;
     className: string;
     flexHU: boolean;
@@ -13,6 +14,7 @@ export class LinkedHuAndPuRow {
 
     // Constructor with default values
     constructor(
+        id: string = "",
         puOrHuName: string = "",
         className: string = "",
         flexHU: boolean = true,
@@ -25,6 +27,7 @@ export class LinkedHuAndPuRow {
         minQTY: number = 0,
         maxQTY: number = 0
     ) {
+        this.id = id;
         this.puOrHuName = puOrHuName;
         this.className = className;
         this.flexHU = flexHU;

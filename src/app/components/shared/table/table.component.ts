@@ -7,7 +7,6 @@ import { PageEvent } from "@angular/material/paginator";
     styleUrl: "./table.component.css",
 })
 export class TableComponent {
-
     /** Title of the table */
     @Input()
     title: string = "";
@@ -26,7 +25,7 @@ export class TableComponent {
      * Fired when a row is clicked, relays the row data
      */
     @Output()
-    onRowClick: EventEmitter<any> = new EventEmitter()
+    onRowClick: EventEmitter<any> = new EventEmitter();
 
     /**
      * Whether editing is enabled by default or not, defaults to true
@@ -76,12 +75,6 @@ export class TableComponent {
     keys: Array<any> = [];
 
     /**
-     * Reference to the class of the row model
-     */
-    @Input()
-    classRef: any;
-
-    /**
      *
      * Event which passes the new model data to parent component for manual binding
      */
@@ -94,6 +87,10 @@ export class TableComponent {
      */
     @Output()
     onPaginationEvent = new EventEmitter<any>();
+
+    /**Fired when Add new row button is clicked, useful when the behaviour is to pop up a form etc */
+    @Output()
+    onAddNewRow = new EventEmitter<any>();
 
     /**
      * Paginator properties
@@ -117,8 +114,8 @@ export class TableComponent {
         this.onPaginationEvent.emit(e);
     }
 
-    alertRowClick(data:any) {
-        this.onRowClick.emit(data)
+    alertRowClick(data: any) {
+        this.onRowClick.emit(data);
     }
 
     //for sample
@@ -129,20 +126,6 @@ export class TableComponent {
     //     this.paginatorProps.pageIndex = e.pageIndex;
     // }
 
-    /** TODO:-
-     * bind a function to handle ngModelChanges in all sort of input elements
-     * change how row changes are relayed to parent component
-     * correct add new row button behaviour
-     * relay whole current rows or specific changes only?
-     */
-
-    /**
-     * Fires onModelChange event with type : 'push'|'pop'|'input_change',
-     * and ID of row incase of pop, row ID & key value pair incase of input_change
-     * and newly added row incase of push
-     */
-    alertChange(type: string, data: any) {}
-
     /**
      * Incase of both methods below, parent component need not be alerted
      * Since changes made to rows object is reflected directly in parent
@@ -150,18 +133,23 @@ export class TableComponent {
      */
 
     /**
-     * Delete rows in the table and fire onModelChange
+     * Delete rows in the table
      */
     deleteRow(index: number) {
         this.rows.splice(index, 1);
-        // this.onModelChange.emit(this.rows);
     }
 
     /**
      * Add new row to the table and fire onModelChange
+     * Needs more clarification for this method :-
+     * It's not clear how Add new row button should behave in case of tables
+     * like LinkedUOM names table. How the values should be saved? etc
+     * Might be able to completely remove the classRef input
+     * if default behaviour is to pop up a form
+     * for temporary purpose, onAddNewButton logic could be moved to parent components
+     * since it can't be generalized
      */
     addNewRow() {
-        this.rows.push(new this.classRef());
-        // this.onModelChange.emit(this.rows);
+        this.onAddNewRow.emit("");
     }
 }

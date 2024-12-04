@@ -1,4 +1,8 @@
-<ui5-form [layout]="layout" item-spacing="Large" labelSpan="{{ labelSpan }}">
+<ui5-form
+    layout="{{ layout }}"
+    item-spacing="Large"
+    labelSpan="{{ labelSpan }}"
+>
     <ng-content select="[head]"></ng-content>
     <ui5-form-group
         *ngFor="let formGroup of formData; let i = index"
