@@ -57,7 +57,7 @@ export class UomListComponent implements OnInit {
     //temporary default paginator props
     paginatorProps = {
         length: 100,
-        pageSize: 100,
+        pageSize: 50,
         pageIndex: 0,
         pageSizeOptions: [10, 20, 30, 40, 50],
         hidePageSize: false,
@@ -80,7 +80,9 @@ export class UomListComponent implements OnInit {
         ).subscribe({
             next: (response) => {
                 if (response.status == 200) {
+                    console.log(response);
                     let rows = response.body.content;
+                    this.paginatorProps.length = response.body.totalElements;
                     this.rows = rows.map((element: any) => {
                         element.weightKG = element.metric.weightValue;
                         return element;

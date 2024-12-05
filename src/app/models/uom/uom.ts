@@ -9,7 +9,7 @@ export class UOM {
     shortName: string;
     metric: UOMMetricRow;
     imperial: UOMImperialRow;
-    bulkCode: number;
+    bulkCode: string;
     isInventory: boolean;
     isPurchase: boolean;
     isSales: boolean;
@@ -24,7 +24,7 @@ export class UOM {
         longName: string = "",
         shortName: string = "",
         //default value of bulkCode has to be changed
-        bulkCode: number = 1,
+        bulkCode: string = "1",
         isInventory: boolean = false,
         isPurchase: boolean = false,
         isSales: boolean = false,
