@@ -36,6 +36,7 @@ import { TabComponent } from './components/shared/tab/tab.component';
 import { FormActionsComponent } from './components/shared/form-actions/form-actions.component';
 import { ImageUploadComponent } from './components/shared/image-upload/image-upload.component';
 import { FileUploadComponent } from './components/shared/file-upload/file-upload.component';
+import { SearchbarComponent } from './components/shared/searchbar/searchbar.component';
 
 function initializeKeycloak(keycloak: KeycloakService) {
     return environment.enableAuthGuard
@@ -89,6 +90,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
         FormActionsComponent,
         ImageUploadComponent,
         FileUploadComponent,
+        SearchbarComponent,
     ],
     imports: [
         BrowserModule,

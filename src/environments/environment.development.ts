@@ -1,5 +1,5 @@
 export const environment = {
-    enableAuthGuard: true,
+    enableAuthGuard: false,
     production: false,
     keycloakServerUrl: "https://keycloak.erpnandifoods.com:8443",
     realm: "master",

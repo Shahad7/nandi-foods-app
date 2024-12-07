@@ -12,13 +12,18 @@ interface rowType {
 export class CountriesListComponent {
     @ViewChild("fileInput")
     fileInput: any;
+    searchValue: string = "";
+
+    loading: boolean = false;
+    error: boolean = false;
     headers = [
-        "Continent",
-        "Continental Region",
-        "Country",
-        "Province/State",
-        "City/Town",
+        { name: "Continent", minWidth: "104px" },
+        { name: "Continental Region", minWidth: "104px" },
+        { name: "Country", minWidth: "104px" },
+        { name: "Province/State", minWidth: "104px" },
+        { name: "City/Town", minWidth: "104px" },
     ];
+
     keys = [
         "continent",
         "continentalRegion",
@@ -239,26 +244,25 @@ export class CountriesListComponent {
         },
     ] as rowType[];
 
-    //table
-    loading: boolean = false;
-    length = 195;
-    pageSize = 10;
-    pageIndex = 0;
-    pageSizeOptions = [10, 20, 30, 40, 50];
-    hidePageSize = false;
-    showPageSizeOptions = true;
-    showFirstLastButtons = true;
-    disabled = false;
-    pageEvent!: PageEvent;
-
-    constructor() {}
+    //temporary default paginator props
+    paginatorProps = {
+        length: 100,
+        pageSize: 50,
+        pageIndex: 0,
+        pageSizeOptions: [10, 20, 30, 40, 50],
+        hidePageSize: false,
+        showPageSizeOptions: true,
+        showFirstLastButtons: true,
+        disabled: false,
+    };
 
     handlePageEvent(e: PageEvent) {
-        this.pageEvent = e;
-        this.length = e.length;
-        this.pageSize = e.pageSize;
-        this.pageIndex = e.pageIndex;
+        this.paginatorProps.length = e.length;
+        this.paginatorProps.pageSize = e.pageSize;
+        this.paginatorProps.pageIndex = e.pageIndex;
     }
+
+    constructor() {}
 
     search() {}
 

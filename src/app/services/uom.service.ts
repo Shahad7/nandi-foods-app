@@ -8,7 +8,7 @@ import { UOM } from "../models/uom/uom";
     providedIn: "root",
 })
 export class UomService {
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient) {}
 
     save(uom: any): Observable<any> {
         let url = `${environment.baseUrl}/unit/uom`;
@@ -20,10 +20,18 @@ export class UomService {
         });
     }
 
-    fetchUOMs(offset: int, size: int): Observable<any> {
-        let url = `${environment.baseUrl}/unit/uom`;
-        return this.http.get(url, {
-            params: { offset: offset, limit: size },
+    fetchUOMs(
+        offset: int,
+        size: int,
+        ascending: boolean,
+        searchValue: string
+    ): Observable<any> {
+        let url = `${environment.baseUrl}/unit/uom/search`;
+        return this.http.post(url, searchValue, {
+            headers: {
+                "Content-Type": "text/plain",
+            },
+            params: { offset: offset, limit: size, ascending: ascending },
             observe: "response",
         });
     }
@@ -33,15 +41,10 @@ export class UomService {
         return this.http.get(url, { observe: "response" });
     }
 
-    getUOMByIdOrNameOrLongName() {
-        //to-do
-    }
-
     /**Metadata : Unit Class Types*/
     getUnitClassTypes() {
         let url = `${environment.baseUrl}/unit/metadata/type`;
         return this.http.get(url, { observe: "response" });
-
     }
 
     /**Metadata : Unit Class Statuses*/
@@ -54,7 +57,5 @@ export class UomService {
     getUnitClassLevels() {
         let url = `${environment.baseUrl}/unit/metadata/level`;
         return this.http.get(url, { observe: "response" });
-
     }
-
 }

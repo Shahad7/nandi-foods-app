@@ -17,15 +17,11 @@
         >{{ btn.name }}</ui5-button
     >
 </app-subheader>
-<div class="flex-column samples-margin" id="searchbar">
-    <ui5-input
-        id="searchInput"
-        placeholder="Enter search criteria ..."
-        style="width: 100%"
-        (ngModelChange)="search()"
-    >
-        <ui5-icon id="searchIcon" slot="icon" name="search"></ui5-icon>
-    </ui5-input>
+<div id="searchbar">
+    <app-searchbar
+        [searchValue]="searchValue"
+        (onSearch)="search($event)"
+    ></app-searchbar>
 </div>
 
 <app-table

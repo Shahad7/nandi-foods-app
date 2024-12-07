@@ -1,0 +1,9 @@
+<ui5-input
+    id="searchInput"
+    placeholder="{{ placeholder }}"
+    style="width: 100%"
+    [(ngModel)]="searchValue"
+    (ngModelChange)="alertSearch()"
+>
+    <ui5-icon id="searchIcon" slot="icon" name="search"></ui5-icon>
+</ui5-input>

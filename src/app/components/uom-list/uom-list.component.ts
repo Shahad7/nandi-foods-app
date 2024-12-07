@@ -14,6 +14,11 @@ import { TableComponent } from "../shared/table/table.component";
 export class UomListComponent implements OnInit {
     @ViewChild("fileInput")
     fileInput: any;
+
+    //list options
+    searchValue: string = "";
+    ascending: boolean = true;
+    //table
     headers = [
         { name: "UOM ID", minWidth: "88px" },
         { name: "UOM Name", minWidth: "88px" },
@@ -76,11 +81,13 @@ export class UomListComponent implements OnInit {
     fetchUOMs() {
         this.UOMService.fetchUOMs(
             this.paginatorProps.pageIndex,
-            this.paginatorProps.pageSize
+            this.paginatorProps.pageSize,
+            this.ascending,
+            this.searchValue
         ).subscribe({
             next: (response) => {
                 if (response.status == 200) {
-                    console.log(response);
+                    // console.log(response);
                     let rows = response.body.content;
                     this.paginatorProps.length = response.body.totalElements;
                     this.rows = rows.map((element: any) => {
@@ -97,8 +104,9 @@ export class UomListComponent implements OnInit {
         });
     }
 
-    search() {
-        this.UOMService.getUOMByIdOrNameOrLongName();
+    search(searchValue: string) {
+        this.searchValue = searchValue;
+        this.fetchUOMs();
     }
 
     viewUOMDetails(event: any) {
