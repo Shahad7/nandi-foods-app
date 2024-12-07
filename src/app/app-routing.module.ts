@@ -14,6 +14,7 @@ import { AddNewCustomerComponent } from "./components/add-new-customer/add-new-c
 import { environment } from "../environments/environment";
 import { PaymentTypesComponent } from "./components/payment-types/payment-types.component";
 import { SalesTaxesComponent } from "./components/sales-taxes/sales-taxes.component";
+import { CreateNewWarehouseComponent } from "./components/create-new-warehouse/create-new-warehouse.component";
 
 const routes: Routes = [
     {
@@ -60,6 +61,10 @@ const routes: Routes = [
             {
                 path: "sales-taxes",
                 component: SalesTaxesComponent,
+            },
+            {
+                path: "create-new-warehouse",
+                component: CreateNewWarehouseComponent,
             },
         ],
     },

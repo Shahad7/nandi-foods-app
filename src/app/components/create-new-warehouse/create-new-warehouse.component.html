@@ -1,1 +1,21 @@
-<p>create-new-warehouse works!</p>
+<app-subheader [title]="'Create New Warehouse'"></app-subheader>
+<div id="container">
+    <div id="form-container" class="flex-col-max-1200">
+        <app-form
+            class="max-w-1200-auto-else-50"
+            [formData]="formData"
+            [layout]="'S1 M1 L1 XL1'"
+            [labelSpan]="'S12 M12 L12 XL12'"
+            [model]="warehouse"
+        ></app-form>
+        <app-image-upload
+            id="img-uploader"
+            class="max-w-1200-auto-else-50"
+            [title]="'Upload Warehouse photo here'"
+            (onImageChange)="onImageChange($event)"
+        ></app-image-upload>
+    </div>
+    <div id="tabs-sec">
+        <app-tab [tabs]="tabs" (onTabChange)="selectTab($event)"></app-tab>
+    </div>
+</div>

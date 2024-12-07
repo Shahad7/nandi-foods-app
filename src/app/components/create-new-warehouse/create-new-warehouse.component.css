@@ -1,0 +1,17 @@
+#container {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    width: 100%;
+}
+
+#form-container {
+    display: flex;
+    gap: 20px;
+    background-color: #fff;
+    border-radius: 1rem;
+}
+
+#img-uploader {
+    margin: 3.6rem 1rem 1rem 1rem;
+}
