@@ -1,6 +1,10 @@
 <div *ngIf="enableAdd" class="title-wrapper">
     <ui5-title level="H5">{{ title }}</ui5-title>
-    <ui5-button icon="add" id="add-row-btn" (ui5Click)="addNewRow()"
+    <ui5-button
+        icon="add"
+        id="add-row-btn"
+        (ui5Click)="addNewRow()"
+        [disabled]="!editingEnabled"
         >Add new row</ui5-button
     >
 </div>
@@ -58,7 +62,11 @@
             </ui5-table-cell>
 
             <ui5-table-cell *ngIf="enableDelete"
-                ><ui5-button design="Negative" (ui5Click)="deleteRow(i)">
+                ><ui5-button
+                    design="Negative"
+                    (ui5Click)="deleteRow(i)"
+                    [disabled]="!editingEnabled"
+                >
                     <img
                         src="assets/trash.svg"
                         id="row-delete-btn-icon"
@@ -69,7 +77,11 @@
     </ng-container>
     <ng-container *ngIf="controlled"></ng-container>
     <ng-template #uncontrolledBlock>
-        <ui5-table-row *ngFor="let row of rows" (click)="alertRowClick(row)" style="cursor: pointer;" >
+        <ui5-table-row
+            *ngFor="let row of rows"
+            (click)="alertRowClick(row)"
+            style="cursor: pointer"
+        >
             <ui5-table-cell *ngFor="let key of keys">
                 <ui5-label>
                     <b>{{ row[key] }}</b>
