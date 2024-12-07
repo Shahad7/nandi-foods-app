@@ -20,6 +20,7 @@
             >
                 <ui5-option
                     *ngFor="let item of classTypes"
+                    [selected]="this.classInp == item"
                     value="{{ item }}"
                     >{{ item }}</ui5-option
                 >

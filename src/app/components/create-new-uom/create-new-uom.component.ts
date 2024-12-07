@@ -329,13 +329,6 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
         protected snackBar: MatSnackBar
     ) {}
     ngOnInit(): void {
-        this.routeSubscription = this.route.queryParams.subscribe((params) => {
-            this.classInp =
-                params["class"] == undefined ? "UOM" : params["class"];
-
-            this.onClassChange();
-        });
-
         //fetch required unit metadata
         this.uomService.getUnitClassTypes().subscribe({
             next: (response) => {
@@ -360,6 +353,12 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
             error: (response) => {
                 this.error = true;
             },
+        });
+
+        this.routeSubscription = this.route.queryParams.subscribe((params) => {
+            this.classInp =
+                params["class"] == undefined ? "UOM" : params["class"];
+            this.onClassChange();
         });
     }
 
