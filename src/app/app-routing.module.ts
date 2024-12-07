@@ -12,6 +12,8 @@ import { CountriesListComponent } from "./components/countries-list/countries-li
 import { PagenotfoundComponent } from "./pages/pagenotfound/pagenotfound.component";
 import { AddNewCustomerComponent } from "./components/add-new-customer/add-new-customer.component";
 import { environment } from "../environments/environment";
+import { PaymentTypesComponent } from "./components/payment-types/payment-types.component";
+import { SalesTaxesComponent } from "./components/sales-taxes/sales-taxes.component";
 
 const routes: Routes = [
     {
@@ -50,6 +52,14 @@ const routes: Routes = [
             {
                 path: "add-new-customer",
                 component: AddNewCustomerComponent,
+            },
+            {
+                path: "payment-types",
+                component: PaymentTypesComponent,
+            },
+            {
+                path: "sales-taxes",
+                component: SalesTaxesComponent,
             },
         ],
     },

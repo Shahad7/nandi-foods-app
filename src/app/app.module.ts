@@ -37,6 +37,9 @@ import { FormActionsComponent } from './components/shared/form-actions/form-acti
 import { ImageUploadComponent } from './components/shared/image-upload/image-upload.component';
 import { FileUploadComponent } from './components/shared/file-upload/file-upload.component';
 import { SearchbarComponent } from './components/shared/searchbar/searchbar.component';
+import { PaymentTypesComponent } from './components/payment-types/payment-types.component';
+import { SalesTaxesComponent } from './components/sales-taxes/sales-taxes.component';
+import { CreateNewWarehouseComponent } from './components/create-new-warehouse/create-new-warehouse.component';
 
 function initializeKeycloak(keycloak: KeycloakService) {
     return environment.enableAuthGuard
@@ -91,6 +94,9 @@ function initializeKeycloak(keycloak: KeycloakService) {
         ImageUploadComponent,
         FileUploadComponent,
         SearchbarComponent,
+        PaymentTypesComponent,
+        SalesTaxesComponent,
+        CreateNewWarehouseComponent,
     ],
     imports: [
         BrowserModule,
