@@ -40,6 +40,7 @@ import { SearchbarComponent } from './components/shared/searchbar/searchbar.comp
 import { PaymentTypesComponent } from './components/payment-types/payment-types.component';
 import { SalesTaxesComponent } from './components/sales-taxes/sales-taxes.component';
 import { CreateNewWarehouseComponent } from './components/create-new-warehouse/create-new-warehouse.component';
+import { PaymentTermsComponent } from './components/payment-terms/payment-terms.component';
 
 function initializeKeycloak(keycloak: KeycloakService) {
     return environment.enableAuthGuard
@@ -97,6 +98,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
         PaymentTypesComponent,
         SalesTaxesComponent,
         CreateNewWarehouseComponent,
+        PaymentTermsComponent,
     ],
     imports: [
         BrowserModule,

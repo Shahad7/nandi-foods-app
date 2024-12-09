@@ -15,6 +15,7 @@ import { environment } from "../environments/environment";
 import { PaymentTypesComponent } from "./components/payment-types/payment-types.component";
 import { SalesTaxesComponent } from "./components/sales-taxes/sales-taxes.component";
 import { CreateNewWarehouseComponent } from "./components/create-new-warehouse/create-new-warehouse.component";
+import { PaymentTermsComponent } from "./components/payment-terms/payment-terms.component";
 
 const routes: Routes = [
     {
@@ -65,6 +66,10 @@ const routes: Routes = [
             {
                 path: "create-new-warehouse",
                 component: CreateNewWarehouseComponent,
+            },
+            {
+                path: "payment-terms",
+                component: PaymentTermsComponent,
             },
         ],
     },
