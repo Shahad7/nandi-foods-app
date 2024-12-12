@@ -17,6 +17,7 @@ import { SalesTaxesComponent } from "./components/sales-taxes/sales-taxes.compon
 import { CreateNewWarehouseComponent } from "./components/create-new-warehouse/create-new-warehouse.component";
 import { PaymentTermsComponent } from "./components/payment-terms/payment-terms.component";
 import { CustomerListComponent } from "./components/customer-list/customer-list.component";
+import { CurrenciesListComponent } from "./components/currencies-list/currencies-list.component";
 
 const routes: Routes = [
     {
@@ -75,6 +76,10 @@ const routes: Routes = [
             {
                 path: "customer-list",
                 component: CustomerListComponent,
+            },
+            {
+                path: "currencies",
+                component: CurrenciesListComponent,
             },
         ],
     },
