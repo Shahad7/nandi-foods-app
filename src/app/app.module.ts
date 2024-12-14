@@ -30,19 +30,24 @@ import { SidebarComponent } from "./components/shared/sidebar/sidebar.component"
 import { CountriesListComponent } from "./components/countries-list/countries-list.component";
 import { PagenotfoundComponent } from "./pages/pagenotfound/pagenotfound.component";
 import { AddNewCustomerComponent } from "./components/add-new-customer/add-new-customer.component";
-import { FormComponent } from './components/shared/form/form.component';
-import { TableComponent } from './components/shared/table/table.component';
-import { TabComponent } from './components/shared/tab/tab.component';
-import { FormActionsComponent } from './components/shared/form-actions/form-actions.component';
-import { ImageUploadComponent } from './components/shared/image-upload/image-upload.component';
-import { FileUploadComponent } from './components/shared/file-upload/file-upload.component';
-import { SearchbarComponent } from './components/shared/searchbar/searchbar.component';
-import { PaymentTypesComponent } from './components/payment-types/payment-types.component';
-import { SalesTaxesComponent } from './components/sales-taxes/sales-taxes.component';
-import { CreateNewWarehouseComponent } from './components/create-new-warehouse/create-new-warehouse.component';
-import { PaymentTermsComponent } from './components/payment-terms/payment-terms.component';
-import { CustomerListComponent } from './components/customer-list/customer-list.component';
-import { CurrenciesListComponent } from './components/currencies-list/currencies-list.component';
+import { FormComponent } from "./components/shared/form/form.component";
+import { TableComponent } from "./components/shared/table/table.component";
+import { TabComponent } from "./components/shared/tab/tab.component";
+import { FormActionsComponent } from "./components/shared/form-actions/form-actions.component";
+import { ImageUploadComponent } from "./components/shared/image-upload/image-upload.component";
+import { FileUploadComponent } from "./components/shared/file-upload/file-upload.component";
+import { SearchbarComponent } from "./components/shared/searchbar/searchbar.component";
+import { PaymentTypesComponent } from "./components/payment-types/payment-types.component";
+import { SalesTaxesComponent } from "./components/sales-taxes/sales-taxes.component";
+import { CreateNewWarehouseComponent } from "./components/create-new-warehouse/create-new-warehouse.component";
+import { PaymentTermsComponent } from "./components/payment-terms/payment-terms.component";
+import { CustomerListComponent } from "./components/customer-list/customer-list.component";
+import { CurrenciesListComponent } from "./components/currencies-list/currencies-list.component";
+import { MatButtonModule } from "@angular/material/button";
+import {
+    MAT_DIALOG_DEFAULT_OPTIONS,
+    MatDialogModule,
+} from "@angular/material/dialog";
 
 function initializeKeycloak(keycloak: KeycloakService) {
     return environment.enableAuthGuard
@@ -114,6 +119,8 @@ function initializeKeycloak(keycloak: KeycloakService) {
         CommonModule,
         FormsModule,
         MatPaginatorModule,
+        MatButtonModule,
+        MatDialogModule,
     ],
     providers: [
         {

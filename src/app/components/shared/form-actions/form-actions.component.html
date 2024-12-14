@@ -1,7 +1,23 @@
 <div id="action-btns">
-    <ui5-button (ui5Click)="alertCancel()">Cancel</ui5-button>
-    <ui5-button design="Positive" (ui5Click)="alertSave()">Save</ui5-button>
-    <ui5-button design="Emphasized" (ui5Click)="alertApprove()"
+    <ui5-button (ui5Click)="alertCancel()" *ngIf="include.includes('cancel')"
+        >Cancel</ui5-button
+    >
+    <ui5-button
+        design="Positive"
+        (ui5Click)="alertSave()"
+        *ngIf="include.includes('save')"
+        >Save</ui5-button
+    >
+    <ui5-button
+        design="Emphasized"
+        (ui5Click)="alertApprove()"
+        *ngIf="include.includes('approve')"
         >Approve</ui5-button
+    >
+    <ui5-button
+        design="Negative"
+        (ui5Click)="confirmDelete()"
+        *ngIf="include.includes('delete')"
+        >Delete</ui5-button
     >
 </div>
