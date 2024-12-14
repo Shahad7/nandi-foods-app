@@ -433,6 +433,10 @@ export class UomDetailsComponent implements OnInit {
     //TODO
     onApprove() {}
 
+    onDelete(){
+        
+    }
+
     //let appropriate child component know when edit is clicked
     onEdit() {
         this.editingEnabled = !this.editingEnabled;

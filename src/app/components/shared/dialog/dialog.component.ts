@@ -10,6 +10,7 @@ import {
     MatDialogActions,
     MatDialogClose,
     MatDialogContent,
+    MatDialogModule,
     MatDialogRef,
     MatDialogTitle,
 } from "@angular/material/dialog";
@@ -25,6 +26,7 @@ import {
         MatDialogClose,
         MatDialogTitle,
         MatDialogContent,
+        MatDialogModule,
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })

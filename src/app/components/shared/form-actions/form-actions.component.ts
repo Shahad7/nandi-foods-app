@@ -21,6 +21,10 @@ export class FormActionsComponent {
     @Input()
     include = ["cancel", "save", "approve"];
 
+    /**Form entity name, eg :- uom, customer, warehouse etc */
+    @Input()
+    name: string = "";
+
     /**Fired when Cancel button is clicked */
     @Output()
     onCancel = new EventEmitter<any>();
@@ -61,10 +65,11 @@ export class FormActionsComponent {
     ): void {
         this.dialog.open(DialogComponent, {
             data: {
-                title: "Delete item",
-                message: " Are you sure you want to delete this item?",
+                title: `Delete ${this.name}`,
+                message: `Are you sure you want to delete this ${this.name}?`,
             },
-            width: "480px",
+
+            height: "160px",
             enterAnimationDuration,
             exitAnimationDuration,
             scrollStrategy: new NoopScrollStrategy(),

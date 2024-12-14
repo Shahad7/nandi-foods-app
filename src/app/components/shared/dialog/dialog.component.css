@@ -1,0 +1,29 @@
+.negative-btn {
+    background-color: var(--sapButton_Reject_Background) !important;
+    border-color: var(--sapButton_Reject_BorderColor) !important;
+    color: var(--sapButton_Reject_TextColor) !important;
+}
+
+.negative-btn:hover {
+    background-color: var(--sapButton_Reject_Hover_Background) !important;
+}
+
+button {
+    font-family: var(--_ui5-v2-0-1_button_fontFamily) !important;
+    font-size: var(--sapFontSize) !important;
+}
+
+.positive-btn {
+    background-color: var(--sapButton_Background) !important;
+    /* border: var(--sapButton_BorderWidth) solid var(--sapButton_BorderColor); */
+    color: var(--sapButton_TextColor) !important;
+}
+
+.positive-btn:hover {
+    background-color: var(--sapButton_Hover_Background) !important;
+}
+
+.mat-mdc-dialog-actions {
+    padding: 8px 24px !important;
+    justify-content: flex-end !important;
+}
