@@ -1,7 +1,9 @@
 import {
     ChangeDetectionStrategy,
     Component,
+    EventEmitter,
     Inject,
+    Output,
     inject,
 } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
@@ -36,4 +38,9 @@ export class DialogComponent {
     constructor(
         @Inject(MAT_DIALOG_DATA) public data: { message: string; title: string }
     ) {}
+
+    onConfirmation() {
+        alert("emitting...");
+        this.dialogRef.close("proceed");
+    }
 }

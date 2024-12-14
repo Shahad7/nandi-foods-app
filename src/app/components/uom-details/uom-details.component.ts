@@ -14,7 +14,7 @@ import { LinkedUOMRow } from "../../models/uom/table_rows/linkedUomRow";
 import { LinkedHuAndPuRow } from "../../models/uom/table_rows/linkedHuAndPuRow";
 import { EventEmitter } from "stream";
 import { Subscription, switchMap } from "rxjs";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { UOM } from "../../models/uom/uom";
 import { CreateNewUomComponent } from "../create-new-uom/create-new-uom.component";
 import { MatSnackBar } from "@angular/material/snack-bar";
@@ -329,6 +329,7 @@ export class UomDetailsComponent implements OnInit {
     constructor(
         protected mainCommunicationService: MainCommunicationService,
         protected route: ActivatedRoute,
+        protected router: Router,
         protected uomService: UomService,
         protected snackBar: MatSnackBar
     ) {}
@@ -433,8 +434,26 @@ export class UomDetailsComponent implements OnInit {
     //TODO
     onApprove() {}
 
-    onDelete(){
-        
+    onDelete() {
+        alert("here");
+        this.uomService.deleteUOMById(this.uom.id).subscribe({
+            next: (response) => {
+                if (response.status == 204) {
+                    this.snackBar.openFromComponent(SnackbarComponent, {
+                        data: {
+                            message: "UOM successfully deleted!",
+                            error: false,
+                        },
+                        duration: 1500,
+                        horizontalPosition: "center",
+                        verticalPosition: "top",
+                        panelClass: ["success-snackbar"],
+                    });
+                    this.router.navigate(["uom-list"]);
+                }
+            },
+            error: (response) => {},
+        });
     }
 
     //let appropriate child component know when edit is clicked

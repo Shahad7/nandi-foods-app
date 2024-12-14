@@ -41,6 +41,11 @@ export class UomService {
         return this.http.get(url, { observe: "response" });
     }
 
+    deleteUOMById(id: string): Observable<any> {
+        let url = `${environment.baseUrl}/unit/uom/${id}`;
+        return this.http.delete(url, { observe: "response" });
+    }
+
     /**Metadata : Unit Class Types*/
     getUnitClassTypes() {
         let url = `${environment.baseUrl}/unit/metadata/type`;

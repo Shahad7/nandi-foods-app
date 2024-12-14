@@ -7,7 +7,7 @@ import {
 } from "@angular/core";
 import { EventEmitter } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
-import { MatDialog } from "@angular/material/dialog";
+import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { DialogComponent } from "../dialog/dialog.component";
 import { NoopScrollStrategy } from "@angular/cdk/overlay";
 
@@ -41,7 +41,10 @@ export class FormActionsComponent {
     @Output()
     onDelete = new EventEmitter<any>();
 
-    readonly dialog = inject(MatDialog);
+    readonly dialogService = inject(MatDialog);
+    dialogRef!: MatDialogRef<DialogComponent, String>;
+
+    constructor() {}
 
     alertCancel() {
         this.onCancel.emit("");
@@ -63,7 +66,7 @@ export class FormActionsComponent {
         enterAnimationDuration: string,
         exitAnimationDuration: string
     ): void {
-        this.dialog.open(DialogComponent, {
+        this.dialogRef = this.dialogService.open(DialogComponent, {
             data: {
                 title: `Delete ${this.name}`,
                 message: `Are you sure you want to delete this ${this.name}?`,
@@ -73,6 +76,12 @@ export class FormActionsComponent {
             enterAnimationDuration,
             exitAnimationDuration,
             scrollStrategy: new NoopScrollStrategy(),
+        });
+
+        this.dialogRef.afterClosed().subscribe((response) => {
+            if (response == "proceed") {
+                this.alertDelete();
+            }
         });
     }
 
