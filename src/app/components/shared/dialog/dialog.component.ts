@@ -40,7 +40,6 @@ export class DialogComponent {
     ) {}
 
     onConfirmation() {
-        alert("emitting...");
         this.dialogRef.close("proceed");
     }
 }

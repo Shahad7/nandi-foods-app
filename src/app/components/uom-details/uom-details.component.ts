@@ -435,7 +435,6 @@ export class UomDetailsComponent implements OnInit {
     onApprove() {}
 
     onDelete() {
-        alert("here");
         this.uomService.deleteUOMById(this.uom.id).subscribe({
             next: (response) => {
                 if (response.status == 204) {

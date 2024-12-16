@@ -20,18 +20,34 @@ export class UomService {
         });
     }
 
+    edit(id: string): Observable<any> {
+        let url = `${environment.baseUrl}/unit/uom`;
+        return this.http.patch(
+            url,
+            {},
+            {
+                headers: {
+                    "Content-Type": "application/json-patch+json",
+                },
+                observe: "response",
+            }
+        );
+    }
+
     fetchUOMs(
         offset: int,
         size: int,
         ascending: boolean,
         searchValue: string
     ): Observable<any> {
-        let url = `${environment.baseUrl}/unit/uom/search`;
-        return this.http.post(url, searchValue, {
-            headers: {
-                "Content-Type": "text/plain",
+        let url = `${environment.baseUrl}/unit/uom`;
+        return this.http.get(url, {
+            params: {
+                offset: offset,
+                limit: size,
+                ascending: ascending,
+                longName: searchValue,
             },
-            params: { offset: offset, limit: size, ascending: ascending },
             observe: "response",
         });
     }
