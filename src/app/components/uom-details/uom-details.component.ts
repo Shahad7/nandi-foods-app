@@ -44,7 +44,7 @@ export class UomDetailsComponent implements OnInit {
 
     //metadata
     classLevels: Array<string> = [];
-    classLevelTypes: Array<string> = [];
+    classNamesLookup: Map<String, String> = new Map();
     statuses: Array<string> = [];
     flexHU: boolean = true;
 
@@ -60,11 +60,10 @@ export class UomDetailsComponent implements OnInit {
             content: [
                 {
                     key: "name",
-                    type: "dropdown",
+                    type: "string",
                     label: "UOM Type",
                     required: true,
-                    editable: true,
-                    values: this.classLevelTypes,
+                    editable: false,
                 },
                 {
                     key: "description",
@@ -367,7 +366,7 @@ export class UomDetailsComponent implements OnInit {
                 let body = response.body as Array<any>;
                 body?.forEach((element: any) => {
                     this.classLevels.push(element?.level);
-                    this.classLevelTypes.push(element?.type);
+                    this.classNamesLookup.set(element?.level, element?.type);
                 });
             },
             error: (response) => {
@@ -400,6 +399,11 @@ export class UomDetailsComponent implements OnInit {
             )
         ) {
             this.uom[event.key] = event.value === "true" || event.value == true;
+        }
+
+        // manually change UOM name values according to level
+        if (event.key == "level") {
+            this.uom["name"] = this.classNamesLookup.get(event.value);
         }
     }
 
