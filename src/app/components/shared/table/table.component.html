@@ -56,6 +56,7 @@
                     <ui5-option
                         *ngFor="let item of key.values"
                         [value]="item"
+                        [selected]="row[key.name] == item"
                         >{{ item }}</ui5-option
                     >
                 </ui5-select>

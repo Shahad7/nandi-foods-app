@@ -80,11 +80,13 @@
                     <ui5-label for="EffectiveDateInp" slot="labelContent">
                         Effective Date:
                     </ui5-label>
-                    <ui5-input
+                    <ui5-date-picker
                         id="EffectiveDateInp"
-                        readonly
-                        value="{{ uom.effectiveDate }}"
-                    ></ui5-input>
+                        [(ngModel)]="uom.effectiveDate"
+                        [formatPattern]="'YYYY-MM-dd'"
+                        [placeholder]="'2024-11-04'"
+                        [disabled]="!editingEnabled"
+                    ></ui5-date-picker>
                 </ui5-form-item>
                 <!-- Last Updated by (Read-only) -->
                 <ui5-form-item>

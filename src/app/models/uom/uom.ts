@@ -22,6 +22,7 @@ export class UOM {
     linkedUOMs?: LinkedUOM[];
     linkedPUHUs?: any;
     id: string;
+    effectiveDate?: string;
 
     constructor(
         level: string = "Level 1",
@@ -37,7 +38,8 @@ export class UOM {
         isSales: boolean = false,
         isProduction: boolean = false,
         linkedUOMs: LinkedUOM[] = [],
-        id: string = ""
+        id: string = "",
+        effectiveDate = " "
     ) {
         this.level = level;
         this.type = type;
@@ -54,5 +56,6 @@ export class UOM {
         this.isProduction = isProduction;
         this.linkedUOMs = linkedUOMs;
         this.id = id;
+        this.effectiveDate = effectiveDate;
     }
 }

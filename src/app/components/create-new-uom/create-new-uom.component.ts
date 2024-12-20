@@ -141,6 +141,15 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
                     editable: true,
                 },
                 {
+                    key: "effectiveDate",
+                    type: "date",
+                    label: "Effective Date",
+                    required: true,
+                    editable: true,
+                    format: "YYYY-MM-dd",
+                    placeholder: "2024-11-06",
+                },
+                {
                     key: "flexHU",
                     type: "boolean",
                     label: "flex HU",

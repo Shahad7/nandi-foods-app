@@ -68,6 +68,20 @@
                         >{{ item }}</ui5-option
                     >
                 </ui5-select>
+
+                <ui5-date-picker
+                    *ngIf="formField.type == 'date'"
+                    id="{{ '_' + formField.key }}"
+                    [(ngModel)]="model[formField.key]"
+                    [placeholder]="
+                        formField.placeholder
+                            ? formField.placeholder
+                            : undefined
+                    "
+                    [formatPattern]="formField.format"
+                    [disabled]="!formField.editable || !editingEnabled"
+                    (ngModelChange)="alertModelChange(formField.key, $event)"
+                ></ui5-date-picker>
             </ui5-form-item>
         </ng-container>
     </ui5-form-group>

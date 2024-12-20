@@ -48,6 +48,7 @@ export class UomDetailsComponent implements OnInit {
     classLevelTypes: Array<string> = [];
     metricUnits: Map<string, string> = new Map();
     imperialUnits: Map<string, string> = new Map();
+
     statuses: Array<string> = [];
     flexHU: boolean = true;
 
@@ -172,6 +173,7 @@ export class UomDetailsComponent implements OnInit {
         { name: "volumeValue", type: "number", editable: true },
         { name: "weightValue", type: "number", editable: true },
     ];
+    linkedUOMNames: Array<string> = [];
 
     LinkedUOM = {
         headers: [] as any,
@@ -180,7 +182,7 @@ export class UomDetailsComponent implements OnInit {
                 name: "linkedUOMName",
                 type: "dropdown",
                 editable: true,
-                values: ["U4020 CASE (10 x 4LB)", "U7020 PALLET (500 x 4LB)"],
+                values: this.linkedUOMNames,
             },
             { name: "lengthCm", type: "number", editable: false },
             { name: "widthCm", type: "number", editable: false },
@@ -191,32 +193,7 @@ export class UomDetailsComponent implements OnInit {
             { name: "conversionTo", type: "string", editable: false },
             { name: "conversionQTY", type: "number", editable: true },
         ],
-        rows: [
-            new LinkedUOMRow(
-                "U4020",
-                "U4020 CASE (10 x 4LB)",
-                60,
-                30,
-                30,
-                0.05,
-                18.2,
-                "U1020 EACH (1 x 4LB)",
-                "U4020 EACH (10 x 4LB)",
-                10.0
-            ),
-            new LinkedUOMRow(
-                "U7020",
-                "U7020 PALLET (500 x 4LB)",
-                122,
-                107,
-                166,
-                2.17,
-                910.0,
-                "U1020 EACH (1 x 4LB)",
-                "U7020 PALLET (500 x 4LB)",
-                500.0
-            ),
-        ] as RowType[],
+        rows: [] as RowType[],
     };
     LinkedPUAndHU = {
         headers: [] as any,
@@ -239,36 +216,7 @@ export class UomDetailsComponent implements OnInit {
             { name: "maxQTY", type: "number", editable: true },
         ],
 
-        rows: [
-            new LinkedHuAndPuRow(
-                "U4020",
-                "U4020 CASE (10 x 4LB)",
-                "PU",
-                false,
-                60,
-                30,
-                30,
-                0.05,
-                18.7,
-                "U4020 EACH (1 x 4LB)",
-                1.0,
-                10.0
-            ),
-            new LinkedHuAndPuRow(
-                "U7502",
-                "U7502 PALLET (10 x 4LB)",
-                "HU",
-                true,
-                122,
-                107,
-                166,
-                2.17,
-                930.0,
-                "U7502 EACH (1 x 4LB)",
-                20.0,
-                500.0
-            ),
-        ] as RowType[],
+        rows: [] as RowType[],
     };
 
     //temporary default paginator props
@@ -311,6 +259,26 @@ export class UomDetailsComponent implements OnInit {
                             else if (elt.metricSystem == "IMPERIAL")
                                 this.uom.imperial = elt;
                         });
+                        this.uom.selfLinksTo?.forEach((elt: any) => {
+                            let toUOM = elt.to;
+                            let metric = toUOM.measuredValues.filter(
+                                (item: any) => item.metricSystem == "SI"
+                            )[0];
+
+                            let entry = new LinkedUOMRow(
+                                toUOM.id,
+                                toUOM.longName,
+                                metric.lengthValue,
+                                metric.widthValue,
+                                metric.heightValue,
+                                metric.volumeValue,
+                                metric.weightValue,
+                                this.uom.longName,
+                                toUOM.longName,
+                                elt.quantity
+                            );
+                            this.LinkedUOM.rows.push(entry);
+                        });
                     }
                 },
                 error: (response) => {
@@ -342,6 +310,17 @@ export class UomDetailsComponent implements OnInit {
             },
             error: (response) => {
                 this.error = true;
+            },
+        });
+
+        // fetch UOM list for populating linkedUOM table
+        // uom list will have utmost 1000 records - dec 20 - 2024
+        this.uomService.fetchUOMs(0, 1000, true, "").subscribe({
+            next: (response) => {
+                let content = response.body.content;
+                content.forEach((elt: any) => {
+                    this.linkedUOMNames.push(elt.longName);
+                });
             },
         });
 
