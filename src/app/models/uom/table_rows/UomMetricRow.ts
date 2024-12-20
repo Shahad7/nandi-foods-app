@@ -1,4 +1,5 @@
 export class UOMMetricRow {
+    metricSystem: string;
     private _lengthValue: number;
     private _widthValue: number;
     private _heightValue: number;
@@ -11,6 +12,7 @@ export class UOMMetricRow {
         heightValue: number = 0,
         weightValue: number = 0
     ) {
+        this.metricSystem = "SI";
         this._lengthValue = lengthValue;
         this._widthValue = widthValue;
         this._heightValue = heightValue;
@@ -63,6 +65,7 @@ export class UOMMetricRow {
     }
     toJSON() {
         return {
+            metricSystem: this.metricSystem,
             lengthValue: this.lengthValue,
             widthValue: this.widthValue,
             heightValue: this.heightValue,

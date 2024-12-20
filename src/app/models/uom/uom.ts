@@ -3,23 +3,29 @@ import { UOMMetricRow } from "./table_rows/UomMetricRow";
 
 export class UOM {
     level: string;
+    type: string;
     name: string;
     description: string;
     longName: string;
     shortName: string;
-    metric: UOMMetricRow;
-    imperial: UOMImperialRow;
+    //fix : changes in metric and imperial fields
+    measuredValues?: Array<UOMImperialRow | UOMMetricRow | undefined>;
+    metric?: UOMMetricRow;
+    imperial?: UOMImperialRow;
     bulkCode: string;
     isInventory: boolean;
     isPurchase: boolean;
     isSales: boolean;
     isProduction: boolean;
-    linkedUOMs: LinkedUOM[];
+    //temporarily making linkedUOMs optional
+    linkedUOMs?: LinkedUOM[];
+    linkedPUHUs?: any;
     id: string;
 
     constructor(
         level: string = "Level 1",
         name: string = "EACH",
+        type: string = "",
         description: string = "",
         longName: string = "",
         shortName: string = "",
@@ -33,6 +39,7 @@ export class UOM {
         id: string = ""
     ) {
         this.level = level;
+        this.type = type;
         this.name = name;
         this.description = description;
         this.longName = longName;

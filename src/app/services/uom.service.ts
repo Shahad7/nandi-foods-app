@@ -10,9 +10,14 @@ import { UOM } from "../models/uom/uom";
 export class UomService {
     constructor(private http: HttpClient) {}
 
-    save(uom: any): Observable<any> {
+    save(uom: UOM): Observable<any> {
+        //temporarily deleting linkedUOMs property
+        let reqBody = { ...uom };
+        reqBody.type = uom.name;
+        delete reqBody.linkedUOMs;
+        reqBody.measuredValues = [uom.metric, uom.imperial];
         let url = `${environment.baseUrl}/unit/uom`;
-        return this.http.post(url, JSON.stringify(uom), {
+        return this.http.post(url, JSON.stringify(reqBody), {
             headers: {
                 "Content-Type": "application/json",
             },
