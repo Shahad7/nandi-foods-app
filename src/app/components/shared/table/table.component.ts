@@ -52,6 +52,12 @@ export class TableComponent {
     paginated: boolean = false;
 
     /**
+     * Set what should be displayed when no records are found in search
+     */
+    @Input()
+    noDataText: string = "No Match Found";
+
+    /**
      * Headers of the table
      * Format  :- [{table_header_name, minWidth}]
      * Eg:- [{name:"class",minWidth:120},{name:'Width CM',minWidth:0}]

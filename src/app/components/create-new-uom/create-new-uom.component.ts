@@ -45,8 +45,11 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
     classLevels: Array<string> = [];
     classLevelTypes: Array<string> = [];
     classNamesLookup: Map<String, String> = new Map();
+    metricUnits: Map<string, string> = new Map();
+    imperialUnits: Map<string, string> = new Map();
 
     flexHU: boolean = true;
+    linkedUOMNames: Array<string> = [];
 
     //form variables
     excluded: Array<string> = [];
@@ -157,21 +160,8 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
     selectedTable: any;
 
     //tables
-    UOMImperialHeaders = [
-        { name: "Length <br/> (IN.)", minWidth: "101px" },
-        { name: "Width <br/> (IN.)", minWidth: "101px" },
-        { name: "Height <br/>(IN.)", minWidth: "101px" },
-        { name: "Volume <br/>(FT <sup>3</sup>)", minWidth: "101px" },
-        { name: "Weight <br/>(LB)", minWidth: "101px" },
-    ];
-
-    UOMMetricHeaders = [
-        { name: "Length <br/> (CM.)", minWidth: "101px" },
-        { name: "Width <br/> (CM.)", minWidth: "101px" },
-        { name: "Height <br/> (CM.)", minWidth: "101px" },
-        { name: "Volume <br/> (M<sup>3</sup>)", minWidth: "101px" },
-        { name: "Weight <br/> (KG)", minWidth: "101px" },
-    ];
+    UOMImperialHeaders = [] as any;
+    UOMMetricHeaders = [] as any;
 
     UOMTableKeys = [
         { name: "lengthValue", type: "number", editable: true },
@@ -182,23 +172,14 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
     ];
 
     LinkedUOM = {
-        headers: [
-            { name: "Linked UOM Name", minWidth: "101px" },
-            { name: "Length <br/> (CM)", minWidth: "101px" },
-            { name: "Width <br/> (CM)", minWidth: "101px" },
-            { name: "Height <br/>(CM)", minWidth: "101px" },
-            { name: "Volume <br/>(M<sup>3</sup>)", minWidth: "101px" },
-            { name: "Weight <br/>(KG)", minWidth: "101px" },
-            { name: "Conversion From", minWidth: "101px" },
-            { name: "Conversion To", minWidth: "101px" },
-            { name: "Conversion QTY", minWidth: "101px" },
-        ],
+        //adds headers in the getMetricSystemUnits Subscription
+        headers: [] as any,
         keys: [
             {
                 name: "linkedUOMName",
                 type: "dropdown",
                 editable: true,
-                values: ["U4020 CASE (10 x 4LB)", "U7020 PALLET (500 x 4LB)"],
+                values: this.linkedUOMNames,
             },
             { name: "lengthCm", type: "number", editable: false },
             { name: "widthCm", type: "number", editable: false },
@@ -212,22 +193,8 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
         rows: [] as RowType[],
     };
     LinkedPUAndHU = {
-        headers: [
-            { name: "PU/HU Name", minWidth: "101px" },
-            { name: "Class", minWidth: "101px" },
-            { name: "Flex HU", minWidth: "101px" },
-            { name: "Length <br/> (CM)", minWidth: "101px" },
-            { name: "Width <br/> (CM)", minWidth: "101px" },
-            { name: "Height <br/>(CM)", minWidth: "101px" },
-            { name: "Volume <br/>(M<sup>3</sup>)", minWidth: "101px" },
-            {
-                name: "Max Weight <br/>&nbsp;&nbsp;&nbsp; (KG)",
-                minWidth: "101px",
-            },
-            { name: "Conversion From", minWidth: "101px" },
-            { name: "Min QTY", minWidth: "101px" },
-            { name: "Max QTY", minWidth: "101px" },
-        ],
+        //adds headers in the getMetricSystemUnits Subscription
+        headers: [] as any,
         keys: [
             {
                 name: "puOrHuName",
@@ -307,6 +274,200 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
             this.classInp =
                 params["class"] == undefined ? "UOM" : params["class"];
             this.onClassChange();
+        });
+
+        // fetch UOM list for populating linkedUOM table
+        // uom list will have utmost 1000 records - dec 20 - 2024
+        this.uomService.fetchUOMs(0, 1000, true, "").subscribe({
+            next: (response) => {
+                let content = response.body.content;
+                content.forEach((elt: any) => {
+                    this.linkedUOMNames.push(elt.longName);
+                });
+            },
+        });
+
+        //fetch metric and imperial system units metadata
+        this.uomService.getMetricSystemUnits().subscribe({
+            next: (response) => {
+                let metricUnits = new Map<string, string>();
+                let imperialUnits = new Map<string, string>();
+                (response.body as any).forEach((elt: any) => {
+                    if (elt.name == "SI") {
+                        Object.keys(elt).forEach((key) => {
+                            metricUnits.set(key, elt[key]);
+                        });
+                        this.metricUnits = metricUnits;
+                    } else if (elt.name == "IMPERIAL") {
+                        Object.keys(elt).forEach((key) => {
+                            imperialUnits.set(key, elt[key]);
+                        });
+                        this.imperialUnits = imperialUnits;
+                    }
+                    //initialize all unit dependent table headers
+                    this.LinkedUOM.headers = [
+                        { name: "Linked UOM Name", minWidth: "101px" },
+                        {
+                            name:
+                                "Length <br/>(" +
+                                this.metricUnits.get("lengthUnit") +
+                                ")",
+                            minWidth: "101px",
+                        },
+                        {
+                            name:
+                                "Width <br/>(" +
+                                this.metricUnits.get("widthUnit") +
+                                ")",
+                            minWidth: "101px",
+                        },
+                        {
+                            name:
+                                "Height <br/>(" +
+                                this.metricUnits.get("heightUnit") +
+                                ")",
+                            minWidth: "101px",
+                        },
+                        {
+                            name:
+                                "Volume <br/>(" +
+                                this.metricUnits.get("volumeUnit") +
+                                ")",
+                            minWidth: "101px",
+                        },
+                        {
+                            name:
+                                "Weight <br/>(" +
+                                this.metricUnits.get("weightUnit") +
+                                ")",
+                            minWidth: "101px",
+                        },
+                        { name: "Conversion From", minWidth: "101px" },
+                        { name: "Conversion To", minWidth: "101px" },
+                        { name: "Conversion QTY", minWidth: "101px" },
+                    ];
+
+                    this.LinkedPUAndHU.headers = [
+                        { name: "PU/HU Name", minWidth: "101px" },
+                        { name: "Class", minWidth: "101px" },
+                        { name: "Flex HU", minWidth: "101px" },
+                        {
+                            name:
+                                "Length <br/> (" +
+                                this.metricUnits.get("lengthUnit") +
+                                ")",
+                            minWidth: "101px",
+                        },
+                        {
+                            name:
+                                "Width <br/> (" +
+                                this.metricUnits.get("widthUnit") +
+                                ")",
+                            minWidth: "101px",
+                        },
+                        {
+                            name:
+                                "Height <br/> (" +
+                                this.metricUnits.get("heightUnit") +
+                                ")",
+                            minWidth: "101px",
+                        },
+                        {
+                            name:
+                                "Volume <br/> (" +
+                                this.metricUnits.get("volumeUnit") +
+                                ")",
+                            minWidth: "101px",
+                        },
+                        {
+                            name:
+                                "Max Weight <br/>&nbsp;&nbsp;&nbsp; (" +
+                                this.metricUnits.get("weightUnit") +
+                                ")",
+                            minWidth: "101px",
+                        },
+                        { name: "Conversion From", minWidth: "101px" },
+                        { name: "Min QTY", minWidth: "101px" },
+                        { name: "Max QTY", minWidth: "101px" },
+                    ];
+
+                    this.UOMMetricHeaders = [
+                        {
+                            name:
+                                "Length <br/> (" +
+                                this.metricUnits.get("lengthUnit") +
+                                ")",
+                            minWidth: "101px",
+                        },
+                        {
+                            name:
+                                "Width <br/> (" +
+                                this.metricUnits.get("widthUnit") +
+                                ")",
+                            minWidth: "101px",
+                        },
+                        {
+                            name:
+                                "Height <br/> (" +
+                                this.metricUnits.get("heightUnit") +
+                                ")",
+                            minWidth: "101px",
+                        },
+                        {
+                            name:
+                                "Volume <br/> (" +
+                                this.metricUnits.get("volumeUnit") +
+                                ")",
+                            minWidth: "101px",
+                        },
+                        {
+                            name:
+                                "Weight <br/> (" +
+                                this.metricUnits.get("weightUnit") +
+                                ")",
+                            minWidth: "101px",
+                        },
+                    ];
+
+                    this.UOMImperialHeaders = [
+                        {
+                            name:
+                                "Length <br/> (" +
+                                this.imperialUnits.get("lengthUnit") +
+                                ")",
+                            minWidth: "101px",
+                        },
+                        {
+                            name:
+                                "Width <br/> (" +
+                                this.imperialUnits.get("widthUnit") +
+                                ")",
+                            minWidth: "101px",
+                        },
+                        {
+                            name:
+                                "Height <br/> (" +
+                                this.imperialUnits.get("heightUnit") +
+                                ")",
+                            minWidth: "101px",
+                        },
+                        {
+                            name:
+                                "Volume <br/> (" +
+                                this.imperialUnits.get("volumeUnit") +
+                                ")",
+                            minWidth: "101px",
+                        },
+                        {
+                            name:
+                                "Weight <br/> (" +
+                                this.imperialUnits.get("weightUnit") +
+                                ")",
+                            minWidth: "101px",
+                        },
+                    ];
+                });
+            },
         });
     }
 

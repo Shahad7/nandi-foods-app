@@ -84,4 +84,10 @@ export class UomService {
         let url = `${environment.baseUrl}/unit/metadata/level`;
         return this.http.get(url, { observe: "response" });
     }
+
+    /**Metadata : Metric Systems and their Units*/
+    getMetricSystemUnits() {
+        let url = `${environment.baseUrl}/unit/metadata/metricSystem`;
+        return this.http.get(url, { observe: "response" });
+    }
 }

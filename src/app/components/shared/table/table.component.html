@@ -8,7 +8,7 @@
         >Add new row</ui5-button
     >
 </div>
-<ui5-table overflowMode="Scroll" [loading]="loading">
+<ui5-table overflowMode="Scroll" [loading]="loading" [noDataText]="noDataText">
     <ui5-table-header-row slot="headerRow" style="background-color: #0064d9">
         <ui5-table-header-cell
             *ngFor="let item of headers"
