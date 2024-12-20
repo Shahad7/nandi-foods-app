@@ -171,7 +171,8 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
     //tables
     UOMImperialHeaders = [] as any;
     UOMMetricHeaders = [] as any;
-
+    UOMMetricRow = new UOMMetricRow();
+    UOMImperialRow = new UOMImperialRow();
     UOMTableKeys = [
         { name: "lengthValue", type: "number", editable: true },
         { name: "widthValue", type: "number", editable: true },
@@ -486,7 +487,9 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
 
     //Adding new rows, might need to be changed to pop up forms later
     onNewLinkedUOMRow() {
-        this.LinkedUOM.rows.push(new LinkedUOMRow());
+        let entry = new LinkedUOMRow();
+        entry.linkedUOMName = this.linkedUOMNames[0];
+        this.LinkedUOM.rows.push(entry);
     }
     onNewLinkedPUHURow() {
         this.LinkedPUAndHU.rows.push(new LinkedHuAndPuRow());
@@ -548,21 +551,25 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
     }
 
     onSave() {
-        console.log(this.uom);
-        console.log(this.LinkedUOM.rows);
-        this.uom.linkedUOMRows = this.LinkedUOM.rows;
-        this.uom.linkedHuAndPuRows = this.LinkedPUAndHU.rows;
-        this.uomService.save(this.uom).subscribe({
-            next: (response) => {
-                if (response.status == 201) {
-                    this.onSuccessfulSubmit();
-                }
-            },
-            error: (errorResponse: HttpErrorResponse) => {
-                // console.log(errorResponse);
-                this.onErrorResponse(errorResponse.error.message);
-            },
-        });
+        this.uomService
+            .save(
+                this.uom,
+                this.LinkedUOM.rows,
+                this.LinkedPUAndHU.rows,
+                this.UOMMetricRow,
+                this.UOMImperialRow
+            )
+            .subscribe({
+                next: (response) => {
+                    if (response.status == 201) {
+                        this.onSuccessfulSubmit();
+                    }
+                },
+                error: (errorResponse: HttpErrorResponse) => {
+                    // console.log(errorResponse);
+                    this.onErrorResponse(errorResponse.error.message);
+                },
+            });
     }
 
     //TODO
@@ -580,6 +587,10 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
             panelClass: ["success-snackbar"],
         });
         this.uom = new UOM();
+        this.LinkedUOM.rows = [];
+        this.LinkedPUAndHU.rows = [];
+        this.UOMMetricRow = new UOMMetricRow();
+        this.UOMImperialRow = new UOMImperialRow();
     }
 
     onErrorResponse(errorMessage: string) {

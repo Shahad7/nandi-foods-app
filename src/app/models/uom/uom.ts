@@ -11,8 +11,6 @@ export class UOM {
     shortName: string;
     //fix : changes in metric and imperial fields
     measuredValues?: Array<UOMImperialRow | UOMMetricRow | undefined>;
-    metric?: UOMMetricRow;
-    imperial?: UOMImperialRow;
     bulkCode: string;
     isInventory: boolean;
     isPurchase: boolean;
@@ -39,7 +37,7 @@ export class UOM {
         isProduction: boolean = false,
         linkedUOMs: LinkedUOM[] = [],
         id: string = "",
-        effectiveDate = " "
+        effectiveDate = "2024-01-01"
     ) {
         this.level = level;
         this.type = type;
@@ -47,8 +45,6 @@ export class UOM {
         this.description = description;
         this.longName = longName;
         this.shortName = shortName;
-        this.metric = new UOMMetricRow();
-        this.imperial = new UOMImperialRow();
         this.bulkCode = bulkCode;
         this.isInventory = isInventory;
         this.isPurchase = isPurchase;

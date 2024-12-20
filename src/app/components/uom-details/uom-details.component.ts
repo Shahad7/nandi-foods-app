@@ -166,6 +166,8 @@ export class UomDetailsComponent implements OnInit {
     UOMImperialHeaders = [] as any;
 
     UOMMetricHeaders = [] as any;
+    UOMMetricRow = new UOMMetricRow();
+    UOMImperialRow = new UOMImperialRow();
     UOMTableKeys = [
         { name: "lengthValue", type: "number", editable: true },
         { name: "widthValue", type: "number", editable: true },
@@ -261,18 +263,35 @@ export class UomDetailsComponent implements OnInit {
                         });
                         this.uom.selfLinksTo?.forEach((elt: any) => {
                             let toUOM = elt.to;
-                            let metric = toUOM.measuredValues.filter(
-                                (item: any) => item.metricSystem == "SI"
-                            )[0];
+
+                            toUOM.measuredValues.forEach((elt: any) => {
+                                if (elt.metricSystem == "SI") {
+                                    this.UOMMetricRow.lengthValue =
+                                        elt.lengthValue;
+                                    this.UOMMetricRow.heightValue =
+                                        elt.heightValue;
+                                    this.UOMMetricRow.widthValue =
+                                        elt.widthValue;
+                                } else if (elt.metricSystem == "IMPERIAL") {
+                                    this.UOMImperialRow.lengthValue =
+                                        elt.lengthValue;
+                                    this.UOMImperialRow.heightValue =
+                                        elt.heightValue;
+                                    this.UOMImperialRow.widthValue =
+                                        elt.widthValue;
+                                    this.UOMImperialRow.weightValue =
+                                        elt.weightValue;
+                                }
+                            });
 
                             let entry = new LinkedUOMRow(
                                 toUOM.id,
                                 toUOM.longName,
-                                metric.lengthValue,
-                                metric.widthValue,
-                                metric.heightValue,
-                                metric.volumeValue,
-                                metric.weightValue,
+                                this.UOMMetricRow.lengthValue,
+                                this.UOMMetricRow.widthValue,
+                                this.UOMMetricRow.heightValue,
+                                this.UOMMetricRow.volumeValue,
+                                this.UOMMetricRow.weightValue,
                                 this.uom.longName,
                                 toUOM.longName,
                                 elt.quantity

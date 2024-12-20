@@ -11,15 +11,27 @@ import { LinkedUOM } from "../models/uom/linkedUOM";
 export class UomService {
     constructor(private http: HttpClient) {}
 
-    save(uom: any): Observable<any> {
+    save(
+        uom: any,
+        linkedUOMRows: any,
+        linkedHuAndPuRows: any,
+        metric: any,
+        imperial: any
+    ): Observable<any> {
         let reqBody = { ...uom };
         reqBody.type = uom.name;
-        uom.linkedUOMRows.forEach((elt: any) => {
+        linkedUOMRows.forEach((elt: any) => {
             reqBody.linkedUOMs.push(
-                new LinkedUOM(elt.linkedUOMName.split(" ")[0], elt.conversionQTY)
+                new LinkedUOM(
+                    elt.linkedUOMName.split(" ")[0],
+                    elt.conversionQTY
+                )
             );
         });
-        reqBody.measuredValues = [uom.metric, uom.imperial];
+        if (reqBody.linkedUOMs?.length == 0) delete reqBody.linkedUOMs;
+        if (reqBody.linkedPUHUs?.length == 0) delete reqBody.linkedPUHUs;
+        reqBody.measuredValues = [metric, imperial];
+        console.log(reqBody);
         let url = `${environment.baseUrl}/unit/uom`;
         return this.http.post(url, JSON.stringify(reqBody), {
             headers: {

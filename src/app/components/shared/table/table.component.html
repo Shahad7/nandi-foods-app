@@ -54,7 +54,7 @@
                     [disabled]="!key.editable || !editingEnabled"
                 >
                     <ui5-option
-                        *ngFor="let item of key.values"
+                        *ngFor="let item of key.values; let first = first"
                         [value]="item"
                         [selected]="row[key.name] == item"
                         >{{ item }}</ui5-option

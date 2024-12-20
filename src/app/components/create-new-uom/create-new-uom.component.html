@@ -52,7 +52,7 @@
                 *ngIf="selectedNestedTab == 'Metric'"
                 [controlled]="true"
                 [headers]="UOMMetricHeaders"
-                [rows]="[uom.metric]"
+                [rows]="[this.UOMMetricRow]"
                 [keys]="UOMTableKeys"
             ></app-table>
 
@@ -61,7 +61,7 @@
                 *ngIf="selectedNestedTab == 'Imperial'"
                 [controlled]="true"
                 [headers]="UOMImperialHeaders"
-                [rows]="[uom.imperial]"
+                [rows]="[this.UOMImperialRow]"
                 [keys]="UOMTableKeys"
             ></app-table>
         </ng-container>
