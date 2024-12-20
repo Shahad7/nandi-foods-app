@@ -1,3 +1,4 @@
+import { LinkedUOM } from "./linkedUOM";
 import { UOMImperialRow } from "./table_rows/UomImperialRow";
 import { UOMMetricRow } from "./table_rows/UomMetricRow";
 
@@ -53,14 +54,5 @@ export class UOM {
         this.isProduction = isProduction;
         this.linkedUOMs = linkedUOMs;
         this.id = id;
-    }
-}
-class LinkedUOM {
-    id: string;
-    quantity: number;
-
-    constructor(id: string = "", quantity: number = 0) {
-        this.id = id;
-        this.quantity = quantity;
     }
 }

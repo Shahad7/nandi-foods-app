@@ -541,6 +541,8 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
     onSave() {
         console.log(this.uom);
         console.log(this.LinkedUOM.rows);
+        this.uom.linkedUOMRows = this.LinkedUOM.rows;
+        this.uom.linkedHuAndPuRows = this.LinkedPUAndHU.rows;
         this.uomService.save(this.uom).subscribe({
             next: (response) => {
                 if (response.status == 201) {

@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { environment } from "../../environments/environment";
 import { Observable } from "rxjs";
 import { UOM } from "../models/uom/uom";
+import { LinkedUOM } from "../models/uom/linkedUOM";
 
 @Injectable({
     providedIn: "root",
@@ -10,11 +11,14 @@ import { UOM } from "../models/uom/uom";
 export class UomService {
     constructor(private http: HttpClient) {}
 
-    save(uom: UOM): Observable<any> {
-        //temporarily deleting linkedUOMs property
+    save(uom: any): Observable<any> {
         let reqBody = { ...uom };
         reqBody.type = uom.name;
-        delete reqBody.linkedUOMs;
+        uom.linkedUOMRows.forEach((elt: any) => {
+            reqBody.linkedUOMs.push(
+                new LinkedUOM(elt.linkedUOMName.split(" ")[0], elt.conversionQTY)
+            );
+        });
         reqBody.measuredValues = [uom.metric, uom.imperial];
         let url = `${environment.baseUrl}/unit/uom`;
         return this.http.post(url, JSON.stringify(reqBody), {
