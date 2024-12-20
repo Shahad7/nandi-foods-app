@@ -45,6 +45,7 @@ export class UomDetailsComponent implements OnInit {
     //metadata
     classLevels: Array<string> = [];
     classNamesLookup: Map<String, String> = new Map();
+    classLevelTypes: Array<string> = [];
     statuses: Array<string> = [];
     flexHU: boolean = true;
 
@@ -341,6 +342,11 @@ export class UomDetailsComponent implements OnInit {
                 next: (response) => {
                     if (response.status == 200) {
                         this.uom = response.body;
+                        this.uom.measuredValues?.forEach((elt: any) => {
+                            if (elt.metricSystem == "SI") this.uom.metric = elt;
+                            else if (elt.metricSystem == "IMPERIAL")
+                                this.uom.imperial = elt;
+                        });
                     }
                 },
                 error: (response) => {
@@ -366,6 +372,7 @@ export class UomDetailsComponent implements OnInit {
                 let body = response.body as Array<any>;
                 body?.forEach((element: any) => {
                     this.classLevels.push(element?.level);
+                    this.classLevelTypes.push(element?.type);
                     this.classNamesLookup.set(element?.level, element?.type);
                 });
             },
@@ -404,6 +411,13 @@ export class UomDetailsComponent implements OnInit {
         // manually change UOM name values according to level
         if (event.key == "level") {
             this.uom["name"] = this.classNamesLookup.get(event.value);
+        }
+        if (event.key == "name") {
+            this.classNamesLookup.forEach((value, key, map) => {
+                if (value == event.value) {
+                    this.uom["level"] = key;
+                }
+            });
         }
     }
 

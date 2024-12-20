@@ -43,6 +43,7 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
     //metadata
     classTypes: Array<string> = [];
     classLevels: Array<string> = [];
+    classLevelTypes: Array<string> = [];
     classNamesLookup: Map<String, String> = new Map();
 
     flexHU: boolean = true;
@@ -56,10 +57,11 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
             content: [
                 {
                     key: "name",
-                    type: "string",
+                    type: "dropdown",
                     label: "UOM Type",
                     required: true,
-                    editable: false,
+                    editable: true,
+                    values: this.classLevelTypes,
                 },
                 {
                     key: "description",
@@ -207,32 +209,7 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
             { name: "conversionTo", type: "string", editable: false },
             { name: "conversionQTY", type: "number", editable: true },
         ],
-        rows: [
-            new LinkedUOMRow(
-                "U4020",
-                "U4020 CASE (10 x 4LB)",
-                60,
-                30,
-                30,
-                0.05,
-                18.2,
-                "U1020 EACH (1 x 4LB)",
-                "U4020 EACH (10 x 4LB)",
-                10.0
-            ),
-            new LinkedUOMRow(
-                "U7020",
-                "U7020 PALLET (500 x 4LB)",
-                122,
-                107,
-                166,
-                2.17,
-                910.0,
-                "U1020 EACH (1 x 4LB)",
-                "U7020 PALLET (500 x 4LB)",
-                500.0
-            ),
-        ] as RowType[],
+        rows: [] as RowType[],
     };
     LinkedPUAndHU = {
         headers: [
@@ -270,36 +247,7 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
             { name: "maxQTY", type: "number", editable: true },
         ],
 
-        rows: [
-            new LinkedHuAndPuRow(
-                "U4020",
-                "U4020 CASE (10 x 4LB)",
-                "PU",
-                false,
-                60,
-                30,
-                30,
-                0.05,
-                18.7,
-                "U4020 EACH (1 x 4LB)",
-                1.0,
-                10.0
-            ),
-            new LinkedHuAndPuRow(
-                "U7502",
-                "U7502 PALLET (10 x 4LB)",
-                "HU",
-                true,
-                122,
-                107,
-                166,
-                2.17,
-                930.0,
-                "U7502 EACH (1 x 4LB)",
-                20.0,
-                500.0
-            ),
-        ] as RowType[],
+        rows: [] as RowType[],
     };
 
     //temporary default paginator props
@@ -346,6 +294,7 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
                 let body = response.body as Array<any>;
                 body?.forEach((element: any) => {
                     this.classLevels.push(element?.level);
+                    this.classLevelTypes.push(element?.type);
                     this.classNamesLookup.set(element?.level, element?.type);
                 });
             },
@@ -395,6 +344,14 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
         // manually change UOM name values according to level
         if (event.key == "level") {
             this.uom["name"] = this.classNamesLookup.get(event.value);
+        }
+
+        if (event.key == "name") {
+            this.classNamesLookup.forEach((value, key, map) => {
+                if (value == event.value) {
+                    this.uom["level"] = key;
+                }
+            });
         }
     }
 

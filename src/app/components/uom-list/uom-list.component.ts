@@ -91,7 +91,11 @@ export class UomListComponent implements OnInit {
                     let rows = response.body.content;
                     this.paginatorProps.length = response.body.totalElements;
                     this.rows = rows.map((element: any) => {
-                        element.weightKG = element.metric.weightValue;
+                        element.weightKG = 0;
+                        element.measuredValues.filter((elt: any) => {
+                            if (elt.metricSystem == "SI")
+                                element.weightKG = elt.weightValue;
+                        }).weightValue;
                         return element;
                     });
 
