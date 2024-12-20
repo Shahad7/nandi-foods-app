@@ -73,6 +73,7 @@
                     *ngIf="formField.type == 'date'"
                     id="{{ '_' + formField.key }}"
                     [(ngModel)]="model[formField.key]"
+                    [minDate]="formField.minDate"
                     [placeholder]="
                         formField.placeholder
                             ? formField.placeholder

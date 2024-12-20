@@ -148,6 +148,7 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
                     editable: true,
                     format: "YYYY-MM-dd",
                     placeholder: "2024-11-06",
+                    minDate: new Date().toISOString().split("T")[0],
                 },
                 {
                     key: "flexHU",

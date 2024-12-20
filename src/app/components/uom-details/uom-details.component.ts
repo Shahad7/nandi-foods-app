@@ -32,7 +32,7 @@ interface RowType {
 export class UomDetailsComponent implements OnInit {
     //model
     uom: any = new UOM();
-
+    currentDate: string = "";
     error: boolean = false;
 
     //enable/disable edit
@@ -249,6 +249,7 @@ export class UomDetailsComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
+        this.currentDate = new Date().toISOString().split("T")[0];
         //fetch the uom details by Id
         let UOMId = this.route.snapshot.paramMap.get("UOMId");
         if (UOMId != "" && UOMId != undefined) {

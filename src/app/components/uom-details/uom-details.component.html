@@ -82,6 +82,7 @@
                     </ui5-label>
                     <ui5-date-picker
                         id="EffectiveDateInp"
+                        [minDate]="currentDate"
                         [(ngModel)]="uom.effectiveDate"
                         [formatPattern]="'YYYY-MM-dd'"
                         [placeholder]="'2024-11-04'"

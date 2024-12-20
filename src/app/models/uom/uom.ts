@@ -37,7 +37,7 @@ export class UOM {
         isProduction: boolean = false,
         linkedUOMs: LinkedUOM[] = [],
         id: string = "",
-        effectiveDate = "2024-01-01"
+        effectiveDate = new Date().toISOString().split("T")[0]
     ) {
         this.level = level;
         this.type = type;
