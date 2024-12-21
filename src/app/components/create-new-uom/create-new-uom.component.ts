@@ -12,7 +12,7 @@ import { UOMMetricRow } from "../../models/uom/table_rows/UomMetricRow";
 import { LinkedUOMRow } from "../../models/uom/table_rows/linkedUomRow";
 import { LinkedHuAndPuRow } from "../../models/uom/table_rows/linkedHuAndPuRow";
 import { UOM } from "../../models/uom/uom";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { error, log } from "console";
 import { HttpErrorResponse, HttpResponse } from "@angular/common/http";
 import { MatSnackBar } from "@angular/material/snack-bar";
@@ -149,6 +149,11 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
                     format: "YYYY-MM-dd",
                     placeholder: "2024-11-06",
                     minDate: new Date().toISOString().split("T")[0],
+                    maxDate: new Date(
+                        new Date().setDate(new Date().getDate() + 91)
+                    )
+                        .toISOString()
+                        .split("T")[0],
                 },
                 {
                     key: "flexHU",
@@ -246,7 +251,8 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
         protected mainCommunicationService: MainCommunicationService,
         protected route: ActivatedRoute,
         protected uomService: UomService,
-        protected snackBar: MatSnackBar
+        protected snackBar: MatSnackBar,
+        protected router: Router
     ) {}
     ngOnInit(): void {
         //fetch required unit metadata
@@ -563,7 +569,9 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
     }
 
     //TODO
-    onCancel() {}
+    onCancel() {
+        this.router.navigate(["uom-list"]);
+    }
 
     //TODO
     onApprove() {}
@@ -576,7 +584,8 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
             verticalPosition: "top",
             panelClass: ["success-snackbar"],
         });
-        this.uom = new UOM();
+        //don't reset UOM on save -> commenting it out
+        // this.uom = new UOM();
     }
 
     onErrorResponse(errorMessage: string) {

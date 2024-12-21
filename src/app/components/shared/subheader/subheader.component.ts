@@ -1,7 +1,14 @@
 import { ActivatedRoute } from "@angular/router";
 import { title } from "process";
 import { MainCommunicationService } from "../../../services/main-communication.service";
-import { Component, Input, OnDestroy, OnInit } from "@angular/core";
+import {
+    Component,
+    EventEmitter,
+    Input,
+    OnDestroy,
+    OnInit,
+    Output,
+} from "@angular/core";
 import { Subscription } from "rxjs";
 
 @Component({
@@ -10,8 +17,13 @@ import { Subscription } from "rxjs";
     styleUrl: "./subheader.component.css",
 })
 export class SubheaderComponent implements OnDestroy, OnInit {
+    /** Title of the component */
     @Input()
     title!: string;
+
+    /** Fired when refresh button is clicked */
+    @Output()
+    onRefresh = new EventEmitter<any>();
 
     constructor(
         private mainCommunicationService: MainCommunicationService,
@@ -21,9 +33,8 @@ export class SubheaderComponent implements OnDestroy, OnInit {
 
     ngOnDestroy(): void {}
 
-    onRefresh() {
-        //to-do refetch latest data from server
-        //should communicate with current child component to update its data
+    alertRefresh() {
+        this.onRefresh.emit("");
     }
 
     onToggleSidebar() {

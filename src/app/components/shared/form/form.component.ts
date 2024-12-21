@@ -48,7 +48,7 @@ export class FormComponent {
                         {key:'name',type:'string',label:'Name',required:true,editable:true,placeholder:'Adam'},
                         {key:'password',type:'password',label:'Password',required:true,editable:true},
                         {key:'country',type:'dropdown',label:'Country',required:true,editable:true, values:['IND','AUS']}  ,
-                        {key:'dob',type:'date',format:'YYYY-MM-dd',required:true,editable:true,placeholder:'2024-12-01',minDate:'..'}                      
+                        {key:'dob',type:'date',format:'YYYY-MM-dd',required:true,editable:true,placeholder:'2024-12-01',minDate:'2024-12-01',maxDate:'2025-02-01'}                      
                         ],..
             }
         ]

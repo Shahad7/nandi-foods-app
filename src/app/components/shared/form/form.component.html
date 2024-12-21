@@ -74,6 +74,7 @@
                     id="{{ '_' + formField.key }}"
                     [(ngModel)]="model[formField.key]"
                     [minDate]="formField.minDate"
+                    [maxDate]="formField.maxDate"
                     [placeholder]="
                         formField.placeholder
                             ? formField.placeholder

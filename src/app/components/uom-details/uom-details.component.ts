@@ -32,8 +32,11 @@ interface RowType {
 export class UomDetailsComponent implements OnInit {
     //model
     uom: any = new UOM();
-    currentDate: string = "";
     error: boolean = false;
+
+    //effectiveDate constraints
+    currentDate: string = "";
+    maxDate: string = "";
 
     //enable/disable edit
     editingEnabled: boolean = false;
@@ -245,6 +248,10 @@ export class UomDetailsComponent implements OnInit {
 
     ngOnInit(): void {
         this.currentDate = new Date().toISOString().split("T")[0];
+        this.maxDate = new Date(new Date().setDate(new Date().getDate() + 91))
+            .toISOString()
+            .split("T")[0];
+
         //fetch the uom details by Id
         let UOMId = this.route.snapshot.paramMap.get("UOMId");
         if (UOMId != "" && UOMId != undefined) {
@@ -571,7 +578,9 @@ export class UomDetailsComponent implements OnInit {
     onSave() {}
 
     //TODO
-    onCancel() {}
+    onCancel() {
+        this.router.navigate(["uom-list"]);
+    }
 
     //TODO
     onApprove() {}

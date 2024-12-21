@@ -79,6 +79,7 @@ export class UomListComponent implements OnInit {
     }
 
     fetchUOMs() {
+        this.loading = true;
         this.UOMService.fetchUOMs(
             this.paginatorProps.pageIndex,
             this.paginatorProps.pageSize,
@@ -127,5 +128,9 @@ export class UomListComponent implements OnInit {
     }
     uploadFile(event: any) {
         console.log(event.target?.files[0].name);
+    }
+
+    onRefresh() {
+        this.fetchUOMs();
     }
 }
