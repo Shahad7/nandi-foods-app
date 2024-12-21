@@ -574,7 +574,22 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
     }
 
     //TODO
-    onApprove() {}
+    onApprove() {
+        if (this.uom.id == "" || this.uom.id == undefined)
+            this.onErrorResponse("Please provide the UOM details");
+        else
+            this.uomService.approve(this.uom.id).subscribe({
+                next: (response) => {
+                    if (response.status == 204) {
+                        this.onSuccessfulApproval();
+                    }
+                },
+                error: (errorResponse: HttpErrorResponse) => {
+                    // console.log(errorResponse);
+                    this.onErrorResponse(errorResponse.error.message);
+                },
+            });
+    }
 
     onSuccessfulSubmit() {
         this.snackBar.openFromComponent(SnackbarComponent, {
@@ -586,6 +601,21 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
         });
         //don't reset UOM on save -> commenting it out
         // this.uom = new UOM();
+    }
+
+    onSuccessfulApproval() {
+        this.snackBar
+            .openFromComponent(SnackbarComponent, {
+                data: { message: "UOM successfully approved!", error: false },
+                duration: 2000,
+                horizontalPosition: "center",
+                verticalPosition: "top",
+                panelClass: ["success-snackbar"],
+            })
+            .afterDismissed()
+            .subscribe(() => {
+                this.router.navigate(["uom-list"]);
+            });
     }
 
     onErrorResponse(errorMessage: string) {

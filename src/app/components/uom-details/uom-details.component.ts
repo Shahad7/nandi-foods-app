@@ -20,6 +20,7 @@ import { CreateNewUomComponent } from "../create-new-uom/create-new-uom.componen
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { PageEvent } from "@angular/material/paginator";
 import { SnackbarComponent } from "../shared/snackbar/snackbar.component";
+import { HttpErrorResponse } from "@angular/common/http";
 
 interface RowType {
     [key: string]: any; // Allow dynamic access to row properties
@@ -583,7 +584,22 @@ export class UomDetailsComponent implements OnInit {
     }
 
     //TODO
-    onApprove() {}
+    onApprove() {
+        if (this.uom.id == "" || this.uom.id == undefined)
+            this.onErrorResponse("Please provide the UOM details");
+        else
+            this.uomService.approve(this.uom.id).subscribe({
+                next: (response) => {
+                    if (response.status == 204) {
+                        this.onSuccessfulApproval();
+                    }
+                },
+                error: (errorResponse: HttpErrorResponse) => {
+                    // console.log(errorResponse);
+                    this.onErrorResponse(errorResponse.error.message);
+                },
+            });
+    }
 
     onDelete() {
         this.uomService.deleteUOMById(this.uom.id).subscribe({
@@ -620,6 +636,21 @@ export class UomDetailsComponent implements OnInit {
             panelClass: ["success-snackbar"],
         });
         this.uom = new UOM();
+    }
+
+    onSuccessfulApproval() {
+        this.snackBar
+            .openFromComponent(SnackbarComponent, {
+                data: { message: "UOM successfully approved!", error: false },
+                duration: 2000,
+                horizontalPosition: "center",
+                verticalPosition: "top",
+                panelClass: ["success-snackbar"],
+            })
+            .afterDismissed()
+            .subscribe(() => {
+                this.router.navigate(["uom-list"]);
+            });
     }
 
     onErrorResponse(errorMessage: string) {

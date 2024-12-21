@@ -33,8 +33,18 @@ export class UomService {
         });
     }
 
+    approve(id: string): Observable<any> {
+        let url = `${environment.baseUrl}/unit/uom/${id}/approve`;
+        return this.http.patch(url, undefined, {
+            headers: {
+                "Content-Type": "application/json-patch+json",
+            },
+            observe: "response",
+        });
+    }
+
     edit(id: string): Observable<any> {
-        let url = `${environment.baseUrl}/unit/uom`;
+        let url = `${environment.baseUrl}/unit/uom/${id}`;
         return this.http.patch(
             url,
             {},
