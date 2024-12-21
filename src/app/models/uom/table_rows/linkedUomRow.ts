@@ -1,10 +1,10 @@
 export class LinkedUOMRow {
     id: string;
     linkedUOMName: string;
-    _lengthCm: number;
-    _widthCm: number;
-    _heightCm: number;
-    _volumeM3: number;
+    _lengthValue: number;
+    _widthValue: number;
+    _heightValue: number;
+    _volumeValue: number;
     weightKg: number;
     conversionFrom: string;
     conversionTo: string;
@@ -14,10 +14,10 @@ export class LinkedUOMRow {
     constructor(
         id: string = "",
         linkedUOMName: string = "",
-        _lengthCm: number = 0,
-        _widthCm: number = 0,
-        _heightCm: number = 0,
-        _volumeM3: number = 0,
+        _lengthValue: number = 0,
+        _widthValue: number = 0,
+        _heightValue: number = 0,
+        _volumeValue: number = 0,
         weightKg: number = 0,
         conversionFrom: string = "",
         conversionTo: string = "",
@@ -25,48 +25,50 @@ export class LinkedUOMRow {
     ) {
         this.id = id;
         this.linkedUOMName = linkedUOMName;
-        this._lengthCm = _lengthCm;
-        this._widthCm = _widthCm;
-        this._heightCm = _heightCm;
-        this._volumeM3 = (_heightCm * _widthCm * _lengthCm) / 1000000;
+        this._lengthValue = _lengthValue;
+        this._widthValue = _widthValue;
+        this._heightValue = _heightValue;
+        this._volumeValue =
+            (_heightValue * _widthValue * _lengthValue) / 1000000;
         this.weightKg = weightKg;
         this.conversionFrom = conversionFrom;
         this.conversionTo = conversionTo;
         this.conversionQTY = conversionQTY;
     }
 
-    get volumeM3() {
-        return this._volumeM3;
+    get volumeValue() {
+        return this._volumeValue;
     }
 
-    get widthCm() {
-        return this._widthCm;
+    get widthValue() {
+        return this._widthValue;
     }
 
-    get heightCm() {
-        return this._heightCm;
+    get heightValue() {
+        return this._heightValue;
     }
-    get lengthCm() {
-        return this._lengthCm;
+    get lengthValue() {
+        return this._lengthValue;
     }
 
-    set widthCm(value: number) {
-        this._widthCm = value;
+    set widthValue(value: number) {
+        this._widthValue = value;
         this.updateVolume();
     }
 
-    set heightCm(value: number) {
-        this._heightCm = value;
+    set heightValue(value: number) {
+        this._heightValue = value;
         this.updateVolume();
     }
 
-    set lengthCm(value: number) {
-        this._lengthCm = value;
+    set lengthValue(value: number) {
+        this._lengthValue = value;
         this.updateVolume();
     }
 
     updateVolume() {
-        this._volumeM3 =
-            (this._widthCm * this._heightCm * this._lengthCm) / 1000000;
+        this._volumeValue =
+            (this._widthValue * this._heightValue * this._lengthValue) /
+            1000000;
     }
 }

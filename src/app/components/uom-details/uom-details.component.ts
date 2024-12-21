@@ -143,13 +143,13 @@ export class UomDetailsComponent implements OnInit {
                     required: true,
                     editable: true,
                 },
-                {
-                    key: "flexHU",
-                    type: "boolean",
-                    label: "flex HU",
-                    required: true,
-                    editable: true,
-                },
+                // {
+                //     key: "flexHU",
+                //     type: "boolean",
+                //     label: "flex HU",
+                //     required: true,
+                //     editable: true,
+                // },
             ],
         },
     ];
@@ -166,8 +166,6 @@ export class UomDetailsComponent implements OnInit {
     UOMImperialHeaders = [] as any;
 
     UOMMetricHeaders = [] as any;
-    UOMMetricRow = new UOMMetricRow();
-    UOMImperialRow = new UOMImperialRow();
     UOMTableKeys = [
         { name: "lengthValue", type: "number", editable: true },
         { name: "widthValue", type: "number", editable: true },
@@ -186,16 +184,15 @@ export class UomDetailsComponent implements OnInit {
                 editable: true,
                 values: this.linkedUOMNames,
             },
-            { name: "lengthCm", type: "number", editable: false },
-            { name: "widthCm", type: "number", editable: false },
-            { name: "heightCm", type: "number", editable: false },
-            { name: "volumeM3", type: "number", editable: false },
+            { name: "lengthValue", type: "number", editable: false },
+            { name: "widthValue", type: "number", editable: false },
+            { name: "heightValue", type: "number", editable: false },
+            { name: "volumeValue", type: "number", editable: false },
             { name: "weightKg", type: "number", editable: false },
             { name: "conversionFrom", type: "string", editable: false },
             { name: "conversionTo", type: "string", editable: false },
             { name: "conversionQTY", type: "number", editable: true },
         ],
-        rows: [] as RowType[],
     };
     LinkedPUAndHU = {
         headers: [] as any,
@@ -208,17 +205,15 @@ export class UomDetailsComponent implements OnInit {
             },
             { name: "className", type: "string", editable: false },
             { name: "flexHU", type: "boolean", editable: false },
-            { name: "lengthCm", type: "number", editable: false },
-            { name: "widthCm", type: "number", editable: false },
-            { name: "heightCm", type: "number", editable: false },
-            { name: "volumeM3", type: "number", editable: false },
+            { name: "lengthValue", type: "number", editable: false },
+            { name: "widthValue", type: "number", editable: false },
+            { name: "heightValue", type: "number", editable: false },
+            { name: "volumeValue", type: "number", editable: false },
             { name: "maxWeightKG", type: "number", editable: false },
             { name: "conversionFrom", type: "string", editable: false },
             { name: "minQTY", type: "number", editable: true },
             { name: "maxQTY", type: "number", editable: true },
         ],
-
-        rows: [] as RowType[],
     };
 
     //temporary default paginator props
@@ -256,48 +251,27 @@ export class UomDetailsComponent implements OnInit {
             this.uomService.getUOMById(UOMId as any).subscribe({
                 next: (response) => {
                     if (response.status == 200) {
-                        this.uom = response.body;
+                        this.uom = { ...this.uom, ...response.body };
                         this.uom.measuredValues?.forEach((elt: any) => {
-                            if (elt.metricSystem == "SI") this.uom.metric = elt;
+                            if (elt.metricSystem == "SI")
+                                this.uom._metric = elt;
                             else if (elt.metricSystem == "IMPERIAL")
-                                this.uom.imperial = elt;
+                                this.uom._imperial = elt;
                         });
                         this.uom.selfLinksTo?.forEach((elt: any) => {
                             let toUOM = elt.to;
-
+                            let entry = new LinkedUOMRow();
+                            entry.id = toUOM.id;
+                            entry.linkedUOMName = toUOM.longName;
+                            entry.conversionQTY = elt.quantity;
                             toUOM.measuredValues.forEach((elt: any) => {
                                 if (elt.metricSystem == "SI") {
-                                    this.UOMMetricRow.lengthValue =
-                                        elt.lengthValue;
-                                    this.UOMMetricRow.heightValue =
-                                        elt.heightValue;
-                                    this.UOMMetricRow.widthValue =
-                                        elt.widthValue;
-                                } else if (elt.metricSystem == "IMPERIAL") {
-                                    this.UOMImperialRow.lengthValue =
-                                        elt.lengthValue;
-                                    this.UOMImperialRow.heightValue =
-                                        elt.heightValue;
-                                    this.UOMImperialRow.widthValue =
-                                        elt.widthValue;
-                                    this.UOMImperialRow.weightValue =
-                                        elt.weightValue;
+                                    entry.lengthValue = elt.lengthValue;
+                                    entry.heightValue = elt.heightValue;
+                                    entry.widthValue = elt.widthValue;
                                 }
                             });
-
-                            let entry = new LinkedUOMRow(
-                                toUOM.id,
-                                toUOM.longName,
-                                this.UOMMetricRow.lengthValue,
-                                this.UOMMetricRow.widthValue,
-                                this.UOMMetricRow.heightValue,
-                                this.UOMMetricRow.volumeValue,
-                                this.UOMMetricRow.weightValue,
-                                this.uom.longName,
-                                toUOM.longName,
-                                elt.quantity
-                            );
-                            this.LinkedUOM.rows.push(entry);
+                            this.uom._linkedUOMRows?.push(entry);
                         });
                     }
                 },
@@ -529,10 +503,14 @@ export class UomDetailsComponent implements OnInit {
     }
     //Adding new rows, might need to be changed to pop up forms later
     onNewLinkedUOMRow() {
-        this.LinkedUOM.rows.push(new LinkedUOMRow());
+        let entry = new LinkedUOMRow();
+        entry.linkedUOMName = this.linkedUOMNames[0];
+        this.uom._linkedUOMRows?.push(entry);
     }
     onNewLinkedPUHURow() {
-        this.LinkedPUAndHU.rows.push(new LinkedHuAndPuRow());
+        let entry = new LinkedHuAndPuRow();
+        //to-do : initialize the first dropdown value like above
+        this.uom._linkedPUandHURows?.push(entry);
     }
 
     /**  Manual bindigs */

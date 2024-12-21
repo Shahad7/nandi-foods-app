@@ -11,29 +11,21 @@ import { LinkedUOM } from "../models/uom/linkedUOM";
 export class UomService {
     constructor(private http: HttpClient) {}
 
-    save(
-        uom: any,
-        linkedUOMRows: any,
-        linkedHuAndPuRows: any,
-        metric: any,
-        imperial: any
-    ): Observable<any> {
-        let reqBody = { ...uom };
-        reqBody.type = uom.name;
-        linkedUOMRows.forEach((elt: any) => {
-            reqBody.linkedUOMs.push(
+    save(uom: any): Observable<any> {
+        uom._linkedUOMRows.forEach((elt: any) => {
+            uom.linkedUOMs.push(
                 new LinkedUOM(
                     elt.linkedUOMName.split(" ")[0],
                     elt.conversionQTY
                 )
             );
         });
-        if (reqBody.linkedUOMs?.length == 0) delete reqBody.linkedUOMs;
-        if (reqBody.linkedPUHUs?.length == 0) delete reqBody.linkedPUHUs;
-        reqBody.measuredValues = [metric, imperial];
-        console.log(reqBody);
+        // if (reqBody.linkedUOMs?.length == 0) delete reqBody.linkedUOMs;
+        // if (reqBody.linkedPUHUs?.length == 0) delete reqBody.linkedPUHUs;
+        uom.measuredValues = [uom._metric, uom._imperial];
+        console.log(JSON.stringify(uom));
         let url = `${environment.baseUrl}/unit/uom`;
-        return this.http.post(url, JSON.stringify(reqBody), {
+        return this.http.post(url, JSON.stringify(uom), {
             headers: {
                 "Content-Type": "application/json",
             },

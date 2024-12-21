@@ -52,7 +52,7 @@
                 *ngIf="selectedNestedTab == 'Metric'"
                 [controlled]="true"
                 [headers]="UOMMetricHeaders"
-                [rows]="[this.UOMMetricRow]"
+                [rows]="[uom._metric]"
                 [keys]="UOMTableKeys"
             ></app-table>
 
@@ -61,7 +61,7 @@
                 *ngIf="selectedNestedTab == 'Imperial'"
                 [controlled]="true"
                 [headers]="UOMImperialHeaders"
-                [rows]="[this.UOMImperialRow]"
+                [rows]="[uom._imperial]"
                 [keys]="UOMTableKeys"
             ></app-table>
         </ng-container>
@@ -74,7 +74,7 @@
             [enableAdd]="true"
             [enableDelete]="true"
             [headers]="LinkedUOM.headers"
-            [rows]="LinkedUOM.rows"
+            [rows]="uom._linkedUOMRows"
             [keys]="LinkedUOM.keys"
             *ngIf="selectedTab == 'Linked UOM'"
         ></app-table>
@@ -87,7 +87,7 @@
             [enableAdd]="true"
             [enableDelete]="true"
             [headers]="LinkedPUAndHU.headers"
-            [rows]="LinkedPUAndHU.rows"
+            [rows]="uom._linkedPUandHURows"
             [keys]="LinkedPUAndHU.keys"
             *ngIf="selectedTab == 'Linked PU and HU' && classInp == 'UOM'"
         ></app-table>

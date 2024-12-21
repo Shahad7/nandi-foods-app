@@ -3,10 +3,10 @@ export class LinkedHuAndPuRow {
     puOrHuName: string;
     className: string;
     flexHU: boolean;
-    _lengthCm: number;
-    _widthCm: number;
-    _heightCm: number;
-    _volumeM3: number;
+    _lengthValue: number;
+    _widthValue: number;
+    _heightValue: number;
+    _volumeValue: number;
     maxWeightKG: number;
     conversionFrom: string;
     minQTY: number;
@@ -18,10 +18,10 @@ export class LinkedHuAndPuRow {
         puOrHuName: string = "",
         className: string = "",
         flexHU: boolean = true,
-        _lengthCm: number = 0,
-        _widthCm: number = 0,
-        _heightCm: number = 0,
-        _volumeM3: number = 0,
+        _lengthValue: number = 0,
+        _widthValue: number = 0,
+        _heightValue: number = 0,
+        _volumeValue: number = 0,
         maxWeightKG: number = 0,
         conversionFrom: string = "",
         minQTY: number = 0,
@@ -31,47 +31,49 @@ export class LinkedHuAndPuRow {
         this.puOrHuName = puOrHuName;
         this.className = className;
         this.flexHU = flexHU;
-        this._lengthCm = _lengthCm;
-        this._widthCm = _widthCm;
-        this._heightCm = _heightCm;
-        this._volumeM3 = _heightCm * _widthCm * _lengthCm;
+        this._lengthValue = _lengthValue;
+        this._widthValue = _widthValue;
+        this._heightValue = _heightValue;
+        this._volumeValue = _heightValue * _widthValue * _lengthValue;
         this.maxWeightKG = maxWeightKG;
         this.conversionFrom = conversionFrom;
         this.minQTY = minQTY;
         this.maxQTY = maxQTY;
     }
 
-    get volumeM3() {
-        return this._volumeM3;
+    get volumeValue() {
+        return this._volumeValue;
     }
 
-    get widthCm() {
-        return this._widthCm;
+    get widthValue() {
+        return this._widthValue;
     }
 
-    get heightCm() {
-        return this._heightCm;
-    }
-    get lengthCm() {
-        return this._lengthCm;
+    get heightValue() {
+        return this._heightValue;
     }
 
-    set widthCm(value: number) {
-        this._widthCm = value;
+    get lengthValue() {
+        return this._lengthValue;
+    }
+
+    set widthValue(value: number) {
+        this._widthValue = value;
         this.updateVolume();
     }
 
-    set heightCm(value: number) {
-        this._heightCm = value;
+    set heightValue(value: number) {
+        this._heightValue = value;
         this.updateVolume();
     }
 
-    set lengthCm(value: number) {
-        this._lengthCm = value;
+    set lengthValue(value: number) {
+        this._lengthValue = value;
         this.updateVolume();
     }
 
     updateVolume() {
-        this._volumeM3 = this._widthCm * this._heightCm * this._lengthCm;
+        this._volumeValue =
+            this._widthValue * this._heightValue * this._lengthValue;
     }
 }

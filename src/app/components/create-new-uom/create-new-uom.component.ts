@@ -172,8 +172,6 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
     //tables
     UOMImperialHeaders = [] as any;
     UOMMetricHeaders = [] as any;
-    UOMMetricRow = new UOMMetricRow();
-    UOMImperialRow = new UOMImperialRow();
     UOMTableKeys = [
         { name: "lengthValue", type: "number", editable: true },
         { name: "widthValue", type: "number", editable: true },
@@ -192,16 +190,15 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
                 editable: true,
                 values: this.linkedUOMNames,
             },
-            { name: "lengthCm", type: "number", editable: false },
-            { name: "widthCm", type: "number", editable: false },
-            { name: "heightCm", type: "number", editable: false },
-            { name: "volumeM3", type: "number", editable: false },
+            { name: "lengthValue", type: "number", editable: false },
+            { name: "widthValue", type: "number", editable: false },
+            { name: "heightValue", type: "number", editable: false },
+            { name: "volumeValue", type: "number", editable: false },
             { name: "weightKg", type: "number", editable: false },
             { name: "conversionFrom", type: "string", editable: false },
             { name: "conversionTo", type: "string", editable: false },
             { name: "conversionQTY", type: "number", editable: true },
         ],
-        rows: [] as RowType[],
     };
     LinkedPUAndHU = {
         //adds headers in the getMetricSystemUnits Subscription
@@ -215,17 +212,15 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
             },
             { name: "className", type: "string", editable: false },
             { name: "flexHU", type: "boolean", editable: false },
-            { name: "lengthCm", type: "number", editable: false },
-            { name: "widthCm", type: "number", editable: false },
-            { name: "heightCm", type: "number", editable: false },
-            { name: "volumeM3", type: "number", editable: false },
+            { name: "lengthValue", type: "number", editable: false },
+            { name: "widthValue", type: "number", editable: false },
+            { name: "heightValue", type: "number", editable: false },
+            { name: "volumeValue", type: "number", editable: false },
             { name: "maxWeightKG", type: "number", editable: false },
             { name: "conversionFrom", type: "string", editable: false },
             { name: "minQTY", type: "number", editable: true },
             { name: "maxQTY", type: "number", editable: true },
         ],
-
-        rows: [] as RowType[],
     };
 
     //temporary default paginator props
@@ -490,10 +485,12 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
     onNewLinkedUOMRow() {
         let entry = new LinkedUOMRow();
         entry.linkedUOMName = this.linkedUOMNames[0];
-        this.LinkedUOM.rows.push(entry);
+        this.uom._linkedUOMRows?.push(entry);
     }
     onNewLinkedPUHURow() {
-        this.LinkedPUAndHU.rows.push(new LinkedHuAndPuRow());
+        let entry = new LinkedHuAndPuRow();
+        //to-do : initialize the first dropdown value like above
+        this.uom._linkedPUandHURows?.push(entry);
     }
 
     /**  Manual bindigs */
@@ -552,25 +549,17 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
     }
 
     onSave() {
-        this.uomService
-            .save(
-                this.uom,
-                this.LinkedUOM.rows,
-                this.LinkedPUAndHU.rows,
-                this.UOMMetricRow,
-                this.UOMImperialRow
-            )
-            .subscribe({
-                next: (response) => {
-                    if (response.status == 201) {
-                        this.onSuccessfulSubmit();
-                    }
-                },
-                error: (errorResponse: HttpErrorResponse) => {
-                    // console.log(errorResponse);
-                    this.onErrorResponse(errorResponse.error.message);
-                },
-            });
+        this.uomService.save(this.uom).subscribe({
+            next: (response) => {
+                if (response.status == 201) {
+                    this.onSuccessfulSubmit();
+                }
+            },
+            error: (errorResponse: HttpErrorResponse) => {
+                // console.log(errorResponse);
+                this.onErrorResponse(errorResponse.error.message);
+            },
+        });
     }
 
     //TODO
@@ -582,16 +571,12 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
     onSuccessfulSubmit() {
         this.snackBar.openFromComponent(SnackbarComponent, {
             data: { message: "UOM successfully saved!", error: false },
-            duration: 1500,
+            duration: 2000,
             horizontalPosition: "center",
             verticalPosition: "top",
             panelClass: ["success-snackbar"],
         });
         this.uom = new UOM();
-        this.LinkedUOM.rows = [];
-        this.LinkedPUAndHU.rows = [];
-        this.UOMMetricRow = new UOMMetricRow();
-        this.UOMImperialRow = new UOMImperialRow();
     }
 
     onErrorResponse(errorMessage: string) {
