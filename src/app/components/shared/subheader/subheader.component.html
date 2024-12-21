@@ -8,9 +8,10 @@
 
     <span id="selected-option">{{ title }}</span>
     <div id="buttons-row">
-        <ng-content></ng-content>
+        <ng-content select="[head]"></ng-content>
         <ui5-button icon="refresh" id="refresh-btn" (ui5Click)="alertRefresh()"
             >Refresh</ui5-button
         >
+        <ng-content select="[tail]"></ng-content>
     </div>
 </div>

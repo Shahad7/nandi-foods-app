@@ -5,6 +5,9 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { PageEvent } from "@angular/material/paginator";
 import { Router } from "@angular/router";
 import { TableComponent } from "../shared/table/table.component";
+import pdfAttachment from "@ui5/webcomponents-icons/pdf-attachment.js";
+import excelAttachment from "@ui5/webcomponents-icons/excel-attachment.js";
+// import download from "@ui5/webcomponents-icons/download.js";
 
 @Component({
     selector: "app-uom-list",
@@ -48,6 +51,11 @@ export class UomListComponent implements OnInit {
         { name: "Create New PU", classInp: "PU", style: "blue" },
         { name: "Create New HU", classInp: "HU", style: "orange" },
     ];
+
+    //icons
+    pdfAttachment = pdfAttachment;
+    excelAttachment = excelAttachment;
+    // download = download;
 
     constructor(
         private UOMService: UomService,
@@ -131,6 +139,7 @@ export class UomListComponent implements OnInit {
     }
 
     onRefresh() {
+        this.paginatorProps.pageIndex = 0;
         this.fetchUOMs();
     }
 }

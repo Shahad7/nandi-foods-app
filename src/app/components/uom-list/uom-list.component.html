@@ -1,21 +1,27 @@
 <app-subheader [title]="'UOM List'" (onRefresh)="onRefresh()">
-    <input
-        type="file"
-        #fileInput
-        (change)="uploadFile($event)"
-        accept=".csv"
-        style="display: none"
-    />
-    <button id="upload-btn" (click)="triggerFileInput()">
-        <img src="assets/upload.svg" alt="" style="height: 20px" />
-        <span>Upload a File</span>
-    </button>
-    <ui5-button
-        *ngFor="let btn of subheaderButtons"
-        (ui5Click)="navigateToCreateUOMForm(btn.classInp)"
-        class="{{ btn.style }}"
-        >{{ btn.name }}</ui5-button
-    >
+    <ng-container head>
+        <input
+            type="file"
+            #fileInput
+            (change)="uploadFile($event)"
+            accept=".csv"
+            style="display: none"
+        />
+        <button id="upload-btn" (click)="triggerFileInput()">
+            <img src="assets/upload.svg" alt="" style="height: 20px" />
+            <span>Upload a File</span>
+        </button>
+        <ui5-button
+            *ngFor="let btn of subheaderButtons"
+            (ui5Click)="navigateToCreateUOMForm(btn.classInp)"
+            class="{{ btn.style }}"
+            >{{ btn.name }}</ui5-button
+        >
+    </ng-container>
+    <ng-container tail>
+        <ui5-button [icon]="pdfAttachment"></ui5-button>
+        <ui5-button [icon]="excelAttachment"></ui5-button>
+    </ng-container>
 </app-subheader>
 <div id="searchbar">
     <app-searchbar
