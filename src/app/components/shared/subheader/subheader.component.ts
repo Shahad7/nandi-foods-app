@@ -4,6 +4,7 @@ import { MainCommunicationService } from "../../../services/main-communication.s
 import {
     Component,
     EventEmitter,
+    HostListener,
     Input,
     OnDestroy,
     OnInit,
@@ -25,13 +26,22 @@ export class SubheaderComponent implements OnDestroy, OnInit {
     @Output()
     onRefresh = new EventEmitter<any>();
 
+    public innerWidth: any;
+
     constructor(
         private mainCommunicationService: MainCommunicationService,
         private route: ActivatedRoute
     ) {}
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        this.innerWidth = window.innerWidth;
+    }
 
     ngOnDestroy(): void {}
+
+    @HostListener("window:resize", ["$event"])
+    onResize(event: any) {
+        this.innerWidth = window.innerWidth;
+    }
 
     alertRefresh() {
         this.onRefresh.emit("");

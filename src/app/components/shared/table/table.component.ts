@@ -85,7 +85,7 @@ export class TableComponent {
      * Event which passes the new model data to parent component for manual binding
      */
     @Output()
-    onModelChange = new EventEmitter<any>();
+    onTableModelChange = new EventEmitter<any>();
 
     /**
      *
@@ -98,24 +98,13 @@ export class TableComponent {
     @Output()
     onAddNewRow = new EventEmitter<any>();
 
-    /**
-     * Paginator properties
-     * Eg:-  paginatorProps = {
-                length: 200,
-                pageSize: 10,
-                pageIndex: 0,
-                pageSizeOptions: [10, 20, 30, 40, 50],
-                hidePageSize: false,
-                showPageSizeOptions: true,
-                showFirstLastButtons: true,
-                disabled: false,
-            };
-     */
+    /** Paginator properties */
     @Input()
     paginatorProps: any = {};
 
     pageEvent!: PageEvent;
 
+    /** Fires when the current page is changed */
     relayPageEvent(e: PageEvent) {
         this.onPaginationEvent.emit(e);
     }
@@ -123,14 +112,6 @@ export class TableComponent {
     alertRowClick(data: any) {
         this.onRowClick.emit(data);
     }
-
-    //for sample
-    // handlePageEvent(e: PageEvent) {
-    //     this.paginatorProps.pageEvent = e (avoid storing the event)
-    //     this.paginatorProps.length = e.length;
-    //     this.paginatorProps.pageSize = e.pageSize;
-    //     this.paginatorProps.pageIndex = e.pageIndex;
-    // }
 
     /**
      * Incase of both methods below, parent component need not be alerted
@@ -146,16 +127,14 @@ export class TableComponent {
     }
 
     /**
-     * Add new row to the table and fire onModelChange
-     * Needs more clarification for this method :-
-     * It's not clear how Add new row button should behave in case of tables
-     * like LinkedUOM names table. How the values should be saved? etc
-     * Might be able to completely remove the classRef input
-     * if default behaviour is to pop up a form
-     * for temporary purpose, onAddNewButton logic could be moved to parent components
-     * since it can't be generalized
+     * Alerts parent component when new row button is clicked
      */
     addNewRow() {
         this.onAddNewRow.emit("");
+    }
+
+    /** Alert parent component of any ngModel changes */
+    alertModelChange(key: string, value: string) {
+        this.onTableModelChange.emit({ key, value });
     }
 }

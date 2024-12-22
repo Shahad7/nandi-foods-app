@@ -49,6 +49,7 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
     imperialUnits: Map<string, string> = new Map();
 
     flexHU: boolean = true;
+    linkedUOMs: Map<string, LinkedUOMRow> = new Map();
     linkedUOMNames: Array<string> = [];
 
     //form variables
@@ -295,6 +296,19 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
                 let content = response.body.content;
                 content.forEach((elt: any) => {
                     this.linkedUOMNames.push(elt.longName);
+                    let linkedUOMRow = new LinkedUOMRow();
+                    linkedUOMRow.id = elt.id;
+                    linkedUOMRow.linkedUOMName = elt.longName;
+                    linkedUOMRow.conversionFrom = this.uom.longName;
+                    linkedUOMRow.conversionTo = elt.longName;
+                    elt.measuredValues?.forEach((item: any) => {
+                        if (item.metricSystem == "SI") {
+                            linkedUOMRow.lengthValue = item.lengthValue;
+                            linkedUOMRow.heightValue = item.heightValue;
+                            linkedUOMRow.widthValue = item.widthValue;
+                        }
+                    });
+                    this.linkedUOMs.set(elt.longName, linkedUOMRow);
                 });
             },
         });
@@ -487,19 +501,54 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
         this.routeSubscription.unsubscribe();
     }
 
-    //Adding new rows, might need to be changed to pop up forms later
+    // Adding new rows, might need to be changed to pop up forms later
     onNewLinkedUOMRow() {
         let entry = new LinkedUOMRow();
         entry.linkedUOMName = this.linkedUOMNames[0];
         this.uom._linkedUOMRows?.push(entry);
+        this.mapLinkedUOMValues(entry.linkedUOMName);
     }
+
     onNewLinkedPUHURow() {
         let entry = new LinkedHuAndPuRow();
         //to-do : initialize the first dropdown value like above
         this.uom._linkedPUandHURows?.push(entry);
     }
 
-    /**  Manual bindigs */
+    // helper : map appropriate linkedUOM values to _linkedUOMRows instance on uom
+    // according to linkedUOMName
+    mapLinkedUOMValues(linkedUOMName: string) {
+        this.linkedUOMs.forEach(
+            (
+                value: LinkedUOMRow,
+                key: string,
+                map: Map<string, LinkedUOMRow>
+            ) => {
+                if (linkedUOMName == key) {
+                    this.uom._linkedUOMRows = this.uom._linkedUOMRows.map(
+                        (elt: LinkedUOMRow) => {
+                            if (elt.linkedUOMName == linkedUOMName) {
+                                value.conversionFrom = this.uom.longName;
+                                return value;
+                            }
+                            elt.conversionFrom = this.uom.longName;
+                            return elt;
+                        }
+                    );
+                }
+            }
+        );
+    }
+
+    // Table manual bindings
+    onLinkedUOMTableModelChange(event: any) {
+        console.log(event);
+        if (event.key == "linkedUOMName") {
+            this.mapLinkedUOMValues(event.value);
+        }
+    }
+
+    // Manual bindigs
     onFormModelChange(event: any) {
         //actual binding
         this.uom[event.key] = event.value;

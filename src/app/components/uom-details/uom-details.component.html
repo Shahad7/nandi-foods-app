@@ -160,6 +160,7 @@
             [paginated]="true"
             [paginatorProps]="paginatorProps"
             (onPaginationEvent)="handlePageEvent($event)"
+            (onTableModelChange)="onLinkedUOMTableModelChange($event)"
             *ngIf="selectedTab == 'Linked UOM'"
         ></app-table>
 

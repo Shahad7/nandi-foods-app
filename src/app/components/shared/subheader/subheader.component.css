@@ -13,24 +13,24 @@
     width: 30px;
 }
 
+#buttons-row {
+    display: flex;
+    gap: 12px;
+}
+
 @media screen and (max-width: 1010px) {
     #sidebar-toggle-btn {
         display: block;
     }
 }
 
-@media screen and (max-width: 770px) {
+@media screen and (max-width: 790px) {
     #selected-option {
         display: none;
     }
-    #refresh-btn {
-        display: none;
+    #buttons-row {
+        gap: 8px;
     }
-}
-
-#buttons-row {
-    display: flex;
-    gap: 16px;
 }
 
 :host ::ng-deep ui5-button {

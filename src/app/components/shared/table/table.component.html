@@ -27,6 +27,7 @@
                     [type]="'Text'"
                     *ngIf="key.type == 'string'"
                     [disabled]="!key.editable || !editingEnabled"
+                    (ngModelChange)="alertModelChange(key.name, $event)"
                 ></ui5-input>
                 <input
                     #ip
@@ -39,11 +40,13 @@
                     type="number"
                     *ngIf="key.type == 'number'"
                     [disabled]="!key.editable || !editingEnabled"
+                    (ngModelChange)="alertModelChange(key.name, $event)"
                 />
                 <ui5-select
                     *ngIf="key.type == 'boolean'"
                     [(ngModel)]="row[key.name]"
                     [disabled]="!key.editable || !editingEnabled"
+                    (ngModelChange)="alertModelChange(key.name, $event)"
                 >
                     <ui5-option value="true">YES</ui5-option>
                     <ui5-option value="false">NO</ui5-option>
@@ -52,6 +55,7 @@
                     *ngIf="key.type == 'dropdown'"
                     [(ngModel)]="row[key.name]"
                     [disabled]="!key.editable || !editingEnabled"
+                    (ngModelChange)="alertModelChange(key.name, $event)"
                 >
                     <ui5-option
                         *ngFor="let item of key.values; let first = first"

@@ -13,12 +13,7 @@ export class UomService {
 
     save(uom: any): Observable<any> {
         uom._linkedUOMRows.forEach((elt: any) => {
-            uom.linkedUOMs.push(
-                new LinkedUOM(
-                    elt.linkedUOMName.split(" ")[0],
-                    elt.conversionQTY
-                )
-            );
+            uom.linkedUOMs.push(new LinkedUOM(elt.id, elt.conversionQTY));
         });
         uom.measuredValues = [uom._metric, uom._imperial];
         console.log(JSON.stringify(uom));

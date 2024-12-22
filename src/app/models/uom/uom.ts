@@ -66,7 +66,7 @@ export class UOM {
                 ([key, value]) =>
                     !key.startsWith("_") &&
                     value !== undefined &&
-                    value != "" &&
+                    value !== "" &&
                     !(Array.isArray(value) && value.length === 0)
             )
         );
