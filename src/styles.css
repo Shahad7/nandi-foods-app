@@ -28,41 +28,40 @@ body {
     /* --sapButton_TextColor: white !important;
     --sapButton_Background: green !important; */
 }
-
 .ui5-input {
     display: inline-block;
     background: transparent;
     -webkit-appearance: none;
     -moz-appearance: textfield;
     line-height: normal;
-    padding: var(--_ui5-v2-0-1_input_inner_padding);
+    padding: var(--_ui5-v2-1-1_input_inner_padding);
     box-sizing: border-box;
     text-overflow: ellipsis;
     outline: none;
     font-size: inherit;
     font-family: inherit;
-    width: var(--_ui5-v2-0-1_input_width);
+    width: var(--_ui5-v2-1-1_input_width);
     min-width: calc(
-        var(--_ui5-v2-0-1_input_min_width) +
+        var(--_ui5-v2-1-1_input_min_width) +
             (
-                var(--_ui5-v2-0-1-input-icons-count) *
-                    var(--_ui5-v2-0-1_input_icon_width)
+                var(--_ui5-v2-1-1-input-icons-count) *
+                    var(--_ui5-v2-1-1_input_icon_width)
             )
     );
-    border-radius: var(--_ui5-v2-0-1_input_border_radius);
-    margin: var(--_ui5-v2-0-1_input_margin_top_bottom) 0;
-    height: var(--_ui5-v2-0-1_input_height);
+    border-radius: var(--_ui5-v2-1-1_input_border_radius);
+    margin: var(--_ui5-v2-1-1_input_margin_top_bottom) 0;
+    height: var(--_ui5-v2-1-1_input_height);
     color: var(--sapField_TextColor);
     font-size: var(--sapFontSize);
     font-family: "72override", var(--sapFontFamily);
     font-style: normal;
-    border: var(--_ui5-v2-0-1-input-border);
-    border-radius: var(--_ui5-v2-0-1_input_border_radius);
+    border: var(--_ui5-v2-1-1-input-border);
+    border-radius: var(--_ui5-v2-1-1_input_border_radius);
     box-sizing: border-box;
     text-align: start;
-    transition: var(--_ui5-v2-0-1_input_transition);
+    transition: var(--_ui5-v2-1-1_input_transition);
     background: var(--sapField_BackgroundStyle);
-    background-color: var(--_ui5-v2-0-1_input_background_color);
+    background-color: var(--_ui5-v2-1-1_input_background_color);
     box-shadow: var(--sapField_Shadow);
 }
 
@@ -72,37 +71,37 @@ body {
     -webkit-appearance: none;
     -moz-appearance: textfield;
     line-height: normal;
-    padding: var(--_ui5-v2-0-1_input_inner_padding);
+    padding: var(--_ui5-v2-1-1_input_inner_padding);
     box-sizing: border-box;
     text-overflow: ellipsis;
     outline: none;
     font-size: inherit;
     font-family: inherit;
-    width: var(--_ui5-v2-0-1_input_width);
+    width: var(--_ui5-v2-1-1_input_width);
     min-width: calc(
-        var(--_ui5-v2-0-1_input_min_width) +
+        var(--_ui5-v2-1-1_input_min_width) +
             (
-                var(--_ui5-v2-0-1-input-icons-count) *
-                    var(--_ui5-v2-0-1_input_icon_width)
+                var(--_ui5-v2-1-1-input-icons-count) *
+                    var(--_ui5-v2-1-1_input_icon_width)
             )
     );
-    border-radius: var(--_ui5-v2-0-1_input_border_radius);
-    margin: var(--_ui5-v2-0-1_input_margin_top_bottom) 0;
-    height: var(--_ui5-v2-0-1_input_height);
+    border-radius: var(--_ui5-v2-1-1_input_border_radius);
+    margin: var(--_ui5-v2-1-1_input_margin_top_bottom) 0;
+    height: var(--_ui5-v2-1-1_input_height);
     color: var(--sapField_TextColor);
     font-size: var(--sapFontSize);
     font-family: "72override", var(--sapFontFamily);
     font-style: normal;
-    border: var(--_ui5-v2-0-1-input-border);
-    border-radius: var(--_ui5-v2-0-1_input_border_radius);
+    border: var(--_ui5-v2-1-1-input-border);
+    border-radius: var(--_ui5-v2-1-1_input_border_radius);
     box-sizing: border-box;
     text-align: start;
-    transition: var(--_ui5-v2-0-1_input_transition);
+    transition: var(--_ui5-v2-1-1_input_transition);
     background: var(--sapField_BackgroundStyle);
-    background-color: var(--_ui5-v2-0-1-input_disabled_background);
-    border-color: var(--_ui5-v2-0-1_input_disabled_border_color);
+    background-color: var(--_ui5-v2-1-1-input_disabled_background);
+    border-color: var(--_ui5-v2-1-1_input_disabled_border_color);
     box-shadow: var(--sapField_Shadow);
-    opacity: var(--_ui5-v2-0-1_input_disabled_opacity);
+    opacity: var(--_ui5-v2-1-1_input_disabled_opacity);
 }
 
 /* reused styles */

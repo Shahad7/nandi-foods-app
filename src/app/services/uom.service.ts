@@ -20,8 +20,6 @@ export class UomService {
                 )
             );
         });
-        // if (reqBody.linkedUOMs?.length == 0) delete reqBody.linkedUOMs;
-        // if (reqBody.linkedPUHUs?.length == 0) delete reqBody.linkedPUHUs;
         uom.measuredValues = [uom._metric, uom._imperial];
         console.log(JSON.stringify(uom));
         let url = `${environment.baseUrl}/unit/uom`;

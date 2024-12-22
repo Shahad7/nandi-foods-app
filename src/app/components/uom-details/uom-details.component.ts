@@ -1,5 +1,6 @@
 import { UomService } from "./../../services/uom.service";
 import { MainCommunicationService } from "./../../services/main-communication.service";
+import edit from "@ui5/webcomponents-icons/edit.js";
 import {
     BootstrapOptions,
     Component,
@@ -34,6 +35,9 @@ export class UomDetailsComponent implements OnInit {
     //model
     uom: any = new UOM();
     error: boolean = false;
+
+    //icons
+    editIcon = edit;
 
     //effectiveDate constraints
     currentDate: string = "";

@@ -23,13 +23,13 @@
 #upload-btn {
     display: flex;
     align-items: center;
-    min-width: var(--_ui5-v2-0-1_button_base_min_width);
-    height: var(--_ui5-v2-0-1_button_base_height);
+    min-width: var(--_ui5-v2-1-1_button_base_min_width);
+    height: var(--_ui5-v2-1-1_button_base_height);
     line-height: normal;
-    font-family: var(--_ui5-v2-0-1_button_fontFamily);
+    font-family: var(--_ui5-v2-1-1_button_fontFamily);
     font-size: 0.675rem !important;
-    text-shadow: var(--_ui5-v2-0-1_button_text_shadow);
-    border-radius: var(--_ui5-v2-0-1_button_border_radius);
+    text-shadow: var(--_ui5-v2-1-1_button_text_shadow);
+    border-radius: var(--_ui5-v2-1-1_button_border_radius);
     cursor: pointer;
     background-color: var(--sapButton_Background);
     border: var(--sapButton_BorderWidth) solid var(--sapButton_BorderColor);

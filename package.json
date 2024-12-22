@@ -1,10 +1,11 @@
 {
     "name": "nandi-foods-web-app",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "scripts": {
         "ng": "ng",
         "start": "ng serve --port 80 --configuration development",
-        "build": "ng build",
+        "start:staging": "ng serve --port 80 --configuration staging",
+        "build": "ng b  uild",
         "watch": "ng build --watch --configuration development",
         "test": "ng test",
         "build:development": "ng build --progress --configuration development",
@@ -21,8 +22,7 @@
         "@angular/platform-browser": "^18.2.0",
         "@angular/platform-browser-dynamic": "^18.2.0",
         "@angular/router": "^18.2.0",
-        "@ui5/webcomponents-icons": "^2.3.0",
-        "@ui5/webcomponents-ngx": "^0.3.0",
+        "@ui5/webcomponents-ngx": "^0.3.1",
         "apexcharts": "^3.54.0",
         "keycloak-angular": "^16.0.1",
         "keycloak-js": "^25.0.6",

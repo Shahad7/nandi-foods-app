@@ -1,15 +1,21 @@
 <app-subheader [title]="title">
-    <ui5-button icon="edit" (click)="onEdit()" *ngIf="!editingEnabled">
-        Edit
-    </ui5-button>
-    <ui5-button
-        design="Negative"
-        icon="edit"
-        (click)="onEdit()"
-        *ngIf="editingEnabled"
-    >
-        Cancel Editing
-    </ui5-button>
+    <ng-container head>
+        <ui5-button
+            [icon]="editIcon"
+            (click)="onEdit()"
+            *ngIf="!editingEnabled"
+        >
+            Edit
+        </ui5-button>
+        <ui5-button
+            design="Negative"
+            [icon]="editIcon"
+            (click)="onEdit()"
+            *ngIf="editingEnabled"
+        >
+            Cancel Editing
+        </ui5-button>
+    </ng-container>
 </app-subheader>
 
 <div class="container">
