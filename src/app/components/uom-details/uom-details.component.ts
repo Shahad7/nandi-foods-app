@@ -579,21 +579,9 @@ export class UomDetailsComponent implements OnInit {
 
     /**  Manual bindigs */
     onFormModelChange(event: any) {
-        //actual binding
-        this.uom[event.key] = event.value;
-
-        //other changes
+        //auto populate longName and shortName
         if (["description", "id", "name"].includes(event.key)) {
             this.onUOMPropertiesChange();
-        }
-
-        //boolean conversion
-        if (
-            ["isSales", "isInventory", "isPurchase", "isProduction"].includes(
-                event.key
-            )
-        ) {
-            this.uom[event.key] = event.value === "true" || event.value == true;
         }
 
         // manually change UOM name values according to level

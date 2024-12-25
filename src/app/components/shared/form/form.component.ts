@@ -69,4 +69,8 @@ export class FormComponent {
     alertModelChange(key: any, value: any) {
         this.onModelChange.emit({ key, value });
     }
+
+    onBooleanChange(key: string, value: any) {
+        this.model[key] = value.toString() === "true" || value == true;
+    }
 }

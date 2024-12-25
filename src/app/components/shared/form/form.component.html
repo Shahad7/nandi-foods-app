@@ -47,12 +47,17 @@
                 <ui5-select
                     *ngIf="formField.type == 'boolean'"
                     id="{{ '_' + formField.key }}"
-                    [(ngModel)]="model[formField.key]"
+                    [ngModel]="model[formField.key].toString()"
                     [disabled]="!formField.editable || !editingEnabled"
-                    (ngModelChange)="alertModelChange(formField.key, $event)"
+                    (ngModelChange)="
+                        [
+                            alertModelChange(formField.key, $event),
+                            onBooleanChange(formField.key, $event)
+                        ]
+                    "
                 >
-                    <ui5-option value="{{ false }}">NO</ui5-option>
-                    <ui5-option value="{{ true }}">YES</ui5-option>
+                    <ui5-option value="false">NO</ui5-option>
+                    <ui5-option value="true">YES</ui5-option>
                 </ui5-select>
                 <ui5-select
                     *ngIf="formField.type == 'dropdown'"

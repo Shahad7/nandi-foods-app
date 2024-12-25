@@ -12,6 +12,7 @@ export class UomService {
     constructor(private http: HttpClient) {}
 
     save(uom: any): Observable<any> {
+        console.log(uom);
         uom._linkedUOMRows.forEach((elt: any) => {
             uom.linkedUOMs.push(new LinkedUOM(elt.id, elt.conversionQTY));
         });
