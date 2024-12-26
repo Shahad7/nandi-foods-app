@@ -542,7 +542,6 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
 
     // Table manual bindings
     onLinkedUOMTableModelChange(event: any) {
-        console.log(event);
         if (event.key == "linkedUOMName") {
             this.mapLinkedUOMValues(event.value);
         }

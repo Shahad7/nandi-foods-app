@@ -13,6 +13,7 @@ export class UomService {
 
     save(uom: any): Observable<any> {
         console.log(uom);
+        uom.linkedUOMs = [];
         uom._linkedUOMRows.forEach((elt: any) => {
             uom.linkedUOMs.push(new LinkedUOM(elt.id, elt.conversionQTY));
         });
