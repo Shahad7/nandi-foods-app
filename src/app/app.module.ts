@@ -20,7 +20,7 @@ import { environment } from "./../environments/environment";
 import { DashboardComponent } from "./components/dashboard/dashboard.component";
 import { WarehoustListComponent } from "./components/warehoust-list/warehoust-list.component";
 import { provideHttpClient, withInterceptors } from "@angular/common/http";
-import { CommonModule, DatePipe } from "@angular/common";
+import { CommonModule, DatePipe, DecimalPipe } from "@angular/common";
 import { CreateNewUomComponent } from "./components/create-new-uom/create-new-uom.component";
 import { UomListComponent } from "./components/uom-list/uom-list.component";
 import { UomDetailsComponent } from "./components/uom-details/uom-details.component";
@@ -131,6 +131,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
         },
         provideHttpClient(),
         DatePipe,
+        DecimalPipe,
     ],
     bootstrap: [AppComponent],
 })

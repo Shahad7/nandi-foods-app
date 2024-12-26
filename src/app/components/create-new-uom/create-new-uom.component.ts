@@ -179,11 +179,11 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
     UOMImperialHeaders = [] as any;
     UOMMetricHeaders = [] as any;
     UOMTableKeys = [
-        { name: "lengthValue", type: "number", editable: true },
-        { name: "widthValue", type: "number", editable: true },
-        { name: "heightValue", type: "number", editable: true },
-        { name: "volumeValue", type: "number", editable: true },
-        { name: "weightValue", type: "number", editable: true },
+        { name: "lengthValue", type: "decimal", editable: true },
+        { name: "widthValue", type: "decimal", editable: true },
+        { name: "heightValue", type: "decimal", editable: true },
+        { name: "volumeValue", type: "decimal", editable: true },
+        { name: "weightValue", type: "decimal", editable: true },
     ];
 
     LinkedUOM = {
@@ -306,6 +306,7 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
                             linkedUOMRow.lengthValue = item.lengthValue;
                             linkedUOMRow.heightValue = item.heightValue;
                             linkedUOMRow.widthValue = item.widthValue;
+                            linkedUOMRow.weightKg = item.weightValue
                         }
                     });
                     this.linkedUOMs.set(elt.longName, linkedUOMRow);

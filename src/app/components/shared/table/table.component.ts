@@ -1,3 +1,4 @@
+import { DecimalPipe } from "@angular/common";
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { PageEvent } from "@angular/material/paginator";
 
@@ -75,7 +76,7 @@ export class TableComponent {
      * Keys of the model with it's name, type and whether it's editable
      * Format  :- [{key_name,key_type,editable}]
      * Eg:- [name:'width',type:'number',editable:true]
-     * Available types :- boolean, string, number, dropdown (add values in appropriate key as an array)
+     * Available types :- boolean, string, number, decimal, dropdown (add values in appropriate key as an array)
      */
     @Input()
     keys: Array<any> = [];
@@ -103,6 +104,8 @@ export class TableComponent {
     paginatorProps: any = {};
 
     pageEvent!: PageEvent;
+
+    constructor(private decimalPipe: DecimalPipe) {}
 
     /** Fires when the current page is changed */
     relayPageEvent(e: PageEvent) {
@@ -136,5 +139,9 @@ export class TableComponent {
     /** Alert parent component of any ngModel changes */
     alertModelChange(key: string, value: string) {
         this.onTableModelChange.emit({ key, value });
+    }
+
+    onDecimalChange(row: any, key: string, value: any) {
+        row[key] = this.decimalPipe.transform(value, "1.2-2");
     }
 }

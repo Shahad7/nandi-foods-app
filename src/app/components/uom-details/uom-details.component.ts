@@ -175,11 +175,11 @@ export class UomDetailsComponent implements OnInit {
 
     UOMMetricHeaders = [] as any;
     UOMTableKeys = [
-        { name: "lengthValue", type: "number", editable: true },
-        { name: "widthValue", type: "number", editable: true },
-        { name: "heightValue", type: "number", editable: true },
-        { name: "volumeValue", type: "number", editable: true },
-        { name: "weightValue", type: "number", editable: true },
+        { name: "lengthValue", type: "decimal", editable: true },
+        { name: "widthValue", type: "decimal", editable: true },
+        { name: "heightValue", type: "decimal", editable: true },
+        { name: "volumeValue", type: "decimal", editable: true },
+        { name: "weightValue", type: "decimal", editable: true },
     ];
 
     linkedUOMs: Map<string, LinkedUOMRow> = new Map();
@@ -285,6 +285,7 @@ export class UomDetailsComponent implements OnInit {
                                     entry.lengthValue = elt.lengthValue;
                                     entry.heightValue = elt.heightValue;
                                     entry.widthValue = elt.widthValue;
+                                    entry.weightKg = elt.weightValue;
                                 }
                             });
                             this.uom._linkedUOMRows?.push(entry);
@@ -340,6 +341,7 @@ export class UomDetailsComponent implements OnInit {
                             linkedUOMRow.lengthValue = item.lengthValue;
                             linkedUOMRow.heightValue = item.heightValue;
                             linkedUOMRow.widthValue = item.widthValue;
+                            linkedUOMRow.weightKg = item.weightValue;
                         }
                     });
                     this.linkedUOMs.set(elt.longName, linkedUOMRow);
