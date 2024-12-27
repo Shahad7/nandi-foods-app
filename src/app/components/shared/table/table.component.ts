@@ -150,10 +150,9 @@ export class TableComponent {
     }
 
     limitDecimals(element: any, event: any) {
-        if (event.data != "." && event.data != null) {
-            element.value = parseFloat(
-                Number(event.target.valueAsNumber).toFixed(2)
-            );
+        console.log(event);
+        if (event.data != "." && event.inputType != "deleteContentBackward") {
+            element.value = parseFloat(Number(event.target.value).toFixed(2));
         }
     }
 
