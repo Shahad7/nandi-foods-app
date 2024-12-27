@@ -63,6 +63,7 @@ export class UOMMetricRow {
         this._volumeValue =
             (this._lengthValue * this._widthValue * this._heightValue) / 1728;
     }
+
     toJSON() {
         return {
             metricSystem: this.metricSystem,

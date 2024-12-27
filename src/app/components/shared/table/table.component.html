@@ -43,18 +43,19 @@
                     (ngModelChange)="alertModelChange(key.name, $event)"
                 />
                 <input
-                    #ip
+                    #dip
                     class="ui5-input"
                     [ngClass]="{
-                        'ui5-input': !ip.disabled,
-                        'ui5-input-disabled': ip.disabled
+                        'ui5-input': !dip.disabled,
+                        'ui5-input-disabled': dip.disabled
                     }"
                     min="0"
-                    [ngModel]="row[key.name] | number : '1.2-2'"
+                    [(ngModel)]="row[key.name]"
                     type="number"
                     *ngIf="key.type == 'decimal'"
                     step="0.01"
                     [disabled]="!key.editable || !editingEnabled"
+                    (input)="limitDecimals(dip, $event)"
                     (ngModelChange)="
                         [
                             alertModelChange(key.name, $event),
@@ -62,6 +63,7 @@
                         ]
                     "
                 />
+
                 <ui5-select
                     *ngIf="key.type == 'boolean'"
                     [(ngModel)]="row[key.name]"

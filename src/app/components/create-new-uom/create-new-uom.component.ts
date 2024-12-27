@@ -306,7 +306,7 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
                             linkedUOMRow.lengthValue = item.lengthValue;
                             linkedUOMRow.heightValue = item.heightValue;
                             linkedUOMRow.widthValue = item.widthValue;
-                            linkedUOMRow.weightKg = item.weightValue
+                            linkedUOMRow.weightKg = item.weightValue;
                         }
                     });
                     this.linkedUOMs.set(elt.longName, linkedUOMRow);

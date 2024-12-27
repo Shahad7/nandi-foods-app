@@ -60,8 +60,12 @@ export class UOMImperialRow {
     }
 
     private updateVolume() {
-        this._volumeValue =
-            (this._lengthValue * this._widthValue * this._heightValue) / 1728;
+        this._volumeValue = parseFloat(
+            (
+                (this._lengthValue * this._widthValue * this._heightValue) /
+                1728
+            ).toFixed(2)
+        );
     }
     toJSON() {
         return {

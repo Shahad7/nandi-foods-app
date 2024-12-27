@@ -1,5 +1,11 @@
 import { DecimalPipe } from "@angular/common";
-import { Component, EventEmitter, Input, Output } from "@angular/core";
+import {
+    ChangeDetectorRef,
+    Component,
+    EventEmitter,
+    Input,
+    Output,
+} from "@angular/core";
 import { PageEvent } from "@angular/material/paginator";
 
 @Component({
@@ -127,6 +133,7 @@ export class TableComponent {
      */
     deleteRow(index: number) {
         this.rows.splice(index, 1);
+        console.log(this.rows);
     }
 
     /**
@@ -134,6 +141,7 @@ export class TableComponent {
      */
     addNewRow() {
         this.onAddNewRow.emit("");
+        console.log(this.rows);
     }
 
     /** Alert parent component of any ngModel changes */
@@ -141,7 +149,16 @@ export class TableComponent {
         this.onTableModelChange.emit({ key, value });
     }
 
+    limitDecimals(element: any, event: any) {
+        if (event.data != "." && event.data != null) {
+            element.value = parseFloat(
+                Number(event.target.valueAsNumber).toFixed(2)
+            );
+        }
+    }
+
     onDecimalChange(row: any, key: string, value: any) {
-        row[key] = this.decimalPipe.transform(value, "1.2-2");
+        let transformedValue = parseFloat(Number(value).toFixed(2));
+        row[key] = transformedValue;
     }
 }
