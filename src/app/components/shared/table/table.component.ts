@@ -151,8 +151,17 @@ export class TableComponent {
 
     limitDecimals(element: any, event: any) {
         console.log(event);
-        if (event.data != "." && event.inputType != "deleteContentBackward") {
-            element.value = parseFloat(Number(event.target.value).toFixed(2));
+
+        const inputValue = parseFloat(
+            Number(event.target.value.replace(",", ".")).toFixed(2)
+        );
+        if (
+            event.data != "." &&
+            event.data != "," &&
+            event.inputType != "deleteContentBackward" &&
+            !isNaN(inputValue)
+        ) {
+            element.value = inputValue;
         }
     }
 
