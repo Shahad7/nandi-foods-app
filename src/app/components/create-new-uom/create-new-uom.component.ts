@@ -182,7 +182,7 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
         { name: "lengthValue", type: "decimal", editable: true },
         { name: "widthValue", type: "decimal", editable: true },
         { name: "heightValue", type: "decimal", editable: true },
-        { name: "volumeValue", type: "decimal", editable: true },
+        { name: "volumeValue", type: "decimal", editable: false },
         { name: "weightValue", type: "decimal", editable: true },
     ];
 
