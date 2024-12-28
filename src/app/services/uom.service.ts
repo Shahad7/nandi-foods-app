@@ -104,4 +104,19 @@ export class UomService {
         let url = `${environment.baseUrl}/unit/metadata/metricSystem`;
         return this.http.get(url, { observe: "response" });
     }
+
+    /** @param type : whether csv or pdf format */
+    downloadUOM(type: string) {
+        let url = `${environment.baseUrl}/unit/uom/download`;
+        return this.http.get(url, {
+            headers: {
+                Accept:
+                    type.toLowerCase() == "pdf"
+                        ? "application/pdf"
+                        : "text/csv",
+            },
+            responseType: "blob",
+            observe: "response",
+        });
+    }
 }

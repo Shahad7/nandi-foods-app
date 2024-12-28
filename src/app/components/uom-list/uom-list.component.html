@@ -19,8 +19,14 @@
         >
     </ng-container>
     <ng-container tail>
-        <ui5-button [icon]="pdfAttachment"></ui5-button>
-        <ui5-button [icon]="excelAttachment"></ui5-button>
+        <ui5-button
+            [icon]="pdfAttachment"
+            (ui5Click)="downloadUOM('pdf')"
+        ></ui5-button>
+        <ui5-button
+            [icon]="excelAttachment"
+            (ui5Click)="downloadUOM('csv')"
+        ></ui5-button>
     </ng-container>
 </app-subheader>
 <div id="searchbar">

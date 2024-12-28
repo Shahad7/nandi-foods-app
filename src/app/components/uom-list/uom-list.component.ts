@@ -7,6 +7,8 @@ import { Router } from "@angular/router";
 import { TableComponent } from "../shared/table/table.component";
 import pdfAttachment from "@ui5/webcomponents-icons/pdf-attachment.js";
 import excelAttachment from "@ui5/webcomponents-icons/excel-attachment.js";
+import { SnackbarComponent } from "../shared/snackbar/snackbar.component";
+import { MatSnackBar } from "@angular/material/snack-bar";
 // import download from "@ui5/webcomponents-icons/download.js";
 
 @Component({
@@ -60,7 +62,8 @@ export class UomListComponent implements OnInit {
     constructor(
         private UOMService: UomService,
         private router: Router,
-        private mainCommunicationService: MainCommunicationService
+        private mainCommunicationService: MainCommunicationService,
+        private snackBar: MatSnackBar
     ) {}
 
     ngOnInit(): void {
@@ -141,5 +144,59 @@ export class UomListComponent implements OnInit {
     onRefresh() {
         this.paginatorProps.pageIndex = 0;
         this.fetchUOMs();
+    }
+
+    downloadUOM(type: string) {
+        this.UOMService.downloadUOM(type).subscribe({
+            next: (response) => {
+                if (response.status == 200) {
+                    this.onDownloadStart();
+                    if (type === "csv" && response.body) {
+                        let filename = `${new Date()
+                            .toISOString()
+                            .slice(0, 10)
+                            .replace(/-/g, "")}-${new Date()
+                            .toLocaleTimeString("en-US", { hour12: false })
+                            .slice(0, 5)
+                            .replace(":", ".")}-UOM_List.csv`;
+
+                        const contentDisposition = response.headers.get(
+                            "Content-Disposition"
+                        );
+                        if (contentDisposition) {
+                            // Extract filename from Content-Disposition header if available
+                            const match =
+                                contentDisposition.match(/filename="(.+?)"/);
+                            if (match && match[1]) {
+                                filename = match[1];
+                            }
+                        }
+                        response.body.text().then((data) => {
+                            const blob = new Blob([data], {
+                                type: "text/csv;charset=utf-8;",
+                            });
+                            const url = window.URL.createObjectURL(blob);
+                            const a = document.createElement("a");
+                            a.href = url;
+                            a.download = filename;
+                            document.body.appendChild(a);
+                            a.click();
+                            document.body.removeChild(a);
+                            window.URL.revokeObjectURL(url);
+                        });
+                    }
+                }
+            },
+        });
+    }
+
+    onDownloadStart() {
+        this.snackBar.openFromComponent(SnackbarComponent, {
+            data: { message: "Downloading....Please wait", error: false },
+            duration: 2000,
+            horizontalPosition: "center",
+            verticalPosition: "top",
+            panelClass: ["success-snackbar"],
+        });
     }
 }
