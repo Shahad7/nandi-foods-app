@@ -79,10 +79,19 @@
                     [disabled]="!key.editable || !editingEnabled"
                     (ngModelChange)="alertModelChange(key.name, $event)"
                 >
+                    @if (key.defaultEmpty) {
+
+                    <ui5-option [value]="'--select--'" [selected]="true">{{
+                        "--select--"
+                    }}</ui5-option>
+                    }
                     <ui5-option
                         *ngFor="let item of key.values; let first = first"
                         [value]="item"
-                        [selected]="row[key.name] == item"
+                        [selected]="
+                            row[key.name] == item &&
+                            row[key.name] != '--select--'
+                        "
                         >{{ item }}</ui5-option
                     >
                 </ui5-select>

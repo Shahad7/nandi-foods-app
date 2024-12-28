@@ -81,7 +81,8 @@ export class TableComponent {
     /**
      * Keys of the model with it's name, type and whether it's editable
      * Format  :- [{key_name,key_type,editable}]
-     * Eg:- [name:'width',type:'number',editable:true]
+     * Eg:- [{name:'width',type:'number',editable:true}]
+     * For dropdown values, to enable a default --select-- value set defaultEmpty to true by default false
      * Available types :- boolean, string, number, decimal, dropdown (add values in appropriate key as an array)
      */
     @Input()
@@ -133,7 +134,6 @@ export class TableComponent {
      */
     deleteRow(index: number) {
         this.rows.splice(index, 1);
-        console.log(this.rows);
     }
 
     /**
@@ -141,7 +141,6 @@ export class TableComponent {
      */
     addNewRow() {
         this.onAddNewRow.emit("");
-        console.log(this.rows);
     }
 
     /** Alert parent component of any ngModel changes */

@@ -71,4 +71,19 @@ export class LinkedUOMRow {
             (this._widthValue * this._heightValue * this._lengthValue) /
             1000000;
     }
+
+    clone(): LinkedUOMRow {
+        return new LinkedUOMRow(
+            this.id,
+            this.linkedUOMName,
+            this._lengthValue,
+            this._widthValue,
+            this._heightValue,
+            this._volumeValue,
+            this.weightKg,
+            this.conversionFrom,
+            this.conversionTo,
+            this.conversionQTY
+        );
+    }
 }

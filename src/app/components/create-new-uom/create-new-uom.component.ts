@@ -194,6 +194,7 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
                 name: "linkedUOMName",
                 type: "dropdown",
                 editable: true,
+                defaultEmpty: true,
                 values: this.linkedUOMNames,
             },
             { name: "lengthValue", type: "number", editable: false },
@@ -505,9 +506,7 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
     // Adding new rows, might need to be changed to pop up forms later
     onNewLinkedUOMRow() {
         let entry = new LinkedUOMRow();
-        entry.linkedUOMName = this.linkedUOMNames[0];
         this.uom._linkedUOMRows?.push(entry);
-        this.mapLinkedUOMValues(entry.linkedUOMName);
     }
 
     onNewLinkedPUHURow() {
@@ -519,24 +518,15 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
     // helper : map appropriate linkedUOM values to _linkedUOMRows instance on uom
     // according to linkedUOMName
     mapLinkedUOMValues(linkedUOMName: string) {
-        this.linkedUOMs.forEach(
-            (
-                value: LinkedUOMRow,
-                key: string,
-                map: Map<string, LinkedUOMRow>
-            ) => {
-                if (linkedUOMName == key) {
-                    this.uom._linkedUOMRows = this.uom._linkedUOMRows.map(
-                        (elt: LinkedUOMRow) => {
-                            if (elt.linkedUOMName == linkedUOMName) {
-                                value.conversionFrom = this.uom.longName;
-                                return value;
-                            }
-                            elt.conversionFrom = this.uom.longName;
-                            return elt;
-                        }
-                    );
+        let match: LinkedUOMRow = this.linkedUOMs.get(linkedUOMName)?.clone()!;
+        this.uom._linkedUOMRows = this.uom._linkedUOMRows.map(
+            (elt: LinkedUOMRow) => {
+                if (elt.linkedUOMName == linkedUOMName) {
+                    match.conversionFrom = this.uom.longName;
+                    return match;
                 }
+                elt.conversionFrom = this.uom.longName;
+                return elt;
             }
         );
     }
@@ -544,7 +534,31 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
     // Table manual bindings
     onLinkedUOMTableModelChange(event: any) {
         if (event.key == "linkedUOMName") {
-            this.mapLinkedUOMValues(event.value);
+            let count = 0;
+            this.uom._linkedUOMRows.forEach((elt: LinkedUOMRow) => {
+                if (elt.linkedUOMName == event.value) {
+                    count++;
+                }
+            });
+            if (count >= 2) {
+                this.uom._linkedUOMRows = this.uom._linkedUOMRows.map(
+                    (elt: LinkedUOMRow) => {
+                        if (
+                            elt.linkedUOMName == event.value &&
+                            elt.lengthValue == 0
+                        ) {
+                            elt.linkedUOMName = "--select--";
+                        }
+                        //cloning is intentionally done to force angular to detect changes
+                        //incase user selects the duplicate linkedUOM name again
+                        return elt.clone();
+                    }
+                );
+
+                this.onErrorResponse(
+                    "this UOM is already selected for linking"
+                );
+            } else this.mapLinkedUOMValues(event.value);
         }
     }
 
