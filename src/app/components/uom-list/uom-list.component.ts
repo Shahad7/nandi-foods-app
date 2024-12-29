@@ -149,45 +149,52 @@ export class UomListComponent implements OnInit {
     downloadUOM(type: string) {
         this.UOMService.downloadUOM(type).subscribe({
             next: (response) => {
+                console.log(response);
                 if (response.status == 200) {
                     this.onDownloadStart();
-                    if (type === "csv" && response.body) {
-                        let filename = `${new Date()
-                            .toISOString()
-                            .slice(0, 10)
-                            .replace(/-/g, "")}-${new Date()
-                            .toLocaleTimeString("en-US", { hour12: false })
-                            .slice(0, 5)
-                            .replace(":", ".")}-UOM_List.csv`;
+                    let filename = `${new Date()
+                        .toISOString()
+                        .slice(0, 10)
+                        .replace(/-/g, "")}-${new Date()
+                        .toLocaleTimeString("en-US", { hour12: false })
+                        .slice(0, 5)
+                        .replace(":", ".")}-UOM_List.${type.toLowerCase()}`;
 
-                        const contentDisposition = response.headers.get(
-                            "Content-Disposition"
-                        );
-                        if (contentDisposition) {
-                            // Extract filename from Content-Disposition header if available
-                            const match =
-                                contentDisposition.match(/filename="(.+?)"/);
-                            if (match && match[1]) {
-                                filename = match[1];
-                            }
+                    const contentDisposition = response.headers.get(
+                        "Content-Disposition"
+                    );
+                    if (contentDisposition) {
+                        // Extract filename from Content-Disposition header if available
+                        const match =
+                            contentDisposition.match(/filename="(.+?)"/);
+                        if (match && match[1]) {
+                            filename = match[1];
                         }
-                        response.body.text().then((data) => {
-                            const blob = new Blob([data], {
-                                type: "text/csv;charset=utf-8;",
-                            });
-                            const url = window.URL.createObjectURL(blob);
-                            const a = document.createElement("a");
-                            a.href = url;
-                            a.download = filename;
-                            document.body.appendChild(a);
-                            a.click();
-                            document.body.removeChild(a);
-                            window.URL.revokeObjectURL(url);
-                        });
                     }
+                    this.saveAsFileFromBlob(response.body, filename, type);
                 }
             },
         });
+    }
+
+    saveAsFileFromBlob(blob: any, filename: string, type: string) {
+        if (blob) {
+            const newBlob = new Blob([blob], {
+                type:
+                    type === "csv"
+                        ? "text/csv;charset=utf-8;"
+                        : "application/pdf",
+            });
+
+            const url = window.URL.createObjectURL(newBlob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }
     }
 
     onDownloadStart() {
