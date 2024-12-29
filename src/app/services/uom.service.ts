@@ -57,16 +57,18 @@ export class UomService {
         offset: int,
         size: int,
         ascending: boolean,
-        searchValue: string
+        searchValue: string,
+        status: string | undefined = undefined
     ): Observable<any> {
         let url = `${environment.baseUrl}/unit/uom`;
+        let params = {
+            offset: offset,
+            limit: size,
+            ascending: ascending,
+            longName: searchValue,
+        };
         return this.http.get(url, {
-            params: {
-                offset: offset,
-                limit: size,
-                ascending: ascending,
-                longName: searchValue,
-            },
+            params: status === undefined ? params : { status, ...params },
             observe: "response",
         });
     }
@@ -105,7 +107,7 @@ export class UomService {
         return this.http.get(url, { observe: "response" });
     }
 
-    /** @param type : whether csv or pdf format */
+    /** @param type : Whether csv or pdf format */
     downloadUOM(type: string) {
         let url = `${environment.baseUrl}/unit/uom/download`;
         return this.http.get(url, {
@@ -116,6 +118,19 @@ export class UomService {
                         : "text/csv",
             },
             responseType: "blob",
+            observe: "response",
+        });
+    }
+
+    /** @param file : File to be uploaded */
+    uploadUOM(file: any) {
+        let url = `${environment.baseUrl}/unit/uom/upload`;
+        const formData = new FormData();
+        formData.append("uomFile", file);
+        return this.http.post(url, formData, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
             observe: "response",
         });
     }

@@ -138,7 +138,12 @@ export class UomListComponent implements OnInit {
         this.fileInput.nativeElement.click();
     }
     uploadFile(event: any) {
-        console.log(event.target?.files[0].name);
+        let file = event.target?.files[0];
+        this.UOMService.uploadUOM(file).subscribe({
+            next: (response) => {
+                console.log(response);
+            },
+        });
     }
 
     onRefresh() {
