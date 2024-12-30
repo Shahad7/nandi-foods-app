@@ -10,4 +10,12 @@ npm run build:staging
 
 docker build -t teenthofabud/nandi-foods-web-app:${VERSION} --build-arg NODE_ENV=production -f Dockerfile .
 
-docker run -p 80:80 -d --name nandi-foods-web-app teenthofabud/nandi-foods-web-app:${VERSION}
+docker image push teenthofabud/nandi-foods-web-app:${VERSION}
+
+docker pull docker.io/teenthofabud/nandi-foods-web-app:${VERSION}
+
+git pull
+
+git tag ${VERSION} -a -m "Release version ${VERSION}"
+
+git push origin ${VERSION}

@@ -128,9 +128,6 @@ export class UomService {
         const formData = new FormData();
         formData.append("uomFile", file);
         return this.http.post(url, formData, {
-            headers: {
-                "Content-Type": "multipart/form-data",
-            },
             observe: "response",
         });
     }
