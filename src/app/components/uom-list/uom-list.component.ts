@@ -138,10 +138,35 @@ export class UomListComponent implements OnInit {
         this.fileInput.nativeElement.click();
     }
     uploadFile(event: any) {
-        let file = event.target?.files[0];
+        let file: File = event.target?.files[0];
         this.UOMService.uploadUOM(file).subscribe({
             next: (response) => {
                 console.log(response);
+                file.text().then((data) => {
+                    console.log(data);
+                });
+                if (response.status == 200) {
+                    this.snackBar.openFromComponent(SnackbarComponent, {
+                        data: {
+                            message: "UOM uploaded successfully",
+                            error: false,
+                        },
+                        duration: 2000,
+                        horizontalPosition: "center",
+                        verticalPosition: "top",
+                        panelClass: ["success-snackbar"],
+                    });
+                }
+            },
+            error: (err) => {
+                console.log(err);
+                this.snackBar.openFromComponent(SnackbarComponent, {
+                    data: { message: "UOM upload failed", error: true },
+                    duration: 2000,
+                    horizontalPosition: "center",
+                    verticalPosition: "top",
+                    panelClass: ["error-snackbar"],
+                });
             },
         });
     }
