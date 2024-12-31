@@ -263,40 +263,7 @@ export class UomDetailsComponent implements OnInit {
         //fetch the uom details by Id
         let UOMId = this.route.snapshot.paramMap.get("UOMId");
         if (UOMId != "" && UOMId != undefined) {
-            this.uomService.getUOMById(UOMId as any).subscribe({
-                next: (response) => {
-                    if (response.status == 200) {
-                        this.uom = { ...this.uom, ...response.body };
-                        this.uom.measuredValues?.forEach((elt: any) => {
-                            if (elt.metricSystem == "SI")
-                                this.uom._metric = elt;
-                            else if (elt.metricSystem == "IMPERIAL")
-                                this.uom._imperial = elt;
-                        });
-                        this.uom.selfLinksTo?.forEach((elt: any) => {
-                            let toUOM = elt.to;
-                            let entry = new LinkedUOMRow();
-                            entry.id = toUOM.id;
-                            entry.linkedUOMName = toUOM.longName;
-                            entry.conversionFrom = this.uom.longName;
-                            entry.conversionTo = toUOM.longName;
-                            entry.conversionQTY = elt.quantity;
-                            toUOM.measuredValues.forEach((elt: any) => {
-                                if (elt.metricSystem == "SI") {
-                                    entry.lengthValue = elt.lengthValue;
-                                    entry.heightValue = elt.heightValue;
-                                    entry.widthValue = elt.widthValue;
-                                    entry.weightKg = elt.weightValue;
-                                }
-                            });
-                            this.uom._linkedUOMRows?.push(entry);
-                        });
-                    }
-                },
-                error: (response) => {
-                    this.error = true;
-                },
-            });
+            this.getUOMDetailsByID(UOMId);
         }
         //fetch required unit metadata
         this.uomService.getUnitClassStatuses().subscribe({
@@ -533,6 +500,44 @@ export class UomDetailsComponent implements OnInit {
             },
         });
     }
+
+    getUOMDetailsByID(id: string) {
+        this.uomService.getUOMById(id as any).subscribe({
+            next: (response) => {
+                if (response.status == 200) {
+                    this.uom = new UOM();
+                    this.uom = { ...this.uom, ...response.body };
+                    this.uom.measuredValues?.forEach((elt: any) => {
+                        if (elt.metricSystem == "SI") this.uom._metric = elt;
+                        else if (elt.metricSystem == "IMPERIAL")
+                            this.uom._imperial = elt;
+                    });
+                    this.uom.selfLinksTo?.forEach((elt: any) => {
+                        let toUOM = elt.to;
+                        let entry = new LinkedUOMRow();
+                        entry.id = toUOM.id;
+                        entry.linkedUOMName = toUOM.longName;
+                        entry.conversionFrom = this.uom.longName;
+                        entry.conversionTo = toUOM.longName;
+                        entry.conversionQTY = elt.quantity;
+                        toUOM.measuredValues.forEach((elt: any) => {
+                            if (elt.metricSystem == "SI") {
+                                entry.lengthValue = elt.lengthValue;
+                                entry.heightValue = elt.heightValue;
+                                entry.widthValue = elt.widthValue;
+                                entry.weightKg = elt.weightValue;
+                            }
+                        });
+                        this.uom._linkedUOMRows?.push(entry);
+                    });
+                }
+            },
+            error: (response) => {
+                this.error = true;
+                this.onErrorResponse("Error fetching UOM details");
+            },
+        });
+    }
     //Adding new rows, might need to be changed to pop up forms later
     onNewLinkedUOMRow() {
         let entry = new LinkedUOMRow();
@@ -641,6 +646,11 @@ export class UomDetailsComponent implements OnInit {
         this.selectedNestedTab = tab;
     }
 
+    onRefresh() {
+        if (this.editingEnabled) this.getUOMDetailsByID(this.uom.id);
+        else (window as any).location.reload();
+    }
+
     //TODO
     onSave() {}
 
@@ -697,29 +707,26 @@ export class UomDetailsComponent implements OnInit {
     }
 
     onSuccessfulSubmit() {
-        this.snackBar.openFromComponent(SnackbarComponent, {
-            data: { message: "UOM successfully saved!", error: false },
-            duration: 1500,
-            horizontalPosition: "center",
-            verticalPosition: "top",
-            panelClass: ["success-snackbar"],
-        });
+        this.onSuccessfulResponse("UOM successfully saved!", 1500);
         this.uom = new UOM();
     }
 
     onSuccessfulApproval() {
-        this.snackBar
-            .openFromComponent(SnackbarComponent, {
-                data: { message: "UOM successfully approved!", error: false },
-                duration: 2000,
-                horizontalPosition: "center",
-                verticalPosition: "top",
-                panelClass: ["success-snackbar"],
-            })
+        this.onSuccessfulResponse("UOM successfully approved!", 2000)
             .afterDismissed()
             .subscribe(() => {
                 this.router.navigate(["uom-list"]);
             });
+    }
+
+    onSuccessfulResponse(message: string, duration: number) {
+        return this.snackBar.openFromComponent(SnackbarComponent, {
+            data: { message: message, error: false },
+            duration: duration,
+            horizontalPosition: "center",
+            verticalPosition: "top",
+            panelClass: ["success-snackbar"],
+        });
     }
 
     onErrorResponse(errorMessage: string) {
