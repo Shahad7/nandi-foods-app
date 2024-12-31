@@ -563,6 +563,13 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
         }
     }
 
+    // Update linkedUOM rows FROM field as parent UOM longName changes
+    updateFromFieldForLinkedUOMs() {
+        this.uom._linkedUOMRows.forEach((elt: LinkedUOMRow) => {
+            elt.conversionFrom = this.uom.longName;
+        });
+    }
+
     // Manual bindigs
     onFormModelChange(event: any) {
         //auto populate longName and shortName
@@ -723,6 +730,7 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
     onUOMPropertiesChange() {
         this.uom.longName = `${this.uom.id} ${this.uom.name} (${this.uom.description})`;
         this.uom.shortName = ` ${this.uom.name} (${this.uom.id})`;
+        this.updateFromFieldForLinkedUOMs();
     }
 
     validate() {

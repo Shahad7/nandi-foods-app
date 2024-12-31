@@ -561,6 +561,13 @@ export class UomDetailsComponent implements OnInit {
         );
     }
 
+    // Update linkedUOM rows FROM field as parent UOM longName changes
+    updateFromFieldForLinkedUOMs() {
+        this.uom._linkedUOMRows.forEach((elt: LinkedUOMRow) => {
+            elt.conversionFrom = this.uom.longName;
+        });
+    }
+
     // Table manual bindings
     onLinkedUOMTableModelChange(event: any) {
         if (event.key == "linkedUOMName") {
@@ -728,6 +735,7 @@ export class UomDetailsComponent implements OnInit {
     onUOMPropertiesChange() {
         this.uom.longName = `${this.uom.id} ${this.uom.name} (${this.uom.description})`;
         this.uom.shortName = ` ${this.uom.name} (${this.uom.id})`;
+        this.updateFromFieldForLinkedUOMs();
     }
 
     validate() {
