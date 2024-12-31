@@ -1,8 +1,7 @@
-
 .container {
     display: flex;
     flex-direction: column;
-    gap: 50px;
+    gap: 40px;
     width: 100%;
 }
 
@@ -16,4 +15,19 @@
     display: flex;
     justify-content: end;
 }
+#main-form {
+    margin-bottom: 10px;
+}
+#summary {
+    margin-top: 20px;
+    display: flex;
+    background-color: #fff;
+    justify-content: space-between;
+    padding: 16px 40px;
+    border-radius: 0.75rem;
+}
 
+.summary-values {
+    font-family: var(--sapFontSemiboldDuplexFamily);
+    color: var(--sapList_HeaderTextColor);
+}

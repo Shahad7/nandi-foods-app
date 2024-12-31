@@ -19,7 +19,29 @@
 </app-subheader>
 
 <div class="container">
+    <div id="summary">
+        <!-- have to change later -->
+        <span class="summary-values">{{ "UOM" }}</span>
+
+        <span class="summary-values">{{ this.uom.longName }}</span>
+
+        <span class="summary-values">{{ this.uom.name.split(" ")[0] }}</span>
+
+        <span class="summary-values">{{
+            this.uom._imperial.weightValue +
+                " " +
+                this.imperialUnits.get("weightUnit")
+        }}</span>
+
+        <span class="summary-values">{{
+            this.uom._metric.volumeValue +
+                " " +
+                this.metricUnits.get("volumeUnit")
+        }}</span>
+    </div>
+
     <app-form
+        id="main-form"
         [formData]="formData"
         [editingEnabled]="editingEnabled"
         [model]="uom"
