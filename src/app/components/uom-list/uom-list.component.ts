@@ -95,7 +95,8 @@ export class UomListComponent implements OnInit {
             this.paginatorProps.pageIndex,
             this.paginatorProps.pageSize,
             this.ascending,
-            this.searchValue
+            this.searchValue,
+            "ACTIVE"
         ).subscribe({
             next: (response) => {
                 if (response.status == 200) {
