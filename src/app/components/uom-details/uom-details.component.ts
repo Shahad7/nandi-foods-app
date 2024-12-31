@@ -35,6 +35,7 @@ export class UomDetailsComponent implements OnInit {
     //model
     uom: any = new UOM();
     error: boolean = false;
+    validationErrors: Array<string> = [];
 
     //icons
     editIcon = edit;
@@ -90,7 +91,7 @@ export class UomDetailsComponent implements OnInit {
                     type: "string",
                     label: "UOM Long Name",
                     required: true,
-                    editable: true,
+                    editable: false,
                     placeholder: "U1020 EACH (1 x 4LB)",
                 },
                 {
@@ -643,7 +644,10 @@ export class UomDetailsComponent implements OnInit {
 
     //TODO
     onApprove() {
-        if (this.uom.id == "" || this.uom.id == undefined)
+        this.validate();
+        if (this.validationErrors.length > 0) {
+            this.onErrorResponse(this.validationErrors[0]);
+        } else if (this.uom.id == "" || this.uom.id == undefined)
             this.onErrorResponse("Please provide the UOM details");
         else
             this.uomService.approve(this.uom.id).subscribe({
@@ -724,5 +728,21 @@ export class UomDetailsComponent implements OnInit {
     onUOMPropertiesChange() {
         this.uom.longName = `${this.uom.id} ${this.uom.name} (${this.uom.description})`;
         this.uom.shortName = ` ${this.uom.name} (${this.uom.id})`;
+    }
+
+    validate() {
+        this.validationErrors = [];
+        let longName = this.uom.longName.trim();
+        let shortName = this.uom.shortName.trim();
+        if (longName.length < 8 || longName.length > 30) {
+            this.validationErrors.push(
+                "Long name is invalid, must be minimum 8 characters and maximum 30 characters long"
+            );
+        }
+
+        if (shortName.length < 8 || shortName.length > 15)
+            this.validationErrors.push(
+                "Short name is invalid, must be minimum 8 characters and maximum 15 characters long"
+            );
     }
 }
