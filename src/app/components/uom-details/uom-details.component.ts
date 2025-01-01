@@ -36,6 +36,7 @@ export class UomDetailsComponent implements OnInit {
     uom: any = new UOM();
     error: boolean = false;
     validationErrors: Array<string> = [];
+    uomID: string = "";
 
     //icons
     editIcon = edit;
@@ -263,6 +264,7 @@ export class UomDetailsComponent implements OnInit {
         //fetch the uom details by Id
         let UOMId = this.route.snapshot.paramMap.get("UOMId");
         if (UOMId != "" && UOMId != undefined) {
+            this.uomID = UOMId;
             this.getUOMDetailsByID(UOMId);
         }
         //fetch required unit metadata
@@ -647,7 +649,7 @@ export class UomDetailsComponent implements OnInit {
     }
 
     onRefresh() {
-        if (this.editingEnabled) this.getUOMDetailsByID(this.uom.id);
+        if (this.editingEnabled) this.getUOMDetailsByID(this.uomID);
         else (window as any).location.reload();
     }
 
