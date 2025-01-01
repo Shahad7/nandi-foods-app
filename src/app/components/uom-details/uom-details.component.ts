@@ -76,7 +76,7 @@ export class UomDetailsComponent implements OnInit {
                     type: "string",
                     label: "UOM Type",
                     required: true,
-                    editable: false,
+                    editable: true,
                 },
                 {
                     key: "description",
