@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { Warehouse } from "../../models/warehouse/warehouse";
+import { FormInputData } from "../../types/form-types";
 
 @Component({
     selector: "app-create-new-warehouse",
@@ -9,7 +10,7 @@ import { Warehouse } from "../../models/warehouse/warehouse";
 export class CreateNewWarehouseComponent {
     //form model
     warehouse = new Warehouse();
-    formData = [
+    formData: FormInputData = [
         {
             headerText: undefined,
             columnSpan: 2,

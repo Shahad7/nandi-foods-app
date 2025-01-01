@@ -22,6 +22,7 @@
                     [(ngModel)]="model[formField.key]"
                     id="{{ '_' + formField.key }}"
                     type="Text"
+                    [maxlength]="formField.maxlength"
                     [placeholder]="
                         formField.placeholder
                             ? formField.placeholder
@@ -85,7 +86,7 @@
                             ? formField.placeholder
                             : undefined
                     "
-                    [formatPattern]="formField.format"
+                    [formatPattern]="formField.formatPattern"
                     [disabled]="!formField.editable || !editingEnabled"
                     (ngModelChange)="alertModelChange(formField.key, $event)"
                 ></ui5-date-picker>

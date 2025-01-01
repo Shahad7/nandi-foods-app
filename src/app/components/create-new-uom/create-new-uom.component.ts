@@ -20,6 +20,7 @@ import { SnackbarComponent } from "../shared/snackbar/snackbar.component";
 import { PageEvent } from "@angular/material/paginator";
 import { Subscription } from "rxjs";
 import { LinkedUOM } from "../../models/uom/linkedUOM";
+import { FormInputData } from "../../types/form-types";
 
 interface RowType {
     [key: string]: any; // Allow dynamic access to row properties
@@ -56,7 +57,7 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
 
     //form variables
     excluded: Array<string> = [];
-    formData = [
+    formData: FormInputData = [
         {
             headerText: undefined, // First group doesn't have a header
             columnSpan: undefined, // No specific column span defined
@@ -127,6 +128,7 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
                     label: "UOM Short Name",
                     required: true,
                     editable: true,
+                    maxlength: 15,
                     placeholder: "EACH (1020)",
                 },
                 {
@@ -149,7 +151,7 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
                     label: "Effective Date",
                     required: true,
                     editable: true,
-                    format: "YYYY-MM-dd",
+                    formatPattern: "YYYY-MM-dd",
                     placeholder: "2024-11-06",
                     minDate: new Date().toISOString().split("T")[0],
                     maxDate: new Date(
@@ -757,15 +759,15 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
         this.validationErrors = [];
         let longName = this.uom.longName.trim();
         let shortName = this.uom.shortName.trim();
-        if (longName.length < 8 || longName.length > 30) {
+        if (longName.length > 30) {
             this.validationErrors.push(
-                "Long name is invalid, must be minimum 8 characters and maximum 30 characters long"
+                "Long name is invalid, must be maximum 30 characters long"
             );
         }
 
-        if (shortName.length < 8 || shortName.length > 15)
+        if (shortName.length > 15)
             this.validationErrors.push(
-                "Short name is invalid, must be minimum 8 characters and maximum 15 characters long"
+                "Short name is invalid, must be maximum 15 characters long"
             );
     }
 }

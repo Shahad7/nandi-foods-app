@@ -3,6 +3,7 @@ import "@ui5/webcomponents-fiori/dist/illustrations/UploadToCloud.js";
 import { Customer } from "../../models/customer";
 import { CreditInfo } from "../../models/creditInfo";
 import { ShippingInfo } from "../../models/shippingInfo";
+import { FormField, FormInputData } from "../../types/form-types";
 
 @Component({
     selector: "app-add-new-customer",
@@ -25,7 +26,7 @@ export class AddNewCustomerComponent {
     shippingInfo = new ShippingInfo();
 
     //formDatas
-    mainformData = [
+    mainformData: FormInputData = [
         {
             headerText: undefined,
             columnSpan: 1, // Two columns based on design layout
@@ -230,7 +231,7 @@ export class AddNewCustomerComponent {
                     required: true,
                     editable: true,
                 },
-            ],
+            ] as FormField[],
         },
         {
             headerText: undefined,
@@ -250,7 +251,7 @@ export class AddNewCustomerComponent {
                     required: false,
                     editable: true,
                 },
-            ],
+            ] as FormField[],
         },
     ];
     shippingFormData = [
@@ -321,7 +322,7 @@ export class AddNewCustomerComponent {
                     required: false,
                     editable: true,
                 },
-            ],
+            ] as FormField[],
         },
         {
             headerText: "Billing Contact", // Form Group Header
@@ -355,7 +356,7 @@ export class AddNewCustomerComponent {
                     required: true,
                     editable: true,
                 },
-            ],
+            ] as FormField[],
         },
     ];
 
