@@ -11,7 +11,8 @@ export class PaymentTermsComponent {
         { name: "Payment Terms Name" },
         { name: "Number of days from" },
     ];
-    keys = ["payment", "name", "daysFrom"];
+    keys = [{ name: "payment" }, { name: "name" }, { name: "daysFrom" }];
+
     rows = [
         { payment: "PTEM01", name: "Due Upon Receipt", daysFrom: "0 DAYS" },
         { payment: "PTEM02", name: "5 DAYS", daysFrom: "5 DAYS" },

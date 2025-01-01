@@ -14,7 +14,14 @@ export class SalesTaxesComponent {
         { name: "State" },
     ];
 
-    keys = ["taxCode", "taxName", "taxRate", "country", "state"];
+    keys = [
+        { name: "taxCode" },
+        { name: "taxName" },
+        { name: "taxRate" },
+        { name: "country" },
+        { name: "state" },
+    ];
+
     rows = [
         {
             taxCode: "STX01",

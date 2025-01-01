@@ -7,7 +7,7 @@ import { Component } from "@angular/core";
 })
 export class PaymentTypesComponent {
     headers = [{ name: "Payment Type" }, { name: "Payment Type Name" }];
-    keys = ["type", "name"];
+    keys = [{ name: "type" }, { name: "name" }];
     rows = [
         { type: "PYT001", name: "Cash" },
         { type: "PYT002", name: "Direct Bank Deposit" },

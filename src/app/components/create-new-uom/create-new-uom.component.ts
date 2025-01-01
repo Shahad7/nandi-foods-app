@@ -21,6 +21,7 @@ import { PageEvent } from "@angular/material/paginator";
 import { Subscription } from "rxjs";
 import { LinkedUOM } from "../../models/uom/linkedUOM";
 import { FormInputData } from "../../types/form-types";
+import { TableHeader, TableKey } from "../../types/table-types";
 
 interface RowType {
     [key: string]: any; // Allow dynamic access to row properties
@@ -182,7 +183,7 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
     //tables
     UOMImperialHeaders = [] as any;
     UOMMetricHeaders = [] as any;
-    UOMTableKeys = [
+    UOMTableKeys: TableKey[] = [
         { name: "lengthValue", type: "decimal", editable: true },
         { name: "widthValue", type: "decimal", editable: true },
         { name: "heightValue", type: "decimal", editable: true },

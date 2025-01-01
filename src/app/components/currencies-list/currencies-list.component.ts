@@ -6,7 +6,13 @@ import { Component } from "@angular/core";
     styleUrl: "./currencies-list.component.css",
 })
 export class CurrenciesListComponent {
-    keys = ["country", "countryDomainCode", "currencyCode", "countryPhoneCode"];
+    keys = [
+        { name: "country" },
+        { name: "countryDomainCode" },
+        { name: "currencyCode" },
+        { name: "countryPhoneCode" },
+    ];
+
     headers = [
         { name: "Country", minWidth: undefined },
         { name: "Country Domain Code", minWidth: undefined },

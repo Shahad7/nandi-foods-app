@@ -7,6 +7,7 @@ import {
     Output,
 } from "@angular/core";
 import { PageEvent } from "@angular/material/paginator";
+import { TableHeader, TableKey, TableRow } from "../../../types/table-types";
 
 @Component({
     selector: "app-table",
@@ -70,23 +71,19 @@ export class TableComponent {
      * Eg:- [{name:"class",minWidth:120},{name:'Width CM',minWidth:0}]
      */
     @Input()
-    headers: Array<any> = [];
+    headers: any[] = [];
 
     /**
      * Rows of the table
      */
     @Input()
-    rows: Array<any> = [];
+    rows: any[] = [];
 
     /**
-     * Keys of the model with it's name, type and whether it's editable
-     * Format  :- [{key_name,key_type,editable}]
-     * Eg:- [{name:'width',type:'number',editable:true}]
-     * For dropdown values, to enable a default --select-- value set defaultEmpty to true by default false
-     * Available types :- boolean, string, number, decimal, dropdown (add values in appropriate key as an array)
+     * Keys of the model
      */
     @Input()
-    keys: Array<any> = [];
+    keys: any[] = [];
 
     /**
      *

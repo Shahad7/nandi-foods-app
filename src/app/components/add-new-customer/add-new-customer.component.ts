@@ -393,7 +393,12 @@ export class AddNewCustomerComponent {
             address: "123 Main Street",
         },
     ] as any;
-    shippingInfoKeys = ["country", "state", "city", "address"];
+    shippingInfoKeys = [
+        { name: "country" },
+        { name: "state" },
+        { name: "city" },
+        { name: "address" },
+    ];
 
     constructor() {}
 

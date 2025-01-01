@@ -25,12 +25,13 @@ export class CountriesListComponent {
     ];
 
     keys = [
-        "continent",
-        "continentalRegion",
-        "country",
-        "provinceOrState",
-        "cityOrTown",
+        { name: "continent" },
+        { name: "continentalRegion" },
+        { name: "country" },
+        { name: "provinceOrState" },
+        { name: "cityOrTown" },
     ];
+
     rows = [
         {
             continent: "North America",

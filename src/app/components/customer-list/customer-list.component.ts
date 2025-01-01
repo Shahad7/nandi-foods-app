@@ -91,19 +91,19 @@ export class CustomerListComponent {
     ];
 
     keys = [
-        "customer_no",
-        "customer_legal_name",
-        "customer_trade_name",
-        "country",
-        "state",
-        "city",
-        "billing_address",
-        "billing_email",
-        "billing_contact_position",
-        "billing_phone",
-        "shipping_address",
-        "shipping_email",
-        "shipping_phone",
-        "position",
+        { name: "customer_no" },
+        { name: "customer_legal_name" },
+        { name: "customer_trade_name" },
+        { name: "country" },
+        { name: "state" },
+        { name: "city" },
+        { name: "billing_address" },
+        { name: "billing_email" },
+        { name: "billing_contact_position" },
+        { name: "billing_phone" },
+        { name: "shipping_address" },
+        { name: "shipping_email" },
+        { name: "shipping_phone" },
+        { name: "position" },
     ];
 }
