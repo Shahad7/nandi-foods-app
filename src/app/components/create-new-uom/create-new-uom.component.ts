@@ -629,6 +629,10 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
         this.selectedNestedTab = tab;
     }
 
+    onRefresh() {
+        this.uom = new UOM();
+    }
+
     onSave() {
         this.validate();
         if (this.validationErrors.length > 0) {

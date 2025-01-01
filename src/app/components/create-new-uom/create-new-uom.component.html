@@ -1,4 +1,4 @@
-<app-subheader [title]="title"></app-subheader>
+<app-subheader [title]="title" (onRefresh)="onRefresh()"></app-subheader>
 <div class="container">
     <app-form
         [formData]="formData"
