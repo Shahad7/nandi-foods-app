@@ -64,7 +64,7 @@ export class UomService {
         searchValue: string,
         status: string | undefined = undefined
     ): Observable<any> {
-        let url = `${environment.baseUrl}/unit/uom`;
+        let url = `${environment.baseUrl}/unit`;
         let params = {
             offset: offset,
             limit: size,
@@ -113,7 +113,7 @@ export class UomService {
 
     /** @param type : Whether csv or pdf format */
     downloadUOM(type: string) {
-        let url = `${environment.baseUrl}/unit/uom/download`;
+        let url = `${environment.baseUrl}/unit/download`;
         return this.http.get(url, {
             headers: {
                 Accept:
@@ -128,9 +128,9 @@ export class UomService {
 
     /** @param file : File to be uploaded */
     uploadUOM(file: any) {
-        let url = `${environment.baseUrl}/unit/uom/upload`;
+        let url = `${environment.baseUrl}/unit/upload`;
         const formData = new FormData();
-        formData.append("uomFile", file);
+        formData.append("unitClassList", file);
         return this.http.post(url, formData, {
             observe: "response",
         });

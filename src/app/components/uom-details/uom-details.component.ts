@@ -297,7 +297,7 @@ export class UomDetailsComponent implements OnInit {
 
         // fetch UOM list for populating linkedUOM table
         // uom list will have utmost 1000 records - dec 20 - 2024
-        this.uomService.fetchUOMs(0, 1000, true, "").subscribe({
+        this.uomService.fetchUOMs(0, 1000, true, "", "ACTIVE").subscribe({
             next: (response) => {
                 let content = response.body.content;
                 content.forEach((elt: any) => {
