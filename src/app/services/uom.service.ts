@@ -15,7 +15,11 @@ export class UomService {
         console.log(uom);
         uom.linkedUOMs = [];
         uom._linkedUOMRows.forEach((elt: any) => {
-            if (elt.linkedUOMName != "--select--")
+            if (
+                elt.linkedUOMName != "--select--" &&
+                elt.linkedUOMName != "" &&
+                elt.linkedUOMName.length != 0
+            )
                 uom.linkedUOMs.push(new LinkedUOM(elt.id, elt.conversionQTY));
         });
         uom.measuredValues = [uom._metric, uom._imperial];

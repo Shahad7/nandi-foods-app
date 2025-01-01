@@ -19,6 +19,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { SnackbarComponent } from "../shared/snackbar/snackbar.component";
 import { PageEvent } from "@angular/material/paginator";
 import { Subscription } from "rxjs";
+import { LinkedUOM } from "../../models/uom/linkedUOM";
 
 interface RowType {
     [key: string]: any; // Allow dynamic access to row properties
@@ -536,8 +537,9 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
     onLinkedUOMTableModelChange(event: any) {
         if (event.key == "linkedUOMName") {
             let count = 0;
+            let linkedUOMName = event.value;
             this.uom._linkedUOMRows.forEach((elt: LinkedUOMRow) => {
-                if (elt.linkedUOMName == event.value) {
+                if (elt.linkedUOMName == linkedUOMName) {
                     count++;
                 }
             });
@@ -545,7 +547,7 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
                 this.uom._linkedUOMRows = this.uom._linkedUOMRows.map(
                     (elt: LinkedUOMRow) => {
                         if (
-                            elt.linkedUOMName == event.value &&
+                            elt.linkedUOMName == linkedUOMName &&
                             elt.lengthValue == 0
                         ) {
                             elt.linkedUOMName = "--select--";
@@ -559,8 +561,22 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
                 this.onErrorResponse(
                     "this UOM is already selected for linking"
                 );
-            } else this.mapLinkedUOMValues(event.value);
+            } else {
+                if (linkedUOMName != undefined && linkedUOMName != "--select--")
+                    this.mapLinkedUOMValues(linkedUOMName);
+                else this.clearUnsetLinkedUOMs();
+            }
         }
+    }
+
+    // When a linkedUOM row's linkedUOMName is unset, clear all the fields
+    clearUnsetLinkedUOMs() {
+        this.uom._linkedUOMRows = this.uom._linkedUOMRows.map(
+            (elt: LinkedUOMRow) => {
+                if (elt.linkedUOMName == "--select--") return new LinkedUOM();
+                else return elt;
+            }
+        );
     }
 
     // Update linkedUOM rows FROM field as parent UOM longName changes
