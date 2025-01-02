@@ -132,7 +132,7 @@ export class UomDetailsComponent implements OnInit {
                     type: "string",
                     label: "UOM ID",
                     required: true,
-                    editable: true,
+                    editable: false,
                     placeholder: "U1020",
                 },
                 {
