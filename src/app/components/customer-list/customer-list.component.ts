@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { TableHeader, TableKey, TableRow } from "../../types/table-types";
 
 @Component({
     selector: "app-customer-list",
@@ -6,7 +7,7 @@ import { Component } from "@angular/core";
     styleUrl: "./customer-list.component.css",
 })
 export class CustomerListComponent {
-    headers = [
+    headers: TableHeader[] = [
         { name: "Customer No.", minWidth: "110px" },
         { name: "Customer Legal Name", minWidth: "190px" },
         { name: "Customer Trade Name", minWidth: "190px" },
@@ -23,7 +24,7 @@ export class CustomerListComponent {
         { name: "Position", minWidth: "190px" },
     ];
 
-    rows = [
+    rows: TableRow[] = [
         {
             customer_no: "C0201",
             customer_legal_name: "Heritage Bakery Ltd.",
@@ -90,7 +91,7 @@ export class CustomerListComponent {
         },
     ];
 
-    keys = [
+    keys: TableKey[] = [
         { name: "customer_no" },
         { name: "customer_legal_name" },
         { name: "customer_trade_name" },

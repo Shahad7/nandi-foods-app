@@ -181,8 +181,8 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
     selectedTable: any;
 
     //tables
-    UOMImperialHeaders = [] as any;
-    UOMMetricHeaders = [] as any;
+    UOMImperialHeaders = [] as TableHeader[];
+    UOMMetricHeaders = [] as TableHeader[];
     UOMTableKeys: TableKey[] = [
         { name: "lengthValue", type: "decimal", editable: true },
         { name: "widthValue", type: "decimal", editable: true },
@@ -193,7 +193,7 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
 
     LinkedUOM = {
         //adds headers in the getMetricSystemUnits Subscription
-        headers: [] as any,
+        headers: [] as TableHeader[],
         keys: [
             {
                 name: "linkedUOMName",
@@ -210,11 +210,11 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
             { name: "conversionFrom", type: "string", editable: false },
             { name: "conversionTo", type: "string", editable: false },
             { name: "conversionQTY", type: "number", editable: true },
-        ],
+        ] as TableKey[],
     };
     LinkedPUAndHU = {
         //adds headers in the getMetricSystemUnits Subscription
-        headers: [] as any,
+        headers: [] as TableHeader[],
         keys: [
             {
                 name: "puOrHuName",
@@ -232,7 +232,7 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
             { name: "conversionFrom", type: "string", editable: false },
             { name: "minQTY", type: "number", editable: true },
             { name: "maxQTY", type: "number", editable: true },
-        ],
+        ] as TableKey[],
     };
 
     //temporary default paginator props

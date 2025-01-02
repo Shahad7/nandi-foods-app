@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { TableHeader, TableKey, TableRow } from "../../types/table-types";
 
 @Component({
     selector: "app-sales-taxes",
@@ -6,7 +7,7 @@ import { Component } from "@angular/core";
     styleUrl: "./sales-taxes.component.css",
 })
 export class SalesTaxesComponent {
-    headers = [
+    headers: TableHeader[] = [
         { name: "Sales Tax Code" },
         { name: "Sales Tax Name" },
         { name: "Sales Tax Rate" },
@@ -14,7 +15,7 @@ export class SalesTaxesComponent {
         { name: "State" },
     ];
 
-    keys = [
+    keys: TableKey[] = [
         { name: "taxCode" },
         { name: "taxName" },
         { name: "taxRate" },
@@ -22,7 +23,7 @@ export class SalesTaxesComponent {
         { name: "state" },
     ];
 
-    rows = [
+    rows: TableRow[] = [
         {
             taxCode: "STX01",
             taxName: "GST 5%",

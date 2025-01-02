@@ -67,23 +67,21 @@ export class TableComponent {
 
     /**
      * Headers of the table
-     * Format  :- [{table_header_name, minWidth}]
-     * Eg:- [{name:"class",minWidth:120},{name:'Width CM',minWidth:0}]
      */
     @Input()
-    headers: any[] = [];
+    headers: TableHeader[] = [];
 
     /**
      * Rows of the table
      */
     @Input()
-    rows: any[] = [];
+    rows: TableRow[] = [];
 
     /**
      * Keys of the model
      */
     @Input()
-    keys: any[] = [];
+    keys: TableKey[] = [];
 
     /**
      *

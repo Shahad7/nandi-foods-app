@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { TableHeader, TableKey, TableRow } from "../../types/table-types";
 
 @Component({
     selector: "app-payment-terms",
@@ -6,14 +7,18 @@ import { Component } from "@angular/core";
     styleUrl: "./payment-terms.component.css",
 })
 export class PaymentTermsComponent {
-    headers = [
+    headers: TableHeader[] = [
         { name: "Payment" },
         { name: "Payment Terms Name" },
         { name: "Number of days from" },
     ];
-    keys = [{ name: "payment" }, { name: "name" }, { name: "daysFrom" }];
+    keys: TableKey[] = [
+        { name: "payment" },
+        { name: "name" },
+        { name: "daysFrom" },
+    ];
 
-    rows = [
+    rows: TableRow[] = [
         { payment: "PTEM01", name: "Due Upon Receipt", daysFrom: "0 DAYS" },
         { payment: "PTEM02", name: "5 DAYS", daysFrom: "5 DAYS" },
         { payment: "PTEM03", name: "7 DAYS", daysFrom: "7 DAYS" },

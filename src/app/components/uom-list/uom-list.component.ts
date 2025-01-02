@@ -9,6 +9,7 @@ import pdfAttachment from "@ui5/webcomponents-icons/pdf-attachment.js";
 import excelAttachment from "@ui5/webcomponents-icons/excel-attachment.js";
 import { SnackbarComponent } from "../shared/snackbar/snackbar.component";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { TableHeader, TableKey, TableRow } from "../../types/table-types";
 // import download from "@ui5/webcomponents-icons/download.js";
 
 @Component({
@@ -24,7 +25,7 @@ export class UomListComponent implements OnInit {
     searchValue: string = "";
     ascending: boolean = true;
     //table
-    headers = [
+    headers: TableHeader[] = [
         { name: "UOM ID", minWidth: "88px" },
         { name: "UOM Name", minWidth: "88px" },
         { name: "Description", minWidth: "88px" },
@@ -35,15 +36,15 @@ export class UomListComponent implements OnInit {
     ];
 
     keys = [
-        "id",
-        "name",
-        "description",
-        "longName",
-        "shortName",
-        "weightKG",
-        "bulkCode",
-    ];
-    rows = [] as any;
+        { name: "id" },
+        { name: "name" },
+        { name: "description" },
+        { name: "longName" },
+        { name: "shortName" },
+        { name: "weightKG" },
+        { name: "bulkCode" },
+    ] as TableKey[];
+    rows = [] as TableRow[];
     error: boolean = false;
     loading: boolean = true;
 

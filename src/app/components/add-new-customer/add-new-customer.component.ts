@@ -4,6 +4,7 @@ import { Customer } from "../../models/customer";
 import { CreditInfo } from "../../models/creditInfo";
 import { ShippingInfo } from "../../models/shippingInfo";
 import { FormField, FormInputData } from "../../types/form-types";
+import { TableHeader, TableKey, TableRow } from "../../types/table-types";
 
 @Component({
     selector: "app-add-new-customer",
@@ -373,13 +374,13 @@ export class AddNewCustomerComponent {
 
     //shipping info table
     loading: boolean = false;
-    shippingInfoHeaders = [
+    shippingInfoHeaders: TableHeader[] = [
         { name: "Country" },
         { name: "State" },
         { name: "City" },
         { name: "Address" },
     ];
-    shippingInfoRows = [
+    shippingInfoRows: TableRow[] = [
         {
             country: "CANADA",
             state: "Alberta",
@@ -392,8 +393,8 @@ export class AddNewCustomerComponent {
             city: "Calgary",
             address: "123 Main Street",
         },
-    ] as any;
-    shippingInfoKeys = [
+    ];
+    shippingInfoKeys: TableKey[] = [
         { name: "country" },
         { name: "state" },
         { name: "city" },

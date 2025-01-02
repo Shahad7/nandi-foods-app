@@ -24,6 +24,7 @@ import { SnackbarComponent } from "../shared/snackbar/snackbar.component";
 import { HttpErrorResponse } from "@angular/common/http";
 import { LinkedUOM } from "../../models/uom/linkedUOM";
 import { FormInputData } from "../../types/form-types";
+import { TableHeader, TableKey, TableRow } from "../../types/table-types";
 
 interface RowType {
     [key: string]: any; // Allow dynamic access to row properties
@@ -139,7 +140,7 @@ export class UomDetailsComponent implements OnInit {
                     label: "UOM Short Name",
                     required: true,
                     editable: true,
-                    maxlength :15,
+                    maxlength: 15,
                     placeholder: "EACH (1020)",
                 },
                 {
@@ -176,10 +177,10 @@ export class UomDetailsComponent implements OnInit {
     selectedTable: any;
 
     //tables
-    UOMImperialHeaders = [] as any;
+    UOMImperialHeaders = [] as TableHeader[];
 
-    UOMMetricHeaders = [] as any;
-    UOMTableKeys = [
+    UOMMetricHeaders = [] as TableHeader[];
+    UOMTableKeys: TableKey[] = [
         { name: "lengthValue", type: "decimal", editable: true },
         { name: "widthValue", type: "decimal", editable: true },
         { name: "heightValue", type: "decimal", editable: true },
@@ -191,7 +192,7 @@ export class UomDetailsComponent implements OnInit {
     linkedUOMNames: Array<string> = [];
 
     LinkedUOM = {
-        headers: [] as any,
+        headers: [] as TableHeader[],
         keys: [
             {
                 name: "linkedUOMName",
@@ -207,10 +208,10 @@ export class UomDetailsComponent implements OnInit {
             { name: "conversionFrom", type: "string", editable: false },
             { name: "conversionTo", type: "string", editable: false },
             { name: "conversionQTY", type: "number", editable: true },
-        ],
+        ] as TableKey[],
     };
     LinkedPUAndHU = {
-        headers: [] as any,
+        headers: [] as TableHeader[],
         keys: [
             {
                 name: "puOrHuName",
@@ -228,7 +229,7 @@ export class UomDetailsComponent implements OnInit {
             { name: "conversionFrom", type: "string", editable: false },
             { name: "minQTY", type: "number", editable: true },
             { name: "maxQTY", type: "number", editable: true },
-        ],
+        ] as TableKey[],
     };
 
     //temporary default paginator props

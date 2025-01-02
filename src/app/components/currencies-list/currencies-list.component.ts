@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { TableHeader, TableKey, TableRow } from "../../types/table-types";
 
 @Component({
     selector: "app-currencies-list",
@@ -6,20 +7,20 @@ import { Component } from "@angular/core";
     styleUrl: "./currencies-list.component.css",
 })
 export class CurrenciesListComponent {
-    keys = [
+    keys: TableKey[] = [
         { name: "country" },
         { name: "countryDomainCode" },
         { name: "currencyCode" },
         { name: "countryPhoneCode" },
     ];
 
-    headers = [
+    headers: TableHeader[] = [
         { name: "Country", minWidth: undefined },
         { name: "Country Domain Code", minWidth: undefined },
         { name: "Currency Code", minWidth: undefined },
         { name: "Country Phone Code", minWidth: undefined },
     ];
-    rows = [
+    rows: TableRow[] = [
         {
             country: "Canada",
             countryDomainCode: "CA",

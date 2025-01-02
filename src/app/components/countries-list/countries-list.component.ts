@@ -1,8 +1,6 @@
 import { Component, ViewChild } from "@angular/core";
 import { PageEvent } from "@angular/material/paginator";
-interface rowType {
-    [key: string]: any;
-}
+import { TableHeader, TableKey, TableRow } from "../../types/table-types";
 
 @Component({
     selector: "app-countries-list",
@@ -16,7 +14,7 @@ export class CountriesListComponent {
 
     loading: boolean = false;
     error: boolean = false;
-    headers = [
+    headers: TableHeader[] = [
         { name: "Continent", minWidth: "104px" },
         { name: "Continental Region", minWidth: "104px" },
         { name: "Country", minWidth: "104px" },
@@ -24,7 +22,7 @@ export class CountriesListComponent {
         { name: "City/Town", minWidth: "104px" },
     ];
 
-    keys = [
+    keys: TableKey[] = [
         { name: "continent" },
         { name: "continentalRegion" },
         { name: "country" },
@@ -32,7 +30,7 @@ export class CountriesListComponent {
         { name: "cityOrTown" },
     ];
 
-    rows = [
+    rows: TableRow[] = [
         {
             continent: "North America",
             continentalRegion: "Northern",
@@ -243,7 +241,7 @@ export class CountriesListComponent {
             provinceOrState: "Panamá",
             cityOrTown: "Panama City",
         },
-    ] as rowType[];
+    ];
 
     //temporary default paginator props
     paginatorProps = {
