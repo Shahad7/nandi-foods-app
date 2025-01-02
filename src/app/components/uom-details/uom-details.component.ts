@@ -77,10 +77,11 @@ export class UomDetailsComponent implements OnInit {
             content: [
                 {
                     key: "name",
-                    type: "string",
+                    type: "dropdown",
                     label: "UOM Type",
                     required: true,
                     editable: true,
+                    values: this.classLevelTypes,
                 },
                 {
                     key: "description",
@@ -628,13 +629,14 @@ export class UomDetailsComponent implements OnInit {
     /**  Manual bindigs */
     onFormModelChange(event: any) {
         //auto populate longName and shortName
-        if (["description", "id", "name"].includes(event.key)) {
+        if (["description", "id", "name", "level"].includes(event.key)) {
             this.onUOMPropertiesChange();
         }
 
         // manually change UOM name values according to level
         if (event.key == "level") {
             this.uom["name"] = this.classNamesLookup.get(event.value);
+            this.onUOMPropertiesChange();
         }
         if (event.key == "name") {
             this.classNamesLookup.forEach((value, key, map) => {
@@ -642,6 +644,7 @@ export class UomDetailsComponent implements OnInit {
                     this.uom["level"] = key;
                 }
             });
+            this.onUOMPropertiesChange();
         }
     }
 

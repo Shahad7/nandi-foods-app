@@ -599,6 +599,7 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
         // manually change UOM name values according to level
         if (event.key == "level") {
             this.uom["name"] = this.classNamesLookup.get(event.value);
+            this.onUOMPropertiesChange();
         }
 
         if (event.key == "name") {
@@ -607,6 +608,7 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
                     this.uom["level"] = key;
                 }
             });
+            this.onUOMPropertiesChange();
         }
     }
 
