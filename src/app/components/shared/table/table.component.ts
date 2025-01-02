@@ -144,7 +144,7 @@ export class TableComponent {
     }
 
     limitDecimals(element: any, event: any) {
-        console.log(event);
+        //console.log(event);
 
         const inputValue = parseFloat(
             Number(event.target.value.replace(",", ".")).toFixed(2)

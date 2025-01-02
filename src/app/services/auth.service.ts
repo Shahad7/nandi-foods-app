@@ -8,6 +8,7 @@ export class AuthService {
     constructor(private router: Router, private keycloak: KeycloakService) {}
 
     isLoggedIn(): boolean {
+        console.log(this.keycloak.getToken());
         return this.keycloak.isLoggedIn();
     }
 

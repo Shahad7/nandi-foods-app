@@ -25,6 +25,7 @@ import { HttpErrorResponse } from "@angular/common/http";
 import { LinkedUOM } from "../../models/uom/linkedUOM";
 import { FormInputData } from "../../types/form-types";
 import { TableHeader, TableKey, TableRow } from "../../types/table-types";
+import { environment } from "../../../environments/environment";
 
 interface RowType {
     [key: string]: any; // Allow dynamic access to row properties
@@ -40,6 +41,8 @@ export class UomDetailsComponent implements OnInit {
     error: boolean = false;
     validationErrors: Array<string> = [];
     uomID: string = "";
+    //environment
+    env = environment;
 
     //icons
     editIcon = edit;
@@ -261,6 +264,9 @@ export class UomDetailsComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
+        // CLEANUP
+        this.disableUIEltsBasedOnEnvFlags();
+
         this.currentDate = new Date().toISOString().split("T")[0];
         this.maxDate = new Date(new Date().setDate(new Date().getDate() + 91))
             .toISOString()
@@ -800,5 +806,33 @@ export class UomDetailsComponent implements OnInit {
             this.validationErrors.push(
                 "Short name is invalid, must be maximum 15 characters long"
             );
+    }
+
+    disableUIEltsBasedOnEnvFlags() {
+        let remaining = [] as any;
+        const tabConditions = [
+            {
+                condition: !this.env.enableMeasuredValuesInUOMDetails,
+                tab: "UOM Weight and Volume",
+            },
+            {
+                condition: !this.env.enableLinkedUOMInUOMDetails,
+                tab: "Linked UOM",
+            },
+            {
+                condition: !this.env.enableLinkedPUandHuInUOMDetails,
+                tab: "Linked PU and HU",
+            },
+        ];
+
+        tabConditions.forEach(({ condition, tab }) => {
+            if (condition) {
+                this.tabsToExclude.push(tab);
+                if (this.selectedTab === tab) {
+                    this.selectedTab = ""; // Reset selected tab if excluded
+                }
+            } else remaining.push(tab);
+        });
+        if (remaining.length > 0) this.selectedTab = remaining[0];
     }
 }

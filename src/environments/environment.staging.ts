@@ -5,4 +5,10 @@ export const environment = {
     realm: "master",
     clientId: "nandi-foods-web-app",
     baseUrl: "https://wms-staging-eji32.ondigitalocean.app",
+
+    // Enable UI elements based environment flags
+    // To cleanup search for disableUIEltsBasedOnEnvFlags() in components
+    enableLinkedUOMInUOMDetails: true,
+    enableLinkedPUandHuInUOMDetails: true,
+    enableMeasuredValuesInUOMDetails: true,
 };
