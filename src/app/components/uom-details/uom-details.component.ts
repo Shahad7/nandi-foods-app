@@ -36,7 +36,7 @@ interface RowType {
 })
 export class UomDetailsComponent implements OnInit {
     //model
-    uom: any = new UOM();
+    uom: any;
     error: boolean = false;
     validationErrors: Array<string> = [];
     uomID: string = "";
@@ -515,10 +515,23 @@ export class UomDetailsComponent implements OnInit {
                     this.uom = new UOM();
                     this.uom = { ...this.uom, ...response.body };
                     this.uom.measuredValues?.forEach((elt: any) => {
-                        if (elt.metricSystem == "SI") this.uom._metric = elt;
-                        else if (elt.metricSystem == "IMPERIAL")
-                            this.uom._imperial = elt;
+                        if (elt.metricSystem == "SI") {
+                            this.uom._metric = new UOMMetricRow(
+                                elt.lengthValue,
+                                elt.widthValue,
+                                elt.heightValue,
+                                elt.weightValue
+                            );
+                        } else if (elt.metricSystem == "IMPERIAL") {
+                            this.uom._imperial = new UOMImperialRow(
+                                elt.lengthValue,
+                                elt.widthValue,
+                                elt.heightValue,
+                                elt.weightValue
+                            );
+                        }
                     });
+
                     this.uom.selfLinksTo?.forEach((elt: any) => {
                         let toUOM = elt.to;
                         let entry = new LinkedUOMRow();
@@ -545,6 +558,7 @@ export class UomDetailsComponent implements OnInit {
             },
         });
     }
+
     //Adding new rows, might need to be changed to pop up forms later
     onNewLinkedUOMRow() {
         let entry = new LinkedUOMRow();
@@ -676,7 +690,10 @@ export class UomDetailsComponent implements OnInit {
     }
 
     //TODO
-    onSave() {}
+    onSave() {
+        // for temporary testing
+        console.log(this.uom);
+    }
 
     //TODO
     onCancel() {
