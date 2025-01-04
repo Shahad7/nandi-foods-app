@@ -19,6 +19,10 @@ export class TableComponent {
     @Input()
     title: string = "";
 
+    /** Whether to enable sort by column for the table */
+    @Input()
+    enableSortByColumn: boolean = false;
+
     /** Whether if ui5 loading indicator should be shown */
     @Input()
     loading: boolean = false;
@@ -162,5 +166,9 @@ export class TableComponent {
     onDecimalChange(row: any, key: string, value: any) {
         let transformedValue = parseFloat(Number(value).toFixed(2));
         row[key] = transformedValue;
+    }
+
+    sortData(data: any) {
+        console.log(event);
     }
 }

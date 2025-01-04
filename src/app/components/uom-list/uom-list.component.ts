@@ -28,7 +28,7 @@ export class UomListComponent implements OnInit {
     headers: TableHeader[] = [
         { name: "UOM ID", minWidth: "88px" },
         { name: "UOM Name", minWidth: "88px" },
-        { name: "Description", minWidth: "88px" },
+        { name: "Description", minWidth: "124px" },
         { name: "UOM Long Name", minWidth: "165px" },
         { name: "UOM Short Name", minWidth: "165px" },
         { name: "Weight (KG)", minWidth: "88px" },

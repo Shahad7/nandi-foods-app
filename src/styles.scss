@@ -1,5 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+@use "@angular/material" as mat;
 @import ".././node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
+
+// Customize the entire app. Change :root to your selector if you want to scope the styles.
+:root {
+    @include mat.sort-overrides(
+        (
+            arrow-color: white,
+        )
+    );
+}
 
 body {
     margin: 0;

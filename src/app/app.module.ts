@@ -44,6 +44,7 @@ import { PaymentTermsComponent } from "./components/payment-terms/payment-terms.
 import { CustomerListComponent } from "./components/customer-list/customer-list.component";
 import { CurrenciesListComponent } from "./components/currencies-list/currencies-list.component";
 import { MatButtonModule } from "@angular/material/button";
+import { MatSortModule } from "@angular/material/sort";
 import {
     MAT_DIALOG_DEFAULT_OPTIONS,
     MatDialogModule,
@@ -121,6 +122,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
         MatPaginatorModule,
         MatButtonModule,
         MatDialogModule,
+        MatSortModule,
     ],
     providers: [
         {

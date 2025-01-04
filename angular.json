@@ -7,7 +7,8 @@
             "projectType": "application",
             "schematics": {
                 "@schematics/angular:component": {
-                    "standalone": false
+                    "standalone": false,
+                    "style": "scss"
                 },
                 "@schematics/angular:directive": {
                     "standalone": false
@@ -40,7 +41,7 @@
                                 "input": "public"
                             }
                         ],
-                        "styles": ["src/styles.css"],
+                        "styles": ["src/styles.scss"],
                         "scripts": []
                     },
                     "configurations": {

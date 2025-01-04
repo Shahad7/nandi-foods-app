@@ -8,14 +8,38 @@
         >Add new row</ui5-button
     >
 </div>
-<ui5-table overflowMode="Scroll" [loading]="loading" [noDataText]="noDataText">
+<ui5-table
+    overflowMode="Scroll"
+    [loading]="loading"
+    [noDataText]="noDataText"
+    matSort
+    (matSortChange)="sortData($event)"
+>
     <ui5-table-header-row slot="headerRow" style="background-color: #0064d9">
         <ui5-table-header-cell
             *ngFor="let item of headers"
             style="color: white"
             minWidth="{{ item.minWidth || '0' }}"
         >
-            <span [innerHTML]="item.name"></span>
+            <div
+                mat-sort-header="{{ item.name }}"
+                *ngIf="enableSortByColumn; else noSortBlock"
+            >
+                <div
+                    class="mat-sort-header-container mat-focus-indicator"
+                    tabindex="0"
+                    role="button"
+                >
+                    <div
+                        class="mat-sort-header-content"
+                        [innerHTML]="item.name"
+                    ></div>
+                </div>
+            </div>
+
+            <ng-template #noSortBlock
+                ><span [innerHTML]="item.name"></span
+            ></ng-template>
         </ui5-table-header-cell>
         <ui5-table-header-cell *ngIf="enableDelete"></ui5-table-header-cell>
     </ui5-table-header-row>
@@ -143,3 +167,43 @@
     aria-label="Select page"
 >
 </mat-paginator>
+
+<!-- 
+keep
+<ui5-table
+    overflowMode="Scroll"
+    [loading]="loading"
+    [noDataText]="noDataText"
+    matSort
+    (matSortChange)="sortData($event)"
+>
+    <ui5-table-header-row slot="headerRow" style="background-color: #0064d9">
+        <ui5-table-header-cell
+            *ngFor="let item of headers"
+            style="color: white"
+            minWidth="{{ item.minWidth || '0' }}"
+        >
+            <div
+                mat-sort-header="{{ item.name }}"
+                *ngIf="enableSortByColumn; else noSortBlock"
+            >
+                <div
+                    class="mat-sort-header-container mat-focus-indicator"
+                    tabindex="0"
+                    role="button"
+                >
+                    <div
+                        class="mat-sort-header-content"
+                        bis_skin_checked="1"
+                        [innerHTML]="item.name"
+                    ></div>
+                </div>
+            </div>
+
+            <ng-template #noSortBlock
+                ><span [innerHTML]="item.name"></span
+            ></ng-template>
+        </ui5-table-header-cell>
+        <ui5-table-header-cell *ngIf="enableDelete"></ui5-table-header-cell>
+    </ui5-table-header-row>
+-->

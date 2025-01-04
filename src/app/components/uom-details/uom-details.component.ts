@@ -203,6 +203,7 @@ export class UomDetailsComponent implements OnInit {
                 type: "dropdown",
                 editable: true,
                 values: this.linkedUOMNames,
+                defaultEmpty: true,
             },
             { name: "lengthValue", type: "number", editable: false },
             { name: "widthValue", type: "number", editable: false },
