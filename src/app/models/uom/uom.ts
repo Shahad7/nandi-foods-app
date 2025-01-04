@@ -84,19 +84,25 @@ export class UOM {
             this.isPurchase,
             this.isSales,
             this.isProduction,
-            this.linkedUOMs ? [...this.linkedUOMs] : [],
+            this.linkedUOMs
+                ? this.linkedUOMs.map((uom) =>
+                      Object.assign(new LinkedUOM(), uom)
+                  )
+                : [],
             this.id,
             this.effectiveDate
         );
 
-        // Clone non-entity fields
-        cloned._metric = Object.assign(new UOMMetricRow(), this._metric);
-        cloned._imperial = Object.assign(new UOMImperialRow(), this._imperial);
-        cloned._linkedUOMRows = this._linkedUOMRows.map((row) =>
-            Object.assign(new LinkedUOMRow(), row)
-        );
+        // Manually clone UOMMetricRow
+        cloned._metric = this._metric.clone();
+
+        // Manually clone UOMImperialRow
+        cloned._imperial = this._imperial.clone();
+        cloned.measuredValues = [cloned._imperial, cloned._metric];
+        // Clone other rows
+        cloned._linkedUOMRows = this._linkedUOMRows.map((row) => row.clone());
         cloned._linkedPUandHURows = this._linkedPUandHURows.map((row) =>
-            Object.assign(new LinkedHuAndPuRow(), row)
+            row.clone()
         );
 
         return cloned;

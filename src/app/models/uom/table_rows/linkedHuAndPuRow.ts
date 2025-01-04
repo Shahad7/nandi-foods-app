@@ -76,4 +76,23 @@ export class LinkedHuAndPuRow {
         this._volumeValue =
             this._widthValue * this._heightValue * this._lengthValue;
     }
+
+    clone(): LinkedHuAndPuRow {
+        const cloned = new LinkedHuAndPuRow(
+            this.id,
+            this.puOrHuName,
+            this.className,
+            this.flexHU,
+            this._lengthValue,
+            this._widthValue,
+            this._heightValue,
+            this._volumeValue,
+            this.maxWeightKG,
+            this.conversionFrom,
+            this.minQTY,
+            this.maxQTY
+        );
+        // Return the cloned instance
+        return cloned;
+    }
 }

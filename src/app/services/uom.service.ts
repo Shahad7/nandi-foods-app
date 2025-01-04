@@ -4,7 +4,7 @@ import { environment } from "../../environments/environment";
 import { Observable } from "rxjs";
 import { UOM } from "../models/uom/uom";
 import { LinkedUOM } from "../models/uom/linkedUOM";
-import { createPatch } from "rfc6902";
+import { createPatch, Operation } from "rfc6902";
 
 @Injectable({
     providedIn: "root",
@@ -44,19 +44,34 @@ export class UomService {
         });
     }
 
-    edit(id: string, uom: any): Observable<any> {
+    edit(id: string, newUOM: any, oldUOM: any): Observable<any> {
         let url = `${environment.baseUrl}/unit/uom/${id}`;
-        console.log(uom);
-        return this.http.patch(
-            url,
-            {},
-            {
-                headers: {
-                    "Content-Type": "application/json-patch+json",
-                },
-                observe: "response",
-            }
+        newUOM.measuredValues = [newUOM._metric, newUOM._imperial];
+        newUOM._linkedUOMRows.forEach((elt: any) => {
+            if (
+                elt.linkedUOMName != "--select--" &&
+                elt.linkedUOMName != "" &&
+                elt.linkedUOMName.length != 0
+            )
+                newUOM.linkedUOMs.push(
+                    new LinkedUOM(elt.id, elt.conversionQTY)
+                );
+        });
+        let patches = createPatch(oldUOM.toJSON(), newUOM.toJSON());
+        //temporary
+        patches = patches.filter(
+            (elt: Operation) =>
+                !elt.path.startsWith("/measuredValues") &&
+                !elt.path.startsWith("/linkedUOMs") &&
+                !elt.path.startsWith("/longName")
         );
+        console.log(patches);
+        return this.http.patch(url, patches, {
+            headers: {
+                "Content-Type": "application/json-patch+json",
+            },
+            observe: "response",
+        });
     }
 
     fetchUOMs(

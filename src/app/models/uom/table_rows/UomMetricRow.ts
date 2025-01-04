@@ -16,7 +16,9 @@ export class UOMMetricRow {
         this._lengthValue = lengthValue;
         this._widthValue = widthValue;
         this._heightValue = heightValue;
-        this._volumeValue = (lengthValue * widthValue * heightValue) / 1728;
+        this._volumeValue = parseFloat(
+            ((lengthValue * widthValue * heightValue) / 1728).toFixed(2)
+        );
         this._weightValue = weightValue;
     }
 
@@ -77,5 +79,15 @@ export class UOMMetricRow {
             volumeValue: this.volumeValue,
             weightValue: this.weightValue,
         };
+    }
+
+    clone(): UOMMetricRow {
+        const cloned = new UOMMetricRow(
+            this._lengthValue,
+            this._widthValue,
+            this._heightValue,
+            this._weightValue
+        );
+        return cloned;
     }
 }

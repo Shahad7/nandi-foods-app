@@ -16,7 +16,9 @@ export class UOMImperialRow {
         this._lengthValue = lengthValue;
         this._widthValue = widthValue;
         this._heightValue = heightValue;
-        this._volumeValue = (lengthValue * widthValue * heightValue) / 1728;
+        this._volumeValue = parseFloat(
+            ((lengthValue * widthValue * heightValue) / 1728).toFixed(2)
+        );
         this._weightValue = weightValue;
     }
 
@@ -76,5 +78,15 @@ export class UOMImperialRow {
             volumeValue: this.volumeValue,
             weightValue: this.weightValue,
         };
+    }
+
+    clone(): UOMImperialRow {
+        const cloned = new UOMImperialRow(
+            this._lengthValue,
+            this._widthValue,
+            this._heightValue,
+            this._weightValue
+        );
+        return cloned;
     }
 }

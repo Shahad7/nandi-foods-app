@@ -313,21 +313,23 @@ export class UomDetailsComponent implements OnInit {
             next: (response) => {
                 let content = response.body.content;
                 content.forEach((elt: any) => {
-                    this.linkedUOMNames.push(elt.longName);
-                    let linkedUOMRow = new LinkedUOMRow();
-                    linkedUOMRow.id = elt.id;
-                    linkedUOMRow.linkedUOMName = elt.longName;
-                    linkedUOMRow.conversionFrom = this.uom.longName;
-                    linkedUOMRow.conversionTo = elt.longName;
-                    elt.measuredValues?.forEach((item: any) => {
-                        if (item.metricSystem == "SI") {
-                            linkedUOMRow.lengthValue = item.lengthValue;
-                            linkedUOMRow.heightValue = item.heightValue;
-                            linkedUOMRow.widthValue = item.widthValue;
-                            linkedUOMRow.weightKg = item.weightValue;
-                        }
-                    });
-                    this.linkedUOMs.set(elt.longName, linkedUOMRow);
+                    if (elt.id != this.uom.id) {
+                        this.linkedUOMNames.push(elt.longName);
+                        let linkedUOMRow = new LinkedUOMRow();
+                        linkedUOMRow.id = elt.id;
+                        linkedUOMRow.linkedUOMName = elt.longName;
+                        linkedUOMRow.conversionFrom = this.uom.longName;
+                        linkedUOMRow.conversionTo = elt.longName;
+                        elt.measuredValues?.forEach((item: any) => {
+                            if (item.metricSystem == "SI") {
+                                linkedUOMRow.lengthValue = item.lengthValue;
+                                linkedUOMRow.heightValue = item.heightValue;
+                                linkedUOMRow.widthValue = item.widthValue;
+                                linkedUOMRow.weightKg = item.weightValue;
+                            }
+                        });
+                        this.linkedUOMs.set(elt.longName, linkedUOMRow);
+                    }
                 });
             },
         });
@@ -521,10 +523,9 @@ export class UomDetailsComponent implements OnInit {
             next: (response) => {
                 if (response.status == 200) {
                     this.uom = new UOM();
-                    this.uom = { ...this.uom, ...response.body };
-                    // Object.assign(this.uom, response.body);
-                    console.log(this.uom);
-                    // this.uomCopy = (this.uom as UOM).clone();
+                    // this.uom = { ...this.uom, ...response.body };
+                    Object.assign(this.uom, response.body);
+
                     this.uom.measuredValues?.forEach((elt: any) => {
                         if (elt.metricSystem == "SI") {
                             this.uom._metric = new UOMMetricRow(
@@ -561,6 +562,12 @@ export class UomDetailsComponent implements OnInit {
                         });
                         this.uom._linkedUOMRows?.push(entry);
                     });
+                    this.uomCopy = this.uom.clone();
+                    Object.assign(this.uomCopy, response.body);
+                    this.uomCopy.measuredValues = [
+                        this.uomCopy._metric,
+                        this.uomCopy._imperial,
+                    ];
                 }
             },
             error: (response) => {
@@ -700,32 +707,34 @@ export class UomDetailsComponent implements OnInit {
     }
 
     onRefresh() {
-        if (this.editingEnabled) this.getUOMDetailsByID(this.uomID);
-        else (window as any).location.reload();
+        if (this.editingEnabled) {
+            this.uom = this.uomCopy.clone();
+        } else (window as any).location.reload();
     }
 
     //TODO
     onSave() {
-        console.log(this.uom);
         this.validate();
         if (this.validationErrors.length > 0) {
             this.onErrorResponse(this.validationErrors[0]);
         } else
-            this.uomService.edit(this.uom.id, this.uom).subscribe({
-                next: (response) => {
-                    if (response.status == 204) {
-                        this.onSuccessfulResponse(
-                            "UOM edited successfully!",
-                            2000
+            this.uomService
+                .edit(this.uom.id, this.uom, this.uomCopy)
+                .subscribe({
+                    next: (response) => {
+                        if (response.status == 204) {
+                            this.onSuccessfulResponse(
+                                "UOM edited successfully!",
+                                2000
+                            );
+                        }
+                    },
+                    error: (errorResponse: HttpErrorResponse) => {
+                        this.onErrorResponse(
+                            "Edit failed : " + errorResponse.error.message
                         );
-                    }
-                },
-                error: (errorResponse: HttpErrorResponse) => {
-                    this.onErrorResponse(
-                        "Edit failed : " + errorResponse.error.message
-                    );
-                },
-            });
+                    },
+                });
     }
 
     //TODO
