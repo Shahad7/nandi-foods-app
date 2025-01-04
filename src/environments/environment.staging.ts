@@ -8,7 +8,7 @@ export const environment = {
 
     // Enable UI elements based environment flags
     // To cleanup search for disableUIEltsBasedOnEnvFlags() in components
-    enableLinkedUOMInUOMDetails: true,
-    enableLinkedPUandHuInUOMDetails: true,
-    enableMeasuredValuesInUOMDetails: true,
+    enableLinkedUOMInUOMDetails: false,
+    enableLinkedPUandHuInUOMDetails: false,
+    enableMeasuredValuesInUOMDetails: false,
 };
