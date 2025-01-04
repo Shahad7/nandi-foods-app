@@ -17,12 +17,12 @@
 >
     <ui5-table-header-row slot="headerRow" style="background-color: #0064d9">
         <ui5-table-header-cell
-            *ngFor="let item of headers"
+            *ngFor="let item of headers; let i = index"
             style="color: white"
             minWidth="{{ item.minWidth || '0' }}"
         >
             <div
-                mat-sort-header="{{ item.name }}"
+                mat-sort-header="{{ keys[i].name }}"
                 #sh
                 (click)="sortData($event, sh)"
                 *ngIf="enableSortByColumn; else noSortBlock"

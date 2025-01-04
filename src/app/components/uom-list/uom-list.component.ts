@@ -24,6 +24,7 @@ export class UomListComponent implements OnInit {
     //list options
     searchValue: string = "";
     ascending: boolean = true;
+    sortBy: string | undefined = undefined;
     //table
     headers: TableHeader[] = [
         { name: "UOM ID", minWidth: "88px" },
@@ -97,7 +98,8 @@ export class UomListComponent implements OnInit {
             this.paginatorProps.pageSize,
             this.ascending,
             this.searchValue,
-            "ACTIVE"
+            "ACTIVE",
+            this.sortBy
         ).subscribe({
             next: (response) => {
                 if (response.status == 200) {
@@ -175,6 +177,9 @@ export class UomListComponent implements OnInit {
 
     onRefresh() {
         this.paginatorProps.pageIndex = 0;
+        this.searchValue = "";
+        this.ascending = true;
+        this.sortBy = "id";
         this.fetchUOMs();
     }
 
@@ -240,6 +245,8 @@ export class UomListComponent implements OnInit {
     }
 
     onSortChange(event: any) {
-        console.log(event);
+        this.ascending = event.direction === "asc" || event.direction === "";
+        this.sortBy = event.direction === "" ? "id" : event.active;
+        this.fetchUOMs();
     }
 }

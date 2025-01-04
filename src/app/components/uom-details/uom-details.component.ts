@@ -37,7 +37,7 @@ interface RowType {
 })
 export class UomDetailsComponent implements OnInit {
     //model
-    uom: any;
+    uom: any = new UOM();
     uomCopy: any;
     error: boolean = false;
     validationErrors: Array<string> = [];
@@ -50,7 +50,6 @@ export class UomDetailsComponent implements OnInit {
 
     //effectiveDate constraints
     currentDate: string = "";
-    maxDate: string = "";
 
     //enable/disable edit
     editingEnabled: boolean = false;
@@ -171,8 +170,66 @@ export class UomDetailsComponent implements OnInit {
                 // },
             ],
         },
+        {
+            headerText: undefined,
+            columnSpan: undefined,
+            content: [
+                {
+                    key: "dateCreated",
+                    label: "Date Created",
+                    type: "string",
+                    required: false,
+                    editable: false,
+                    placeholder: "",
+                },
+                {
+                    key: "modifiedDate",
+                    label: "Last Updated",
+                    type: "string",
+                    required: false,
+                    editable: false,
+                    placeholder: "",
+                },
+                {
+                    key: "status",
+                    label: "Status",
+                    type: "dropdown",
+                    required: true,
+                    editable: true, // Assuming `editingEnabled` is used here
+                    values: this.statuses,
+                },
+            ],
+        },
+        {
+            headerText: undefined,
+            columnSpan: undefined,
+            content: [
+                {
+                    key: "effectiveDate",
+                    type: "date",
+                    label: "Effective Date",
+                    required: true,
+                    editable: true,
+                    formatPattern: "YYYY-MM-dd",
+                    placeholder: "2024-11-06",
+                    minDate: new Date().toISOString().split("T")[0],
+                    maxDate: new Date(
+                        new Date().setDate(new Date().getDate() + 91)
+                    )
+                        .toISOString()
+                        .split("T")[0],
+                },
+                {
+                    key: "lastUpdatedBy",
+                    label: "Last Updated By",
+                    type: "string",
+                    required: false,
+                    editable: false,
+                    placeholder: "",
+                },
+            ],
+        },
     ];
-
     //tabs
     tabs = ["UOM Weight and Volume", "Linked UOM", "Linked PU and HU"];
     tabsToExclude: Array<string> = [];
@@ -270,16 +327,7 @@ export class UomDetailsComponent implements OnInit {
         this.disableUIEltsBasedOnEnvFlags();
 
         this.currentDate = new Date().toISOString().split("T")[0];
-        this.maxDate = new Date(new Date().setDate(new Date().getDate() + 91))
-            .toISOString()
-            .split("T")[0];
 
-        //fetch the uom details by Id
-        let UOMId = this.route.snapshot.paramMap.get("UOMId");
-        if (UOMId != "" && UOMId != undefined) {
-            this.uomID = UOMId;
-            this.getUOMDetailsByID(UOMId);
-        }
         //fetch required unit metadata
         this.uomService.getUnitClassStatuses().subscribe({
             next: (response) => {
@@ -516,6 +564,13 @@ export class UomDetailsComponent implements OnInit {
                 });
             },
         });
+
+        //fetch the uom details by Id
+        let UOMId = this.route.snapshot.paramMap.get("UOMId");
+        if (UOMId != "" && UOMId != undefined) {
+            this.uomID = UOMId;
+            this.getUOMDetailsByID(UOMId);
+        }
     }
 
     getUOMDetailsByID(id: string) {
@@ -525,7 +580,7 @@ export class UomDetailsComponent implements OnInit {
                     this.uom = new UOM();
                     // this.uom = { ...this.uom, ...response.body };
                     Object.assign(this.uom, response.body);
-
+                    // console.log(this.uom);
                     this.uom.measuredValues?.forEach((elt: any) => {
                         if (elt.metricSystem == "SI") {
                             this.uom._metric = new UOMMetricRow(
