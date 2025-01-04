@@ -4,6 +4,7 @@ import { environment } from "../../environments/environment";
 import { Observable } from "rxjs";
 import { UOM } from "../models/uom/uom";
 import { LinkedUOM } from "../models/uom/linkedUOM";
+import { createPatch } from "rfc6902";
 
 @Injectable({
     providedIn: "root",
@@ -43,8 +44,9 @@ export class UomService {
         });
     }
 
-    edit(id: string): Observable<any> {
+    edit(id: string, uom: any): Observable<any> {
         let url = `${environment.baseUrl}/unit/uom/${id}`;
+        console.log(uom);
         return this.http.patch(
             url,
             {},

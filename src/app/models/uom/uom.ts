@@ -71,4 +71,34 @@ export class UOM {
             )
         );
     }
+
+    clone(): UOM {
+        const cloned = new UOM(
+            this.level,
+            this.name,
+            this.description,
+            this.longName,
+            this.shortName,
+            this.bulkCode,
+            this.isInventory,
+            this.isPurchase,
+            this.isSales,
+            this.isProduction,
+            this.linkedUOMs ? [...this.linkedUOMs] : [],
+            this.id,
+            this.effectiveDate
+        );
+
+        // Clone non-entity fields
+        cloned._metric = Object.assign(new UOMMetricRow(), this._metric);
+        cloned._imperial = Object.assign(new UOMImperialRow(), this._imperial);
+        cloned._linkedUOMRows = this._linkedUOMRows.map((row) =>
+            Object.assign(new LinkedUOMRow(), row)
+        );
+        cloned._linkedPUandHURows = this._linkedPUandHURows.map((row) =>
+            Object.assign(new LinkedHuAndPuRow(), row)
+        );
+
+        return cloned;
+    }
 }

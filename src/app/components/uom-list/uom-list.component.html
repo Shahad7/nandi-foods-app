@@ -43,6 +43,7 @@
     [enableSortByColumn]="true"
     [controlled]="false"
     [paginated]="true"
+    (onSortChange)="onSortChange($event)"
     [keys]="keys"
     [loading]="loading"
     [paginatorProps]="paginatorProps"

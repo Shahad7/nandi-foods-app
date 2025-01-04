@@ -38,6 +38,7 @@ interface RowType {
 export class UomDetailsComponent implements OnInit {
     //model
     uom: any;
+    uomCopy: any;
     error: boolean = false;
     validationErrors: Array<string> = [];
     uomID: string = "";
@@ -521,6 +522,9 @@ export class UomDetailsComponent implements OnInit {
                 if (response.status == 200) {
                     this.uom = new UOM();
                     this.uom = { ...this.uom, ...response.body };
+                    // Object.assign(this.uom, response.body);
+                    console.log(this.uom);
+                    // this.uomCopy = (this.uom as UOM).clone();
                     this.uom.measuredValues?.forEach((elt: any) => {
                         if (elt.metricSystem == "SI") {
                             this.uom._metric = new UOMMetricRow(
@@ -607,7 +611,10 @@ export class UomDetailsComponent implements OnInit {
             let count = 0;
             let linkedUOMName = event.value;
             this.uom._linkedUOMRows.forEach((elt: LinkedUOMRow) => {
-                if (elt.linkedUOMName == linkedUOMName) {
+                if (
+                    elt.linkedUOMName == linkedUOMName &&
+                    linkedUOMName != "--select--"
+                ) {
                     count++;
                 }
             });
@@ -616,7 +623,7 @@ export class UomDetailsComponent implements OnInit {
                     (elt: LinkedUOMRow) => {
                         if (
                             elt.linkedUOMName == linkedUOMName &&
-                            elt.lengthValue == 0
+                            elt.linkedUOMName != elt.conversionTo
                         ) {
                             elt.linkedUOMName = "--select--";
                         }
@@ -625,7 +632,7 @@ export class UomDetailsComponent implements OnInit {
                         return elt.clone();
                     }
                 );
-
+                this.clearUnsetLinkedUOMs();
                 this.onErrorResponse(
                     "this UOM is already selected for linking"
                 );
@@ -641,7 +648,8 @@ export class UomDetailsComponent implements OnInit {
     clearUnsetLinkedUOMs() {
         this.uom._linkedUOMRows = this.uom._linkedUOMRows.map(
             (elt: LinkedUOMRow) => {
-                if (elt.linkedUOMName == "--select--") return new LinkedUOM();
+                if (elt.linkedUOMName == "--select--")
+                    return new LinkedUOMRow();
                 else return elt;
             }
         );
@@ -698,8 +706,26 @@ export class UomDetailsComponent implements OnInit {
 
     //TODO
     onSave() {
-        // for temporary testing
         console.log(this.uom);
+        this.validate();
+        if (this.validationErrors.length > 0) {
+            this.onErrorResponse(this.validationErrors[0]);
+        } else
+            this.uomService.edit(this.uom.id, this.uom).subscribe({
+                next: (response) => {
+                    if (response.status == 204) {
+                        this.onSuccessfulResponse(
+                            "UOM edited successfully!",
+                            2000
+                        );
+                    }
+                },
+                error: (errorResponse: HttpErrorResponse) => {
+                    this.onErrorResponse(
+                        "Edit failed : " + errorResponse.error.message
+                    );
+                },
+            });
     }
 
     //TODO
@@ -712,9 +738,7 @@ export class UomDetailsComponent implements OnInit {
         this.validate();
         if (this.validationErrors.length > 0) {
             this.onErrorResponse(this.validationErrors[0]);
-        } else if (this.uom.id == "" || this.uom.id == undefined)
-            this.onErrorResponse("Please provide the UOM details");
-        else
+        } else
             this.uomService.approve(this.uom.id).subscribe({
                 next: (response) => {
                     if (response.status == 204) {

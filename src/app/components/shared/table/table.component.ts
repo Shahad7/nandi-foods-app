@@ -9,6 +9,11 @@ import {
 import { PageEvent } from "@angular/material/paginator";
 import { TableHeader, TableKey, TableRow } from "../../../types/table-types";
 
+type Sort = {
+    direction: "asc" | "desc" | "";
+    active: string;
+};
+
 @Component({
     selector: "app-table",
     templateUrl: "./table.component.html",
@@ -38,6 +43,13 @@ export class TableComponent {
      */
     @Output()
     onRowClick: EventEmitter<any> = new EventEmitter();
+
+    /**
+     * Fired as any equivalent to matSortChange event manually since it can't be captured
+     * in ngx sap-ui5 elements, with sort data of type Sort in the original library
+     */
+    @Output()
+    onSortChange: EventEmitter<Sort> = new EventEmitter();
 
     /**
      * Whether editing is enabled by default or not, defaults to true
@@ -168,7 +180,14 @@ export class TableComponent {
         row[key] = transformedValue;
     }
 
-    sortData(data: any) {
-        console.log(event);
+    sortData(pointerEvent: any, sortHeaderElt: any) {
+        let _sort = sortHeaderElt._sort;
+        let direction = null;
+        let active = null;
+        if (_sort) {
+            direction = _sort.direction;
+            active = _sort.active;
+            this.onSortChange.emit({ direction, active });
+        }
     }
 }

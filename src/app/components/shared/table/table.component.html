@@ -9,11 +9,11 @@
     >
 </div>
 <ui5-table
+    #tableRef
     overflowMode="Scroll"
     [loading]="loading"
     [noDataText]="noDataText"
     matSort
-    (matSortChange)="sortData($event)"
 >
     <ui5-table-header-row slot="headerRow" style="background-color: #0064d9">
         <ui5-table-header-cell
@@ -23,6 +23,8 @@
         >
             <div
                 mat-sort-header="{{ item.name }}"
+                #sh
+                (click)="sortData($event, sh)"
                 *ngIf="enableSortByColumn; else noSortBlock"
             >
                 <div
@@ -36,13 +38,13 @@
                     ></div>
                 </div>
             </div>
-
             <ng-template #noSortBlock
                 ><span [innerHTML]="item.name"></span
             ></ng-template>
         </ui5-table-header-cell>
         <ui5-table-header-cell *ngIf="enableDelete"></ui5-table-header-cell>
     </ui5-table-header-row>
+
     <ng-container *ngIf="controlled; else uncontrolledBlock">
         <ui5-table-row *ngFor="let row of rows; let i = index">
             <ui5-table-cell *ngFor="let key of keys">

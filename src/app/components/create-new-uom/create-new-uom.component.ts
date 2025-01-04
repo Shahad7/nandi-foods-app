@@ -542,7 +542,10 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
             let count = 0;
             let linkedUOMName = event.value;
             this.uom._linkedUOMRows.forEach((elt: LinkedUOMRow) => {
-                if (elt.linkedUOMName == linkedUOMName) {
+                if (
+                    elt.linkedUOMName == linkedUOMName &&
+                    linkedUOMName != "--select--"
+                ) {
                     count++;
                 }
             });
@@ -551,7 +554,7 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
                     (elt: LinkedUOMRow) => {
                         if (
                             elt.linkedUOMName == linkedUOMName &&
-                            elt.lengthValue == 0
+                            elt.linkedUOMName != elt.conversionTo
                         ) {
                             elt.linkedUOMName = "--select--";
                         }
@@ -560,7 +563,7 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
                         return elt.clone();
                     }
                 );
-
+                this.clearUnsetLinkedUOMs();
                 this.onErrorResponse(
                     "this UOM is already selected for linking"
                 );
@@ -576,7 +579,8 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
     clearUnsetLinkedUOMs() {
         this.uom._linkedUOMRows = this.uom._linkedUOMRows.map(
             (elt: LinkedUOMRow) => {
-                if (elt.linkedUOMName == "--select--") return new LinkedUOM();
+                if (elt.linkedUOMName == "--select--")
+                    return new LinkedUOMRow();
                 else return elt;
             }
         );

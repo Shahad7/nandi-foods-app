@@ -238,4 +238,8 @@ export class UomListComponent implements OnInit {
             panelClass: ["success-snackbar"],
         });
     }
+
+    onSortChange(event: any) {
+        console.log(event);
+    }
 }
