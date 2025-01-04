@@ -22,6 +22,7 @@ export class UOM {
     linkedPUHUs?: any;
     id: string;
     effectiveDate?: string;
+    status?: string;
 
     // non-entity fields
     _metric: UOMMetricRow = new UOMMetricRow();
@@ -43,7 +44,8 @@ export class UOM {
         isProduction: boolean = false,
         linkedUOMs: LinkedUOM[] = [],
         id: string = "",
-        effectiveDate = new Date().toISOString().split("T")[0]
+        effectiveDate = new Date().toISOString().split("T")[0],
+        status: string = "PENDING"
     ) {
         this.level = level;
         this.name = name;
@@ -58,6 +60,7 @@ export class UOM {
         this.linkedUOMs = linkedUOMs;
         this.id = id;
         this.effectiveDate = effectiveDate;
+        this.status = status;
     }
 
     toJSON() {
@@ -90,7 +93,8 @@ export class UOM {
                   )
                 : [],
             this.id,
-            this.effectiveDate
+            this.effectiveDate,
+            this.status
         );
 
         // Manually clone UOMMetricRow

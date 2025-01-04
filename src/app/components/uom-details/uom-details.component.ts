@@ -37,7 +37,7 @@ interface RowType {
 })
 export class UomDetailsComponent implements OnInit {
     //model
-    uom: any;
+    uom: any = new UOM();
     uomCopy: any;
     error: boolean = false;
     validationErrors: Array<string> = [];
@@ -525,7 +525,7 @@ export class UomDetailsComponent implements OnInit {
                     this.uom = new UOM();
                     // this.uom = { ...this.uom, ...response.body };
                     Object.assign(this.uom, response.body);
-
+                    // console.log(this.uom);
                     this.uom.measuredValues?.forEach((elt: any) => {
                         if (elt.metricSystem == "SI") {
                             this.uom._metric = new UOMMetricRow(

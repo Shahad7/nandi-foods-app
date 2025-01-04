@@ -23,18 +23,18 @@
         <!-- have to change later -->
         <span class="summary-values">{{ "UOM" }}</span>
 
-        <span class="summary-values">{{ this.uom.longName }}</span>
+        <span class="summary-values">{{ this.uom?.longName }}</span>
 
-        <span class="summary-values">{{ this.uom.name.split(" ")[0] }}</span>
+        <span class="summary-values">{{ this.uom?.name.split(" ")[0] }}</span>
 
         <span class="summary-values">{{
-            this.uom._imperial.weightValue +
+            this.uom?._imperial.weightValue +
                 " " +
                 this.imperialUnits.get("weightUnit")
         }}</span>
 
         <span class="summary-values">{{
-            this.uom._metric.volumeValue +
+            this.uom?._metric.volumeValue +
                 " " +
                 this.metricUnits.get("volumeUnit")
         }}</span>
@@ -69,7 +69,7 @@
                     <ui5-input
                         id="DateCreatedInp"
                         readonly
-                        value="{{ uom.dateCreated }}"
+                        value="{{ uom?.dateCreated }}"
                     ></ui5-input>
                 </ui5-form-item>
                 <!-- Last Updated (Read-only) -->
@@ -80,7 +80,7 @@
                     <ui5-input
                         id="LastUpdatedInp"
                         readonly
-                        value="{{ uom.modifiedDate }}"
+                        value="{{ uom?.modifiedDate }}"
                     ></ui5-input>
                 </ui5-form-item>
                 <!-- Status (Read-only) -->
@@ -92,6 +92,7 @@
                         id="StatusInp"
                         [disabled]="!editingEnabled"
                         [(ngModel)]="uom.status"
+                        defer
                     >
                         <ui5-option
                             *ngFor="let item of statuses"

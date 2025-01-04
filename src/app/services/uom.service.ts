@@ -5,6 +5,7 @@ import { Observable } from "rxjs";
 import { UOM } from "../models/uom/uom";
 import { LinkedUOM } from "../models/uom/linkedUOM";
 import { createPatch, Operation } from "rfc6902";
+import { Stats } from "fs";
 
 @Injectable({
     providedIn: "root",
@@ -65,6 +66,7 @@ export class UomService {
                 !elt.path.startsWith("/linkedUOMs") &&
                 !elt.path.startsWith("/longName")
         );
+        console.log(newUOM);
         console.log(patches);
         return this.http.patch(url, patches, {
             headers: {
@@ -79,17 +81,20 @@ export class UomService {
         size: int,
         ascending: boolean,
         searchValue: string,
-        status: string | undefined = undefined
+        status: string | undefined = undefined,
+        sort: string | undefined = undefined
     ): Observable<any> {
         let url = `${environment.baseUrl}/unit`;
-        let params = {
+        let params: any = {
             offset: offset,
             limit: size,
             ascending: ascending,
             longName: searchValue,
         };
+        if (status != undefined) params.status = status;
+        if (sort != undefined) params.sort = sort;
         return this.http.get(url, {
-            params: status === undefined ? params : { status, ...params },
+            params: params,
             observe: "response",
         });
     }
