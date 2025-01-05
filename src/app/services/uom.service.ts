@@ -24,7 +24,7 @@ export class UomService {
             )
                 uom.linkedUOMs.push(new LinkedUOM(elt.id, elt.conversionQTY));
         });
-        uom.measuredValues = [uom._metric, uom._imperial];
+        uom.measuredValues = [uom._imperial, uom._metric];
         console.log(JSON.stringify(uom));
         let url = `${environment.baseUrl}/unit/uom`;
         return this.http.post(url, JSON.stringify(uom), {
@@ -35,8 +35,40 @@ export class UomService {
         });
     }
 
+    approveWithPatch(id: string, newUOM: any, oldUOM: any): Observable<any> {
+        let url = `${environment.baseUrl}/unit/uom/${id}/approve`;
+        newUOM.measuredValues = [newUOM._imperial, newUOM._metric];
+        newUOM._linkedUOMRows.forEach((elt: any) => {
+            if (
+                elt.linkedUOMName != "--select--" &&
+                elt.linkedUOMName != "" &&
+                elt.linkedUOMName.length != 0
+            )
+                newUOM.linkedUOMs.push(
+                    new LinkedUOM(elt.id, elt.conversionQTY)
+                );
+        });
+        let patches = createPatch(oldUOM.toJSON(), newUOM.toJSON());
+        //temporary
+        patches = patches.filter(
+            (elt: Operation) =>
+                !elt.path.startsWith("/measuredValues") &&
+                !elt.path.startsWith("/linkedUOMs") &&
+                !elt.path.startsWith("/longName")
+        );
+        console.log(newUOM);
+        console.log(patches);
+        return this.http.patch(url, patches, {
+            headers: {
+                "Content-Type": "application/json-patch+json",
+            },
+            observe: "response",
+        });
+    }
+
     approve(id: string): Observable<any> {
         let url = `${environment.baseUrl}/unit/uom/${id}/approve`;
+
         return this.http.patch(url, undefined, {
             headers: {
                 "Content-Type": "application/json-patch+json",
@@ -47,7 +79,7 @@ export class UomService {
 
     edit(id: string, newUOM: any, oldUOM: any): Observable<any> {
         let url = `${environment.baseUrl}/unit/uom/${id}`;
-        newUOM.measuredValues = [newUOM._metric, newUOM._imperial];
+        newUOM.measuredValues = [newUOM._imperial, newUOM._metric];
         newUOM._linkedUOMRows.forEach((elt: any) => {
             if (
                 elt.linkedUOMName != "--select--" &&

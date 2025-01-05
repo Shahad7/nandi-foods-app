@@ -620,8 +620,8 @@ export class UomDetailsComponent implements OnInit {
                     this.uomCopy = this.uom.clone();
                     Object.assign(this.uomCopy, response.body);
                     this.uomCopy.measuredValues = [
-                        this.uomCopy._metric,
                         this.uomCopy._imperial,
+                        this.uomCopy._metric,
                     ];
                 }
             },
@@ -803,17 +803,19 @@ export class UomDetailsComponent implements OnInit {
         if (this.validationErrors.length > 0) {
             this.onErrorResponse(this.validationErrors[0]);
         } else
-            this.uomService.approve(this.uom.id).subscribe({
-                next: (response) => {
-                    if (response.status == 204) {
-                        this.onSuccessfulApproval();
-                    }
-                },
-                error: (errorResponse: HttpErrorResponse) => {
-                    // console.log(errorResponse);
-                    this.onErrorResponse(errorResponse.error.message);
-                },
-            });
+            this.uomService
+                .approveWithPatch(this.uom.id, this.uom, this.uomCopy)
+                .subscribe({
+                    next: (response) => {
+                        if (response.status == 204) {
+                            this.onSuccessfulApproval();
+                        }
+                    },
+                    error: (errorResponse: HttpErrorResponse) => {
+                        // console.log(errorResponse);
+                        this.onErrorResponse(errorResponse.error.message);
+                    },
+                });
     }
 
     onDelete() {

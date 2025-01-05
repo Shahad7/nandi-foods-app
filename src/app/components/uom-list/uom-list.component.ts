@@ -247,6 +247,7 @@ export class UomListComponent implements OnInit {
     onSortChange(event: any) {
         this.ascending = event.direction === "asc" || event.direction === "";
         this.sortBy = event.direction === "" ? "id" : event.active;
+        if (this.sortBy == "name") this.sortBy = "type";
         this.fetchUOMs();
     }
 }
