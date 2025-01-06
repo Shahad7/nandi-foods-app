@@ -758,7 +758,7 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
 
     onUOMPropertiesChange() {
         this.uom.longName = `${this.uom.id} ${this.uom.name} (${this.uom.description})`;
-        this.uom.shortName = ` ${this.uom.name} (${this.uom.id})`;
+        this.uom.shortName = `${this.uom.name} (${this.uom.id})`;
         this.updateFromFieldForLinkedUOMs();
     }
 
