@@ -323,9 +323,6 @@ export class UomDetailsComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        // CLEANUP
-        this.disableUIEltsBasedOnEnvFlags();
-
         this.currentDate = new Date().toISOString().split("T")[0];
 
         //fetch required unit metadata

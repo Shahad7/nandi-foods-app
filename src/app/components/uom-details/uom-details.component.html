@@ -81,7 +81,9 @@
                 [headers]="UOMMetricHeaders"
                 [rows]="[this.uom._metric]"
                 [keys]="UOMTableKeys"
-                [editingEnabled]="editingEnabled"
+                [editingEnabled]="
+                    editingEnabled && env.enableMeasuredValuesInUOMDetails
+                "
             ></app-table>
 
             <!-- Imperial Table -->
@@ -91,7 +93,9 @@
                 [headers]="UOMImperialHeaders"
                 [rows]="[this.uom._imperial]"
                 [keys]="UOMTableKeys"
-                [editingEnabled]="editingEnabled"
+                [editingEnabled]="
+                    editingEnabled && env.enableMeasuredValuesInUOMDetails
+                "
             ></app-table>
         </ng-container>
 
@@ -105,7 +109,7 @@
             [headers]="LinkedUOM.headers"
             [rows]="uom._linkedUOMRows"
             [keys]="LinkedUOM.keys"
-            [editingEnabled]="editingEnabled"
+            [editingEnabled]="editingEnabled && env.enableLinkedUOMInUOMDetails"
             [paginated]="true"
             [paginatorProps]="paginatorProps"
             (onPaginationEvent)="handlePageEvent($event)"
@@ -121,7 +125,9 @@
             [enableAdd]="true"
             [paginated]="true"
             [enableDelete]="true"
-            [editingEnabled]="editingEnabled"
+            [editingEnabled]="
+                editingEnabled && env.enableLinkedPUandHuInUOMDetails
+            "
             [headers]="LinkedPUAndHU.headers"
             [rows]="uom._linkedPUandHURows"
             [keys]="LinkedPUAndHU.keys"
