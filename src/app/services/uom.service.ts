@@ -143,7 +143,7 @@ export class UomService {
 
     /**Metadata : Unit Class Types*/
     getUnitClassTypes() {
-        let url = `${environment.baseUrl}/unit/metadata/type`;
+        let url = `${environment.baseUrl}/unit/metadata/class`;
         return this.http.get(url, { observe: "response" });
     }
 
@@ -155,13 +155,13 @@ export class UomService {
 
     /**Metadata : Unit Class Levels*/
     getUnitClassLevels() {
-        let url = `${environment.baseUrl}/unit/metadata/level`;
+        let url = `${environment.baseUrl}/unit/metadata/levelType`;
         return this.http.get(url, { observe: "response" });
     }
 
     /**Metadata : Metric Systems and their Units*/
     getMetricSystemUnits() {
-        let url = `${environment.baseUrl}/unit/metadata/metricSystem`;
+        let url = `${environment.baseUrl}/unit/metadata/measurementSystem`;
         return this.http.get(url, { observe: "response" });
     }
 

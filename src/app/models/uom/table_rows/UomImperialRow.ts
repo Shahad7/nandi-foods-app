@@ -1,5 +1,5 @@
 export class UOMImperialRow {
-    metricSystem: string;
+    measurementSystem: string;
     private _lengthValue: number;
     private _widthValue: number;
     private _heightValue: number;
@@ -12,7 +12,7 @@ export class UOMImperialRow {
         heightValue: number = 0,
         weightValue: number = 0
     ) {
-        this.metricSystem = "IMPERIAL";
+        this.measurementSystem = "IMPERIAL";
         this._lengthValue = lengthValue;
         this._widthValue = widthValue;
         this._heightValue = heightValue;
@@ -71,7 +71,7 @@ export class UOMImperialRow {
     }
     toJSON() {
         return {
-            metricSystem: this.metricSystem,
+            measurementSystem: this.measurementSystem,
             lengthValue: this.lengthValue,
             widthValue: this.widthValue,
             heightValue: this.heightValue,

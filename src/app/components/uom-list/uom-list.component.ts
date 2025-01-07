@@ -109,7 +109,7 @@ export class UomListComponent implements OnInit {
                     this.rows = rows.map((element: any) => {
                         element.weightKG = 0;
                         element.measuredValues.filter((elt: any) => {
-                            if (elt.metricSystem == "SI")
+                            if (elt.measurementSystem == "SI")
                                 element.weightKG = elt.weightValue;
                         }).weightValue;
                         return element;

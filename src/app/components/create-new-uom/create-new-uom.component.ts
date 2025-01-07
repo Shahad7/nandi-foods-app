@@ -267,7 +267,7 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
             next: (response) => {
                 let body = response.body as Array<any>;
                 body?.forEach((element: any) => {
-                    this.classTypes.push(element?.name);
+                    this.classTypes.push(element?.class);
                 });
             },
             error: (response) => {
@@ -308,7 +308,7 @@ export class CreateNewUomComponent implements OnInit, OnDestroy {
                     linkedUOMRow.conversionFrom = this.uom.longName;
                     linkedUOMRow.conversionTo = elt.longName;
                     elt.measuredValues?.forEach((item: any) => {
-                        if (item.metricSystem == "SI") {
+                        if (item.measurementSystem == "SI") {
                             linkedUOMRow.lengthValue = item.lengthValue;
                             linkedUOMRow.heightValue = item.heightValue;
                             linkedUOMRow.widthValue = item.widthValue;

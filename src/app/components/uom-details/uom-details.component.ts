@@ -366,7 +366,7 @@ export class UomDetailsComponent implements OnInit {
                         linkedUOMRow.conversionFrom = this.uom.longName;
                         linkedUOMRow.conversionTo = elt.longName;
                         elt.measuredValues?.forEach((item: any) => {
-                            if (item.metricSystem == "SI") {
+                            if (item.measurementSystem == "SI") {
                                 linkedUOMRow.lengthValue = item.lengthValue;
                                 linkedUOMRow.heightValue = item.heightValue;
                                 linkedUOMRow.widthValue = item.widthValue;
@@ -579,14 +579,14 @@ export class UomDetailsComponent implements OnInit {
                     Object.assign(this.uom, response.body);
                     // console.log(this.uom);
                     this.uom.measuredValues?.forEach((elt: any) => {
-                        if (elt.metricSystem == "SI") {
+                        if (elt.measurementSystem == "SI") {
                             this.uom._metric = new UOMMetricRow(
                                 elt.lengthValue,
                                 elt.widthValue,
                                 elt.heightValue,
                                 elt.weightValue
                             );
-                        } else if (elt.metricSystem == "IMPERIAL") {
+                        } else if (elt.measurementSystem == "IMPERIAL") {
                             this.uom._imperial = new UOMImperialRow(
                                 elt.lengthValue,
                                 elt.widthValue,
@@ -605,7 +605,7 @@ export class UomDetailsComponent implements OnInit {
                         entry.conversionTo = toUOM.longName;
                         entry.conversionQTY = elt.quantity;
                         toUOM.measuredValues.forEach((elt: any) => {
-                            if (elt.metricSystem == "SI") {
+                            if (elt.measurementSystem == "SI") {
                                 entry.lengthValue = elt.lengthValue;
                                 entry.heightValue = elt.heightValue;
                                 entry.widthValue = elt.widthValue;
