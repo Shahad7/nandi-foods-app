@@ -90,17 +90,8 @@ export class UomService {
                     new LinkedUOM(elt.id, elt.conversionQTY)
                 );
         });
-        let patches = createPatch(oldUOM.toJSON(), newUOM.toJSON());
-        //temporary
-        patches = patches.filter(
-            (elt: Operation) =>
-                !elt.path.startsWith("/measuredValues") &&
-                !elt.path.startsWith("/linkedUOMs") &&
-                !elt.path.startsWith("/longName")
-        );
-        console.log(newUOM);
-        console.log(patches);
-        return this.http.patch(url, patches, {
+
+        return this.http.patch(url, newUOM, {
             headers: {
                 "Content-Type": "application/json-patch+json",
             },
