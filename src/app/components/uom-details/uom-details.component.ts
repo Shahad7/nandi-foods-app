@@ -586,6 +586,7 @@ export class UomDetailsComponent implements OnInit {
                                 elt.heightValue,
                                 elt.weightValue
                             );
+                            this.uom._metric.id = elt.id;
                         } else if (elt.measurementSystem == "IMPERIAL") {
                             this.uom._imperial = new UOMImperialRow(
                                 elt.lengthValue,
@@ -593,6 +594,7 @@ export class UomDetailsComponent implements OnInit {
                                 elt.heightValue,
                                 elt.weightValue
                             );
+                            this.uom._imperial.id = elt.id;
                         }
                     });
 

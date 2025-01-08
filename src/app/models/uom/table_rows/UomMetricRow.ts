@@ -5,6 +5,7 @@ export class UOMMetricRow {
     private _heightValue: number;
     private _volumeValue: number;
     private _weightValue: number;
+    id?: string | undefined;
 
     constructor(
         lengthValue: number = 0,
@@ -20,6 +21,7 @@ export class UOMMetricRow {
             ((lengthValue * widthValue * heightValue) / 1728).toFixed(2)
         );
         this._weightValue = weightValue;
+        this.id = undefined;
     }
 
     get lengthValue() {
@@ -71,14 +73,16 @@ export class UOMMetricRow {
     }
 
     toJSON() {
-        return {
+        let obj = {
             measurementSystem: this.measurementSystem,
             lengthValue: this.lengthValue,
             widthValue: this.widthValue,
             heightValue: this.heightValue,
             volumeValue: this.volumeValue,
             weightValue: this.weightValue,
-        };
+        } as any;
+        if (this.id != undefined) obj.id = this.id;
+        return obj;
     }
 
     clone(): UOMMetricRow {
@@ -88,6 +92,7 @@ export class UOMMetricRow {
             this._heightValue,
             this._weightValue
         );
+        cloned.id = this.id;
         return cloned;
     }
 }
