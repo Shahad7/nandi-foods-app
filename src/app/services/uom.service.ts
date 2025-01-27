@@ -80,6 +80,7 @@ export class UomService {
     edit(id: string, newUOM: any, oldUOM: any): Observable<any> {
         let url = `${environment.baseUrl}/unit/uom/${id}`;
         newUOM.measuredValues = [newUOM._imperial, newUOM._metric];
+        newUOM.linkedUOMs = [];
         newUOM._linkedUOMRows.forEach((elt: any) => {
             if (
                 elt.linkedUOMName != "--select--" &&
