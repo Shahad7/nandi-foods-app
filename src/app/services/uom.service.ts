@@ -4,7 +4,7 @@ import { environment } from "../../environments/environment";
 import { Observable } from "rxjs";
 import { UOM } from "../models/uom/uom";
 import { LinkedUOM } from "../models/uom/linkedUOM";
-import { createPatch, Operation } from "rfc6902";
+import { createPatch, Operation, Patch } from "rfc6902";
 import { Stats } from "fs";
 
 @Injectable({
@@ -38,6 +38,7 @@ export class UomService {
     approveWithPatch(id: string, newUOM: any, oldUOM: any): Observable<any> {
         let url = `${environment.baseUrl}/unit/uom/${id}/approve`;
         newUOM.measuredValues = [newUOM._imperial, newUOM._metric];
+        newUOM.linkedUOMs = [];
         newUOM._linkedUOMRows.forEach((elt: any) => {
             if (
                 elt.linkedUOMName != "--select--" &&
@@ -49,13 +50,13 @@ export class UomService {
                 );
         });
         let patches = createPatch(oldUOM.toJSON(), newUOM.toJSON());
-        //temporary
-        patches = patches.filter(
-            (elt: Operation) =>
-                !elt.path.startsWith("/measuredValues") &&
-                !elt.path.startsWith("/linkedUOMs") &&
-                !elt.path.startsWith("/longName")
-        );
+        patches = patches.map((elt: Operation) => {
+            if (elt.path.startsWith("/measured")) {
+                elt.path = elt.path.replace("_", "");
+                console.log(elt);
+            }
+            return elt;
+        });
         console.log(newUOM);
         console.log(patches);
         return this.http.patch(url, patches, {
@@ -92,7 +93,18 @@ export class UomService {
                 );
         });
 
-        return this.http.patch(url, newUOM, {
+        let patches = createPatch(oldUOM.toJSON(), newUOM.toJSON());
+        patches = patches.map((elt: Operation) => {
+            if (elt.path.startsWith("/measured")) {
+                elt.path = elt.path.replace("_", "");
+                console.log(elt);
+            }
+            return elt;
+        });
+        console.log(newUOM);
+        console.log(patches);
+
+        return this.http.patch(url, patches, {
             headers: {
                 "Content-Type": "application/json-patch+json",
             },
