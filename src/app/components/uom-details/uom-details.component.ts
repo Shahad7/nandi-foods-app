@@ -624,9 +624,12 @@ export class UomDetailsComponent implements OnInit {
                     ];
                 }
             },
-            error: (response) => {
+            error: (response: HttpErrorResponse) => {
                 this.error = true;
-                this.onErrorResponse("Error fetching UOM details");
+                console.log(response);
+                this.onErrorResponse(
+                    "Error fetching UOM details : " + response.error.message
+                );
             },
         });
     }
