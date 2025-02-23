@@ -4,7 +4,8 @@ import { environment } from "../../environments/environment";
 import { Observable } from "rxjs";
 import { UOM } from "../models/uom/uom";
 import { LinkedUOM } from "../models/uom/linkedUOM";
-import { createPatch, Operation, Patch } from "rfc6902";
+// import { createPatch, Operation, Patch } from "rfc6902";
+import jsonmergepatch from "json-merge-patch";
 import { Stats } from "fs";
 
 @Injectable({
@@ -49,16 +50,11 @@ export class UomService {
                     new LinkedUOM(elt.id, elt.conversionQTY)
                 );
         });
-        let patches = createPatch(oldUOM.toJSON(), newUOM.toJSON());
-        patches = patches.map((elt: Operation) => {
-            if (elt.path.startsWith("/measured")) {
-                elt.path = elt.path.replace("_", "");
-                console.log(elt);
-            }
-            return elt;
-        });
+
+        let patches = jsonmergepatch.generate(oldUOM.toJSON(), newUOM.toJSON());
         console.log(newUOM);
         console.log(patches);
+
         return this.http.patch(url, patches, {
             headers: {
                 "Content-Type": "application/json-patch+json",
@@ -93,14 +89,7 @@ export class UomService {
                 );
         });
 
-        let patches = createPatch(oldUOM.toJSON(), newUOM.toJSON());
-        patches = patches.map((elt: Operation) => {
-            if (elt.path.startsWith("/measured")) {
-                elt.path = elt.path.replace("_", "");
-                console.log(elt);
-            }
-            return elt;
-        });
+        let patches = jsonmergepatch.generate(oldUOM.toJSON(), newUOM.toJSON());
         console.log(newUOM);
         console.log(patches);
 

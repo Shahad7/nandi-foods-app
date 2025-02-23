@@ -24,6 +24,7 @@
         "@angular/router": "^18.2.0",
         "@ui5/webcomponents-ngx": "^0.3.1",
         "apexcharts": "^3.54.0",
+        "json-merge-patch": "^1.0.2",
         "keycloak-angular": "^16.0.1",
         "keycloak-js": "^25.0.6",
         "ng-apexcharts": "^1.12.0",

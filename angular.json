@@ -30,6 +30,7 @@
                             "@ui5/webcomponents-icons-tnt/dist/AllIcons",
                             "@ui5/webcomponents-icons-business-suite"
                         ],
+
                         "outputPath": "dist/nandi-foods-web-app",
                         "index": "src/index.html",
                         "browser": "src/main.ts",

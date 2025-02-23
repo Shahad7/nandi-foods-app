@@ -65,13 +65,21 @@ export class UOM {
 
     toJSON() {
         return Object.fromEntries(
-            Object.entries(this).filter(
-                ([key, value]) =>
-                    !key.startsWith("_") &&
-                    value !== undefined &&
-                    value !== "" &&
-                    !(Array.isArray(value) && value.length === 0)
-            )
+            Object.entries(this)
+                .map(([key, value]) => {
+                    value =
+                        value == undefined
+                            ? value
+                            : JSON.parse(JSON.stringify(value));
+                    return [key, value];
+                })
+                .filter(
+                    ([key, value]) =>
+                        !key.startsWith("_") &&
+                        value !== undefined &&
+                        value !== "" &&
+                        !(Array.isArray(value) && value.length === 0)
+                )
         );
     }
 
