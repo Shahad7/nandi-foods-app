@@ -95,7 +95,7 @@ export class UomService {
 
         return this.http.patch(url, patches, {
             headers: {
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/merge-patch+json",
             },
             observe: "response",
         });
