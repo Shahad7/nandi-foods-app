@@ -23,7 +23,9 @@ export class UomService {
                 elt.linkedUOMName != "" &&
                 elt.linkedUOMName.length != 0
             )
-                uom.linkedUOMs.push(new LinkedUOM(elt.id, elt.conversionQTY));
+                uom.linkedUOMs.push(
+                    new LinkedUOM(elt.id, elt.conversionQTY, uom.id)
+                );
         });
         uom.measuredValues = [uom._imperial, uom._metric];
         console.log(JSON.stringify(uom));
@@ -47,7 +49,7 @@ export class UomService {
                 elt.linkedUOMName.length != 0
             )
                 newUOM.linkedUOMs.push(
-                    new LinkedUOM(elt.id, elt.conversionQTY)
+                    new LinkedUOM(elt.id, elt.conversionQTY, newUOM.id)
                 );
         });
 
@@ -85,7 +87,7 @@ export class UomService {
                 elt.linkedUOMName.length != 0
             )
                 newUOM.linkedUOMs.push(
-                    new LinkedUOM(elt.id, elt.conversionQTY)
+                    new LinkedUOM(elt.id, elt.conversionQTY, newUOM.id)
                 );
         });
 
