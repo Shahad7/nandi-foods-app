@@ -63,7 +63,23 @@ export class UOM {
         this.status = status;
     }
 
+    //before sending the object for save, edit etc operations always stringify it!
     toJSON() {
+        // mapping linkedUOMs before conversion
+        // just incase the operation was attempted twice to avoid duplicate entries
+        this.linkedUOMs = [];
+        this._linkedUOMRows.forEach((elt: any) => {
+            if (
+                elt.linkedUOMName != "--select--" &&
+                elt.linkedUOMName != "" &&
+                elt.linkedUOMName.length != 0
+            )
+                this.linkedUOMs?.push(
+                    new LinkedUOM(elt.id, elt.conversionQTY, this.id)
+                );
+        });
+        // mapping measuredValues
+        this.measuredValues = [this._imperial, this._metric];
         return Object.fromEntries(
             Object.entries(this)
                 .map(([key, value]) => {

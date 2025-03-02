@@ -14,20 +14,8 @@ import { Stats } from "fs";
 export class UomService {
     constructor(private http: HttpClient) {}
 
-    save(uom: any): Observable<any> {
+    save(uom: UOM): Observable<any> {
         console.log(uom);
-        uom.linkedUOMs = [];
-        uom._linkedUOMRows.forEach((elt: any) => {
-            if (
-                elt.linkedUOMName != "--select--" &&
-                elt.linkedUOMName != "" &&
-                elt.linkedUOMName.length != 0
-            )
-                uom.linkedUOMs.push(
-                    new LinkedUOM(elt.id, elt.conversionQTY, uom.id)
-                );
-        });
-        uom.measuredValues = [uom._imperial, uom._metric];
         console.log(JSON.stringify(uom));
         let url = `${environment.baseUrl}/unit/uom`;
         return this.http.post(url, JSON.stringify(uom), {
@@ -38,21 +26,8 @@ export class UomService {
         });
     }
 
-    approveWithPatch(id: string, newUOM: any, oldUOM: any): Observable<any> {
+    approveWithPatch(id: string, newUOM: UOM, oldUOM: UOM): Observable<any> {
         let url = `${environment.baseUrl}/unit/uom/${id}/approve`;
-        newUOM.measuredValues = [newUOM._imperial, newUOM._metric];
-        newUOM.linkedUOMs = [];
-        newUOM._linkedUOMRows.forEach((elt: any) => {
-            if (
-                elt.linkedUOMName != "--select--" &&
-                elt.linkedUOMName != "" &&
-                elt.linkedUOMName.length != 0
-            )
-                newUOM.linkedUOMs.push(
-                    new LinkedUOM(elt.id, elt.conversionQTY, newUOM.id)
-                );
-        });
-
         let patches = jsonmergepatch.generate(oldUOM.toJSON(), newUOM.toJSON());
         console.log(newUOM);
         console.log(patches);
@@ -76,21 +51,8 @@ export class UomService {
         });
     }
 
-    edit(id: string, newUOM: any, oldUOM: any): Observable<any> {
+    edit(id: string, newUOM: UOM, oldUOM: UOM): Observable<any> {
         let url = `${environment.baseUrl}/unit/uom/${id}`;
-        newUOM.measuredValues = [newUOM._imperial, newUOM._metric];
-        newUOM.linkedUOMs = [];
-        newUOM._linkedUOMRows.forEach((elt: any) => {
-            if (
-                elt.linkedUOMName != "--select--" &&
-                elt.linkedUOMName != "" &&
-                elt.linkedUOMName.length != 0
-            )
-                newUOM.linkedUOMs.push(
-                    new LinkedUOM(elt.id, elt.conversionQTY, newUOM.id)
-                );
-        });
-
         let patches = jsonmergepatch.generate(oldUOM.toJSON(), newUOM.toJSON());
         console.log(newUOM);
         console.log(patches);
